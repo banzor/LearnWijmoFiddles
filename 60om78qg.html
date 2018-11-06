@@ -1,0 +1,189 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - PivotGrid Customization - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "60om78qg";
+        var show_src = "//fiddle.jshell.net/Wijmo5/60om78qg/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/60om78qg/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/60om78qg/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=60om78qg" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+// create a PivotEngine with a custom view
+var ngFmt = new wijmo.olap.PivotEngine({
+  autoGenerateFields: false,
+  itemsSource: getData(10000),
+  showColumnTotals: &#39;GrandTotals&#39;,
+  showRowTotals: &#39;None&#39;,
+  fields: [
+  	{ binding: &#39;product&#39;, header: &#39;Product&#39; },
+    { binding: &#39;date&#39;, header: &#39;Date&#39;, format: &#39;yyyy \&quot;Q\&quot;q&#39; },
+    { binding: &#39;sales&#39;, header: &#39;Sales&#39;, format: &#39;n0&#39; },
+    { binding: &#39;sales&#39;, header: &#39;Diff&#39;, format: &#39;p0&#39;, showAs: &#39;DiffRowPct&#39; }
+  ],
+  rowFields: [&#39;Date&#39;],
+  columnFields: [&#39;Product&#39;],
+  valueFields: [&#39;Sales&#39;, &#39;Diff&#39;]
+});
+
+// toggle cell customization
+var customCells = document.getElementById(&#39;customCells&#39;);
+customCells.addEventListener(&#39;click&#39;, function() {
+  pivotGrid.invalidate();
+})
+
+// show summary
+var pivotGrid = new wijmo.olap.PivotGrid(&#39;#pivotGrid&#39;, {
+  isReadOnly: true,
+  itemsSource: ngFmt,
+  formatItem: formatItem // customize the grid cells
+});
+
+function formatItem(s, e) {
+
+  // we are interested in the cells panel
+  if (e.panel == s.cells) {
+
+    // remove custom color by default
+    var color = &#39;&#39;;
+
+    // format diff columns if custom formatting is on
+    if (e.col % 2 == 1 &amp;&amp; customCells.checked) {
+      var value = s.getCellData(e.row, e.col),
+        glyph = &#39;circle&#39;,
+        span = &#39; &lt;span style=&quot;font-size:120%&quot; class=&quot;wj-glyph-{glyph}&quot;&gt;&lt;/span&gt;&#39;;
+      color = &#39;#d8b400&#39;;
+      if (value != null) {
+        if (value &lt; 0) { // negative variation
+          color = &#39;#9f0000&#39;;
+          glyph = &#39;down&#39;;
+        } else if (value &gt; 0.05) { // positive variation
+          color = &#39;#4c8f00&#39;;
+          glyph = &#39;down&#39;;
+        }
+        e.cell.innerHTML += span.replace(&#39;{glyph}&#39;, glyph);
+      }
+    }
+
+    // apply cell color
+    e.cell.style.color = color;
+  }
+}
+
+// gets a simple data set for basic demos
+function getData(cnt) {
+  var year = new Date().getFullYear(),
+    data = [];
+  for (var i = 0; i &lt; cnt; i++) {
+    data.push({
+      product: randomInt(1) ? &#39;Wijmo&#39; : &#39;Aoba&#39;,
+      country: randomInt(1) ? &#39;USA&#39; : &#39;Japan&#39;,
+      active: i % 2 == 0,
+      date: new Date(year - randomInt(2), randomInt(11), randomInt(27) + 1),
+      sales: randomInt(10, 20),
+      downloads: randomInt(10, 200)
+    });
+  }
+  return data;
+}
+
+function randomInt(max) {
+  return Math.floor(Math.random() * (max + 1));
+}
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    PivotGrid Customization
+  &lt;/h1&gt;
+  &lt;p&gt;
+    The &lt;b&gt;PivotGrid&lt;/b&gt; extends the &lt;b&gt;FlexGrid&lt;/b&gt; control,
+    so you can customize the display of the grid cells using 
+    the &lt;b&gt;formatItem&lt;/b&gt; event and modify the content of 
+    each cell with complete flexibility.
+  &lt;/p&gt;
+  &lt;p&gt;
+    For example, the PivotGrid below uses colors and icons
+    similar to the ones in Microsoft Excel&#39;s icon sets to show
+    how sales changed from quarter to quarter:
+  &lt;/p&gt;
+  &lt;label&gt;
+    Custom Cells
+    &lt;input id=&quot;customCells&quot; type=&quot;checkbox&quot; checked=&quot;checked&quot;&gt;
+  &lt;/label&gt;
+
+  &lt;div id=&quot;pivotGrid&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">body {
+  margin-bottom: 24pt;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.filter.min.js" target="_blank">wijmo.grid.filter.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.olap.min.js" target="_blank">wijmo.olap.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

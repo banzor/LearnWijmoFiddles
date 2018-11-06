@@ -1,0 +1,164 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Cell Templates - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "8yr4gg67";
+        var show_src = "//fiddle.jshell.net/Wijmo5/8yr4gg67/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/8yr4gg67/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/8yr4gg67/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=8yr4gg67" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// template for &quot;Template&quot; cells
+	var theTemplate = &#39;&lt;button class=&quot;btn btn-default&quot; name=&quot;{country}&quot;&gt;&#39; +
+      &#39;&lt;img src=&quot;https://flagpedia.net/data/flags/mini/{abb}.png&quot;/&gt; &#39; +
+      &#39;Click Me!&#39; +
+    &#39;&lt;/button&gt;&#39;;
+
+	// grid with template
+	var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+   	autoGenerateColumns: false,
+    columns: [
+    	{ binding: &#39;country&#39;, header: &#39;Country&#39; },
+      { binding: &#39;template&#39;, header: &#39;Template&#39;, width: 130, isReadOnly: true },
+      { binding: &#39;sales&#39;, header: &#39;Sales&#39;, format: &#39;n2&#39; },
+      { binding: &#39;expenses&#39;, header: &#39;Expenses&#39;, format: &#39;n2&#39; }
+    ],
+  	itemsSource: getData(),
+    showAlternatingRows: false,
+		formatItem: function(s, e) {
+    	if (e.panel == s.cells &amp;&amp; s.columns[e.col].binding == &#39;template&#39;) {
+      	var item = s.rows[e.row].dataItem,
+      			html = wijmo.format(theTemplate, item);
+  			e.cell.innerHTML = html;
+      }
+    }
+	});
+  
+  // make rows taller to accommodate buttons
+  theGrid.rows.defaultSize = 45;
+
+	// handle button clicks
+  theGrid.hostElement.addEventListener(&#39;click&#39;, function(e) {
+  	var target = wijmo.closest(e.target, &#39;button&#39;);
+  	if (target instanceof HTMLButtonElement &amp;&amp; target.name) {
+    	alert(&#39;Thanks for clicking &quot;&#39; + target.name + &#39;&quot;&#39;);
+    }
+  });
+  
+	// create some random data
+  function getData() {
+    var countries = &#39;US,Germany,UK,Japan,Italy,Greece&#39;.split(&#39;,&#39;),
+        abb = &#39;us,de,gb,jp,it,gr&#39;.split(&#39;,&#39;),
+        data = [];
+		for (var i = 0; i &lt; countries.length; i++) {
+    	data.push({
+      	country: countries[i],
+        abb: abb[i],
+        sales: Math.random() * 10000,
+        expenses: Math.random() * 5000
+			});
+		}
+    return data;
+  }
+}</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+    
+  &lt;h1&gt;
+    Cell Templates&lt;/h1&gt;
+  &lt;p&gt;
+    You can use Wijmo&#39;s &lt;b&gt;format&lt;/b&gt; function to implement a 
+    basic template handling mechanism.&lt;/p&gt;
+  &lt;p&gt;
+    The grid below handles the &lt;b&gt;formatItem&lt;/b&gt; event to 
+    generate the content for cells in the &quot;Template&quot; column
+    using a template element defined in markup:&lt;/p&gt;    
+
+  &lt;div id=&quot;theGrid&quot;&gt;
+  &lt;/div&gt;
+  
+  &lt;div class=&quot;panel panel-warning&quot;&gt;
+    &lt;div class=&quot;panel-heading&quot;&gt;
+      If you are using Angular, Wijmo&#39;s interop layer provides
+      extensive support for cell templates. For details, please
+      see the 
+      &lt;a href=&quot;https://demos.wijmo.com/5/SampleExplorer/SampleExplorer/Sample/CellTemplateIntro&quot; target=&quot;_blank&quot;&gt;CellTemplateIntro&lt;/a&gt; sample.
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 350px; 
+  margin-top: 10px;
+}
+.wj-cell img {
+  width: 30px;
+}
+body {
+	margin-bottom: 24pt;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

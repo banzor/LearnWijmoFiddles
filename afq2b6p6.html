@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Custom Filter Icons - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "afq2b6p6";
+        var show_src = "//fiddle.jshell.net/Wijmo5/afq2b6p6/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/afq2b6p6/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/afq2b6p6/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=afq2b6p6" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function () {
+
+	// create two grids with filters
+  var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+    itemsSource: getData(),
+  });
+  new wijmo.grid.filter.FlexGridFilter(theGrid);
+  var theOtherGrid = new wijmo.grid.FlexGrid(&#39;#theOtherGrid&#39;, {
+    itemsSource: getData(),
+  });
+  new wijmo.grid.filter.FlexGridFilter(theOtherGrid);
+
+	// generate some random data
+  function getData() {
+	  var countries = &#39;US,Germany,UK,Japan,Italy,Greece&#39;.split(&#39;,&#39;),
+  	    data = [];
+  	for (var i = 0; i &lt; 2000; i++) {
+	    data.push({
+	    	id: i,
+	      country: countries[i % countries.length],
+	      downloads: Math.round(Math.random() * 20000),
+	      sales: Math.random() * 10000,
+	      expenses: Math.random() * 5000,
+	    });
+	  }
+    return data;
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Custom Filter Icons
+  &lt;/h1&gt;
+  &lt;p&gt;
+    You can customize the icons shown by the FlexGridFilter using
+    CSS:&lt;/p&gt;
+    
+  &lt;h3&gt;
+    Custom Icons
+  &lt;/h3&gt;
+  &lt;div id=&quot;theGrid&quot; class=&quot;custom-icons&quot;&gt;&lt;/div&gt;
+
+  &lt;h3&gt;
+    Custom Colors
+  &lt;/h3&gt;
+  &lt;div id=&quot;theOtherGrid&quot; class=&quot;custom-colors&quot;&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 250px;
+  margin:10px 0;
+}
+body {
+  margin-bottom: 20px;
+}
+
+/* show images on filtered columns */
+.custom-icons .wj-glyph-filter {
+    background-image:url(&#39;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAABKUlEQVQ4ja2QP0vDQBiHf/cndzQhJKGGK6HQHFnsII4h4GfQqas4+zGcXDs5dNRPYj+EoFt316CDPZcrhNY0Mb0HnuV43+e4AxxhjKF1XU+bZ3MANwOdH9wghHgAYIZod/8OKqWWRVHc9VEptWwNJklyBeCbUrrRWs8Wi4U4ptZ6RindAPiyu4cEQXALYMsYM57nHZUxZgBs7U47vu/3/ks72wlhjL10xRhjz31iAICqqkac83VbjHO+rqpq1DsIAGEYjoUQH1JK01QI8R6G4fhfsR15nk+SJLlomuf5ZFAMANI0fcTec+3ZacEoilZRFK2cBQGcW90EpZT3ToJKqWtCyCcA43ne28lBAMiy7ExK+UQI+XES3BHH8aWU8tVZ0ELKspx2jznkF5WQhrjMdSwdAAAAAElFTkSuQmCC&#39;);
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    margin-top: 2px;
+    width: 20px; height: 20px;
+    border: none;
+}
+.custom-icons .wj-glyph-filter:after {
+    display: none;
+}
+/* make active filter images 25% larger */
+.custom-icons .wj-filter-on .wj-glyph-filter {
+    transform: scale(1.25)
+}
+
+/* change the color of the filter glyphs */
+.custom-colors .wj-glyph-filter {
+    color: red;
+    font-size: 125%;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.filter.min.js" target="_blank">wijmo.grid.filter.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

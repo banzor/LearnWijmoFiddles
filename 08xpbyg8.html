@@ -1,0 +1,192 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - TabPanel Accessibility - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "08xpbyg8";
+        var show_src = "//fiddle.jshell.net/Wijmo5/08xpbyg8/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/08xpbyg8/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/08xpbyg8/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=08xpbyg8" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  var theTabPanel = new wijmo.nav.TabPanel(&#39;#theTabPanel&#39;);
+
+  // toggle autoSwitch property
+  document.getElementById(&#39;autoSwitch&#39;).addEventListener(&#39;click&#39;, function(e) {
+    theTabPanel.autoSwitch = e.target.checked;
+  });
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+  &lt;h1&gt;
+    TabPanel Accessibility
+  &lt;/h1&gt;
+  &lt;p&gt;
+    The TabPanel implements WAI-ARIA accessibility guidelines.
+    All tab elements have the proper role attributes as well 
+    as all applicable ARIA attributes.&lt;/p&gt;
+  &lt;p&gt;
+    The example below assigns unique IDs to the tab headers
+    and panes, which the TabPanel automatically uses to generate
+    &quot;aria-controls&quot; and &quot;aria-labelledby&quot; attributes.&lt;/p&gt;
+  &lt;p&gt;
+    The example also adds a &quot;wj-state-active&quot; class to the
+    &quot;America&quot; pane in markup to define the tab that is 
+    initially selected. Without that, the first tab would 
+    have been selected by default.&lt;/p&gt;
+  &lt;p&gt;
+    Finally, the example shows the effect of the &lt;b&gt;autoSwitch&lt;/b&gt;
+    property, which affects how the control handles the tab and 
+    cursor keys. For a detailed discussion of this topic, please see the
+    &lt;a href=&quot;https://www.w3.org/TR/wai-aria-practices/#kbd_selection_follows_focus&quot; target=&quot;_blank&quot;&gt;W3C ARIA practices&lt;/a&gt; and
+    &lt;a href=&quot;https://simplyaccessible.com/article/danger-aria-tabs/&quot; target=&quot;_blank&quot;&gt;SimplyAccessible articles.&lt;/a&gt;&lt;/p&gt;
+
+  &lt;div id=&quot;theTabPanel&quot;&gt;
+    &lt;div&gt;
+      &lt;a id=&quot;hdr-africa&quot;&gt;
+        Africa
+      &lt;/a&gt;
+      &lt;div id=&quot;pane-africa&quot;&gt;
+        &lt;ul&gt;
+          &lt;li&gt;Algeria&lt;/li&gt;
+          &lt;li&gt;Angola&lt;/li&gt;
+          &lt;li&gt;Benin&lt;/li&gt;
+          &lt;li&gt;Botswana&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+      &lt;a id=&quot;hdr-america&quot; class=&quot;wj-state-active&quot;&gt;
+        America
+      &lt;/a&gt;
+      &lt;div id=&quot;pane-america&quot;&gt;
+        &lt;ul&gt;
+          &lt;li&gt;Canada&lt;/li&gt;
+          &lt;li&gt;Chile&lt;/li&gt;
+          &lt;li&gt;Mexico&lt;/li&gt;
+          &lt;li&gt;United States&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+      &lt;a id=&quot;hdr-asia&quot;&gt;
+        Asia
+      &lt;/a&gt;
+      &lt;div id=&quot;pane-asia&quot;&gt;
+        &lt;ul&gt;
+          &lt;li&gt;China&lt;/li&gt;
+          &lt;li&gt;Korea&lt;/li&gt;
+          &lt;li&gt;India&lt;/li&gt;
+          &lt;li&gt;Japan&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+      &lt;a id=&quot;hdr-europe&quot;&gt;
+        Europe
+      &lt;/a&gt;
+      &lt;div id=&quot;pane-europe&quot;&gt;
+        &lt;ul&gt;
+          &lt;li&gt;Austria&lt;/li&gt;
+          &lt;li&gt;England&lt;/li&gt;
+          &lt;li&gt;France&lt;/li&gt;
+          &lt;li&gt;Germany&lt;/li&gt;
+          &lt;li&gt;Netherlands&lt;/li&gt;
+          &lt;li&gt;Switzerland&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+      &lt;a id=&quot;hdr-oceania&quot;&gt;
+        Oceania
+      &lt;/a&gt;
+      &lt;div id=&quot;pane-oceania&quot;&gt;
+        &lt;ul&gt;
+          &lt;li&gt;Australia&lt;/li&gt;
+          &lt;li&gt;Fiji&lt;/li&gt;
+          &lt;li&gt;New Zealand&lt;/li&gt;
+          &lt;li&gt;Samoa&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;label for=&quot;autoSwitch&quot;&gt;
+      autoSwitch
+    &lt;/label&gt;
+    &lt;input id=&quot;autoSwitch&quot; type=&quot;checkbox&quot; checked=&quot;checked&quot;&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-tabpane {
+  padding: 12px;
+}
+
+body {
+  margin-bottom: 48pt;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.nav.min.js" target="_blank">wijmo.nav.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

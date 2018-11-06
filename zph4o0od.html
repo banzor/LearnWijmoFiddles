@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Marquee Selection - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "zph4o0od";
+        var show_src = "//fiddle.jshell.net/Wijmo5/zph4o0od/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/zph4o0od/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/zph4o0od/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=zph4o0od" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+    showAlternatingRows: false,
+    showMarquee: true,
+  	itemsSource: getData(),
+  });
+
+	// toggle marquee styling
+	document.getElementById(&#39;showMarquee&#39;).addEventListener(&#39;click&#39;, function(e) {
+  	theGrid.showMarquee = e.target.checked;
+    theGrid.focus();
+  });
+	document.getElementById(&#39;customMarquee&#39;).addEventListener(&#39;click&#39;, function(e) {
+  	wijmo.toggleClass(theGrid.hostElement, &#39;customMarquee&#39;, e.target.checked);
+    theGrid.invalidate();
+    theGrid.focus();
+  });
+  document.getElementById(&#39;highlightActive&#39;).addEventListener(&#39;click&#39;, function(e) {
+  	wijmo.toggleClass(theGrid.hostElement, &#39;highlightActive&#39;, e.target.checked);
+    theGrid.focus();
+  });
+
+	// create some random data
+  function getData() {
+	  var countries = &#39;US,UK,Germany,France,Italy,Japan,China&#39;.split(&#39;,&#39;),
+  	  data = [];
+  	for (var i = 0; i &lt; countries.length; i++) {
+	    data.push({
+	      country: countries[i],
+	      downloads: Math.round(Math.random() * 20000),
+	      sales: Math.random() * 10000,
+	      expenses: Math.random() * 5000
+	    });
+	  }
+		return data;
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Marquee Selection&lt;/h1&gt;
+  &lt;p&gt;
+    Use the &lt;b&gt;showMarquee&lt;/b&gt; property to add an Excel-style
+    marquee to the grid.&lt;/p&gt;
+  &lt;p&gt;
+    You can customize the appearance of the marquee by
+    styling the &#39;wj-marquee&#39; class.&lt;/p&gt;
+  &lt;p&gt;
+    When the marquee is enabled, the grid does not highlight
+    the active cell (like Excel). 
+    If you want to highlight the active cell, use a CSS
+    selector based on the :focus pseudo-selector:&lt;/p&gt;
+    
+  &lt;label&gt;
+    Show Marquee
+    &lt;input id=&quot;showMarquee&quot; type=&quot;checkbox&quot; checked=&quot;checked&quot;&gt;
+  &lt;/label&gt;
+  &lt;br/&gt;
+  &lt;label&gt;
+    Custom Marquee
+    &lt;input id=&quot;customMarquee&quot; type=&quot;checkbox&quot;&gt;
+  &lt;/label&gt;
+  &lt;br/&gt;
+  &lt;label&gt;
+    Highlight Active Cell
+    &lt;input id=&quot;highlightActive&quot; type=&quot;checkbox&quot;&gt;
+  &lt;/label&gt;
+  
+  &lt;div id=&quot;theGrid&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.highlightActive .wj-cells .wj-cell:focus {
+  background: rgba(255,150,30,.75) !important;  
+}
+.customMarquee .wj-marquee {
+  border: 8px solid rgba(255,150,30,.75);
+  border-radius: 8px;
+}
+
+body {
+  margin-bottom: 12px;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

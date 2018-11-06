@@ -1,0 +1,173 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - CollectionView Notifications and Performance - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "jmnmqkxh";
+        var show_src = "//fiddle.jshell.net/Wijmo5/jmnmqkxh/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/jmnmqkxh/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/jmnmqkxh/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=jmnmqkxh" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // create some random data
+  // Note that we are using an ObservableArray rather than a regular
+  // JavaScript array. The ObservableArray raises events when items
+  // are added or removed.
+  // If we used a regular array, we would have to call the
+  // CollectionView.refresh() method to update the view after 
+  // adding or removing items.
+  var countries = &#39;US,Germany,UK,Japan,Italy,Greece&#39;.split(&#39;,&#39;);
+  var data = new wijmo.collections.ObservableArray();
+
+  function getItem(i) {
+    return {
+      country: countries[i % countries.length],
+      downloads: Math.round(Math.random() * 20000),
+      sales: Math.random() * 10000,
+      expenses: Math.random() * 5000,
+      active: i % 4 == 0
+    }
+  }
+
+  // create a CollectionView
+  var view = new wijmo.collections.CollectionView(data, {
+    sortDescriptions: [&#39;country&#39;],
+    newItemCreator: function() {
+    	return getItem(view.sourceCollection.length);
+    }
+  });
+
+	// add items with addNew
+  document.getElementById(&#39;btnAddNew&#39;).addEventListener(&#39;click&#39;, function(e) {
+    var start = Date.now();
+    view.sourceCollection.clear();
+    for (var i = 0; i &lt; 1000; i++) {
+      view.addNew();
+      view.commitNew();
+    }
+    alert(&#39;addNew done in &#39; + (Date.now() - start) + &#39;ms&#39;);
+  });
+
+	// add items with push
+  document.getElementById(&#39;btnPush&#39;).addEventListener(&#39;click&#39;, function(e) {
+    var start = Date.now();
+    view.sourceCollection.clear();
+    for (var i = 0; i &lt; 1000; i++) {
+      view.sourceCollection.push(getItem(i));
+    }
+    alert(&#39;push done in &#39; + (Date.now() - start) + &#39;ms&#39;);
+  });
+
+	// add items with pushDefer
+  document.getElementById(&#39;btnPushDefer&#39;).addEventListener(&#39;click&#39;, function(e) {
+    var start = Date.now();
+    view.sourceCollection.clear();
+    view.deferUpdate(function() {
+	    for (var i = 0; i &lt; 1000; i++) {
+  	    view.sourceCollection.push(getItem(i));
+    	}
+    })
+    alert(&#39;pushDefer done in &#39; + (Date.now() - start) + &#39;ms&#39;);
+  });
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    CollectionView Notifications and Performance
+  &lt;/h1&gt;
+  &lt;p&gt;
+    The &lt;b&gt;CollectionView&lt;/b&gt; class is highly optimized.
+    It sorts, filters, groups, and paginates large data 
+    sets efficiently in virtually every situation.&lt;/p&gt;
+  &lt;p&gt;
+    In some cases, you may be able to improve performance
+    even more by using the &lt;b&gt;deferUpdate&lt;/b&gt; method to 
+    suspend refreshes while performing batch operations.&lt;/p&gt;
+  &lt;p&gt;
+    This is especially important when adding items to collections
+    that are sorted, grouped, or filtered. Without deferred 
+    updates, each addition causes a refresh.&lt;/p&gt;
+  &lt;p&gt;
+    For example, click the buttons below to add 1,000
+    items to a &lt;b&gt;CollectionView&lt;/b&gt; using three
+    different methods:&lt;/p&gt;
+
+  &lt;button id=&quot;btnAddNew&quot; class=&quot;btn btn-default&quot;&gt;
+    addNew
+  &lt;/button&gt;
+  &lt;br&gt;
+  &lt;button id=&quot;btnPush&quot; class=&quot;btn btn-default&quot;&gt;
+    push
+  &lt;/button&gt;
+  &lt;br&gt;
+  &lt;button id=&quot;btnPushDefer&quot; class=&quot;btn btn-default&quot;&gt;
+    push + defer updates
+  &lt;/button&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.btn {
+  margin: 4px;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

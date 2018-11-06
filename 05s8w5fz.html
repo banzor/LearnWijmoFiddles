@@ -1,0 +1,321 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Popup Editors - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "05s8w5fz";
+        var show_src = "//fiddle.jshell.net/Wijmo5/05s8w5fz/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/05s8w5fz/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/05s8w5fz/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=05s8w5fz" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // create some random data
+  var countries = &#39;US,Germany,UK,Japan,Sweden,Norway,Denmark&#39;.split(&#39;,&#39;);
+  var data = [];
+  for (var i = 0; i &lt; 100; i++) {
+    data.push({
+      id: i,
+      country: countries[i % countries.length],
+      sales: Math.random() * 10000,
+      expenses: Math.random() * 5000,
+      overdue: (i + 1) % 4 == 0
+    });
+  }
+
+  // create the grid with custom editing behavior
+  var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+    isReadOnly: true,
+    selectionMode: &#39;Row&#39;,
+    itemsSource: data,
+    columns: [
+    	{ binding: &#39;id&#39;, header: &#39;ID&#39;, width: 50 },
+      { binding: &#39;country&#39;, header: &#39;Country&#39;, isRequired: true, dataMap: countries },
+      { binding: &#39;sales&#39;, header: &#39;Sales&#39;, format: &#39;n2&#39; }, 
+      { binding: &#39;expenses&#39;, header: &#39;Expenses&#39;, format: &#39;n2&#39; }
+		]
+  });
+
+  // add &#39;edit button&#39; to row header cells
+  theGrid.formatItem.addHandler(function(s, e) {
+    if (e.panel == s.rowHeaders &amp;&amp; e.col == 0) {
+      e.cell.innerHTML = &#39;&lt;span class=&quot;wj-glyph-pencil&quot;&gt;&lt;/span&gt;&#39;;
+    }
+  });
+
+  // handle button clicks
+  theGrid.addEventListener(theGrid.hostElement, &#39;click&#39;, function(e) {
+  	var ht = theGrid.hitTest(e);
+    if (ht.panel == theGrid.rowHeaders) {
+    
+    	// prepare form
+    	var item = theGrid.rows[ht.row].dataItem;
+      formControls.itemId.textContent = item.id;
+    	formControls.country.text = item.country;
+    	formControls.sales.value = item.sales;
+    	formControls.expenses.value = item.expenses;
+      
+      // show the form
+      formControls.popup.show(true, function (e) {
+      	if (e.dialogResult == &#39;wj-hide-ok&#39;) {
+        
+        		// commit changes if the user pressed the OK button
+        		theGrid.collectionView.editItem(item);
+		    		item.country = formControls.country.text;
+    				item.sales = formControls.sales.value;
+    				item.expenses = formControls.expenses.value;
+        		theGrid.collectionView.commitEdit();
+				}
+        
+        // return focus to the grid
+        theGrid.focus();
+			});
+		}
+  });
+
+	// attach controls to input form
+	var formControls = {
+  	popup: new wijmo.input.Popup(&#39;#popup&#39;),
+    itemId: document.getElementById(&#39;item-id&#39;),
+    country: new wijmo.input.ComboBox(&#39;#country&#39;, { itemsSource: countries }),
+    sales: new wijmo.input.InputNumber(&#39;#sales&#39;, { format: &#39;n2&#39;, min: 0, step: 100 }),
+    expenses: new wijmo.input.InputNumber(&#39;#expenses&#39;, { format: &#39;n2&#39;, min: 0, step: 100 }),
+	};
+}</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Popup Editors
+  &lt;/h1&gt;
+  &lt;p&gt;
+    Although the FlexGrid provides efficient, Excel-style
+    editing by default, you may want to customize the 
+    editing behavior.&lt;/p&gt;
+  &lt;p&gt;
+    This example shows how you can use the grid to display
+    the data and a custom form to edit the items.
+    The custom form is hosted in a Wijmo &lt;b&gt;Popup&lt;/b&gt; 
+    control and contains Wijmo input controls.&lt;/p&gt;
+  &lt;p&gt;
+    Click the pencil glyphs in the row headers to edit
+    the item.&lt;/p&gt;    
+  &lt;div id=&quot;theGrid&quot;&gt;
+  &lt;/div&gt;
+
+  &lt;!-- the popup editor --&gt;
+  &lt;div id=&quot;popup&quot; class=&quot;modal-content&quot;&gt;
+    &lt;div class=&quot;modal-header&quot;&gt;
+      &lt;button type=&quot;button&quot; tabindex=&quot;-1&quot; class=&quot;close wj-hide&quot;&gt;
+        &lt;span&gt;&amp;times;&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;h4 class=&quot;modal-title&quot;&gt;Edit Item &lt;span id=&quot;item-id&quot;&gt;&lt;/span&gt;&lt;/h4&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;modal-body&quot;&gt;
+      &lt;div class=&quot;wj-labeled-input&quot; &gt;
+        &lt;input id=&quot;country&quot; /&gt;
+        &lt;label for=&quot;country&quot;&gt;Country&lt;/label&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;wj-labeled-input&quot; &gt;
+        &lt;input id=&quot;sales&quot; /&gt;
+        &lt;label for=&quot;sales&quot;&gt;Sales&lt;/label&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;wj-labeled-input&quot; &gt;
+        &lt;input id=&quot;expenses&quot; /&gt;
+        &lt;label for=&quot;expenses&quot;&gt;Expenses&lt;/label&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;modal-footer&quot;&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn btn-primary wj-hide-ok&quot;&gt;OK&lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn btn-default wj-hide&quot;&gt;Cancel&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">body {
+  margin-bottom: 24px;
+}
+
+.wj-flexgrid {
+  max-height: 200px;
+  margin-bottom: 12px;
+}
+
+.modal-content {
+  width: 400px;
+}
+/* style our custom &#39;edit buttons&#39; */
+.wj-rowheaders .wj-cell .wj-glyph-pencil {
+  opacity: .5;
+  transform: scale(.75);
+}
+.wj-rowheaders .wj-cell:hover .wj-glyph-pencil {
+  opacity: 1;
+  color: #cc0000;
+  transform: scale(1.5) rotate(-90deg);
+  transition: all 400ms;
+}
+
+/* wj-labeled-input: adapted from MDL styles */
+
+/* label input container */
+.wj-labeled-input {
+    position: relative;
+    font-size: 16px;
+    display: inline-block;
+    box-sizing: border-box;
+    width: 300px;
+    max-width: 100%;
+    margin: 0 20px;
+    padding: 20px 0;
+}
+
+    /* Wijmo control in the container */
+    .wj-labeled-input .wj-control.wj-content {
+        margin: 0;
+        width: 100%;
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+    .wj-labeled-input .wj-control.wj-content button {
+        opacity: 0.75;
+        border-color: rgba(0,0,0,.1);
+    }
+    .wj-labeled-input .wj-input-group .wj-form-control {
+        float: none;
+    }
+
+    /* label in the container (must come after the control) */
+    .wj-labeled-input label {
+        font-size: 16px;
+        top: 24px;
+        bottom: 0;
+        margin: 0;
+        pointer-events: none;
+        position: absolute;
+        display: block;
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-align: left;
+        color: rgba(0, 0, 0, 0.258824);
+        transition-duration: .2s;
+        transition-timing-function: cubic-bezier(.4,0,.2,1);
+    }
+    
+    /* move label out of the way when control is focused or not empty */
+    .wj-static-labels .wj-labeled-input :not(.wj-state-focused) + label,
+    .wj-labeled-input .wj-state-focused + label,
+    .wj-labeled-input :not(.wj-state-empty) + label {
+        font-size: 12px;
+        top: 4px;
+        color: rgb(63,81,181);
+        visibility: visible;
+    }
+    .wj-labeled-input .wj-state-invalid + label {
+        color: #d50000;
+    }
+
+    /* underline label */
+    .wj-labeled-input label:after {
+        background-color: rgb(63,81,181);
+        bottom: 20px;
+        content: &#39;&#39;;
+        height: 2px;
+        left: 45%;
+        position: absolute;
+        transition-duration: .2s;
+        transition-timing-function: cubic-bezier(.4,0,.2,1);
+        visibility: hidden;
+        width: 10px;
+    }
+
+    /* show underline when focused */
+    .wj-labeled-input .wj-state-focused + label:after {
+        left: 0;
+        visibility: visible;
+        width: 100%;
+    }
+    .wj-labeled-input .wj-state-invalid + label:after {
+        background-color: #d50000;
+    }
+
+    /* validation message */
+    .wj-labeled-input .wj-error {
+        color: #d50000;
+        position: absolute;
+        font-size: 12px;
+        margin-top: 3px;
+        visibility: hidden;
+        display: block;
+    }
+    .wj-labeled-input .wj-control.wj-state-invalid ~ .wj-error {
+        visibility: visible;
+    }
+
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.20181.436/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.20181.436/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.20181.436/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.20181.436/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

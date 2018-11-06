@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Virtualization - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "ujfroryj";
+        var show_src = "//fiddle.jshell.net/Wijmo5/ujfroryj/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/ujfroryj/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/ujfroryj/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=ujfroryj" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// start with a small data set
+	var data = getData(100);
+  
+  // initialize the grid
+  var rowCount = document.getElementById(&#39;rowCount&#39;);
+  var cellCount = document.getElementById(&#39;cellCount&#39;);
+	var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+  	itemsSource: data,
+    updatedView: function(s, e) {
+			rowCount.textContent = s.rows.length;	
+			cellCount.textContent = s.hostElement.querySelectorAll(&#39;.wj-cell&#39;).length;    
+		},
+    scrollPositionChanged: function(s, e) {
+    
+    	// if we&#39;re close to the bottom, add 20 items
+    	if (s.viewRange.bottomRow &gt;= s.rows.length - 1) {
+				addData(data, 20);
+        s.collectionView.refresh();
+      }
+    }
+  });
+
+	// get an array with random data
+	function getData(cnt, start) {
+    var data = [];
+		var countries = &#39;USA,Germany,UK,Japan,Italy,Greece&#39;.split(&#39;,&#39;);
+    if (!start) start = 0;
+    for (var i = 0; i &lt; cnt; i++) {
+    	data.push({
+				id: i + start,
+        country: countries[i % countries.length],
+        date: new Date(2014, i % 12, i % 28),
+        amount: Math.random() * 10000,
+        active: i % 4 === 0
+			});
+		}
+    return data;
+	}
+  
+  // add random data to an array
+  function addData(data, cnt) {
+  	var more = getData(cnt, data.length);
+    for (var i = 0; i &lt; more.length; i++) {
+    	data.push(more[i])
+    }
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Virtualization&lt;/h1&gt;
+  &lt;p&gt;
+    The main job of the FlexGrid is to convert JavaScript
+    data objects into DOM elements that the user can interact
+    with. In many cases, the data consists of large arrays with many
+    thousands of items. Creating DOM elements for each of these
+    items would make for large and slow pages.&lt;/p&gt;
+  &lt;p&gt;
+    Virtualization is the process of keeping track of which 
+    portions of the data are visible and rendering only those
+    parts. This reduces the number of DOM elements in the 
+    document tree and improves performance dramatically.&lt;/p&gt;
+  &lt;p&gt;
+    The FlexGrid exposes the visible part of the data through
+    the &lt;b&gt;viewRange&lt;/b&gt; property. Whenever the user resizes
+    the screen or scrolls the grid, the &lt;b&gt;viewRange&lt;/b&gt; is
+    updated and the grid updates its child DOM elements.&lt;/p&gt;    
+  &lt;p&gt;
+    The sample below uses the &lt;b&gt;viewRange&lt;/b&gt; property to
+    implement a simple type of &#39;infinite scrolling&#39;. When the
+    user scrolls to the bottom of the grid, the code adds
+    items to the grid&#39;s &lt;b&gt;itemsSource&lt;/b&gt;.&lt;/p&gt;
+  &lt;p&gt;
+    If you inspect the DOM, you will notice that no matter how
+    large the &lt;b&gt;itemsSource&lt;/b&gt; gets, the number of DOM elements
+    remains constant. The data is &#39;virtualized&#39;.&lt;/p&gt;    
+    
+  &lt;div id=&quot;theGrid&quot;&gt;&lt;/div&gt;
+  &lt;p&gt;
+    The grid now has &lt;span id=&#39;rowCount&#39;&gt;&lt;/span&gt; rows and
+    &lt;span id=&#39;cellCount&#39;&gt;&lt;/span&gt; cell elements.&lt;/p&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont "> .wj-flexgrid {
+  height: 250px; 
+  margin: 10px;
+ }
+ #rowCount, #cellCount {
+   font-weight: bold;
+ }
+ body {
+   margin-bottom: 24pt;
+ }</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

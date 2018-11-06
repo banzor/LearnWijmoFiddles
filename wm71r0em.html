@@ -1,0 +1,579 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Dynamic Updates - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "wm71r0em";
+        var show_src = "//fiddle.jshell.net/Wijmo5/wm71r0em/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/wm71r0em/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/wm71r0em/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=wm71r0em" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function () {
+
+    // control panel
+    var customCells = true;
+    var autoUpdate = true;
+    var interval = 100; // update interval in ms: 1000, 500, 100, 10, 1
+    var batchSize = 5; // items to update: 100, 50, 10, 5, 1
+    document.getElementById(&#39;customCells&#39;).addEventListener(&#39;click&#39;, function (e) {
+        customCells = e.target.checked;
+        theGrid.invalidate();
+    });
+    document.getElementById(&#39;autoUpdate&#39;).addEventListener(&#39;click&#39;, function (e) {
+        autoUpdate = e.target.checked;
+        theGrid.invalidate();
+    });
+    var cmbInterval = new wijmo.input.ComboBox(&#39;#updateInterval&#39;, {
+        itemsSource: [1000, 500, 100, 10, 1],
+        selectedValue: interval,
+        selectedIndexChanged: function (s, e) {
+            interval = cmbInterval.selectedValue;
+        }
+    });
+    var cmbBatchSize = new wijmo.input.ComboBox(&#39;#batchSize&#39;, {
+        itemsSource: [100, 50, 10, 5, 1],
+        selectedValue: batchSize,
+        selectedIndexChanged: function (s, e) {
+            batchSize = cmbBatchSize.selectedValue;
+        }
+    });
+
+    // create and bind the grid
+    var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+        isReadOnly: true,
+        selectionMode: &#39;Row&#39;,
+        autoGenerateColumns: false,
+        columns: [
+            { binding: &#39;name&#39;, header: &#39;Name&#39;, width: 200 },
+            { binding: &#39;bid&#39;, header: &#39;Bid&#39;, format: &#39;n2&#39;, width: 200 },
+            { binding: &#39;ask&#39;, header: &#39;Ask&#39;, format: &#39;n2&#39;, width: 200 },
+            { binding: &#39;lastSale&#39;, header: &#39;Last Sale&#39;, format: &#39;n2&#39;, width: 200 },
+            { binding: &#39;bidSize&#39;, header: &#39;Bid Size&#39;, format: &#39;n0&#39; },
+            { binding: &#39;askSize&#39;, header: &#39;Ask Size&#39;, format: &#39;n0&#39; },
+            { binding: &#39;lastSize&#39;, header: &#39;Last Size&#39;, format: &#39;n0&#39; },
+            { binding: &#39;volume&#39;, header: &#39;Volume&#39;, format: &#39;n0&#39; },
+            { binding: &#39;quoteTime&#39;, header: &#39;Quote Time&#39;, format: &#39;hh:mm:ss&#39;, align: &#39;center&#39; },
+            { binding: &#39;tradeTime&#39;, header: &#39;Trade Time&#39;, format: &#39;hh:mm:ss&#39;, align: &#39;center&#39; },
+        ],
+        itemsSource: data
+    });
+    theGrid.rowHeaders.columns[0].width = 80;
+
+    // add a filter
+    var f = new wijmo.grid.filter.FlexGridFilter(theGrid);
+
+    // cellElements object keeps track of grid&#39;s cell elements
+    var clearCells = false;
+    var cellElements = {};
+    theGrid.updatingView.addHandler(function (s, e) {
+        clearCells = true; // clear cell elements on next formatItem
+    });
+
+    // formatItem hander displays cells and keeps track of cell elements
+    theGrid.formatItem.addHandler(function (s, e) {
+
+        // show symbols in row headers
+        if (e.panel == s.rowHeaders &amp;&amp; e.col == 0) {
+            e.cell.textContent = item = s.rows[e.row].dataItem.symbol;
+        }
+
+        // regular cells
+        if (e.panel == s.cells) {
+            var col = s.columns[e.col],
+                item = s.rows[e.row].dataItem;
+
+            // clear cell elements
+            if (clearCells) {
+                clearCells = false;
+                cellElements = {};
+            }
+
+            // store cell element
+            if (!cellElements[item.symbol]) {
+                cellElements[item.symbol] = { item: item };
+            }
+            cellElements[item.symbol][col.binding] = e.cell;
+
+            // custom painting
+            formatCell(e.cell, item, col, false);
+        }
+    });
+
+    // custom cell painting
+    function formatCell(cell, item, col, flare) {
+        if (customCells) {
+            switch (col.binding) {
+                case &#39;bid&#39;:
+                    formatDynamicCell(cell, item, col, &#39;bidHistory&#39;, flare);
+                    break;
+                case &#39;ask&#39;:
+                    formatDynamicCell(cell, item, col, &#39;askHistory&#39;, flare);
+                    break;
+                case &#39;lastSale&#39;:
+                    formatDynamicCell(cell, item, col, &#39;saleHistory&#39;, flare);
+                    break;
+                default:
+                    cell.textContent = wijmo.Globalize.format(item[col.binding], col.format);
+                    break;
+            }
+        } else {
+            cell.textContent = wijmo.Globalize.format(item[col.binding], col.format);
+        }
+    }
+    function formatDynamicCell(cell, item, col, history, flare) {
+
+        // cell template
+        var html = &#39;&lt;div class=&quot;ticker chg-{dir} flare-{fdir}&quot;&gt; &#39; +
+                &#39;&lt;div class=&quot;value&quot;&gt;{value}&lt;/div &gt;&#39; +
+                &#39;&lt;div class=&quot;chg&quot;&gt;{chg}&lt;/div&gt;&#39; +
+                &#39;&lt;div class=&quot;glyph&quot;&gt;&lt;span class=&quot;wj-glyph-{glyph}&quot;&gt;&lt;/span&gt;&lt;/div&gt;&#39; +
+                &#39;&lt;div class=&quot;spark&quot;&gt;{spark}&lt;/div&gt;&#39; +
+            &#39;&lt;/div&gt;&#39;;
+
+        // value
+        html = html.replace(&#39;{value}&#39;, wijmo.Globalize.format(item[col.binding], col.format));
+
+        // % change
+        var hist = item[history];
+        var chg = hist.length &gt; 1 ? hist[hist.length - 1] / hist[hist.length - 2] - 1 : 0;
+        html = html.replace(&#39;{chg}&#39;, wijmo.Globalize.format(chg * 100, &#39;n1&#39;) + &#39;%&#39;);
+
+        // up/down glyph
+        var glyph = chg &gt; +0.001 ? &#39;up&#39; : chg &lt; -0.001 ? &#39;down&#39; : &#39;circle&#39;;
+        html = html.replace(&#39;{glyph}&#39;, glyph);
+
+        // sparklines
+        html = html.replace(&#39;{spark}&#39;, getSparklines(item[history]));
+
+        // change direction
+        var dir = glyph == &#39;circle&#39; ? &#39;none&#39; : glyph;
+        html = html.replace(&#39;{dir}&#39;, dir);
+
+        // flare direction
+        var flareDir = flare ? dir : &#39;none&#39;;
+        html = html.replace(&#39;{fdir}&#39;, flareDir);
+
+        // done
+        cell.innerHTML = html;
+    }
+
+    // update grid cells when items change
+    function updateGrid(changedItems) {
+        for (var symbol in changedItems) {
+            var itemCells = cellElements[symbol];
+            if (itemCells) {
+                var item = itemCells.item;
+                theGrid.columns.forEach(function (col) {
+                    var cell = itemCells[col.binding];
+                    if (cell) {
+                        formatCell(cell, item, col, true);
+                    }
+                })
+            }
+        }
+    }
+
+    // simulate updates/notifications
+    updateTrades();
+    function updateTrades() {
+        var now = new Date();
+        var changedItems = {};
+        for (var i = 0; i &lt; batchSize; i++) {
+
+            // select an item
+            var item = data[randBetween(0, data.length - 1)];
+
+            // update current data
+            item.bid = item.bid * (1 + (Math.random() * .11 - .05));
+            item.ask = item.ask * (1 + (Math.random() * .11 - .05));
+            item.bidSize = randBetween(10, 1000);
+            item.askSize = randBetween(10, 1000);
+            var sale = (item.ask + item.bid) / 2;
+            item.lastSale = sale;
+            item.lastSize = Math.floor((item.askSize + item.bidSize) / 2);
+            item.quoteTime = now;
+            item.tradeTime = new Date(Date.now() + randBetween(0, 60000));
+
+            // update history data
+            addHistory(item.askHistory, item.ask);
+            addHistory(item.bidHistory, item.bid);
+            addHistory(item.saleHistory, item.lastSale);
+
+            // keep track of changed items
+            changedItems[item.symbol] = true;
+        }
+
+        // update the grid
+        if (autoUpdate) {
+            updateGrid(changedItems);
+        }
+
+        // and schedule the next batch
+        setTimeout(updateTrades, interval);
+    }
+};
+
+// add a value to a history array
+function addHistory(array, data) {
+    array.push(data);
+    if (array.length &gt; 10) { // limit history length
+        array.splice(0, 1);
+    }
+}
+
+// Companies in the Financial Times Stock Exchange 100 Index
+// https://en.wikipedia.org/wiki/FTSE_100_Index
+// mcap: market capitalization (in billion pounds)
+// emp: employees (thousands)
+var companies = [
+    { symbol: &#39;RDSA&#39;, name: &#39;Royal Dutch Shell&#39;, sector: &#39;Oil and gas&#39;, mcap: 160.12, emp: 90 },
+    { symbol: &#39;ULVR&#39;, name: &#39;Unilever&#39;, sector: &#39;Consumer goods&#39;, mcap: 90.42, emp: 171 },
+    { symbol: &#39;HSBA&#39;, name: &#39;HSBC&#39;, sector: &#39;Banking&#39;, mcap: 88.11, emp: 267 },
+    { symbol: &#39;BATS&#39;, name: &#39;British American Tobacco&#39;, sector: &#39;Tobacco&#39;, mcap: 71.4, emp: 87 },
+    { symbol: &#39;GSK&#39;, name: &#39;GlaxoSmithKline&#39;, sector: &#39;Pharmaceuticals&#39;, mcap: 67.38, emp: 97 },
+    { symbol: &#39;SAB&#39;, name: &#39;SABMiller&#39;, sector: &#39;Beverages&#39;, mcap: 67.32, emp: 70 },
+    { symbol: &#39;BP&#39;, name: &#39;BP&#39;, sector: &#39;Oil and gas&#39;, mcap: 63.13, emp: 97 },
+    { symbol: &#39;VOD&#39;, name: &#39;Vodafone Group&#39;, sector: &#39;Telecomms&#39;, mcap: 56.55, emp: 86 },
+    { symbol: &#39;AZN&#39;, name: &#39;AstraZeneca&#39;, sector: &#39;Pharmaceuticals&#39;, mcap: 51.23, emp: 57 },
+    { symbol: &#39;RB&#39;, name: &#39;Reckitt Benckiser&#39;, sector: &#39;Consumer goods&#39;, mcap: 46.32, emp: 32 },
+    { symbol: &#39;DGE&#39;, name: &#39;Diageo&#39;, sector: &#39;Beverages&#39;, mcap: 46.01, emp: 25 },
+    { symbol: &#39;BT.A&#39;, name: &#39;BT Group&#39;, sector: &#39;Telecomms&#39;, mcap: 45.61, emp: 89 },
+    { symbol: &#39;LLOY&#39;, name: &#39;Lloyds Banking Group&#39;, sector: &#39;Banking&#39;, mcap: 44.11, emp: 120 },
+    { symbol: &#39;BLT&#39;, name: &#39;BHP Billiton&#39;, sector: &#39;Mining&#39;, mcap: 41.88, emp: 46 },
+    { symbol: &#39;NG&#39;, name: &#39;National Grid plc&#39;, sector: &#39;Energy&#39;, mcap: 36.14, emp: 27 },
+    { symbol: &#39;IMB&#39;, name: &#39;Imperial Brands&#39;, sector: &#39;Tobacco&#39;, mcap: 35.78, emp: 38 },
+    { symbol: &#39;RIO&#39;, name: &#39;Rio Tinto Group&#39;, sector: &#39;Mining&#39;, mcap: 34.84, emp: 67 },
+    { symbol: &#39;PRU&#39;, name: &#39;Prudential plc&#39;, sector: &#39;Finance&#39;, mcap: 31.63, emp: 25 },
+    { symbol: &#39;RBS&#39;, name: &#39;Royal Bank of Scotland Group&#39;, sector: &#39;Banking&#39;, mcap: 28.6, emp: 150 },
+    { symbol: &#39;BARC&#39;, name: &#39;Barclays&#39;, sector: &#39;Banking&#39;, mcap: 27.18, emp: 150 },
+    { symbol: &#39;ABF&#39;, name: &#39;Associated British Foods&#39;, sector: &#39;Food&#39;, mcap: 25.77, emp: 102 },
+    { symbol: &#39;REL&#39;, name: &#39;RELX Group&#39;, sector: &#39;Publishing&#39;, mcap: 25.54, emp: 28 },
+    { symbol: &#39;REX&#39;, name: &#39;Rexam&#39;, sector: &#39;Packaging&#39;, mcap: 25.54, emp: 19 },
+    { symbol: &#39;CCL&#39;, name: &#39;Carnival Corporation &amp; plc&#39;, sector: &#39;Leisure&#39;, mcap: 24.85, emp: 86 },
+    { symbol: &#39;SHP&#39;, name: &#39;Shire plc&#39;, sector: &#39;Pharmaceuticals&#39;, mcap: 22.52, emp: 4 },
+    { symbol: &#39;CPG&#39;, name: &#39;Compass Group&#39;, sector: &#39;Food&#39;, mcap: 20.21, emp: 471 },
+    { symbol: &#39;WPP&#39;, name: &#39;WPP plc&#39;, sector: &#39;Media&#39;, mcap: 19.01, emp: 162 },
+    { symbol: &#39;AV.&#39;, name: &#39;Aviva&#39;, sector: &#39;Insurance&#39;, mcap: 17.69, emp: 40 },
+    { symbol: &#39;SKY&#39;, name: &#39;Sky plc&#39;, sector: &#39;Media&#39;, mcap: 17.5, emp: 22 },
+    { symbol: &#39;GLEN&#39;, name: &#39;Glencore&#39;, sector: &#39;Mining&#39;, mcap: 16.96, emp: 57 },
+    { symbol: &#39;BA.&#39;, name: &#39;BAE Systems&#39;, sector: &#39;Military&#39;, mcap: 16.01, emp: 107 },
+    { symbol: &#39;TSCO&#39;, name: &#39;Tesco&#39;, sector: &#39;Supermarket&#39;, mcap: 14.92, emp: 519 },
+    { symbol: &#39;SSE&#39;, name: &#39;SSE plc&#39;, sector: &#39;Energy&#39;, mcap: 14.03, emp: 19 },
+    { symbol: &#39;STAN&#39;, name: &#39;Standard Chartered&#39;, sector: &#39;Banking&#39;, mcap: 13.52, emp: 86 },
+    { symbol: &#39;LGEN&#39;, name: &#39;Legal &amp; General&#39;, sector: &#39;Insurance&#39;, mcap: 13.21, emp: 9 },
+    { symbol: &#39;ARM&#39;, name: &#39;ARM Holdings&#39;, sector: &#39;Engineering&#39;, mcap: 13.2, emp: 2 },
+    { symbol: &#39;RR.&#39;, name: &#39;Rolls-Royce Holdings&#39;, sector: &#39;Manufacturing&#39;, mcap: 11.8, emp: 55 },
+    { symbol: &#39;EXPN&#39;, name: &#39;Experian&#39;, sector: &#39;Information&#39;, mcap: 11.1, emp: 17 },
+    { symbol: &#39;IAG&#39;, name: &#39;International Consolidated Airlines Group SA&#39;, sector: &#39;Travel&#39;, mcap: 11.01, emp: 58 },
+    { symbol: &#39;CRH&#39;, name: &#39;CRH plc&#39;, sector: &#39;Building materials&#39;, mcap: 10.9, emp: 76 },
+    { symbol: &#39;CNA&#39;, name: &#39;Centrica&#39;, sector: &#39;Energy&#39;, mcap: 10.72, emp: 40 },
+    { symbol: &#39;SN.&#39;, name: &#39;Smith &amp; Nephew&#39;, sector: &#39;Medical&#39;, mcap: 10.27, emp: 11 },
+    { symbol: &#39;ITV&#39;, name: &#39;ITV plc&#39;, sector: &#39;Media&#39;, mcap: 10.15, emp: 4 },
+    { symbol: &#39;WOS&#39;, name: &#39;Wolseley plc&#39;, sector: &#39;Building materials&#39;, mcap: 9.2, emp: 44 },
+    { symbol: &#39;OML&#39;, name: &#39;Old Mutual&#39;, sector: &#39;Insurance&#39;, mcap: 8.45, emp: 54 },
+    { symbol: &#39;LAND&#39;, name: &#39;Land Securities&#39;, sector: &#39;Property&#39;, mcap: 8.19, emp: 0 },
+    { symbol: &#39;LSE&#39;, name: &#39;London Stock Exchange Group&#39;, sector: &#39;Finance&#39;, mcap: 8.06, emp: 4 },
+    { symbol: &#39;KGF&#39;, name: &#39;Kingfisher plc&#39;, sector: &#39;Retail homeware&#39;, mcap: 7.8, emp: 80 },
+    { symbol: &#39;CPI&#39;, name: &#39;Capita&#39;, sector: &#39;Support Services&#39;, mcap: 7.38, emp: 46 },
+    { symbol: &#39;BLND&#39;, name: &#39;British Land&#39;, sector: &#39;Property&#39;, mcap: 7.13, emp: 0 },
+    { symbol: &#39;WTB&#39;, name: &#39;Whitbread&#39;, sector: &#39;Retail hospitality&#39;, mcap: 7.09, emp: 86 },
+    { symbol: &#39;MKS&#39;, name: &#39;Marks &amp; Spencer&#39;, sector: &#39;Retailer&#39;, mcap: 7.01, emp: 81 },
+    { symbol: &#39;FRES&#39;, name: &#39;Fresnillo plc&#39;, sector: &#39;Mining&#39;, mcap: 6.99, emp: 2 },
+    { symbol: &#39;NXT&#39;, name: &#39;Next plc&#39;, sector: &#39;Retail clothing&#39;, mcap: 6.9, emp: 58 },
+    { symbol: &#39;SDR&#39;, name: &#39;Schroders&#39;, sector: &#39;Fund management&#39;, mcap: 6.63, emp: 3 },
+    { symbol: &#39;SL&#39;, name: &#39;Standard Life&#39;, sector: &#39;Fund management&#39;, mcap: 6.63, emp: 10 },
+    { symbol: &#39;PSON&#39;, name: &#39;Pearson PLC&#39;, sector: &#39;Education&#39;, mcap: 6.52, emp: 37 },
+    { symbol: &#39;BNZL&#39;, name: &#39;Bunzl&#39;, sector: &#39;Industrial products&#39;, mcap: 6.38, emp: 12 },
+    { symbol: &#39;MNDI&#39;, name: &#39;Mondi&#39;, sector: &#39;Manufacturing&#39;, mcap: 6.37, emp: 26 },
+    { symbol: &#39;UU&#39;, name: &#39;United Utilities&#39;, sector: &#39;Water&#39;, mcap: 6.36, emp: 5 },
+    { symbol: &#39;PSN&#39;, name: &#39;Persimmon plc&#39;, sector: &#39;Building&#39;, mcap: 6.34, emp: 2 },
+    { symbol: &#39;SGE&#39;, name: &#39;Sage Group&#39;, sector: &#39;IT&#39;, mcap: 6.26, emp: 12 },
+    { symbol: &#39;EZJ&#39;, name: &#39;EasyJet&#39;, sector: &#39;Travel&#39;, mcap: 6.17, emp: 11 },
+    { symbol: &#39;AAL&#39;, name: &#39;Anglo American plc&#39;, sector: &#39;Mining&#39;, mcap: 6.09, emp: 100 },
+    { symbol: &#39;TW.&#39;, name: &#39;Taylor Wimpey&#39;, sector: &#39;Building&#39;, mcap: 5.99, emp: 3 },
+    { symbol: &#39;TUI&#39;, name: &#39;TUI Group&#39;, sector: &#39;Leisure&#39;, mcap: 5.99, emp: 76 },
+    { symbol: &#39;WPG&#39;, name: &#39;Worldpay&#39;, sector: &#39;Payment services&#39;, mcap: 5.9, emp: 4 },
+    { symbol: &#39;RRS&#39;, name: &#39;Randgold Resources&#39;, sector: &#39;Mining&#39;, mcap: 5.89, emp: 6 },
+    { symbol: &#39;HL&#39;, name: &#39;Hargreaves Lansdown&#39;, sector: &#39;Finance&#39;, mcap: 5.87, emp: 0 },
+    { symbol: &#39;BDEV&#39;, name: &#39;Barratt Developments&#39;, sector: &#39;Building&#39;, mcap: 5.86, emp: 5 },
+    { symbol: &#39;IHG&#39;, name: &#39;InterContinental Hotels Group&#39;, sector: &#39;Hotels&#39;, mcap: 5.75, emp: 345 },
+    { symbol: &#39;BRBY&#39;, name: &#39;Burberry&#39;, sector: &#39;Fashion&#39;, mcap: 5.65, emp: 10 },
+    { symbol: &#39;DC.&#39;, name: &#39;Dixons Carphone&#39;, sector: &#39;Retail&#39;, mcap: 5.16, emp: 40 },
+    { symbol: &#39;DLG&#39;, name: &#39;Direct Line Group&#39;, sector: &#39;Insurance&#39;, mcap: 5.15, emp: 13 },
+    { symbol: &#39;CCH&#39;, name: &#39;Coca-Cola HBC AG&#39;, sector: &#39;Consumer&#39;, mcap: 5.1, emp: 38 },
+    { symbol: &#39;SVT&#39;, name: &#39;Severn Trent&#39;, sector: &#39;Water&#39;, mcap: 5.04, emp: 8 },
+    { symbol: &#39;DCC&#39;, name: &#39;DCC plc&#39;, sector: &#39;Investments&#39;, mcap: 5.03, emp: 9 },
+    { symbol: &#39;SBRY&#39;, name: &#39;Sainsbury\&#39;s&#39;, sector: &#39;Supermarket&#39;, mcap: 5.02, emp: 150 },
+    { symbol: &#39;ADM&#39;, name: &#39;Admiral Group&#39;, sector: &#39;Insurance&#39;, mcap: 4.91, emp: 2 },
+    { symbol: &#39;GKN&#39;, name: &#39;GKN&#39;, sector: &#39;Manufacturing&#39;, mcap: 4.79, emp: 50 },
+    { symbol: &#39;JMAT&#39;, name: &#39;Johnson Matthey&#39;, sector: &#39;Chemicals&#39;, mcap: 4.79, emp: 9 },
+    { symbol: &#39;PFG&#39;, name: &#39;Provident Financial&#39;, sector: &#39;Finance&#39;, mcap: 4.74, emp: 3 },
+    { symbol: &#39;ANTO&#39;, name: &#39;Antofagasta&#39;, sector: &#39;Mining&#39;, mcap: 4.71, emp: 4 },
+    { symbol: &#39;STJ&#39;, name: &#39;St. James\&#39;s Place plc&#39;, sector: &#39;Finance&#39;, mcap: 4.68, emp: 1 },
+    { symbol: &#39;ITRK&#39;, name: &#39;Intertek&#39;, sector: &#39;Product testing&#39;, mcap: 4.67, emp: 33 },
+    { symbol: &#39;BAB&#39;, name: &#39;Babcock International&#39;, sector: &#39;Engineering&#39;, mcap: 4.65, emp: 34 },
+    { symbol: &#39;BKG&#39;, name: &#39;Berkeley Group Holdings&#39;, sector: &#39;Building&#39;, mcap: 4.6, emp: 2 },
+    { symbol: &#39;ISAT&#39;, name: &#39;Inmarsat&#39;, sector: &#39;Telecomms&#39;, mcap: 4.47, emp: 1 },
+    { symbol: &#39;TPK&#39;, name: &#39;Travis Perkins&#39;, sector: &#39;Retailer&#39;, mcap: 4.46, emp: 24 },
+    { symbol: &#39;HMSO&#39;, name: &#39;Hammerson&#39;, sector: &#39;Property&#39;, mcap: 4.42, emp: 0 },
+    { symbol: &#39;MERL&#39;, name: &#39;Merlin Entertainments&#39;, sector: &#39;Leisure&#39;, mcap: 4.42, emp: 28 },
+    { symbol: &#39;RMG&#39;, name: &#39;Royal Mail&#39;, sector: &#39;Delivery&#39;, mcap: 4.41, emp: 150 },
+    { symbol: &#39;AHT&#39;, name: &#39;Ashtead Group&#39;, sector: &#39;Equipment rental&#39;, mcap: 4.26, emp: 12 },
+    { symbol: &#39;RSA&#39;, name: &#39;RSA Insurance Group&#39;, sector: &#39;Insurance&#39;, mcap: 4.16, emp: 21 },
+    { symbol: &#39;III&#39;, name: &#39;3i&#39;, sector: &#39;Private equity&#39;, mcap: 4.06, emp: 0 },
+    { symbol: &#39;INTU&#39;, name: &#39;Intu Properties&#39;, sector: &#39;Property&#39;, mcap: 3.89, emp: 2 },
+    { symbol: &#39;SMIN&#39;, name: &#39;Smiths Group&#39;, sector: &#39;Engineering&#39;, mcap: 3.84, emp: 23 },
+    { symbol: &#39;HIK&#39;, name: &#39;Hikma Pharmaceuticals&#39;, sector: &#39;Manufacturing&#39;, mcap: 3.71, emp: 6 },
+    { symbol: &#39;ADN&#39;, name: &#39;Aberdeen Asset Management&#39;, sector: &#39;Fund management&#39;, mcap: 3.14, emp: 1 },
+    { symbol: &#39;SPD&#39;, name: &#39;Sports Direct&#39;, sector: &#39;Retail&#39;, mcap: 2.4, emp: 17 }
+];
+
+// Trading Market Data
+// https://en.wikipedia.org/wiki/Market_data
+var data = [],
+    now = new Date();
+companies.forEach(function (company) {
+    var bid = randBetween(1, 100000) / 100,
+        ask = bid + randBetween(0, 100) / 100;
+    data.push({
+        symbol: company.symbol,
+        name: company.name,
+        bid: bid,
+        ask: ask,
+        lastSale: bid,
+        bidSize: randBetween(10, 500),
+        askSize: randBetween(10, 500),
+        lastSize: randBetween(10, 500),
+        volume: randBetween(10000, 20000),
+        quoteTime: now,
+        tradeTime: now,
+        askHistory: [ask, ask],
+        bidHistory: [bid, bid],
+        saleHistory: [bid, bid]
+    });
+});
+
+// get a random number within a given interval
+function randBetween(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+// generate sparklines as SVG
+function getSparklines(data) {
+    var svg = &#39;&#39;,
+        min = Math.min.apply(Math, data),
+        max = Math.max.apply(Math, data),
+        x1 = 0,
+        y1 = scaleY(data[0], min, max);
+    for (var i = 1; i &lt; data.length; i++) {
+        var x2 = Math.round((i) / (data.length - 1) * 100);
+        var y2 = scaleY(data[i], min, max);
+        svg += &#39;&lt;line x1=&#39; + x1 + &#39;% y1=&#39; + y1 + &#39;% x2=&#39; + x2 + &#39;% y2=&#39; + y2 + &#39;% /&gt;&#39;;
+        x1 = x2;
+        y1 = y2;
+    }
+    return &#39;&lt;svg&gt;&lt;g&gt;&#39; + svg + &#39;&lt;/g&gt;&lt;/svg&gt;&#39;;
+}
+function scaleY(value, min, max) {
+		return max &gt; min
+    	? 100 - Math.round((value - min) / (max - min) * 100)
+      : 0;
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Dynamic Updates&lt;/h1&gt;
+  &lt;p&gt;
+    The FlexGrid updates all cells automatically when there 
+    are changes to its data source.&lt;/p&gt;
+  &lt;p&gt;
+    If you have a data source where only a few items change
+    frequently, it may be more efficient to update only
+    the cells bound to items that have actually changed.&lt;/p&gt;
+  &lt;p&gt;
+    The grid below uses the &lt;b&gt;formatItem&lt;/b&gt; event to keep
+    track of the cell elements for each data item. When the
+    data changes, it updates only the cells affected rather
+    than the whole grid.&lt;/p&gt;
+  &lt;label&gt;
+    Custom Cells
+    &lt;input id=&quot;customCells&quot; type=&quot;checkbox&quot; checked=&quot;checked&quot;&gt;
+  &lt;/label&gt;
+  &lt;label&gt;
+    Auto Update
+    &lt;input id=&quot;autoUpdate&quot; type=&quot;checkbox&quot; checked=&quot;checked&quot;&gt;
+  &lt;/label&gt;
+  &lt;label&gt;
+    Update Interval (ms)
+    &lt;input id=&quot;updateInterval&quot;&gt;
+  &lt;/label&gt;
+  &lt;label&gt;
+    Batch Size (# items)
+    &lt;input id=&quot;batchSize&quot;&gt;
+  &lt;/label&gt;
+  &lt;div id=&quot;theGrid&quot;&gt;&lt;/div&gt;
+    
+&lt;/div&gt;
+
+</pre>
+              <pre class="tCont ">label {
+  font-weight: normal;
+  margin-right: 20px;
+}
+body {
+  margin-bottom: 40px;
+}
+
+/* Wijmo Controls */
+.wj-combobox {
+  width: 100px;
+}
+.wj-flexgrid {
+    max-height: 500px;
+}
+.wj-flexgrid .wj-cell {
+    padding: 6px;
+}
+.wj-flexgrid .wj-cell:not(.wj-header) {
+    border-bottom: none;
+}
+
+/* ticker cell */
+.ticker div {
+    display: inline-block;
+}
+.ticker .chg {
+    font-size: 75%;
+    opacity: .75;
+    text-align: center;
+    width: 4em;
+}
+.ticker .glyph {
+    font-size: 120%;
+    text-align: center;
+    width: 1em;
+}
+.ticker .spark {
+    padding: 0 4px;
+    width: 4em;
+    height: 1em;
+    opacity: .65;
+}
+.ticker .spark svg {
+    width: 100%;
+    height: 100%;
+    stroke: currentColor;
+    stroke-width: 2px;
+    overflow: visible;
+}
+
+/* value going up */
+.wj-cell:not(.wj-state-selected):not(.wj-state-multi-selected) .ticker.chg-up .chg,
+.wj-cell:not(.wj-state-selected):not(.wj-state-multi-selected) .ticker.chg-up .glyph {
+    color: green;
+}
+
+/* value going down */
+.wj-cell:not(.wj-state-selected):not(.wj-state-multi-selected) .ticker.chg-down .chg,
+.wj-cell:not(.wj-state-selected):not(.wj-state-multi-selected) .ticker.chg-down .glyph {
+    color: red;
+}
+
+/* value not changing */
+.ticker.chg-none .chg,
+.ticker.chg-none .glyph {
+    opacity: .25;
+}
+
+/* up/down &#39;flare&#39; animations */
+.ticker.flare-up:after {
+    content: &#39;&#39;;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    animation: 1s ease-out flare-up;
+}
+@keyframes flare-up {
+    from { background: rgba(50, 255, 50, 0.5); }
+}
+.ticker.flare-down:after {
+    content: &#39;&#39;;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    animation: 1s ease-out flare-down;
+}
+@keyframes flare-down {
+    from { background: rgba(255, 50, 50, 0.5); }
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.filter.min.js" target="_blank">wijmo.grid.filter.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Wijmo Accordion Trees - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "3szu9v50";
+        var show_src = "//fiddle.jshell.net/Wijmo5/3szu9v50/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/3szu9v50/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/3szu9v50/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=3szu9v50" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// create the tree
+  var tree = new wijmo.nav.TreeView(&#39;#theTree&#39;, {
+  	itemsSource: getData(),
+		displayMemberPath: &#39;header&#39;,
+    childItemsPath: &#39;items&#39;,
+    isContentHtml: true,
+	});
+  
+  // toggle accordion style
+  document.getElementById(&#39;customCss&#39;).addEventListener(&#39;click&#39;, function(e) {
+  	wijmo.toggleClass(tree.hostElement, &#39;accordion&#39;, e.target.checked);
+  });
+  
+  // handle clicks on accordion items
+	tree.hostElement.addEventListener(&#39;click&#39;, function (e) {
+		if (e.target.tagName == &#39;A&#39;) {
+    	var msg = document.getElementById(&#39;msg&#39;);
+      msg.innerHTML = wijmo.format(&#39;Navigating to &lt;b&gt;** {href} **&lt;/b&gt;&#39;,
+      	e.target);
+			e.preventDefault();
+		}
+	});  
+  
+  // get the tree data
+  function getData() {
+		return [
+			{ header: &#39;Angular&#39;, items: [
+      	{ header: &#39;&lt;a href=&quot;ng/intro&quot;&gt;Introduction&lt;/a&gt;&#39; },
+        { header: &#39;&lt;a href=&quot;ng/samples&quot;&gt;Samples&lt;/a&gt;&#39; },
+        { header: &#39;&lt;a href=&quot;ng/perf&quot;&gt;Performance&lt;/a&gt;&#39; }]
+			},
+      { header: &#39;React&#39;, items: [
+      	{ header: &#39;&lt;a href=&quot;rc/intro&quot;&gt;Introduction&lt;/a&gt;&#39; },
+        { header: &#39;&lt;a href=&quot;rc/samples&quot;&gt;Samples&lt;/a&gt;&#39; },
+        { header: &#39;&lt;a href=&quot;rc/perf&quot;&gt;Performance&lt;/a&gt;&#39; }]
+			},
+      { header: &#39;Vue&#39;, items: [
+        { header: &#39;&lt;a href=&quot;vue/intro&quot;&gt;Introduction&lt;/a&gt;&#39; },
+        { header: &#39;&lt;a href=&quot;vue/samples&quot;&gt;Samples&lt;/a&gt;&#39; },
+        { header: &#39;&lt;a href=&quot;vue/perf&quot;&gt;Performance&lt;/a&gt;&#39; }]
+			},
+			{ header: &#39;Knockout&#39;, items: [
+				{ header: &#39;&lt;a href=&quot;ko/intro&quot;&gt;Introduction&lt;/a&gt;&#39; },
+        { header: &#39;&lt;a href=&quot;ko/samples&quot;&gt;Samples&lt;/a&gt;&#39; },
+        { header: &#39;&lt;a href=&quot;ko/perf&quot;&gt;Performance&lt;/a&gt;&#39; }]
+			}
+		];
+	}
+}</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+    
+  &lt;h1&gt;
+    Accordion Trees&lt;/h1&gt;
+  &lt;p&gt;
+    Accordions are multi-pane panels that keep only one panel expanded
+    at a time. They are commonly used for navigation.&lt;/p&gt;
+  &lt;p&gt;
+    You can use the &lt;b&gt;TreeView&lt;/b&gt; control to implement accordions.&lt;/p&gt;
+  &lt;p&gt;
+    Use CSS to customize the header display and to hide the
+    collapse/expand glyphs, and make sure the &lt;b&gt;autoCollapse&lt;/b&gt;
+    property is set to true (the default), so non-active panels
+    are automatically collapsed.&lt;/p&gt;
+
+  &lt;label&gt;
+    Use Custom CSS
+    &lt;input id=&quot;customCss&quot; type=&quot;checkbox&quot; checked=&quot;checked&quot;&gt;
+  &lt;/label&gt;
+  &lt;div id=&quot;msg&quot; class=&quot;msg&quot;&gt;Ready&lt;/div&gt;
+  &lt;div id=&quot;theTree&quot; class=&quot;accordion&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;</pre>
+              <pre class="tCont ">/* style for messages */
+.msg {
+  float: right;
+  text-align: right;
+  color: orange;
+}
+
+/* accordion tree styles */
+.accordion.wj-treeview {
+    background: transparent;
+    box-shadow: none;
+}
+
+/* hide collapse/expand glyphs */
+.accordion.wj-treeview .wj-nodelist .wj-node:before { 
+    display: none;
+}
+
+/* level 0 nodes (headers) */
+.accordion.wj-treeview .wj-nodelist &gt; .wj-node {
+    font-size: 120%;
+    font-weight: bold;
+    padding: 6px 10px;
+    color: white;
+    background: #106cc8;
+    margin-bottom: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+/* level 1 nodes (navigation items) */
+.accordion.wj-treeview .wj-nodelist &gt; .wj-nodelist &gt; .wj-node {
+    font-size: inherit;
+    font-weight: normal;
+    padding: 4px 1em;
+    color: inherit;
+    background: inherit;
+    box-shadow: none;
+}
+    .accordion.wj-treeview .wj-nodelist {
+        padding-bottom: 6px;
+    }
+
+/* default trees on this sample */
+.wj-treeview {
+    display:block;
+    height: 350px;
+    font-size: 120%;
+    margin-bottom: 8px;
+    padding: 6px;
+    background: #f0f0f0;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+body {
+  margin-bottom: 24pt;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.nav.min.js" target="_blank">wijmo.nav.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Categorized ComboBox and AutoComplete - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "zqbozuwv";
+        var show_src = "//fiddle.jshell.net/Wijmo5/zqbozuwv/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/zqbozuwv/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/zqbozuwv/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=zqbozuwv" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // create the combo
+  var theCombo = new wijmo.input.ComboBox(&#39;#theCombo&#39;, {
+		itemsSource: getOptions(),
+    displayMemberPath: &#39;header&#39;,
+    selectedIndex: 1,
+    formatItem: formatListItem
+	});
+  
+  // create the AutoComplete
+  var theAutoComplete = new wijmo.input.AutoComplete(&#39;#theAutoComplete&#39;, {
+		itemsSource: getOptions(),
+    displayMemberPath: &#39;header&#39;,
+    selectedIndex: 1,
+    formatItem: formatListItem
+	});
+
+	// format list items to format and disable category names
+  function formatListItem(s, e) {
+		var dataItem = e.data;
+    if (dataItem.category) {
+    	e.item.classList.add(&#39;category&#39;);
+      e.item.classList.add(&#39;wj-state-disabled&#39;);
+      e.item.disabled = true;
+		}
+  }
+  
+  // get categorized list of options for the combo
+	function getOptions() {
+  	return [
+    	{ header: &#39;Colors&#39;, category: true },
+      	{ header: &#39;Red&#39; },
+        { header: &#39;Green&#39; },
+        { header: &#39;Blue&#39; },
+			{ header: &#39;Flavors&#39;, category: true },
+      	{ header: &#39;Chocolate&#39; },
+        { header: &#39;Vanilla&#39; },
+        { header: &#39;Strawberry&#39; }
+		]
+	}
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Categorized ComboBox and AutoComplete
+  &lt;/h1&gt;
+  &lt;p&gt;
+    You can use the &lt;b&gt;formatItem&lt;/b&gt; event to disable and
+    format specific items on the &lt;b&gt;ComboBox&lt;/b&gt; drop-down
+    list, creating category groups:&lt;/p&gt;
+  &lt;div id=&quot;theCombo&quot;&gt;&lt;/div&gt;
+
+  &lt;p&gt;
+    The same technique applies to the &lt;b&gt;AutoComplete&lt;/b&gt;
+    control:&lt;/p&gt;
+  &lt;div id=&quot;theAutoComplete&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-listbox-item.category {
+  padding-top: 4px;
+  padding-left: 5px;
+  font-size: 120%;
+  font-weight: bold;
+  background: #f0f0f0;
+  color: #808080;
+}
+
+.wj-combobox {
+  margin-bottom: 12px;
+}
+
+body {
+  margin-bottom: 24px;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - ODataCollectionView - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "r5a21ysm";
+        var show_src = "//fiddle.jshell.net/Wijmo5/r5a21ysm/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/r5a21ysm/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/r5a21ysm/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=r5a21ysm" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// get customer list from Northwind OData service
+  var url = &#39;https://services.odata.org/Northwind/Northwind.svc&#39;;
+  var customers = new wijmo.odata.ODataCollectionView(url, &#39;Customers&#39;, {
+  	sortOnServer: true,
+    filterOnServer: true
+  });
+  
+  // show the data on a grid
+	var itemCountElement = document.getElementById(&#39;itemCount&#39;);
+  var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+  	itemsSource: customers, // ODataCollectionView
+  	isReadOnly: true, // this service is read-only
+    loadedRows: function() {
+    	itemCountElement.innerHTML = theGrid.rows.length + &#39; items&#39;
+    }
+  });
+  
+  // add a filter to the grid
+  var f = new wijmo.grid.filter.FlexGridFilter(theGrid);
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    ODataCollectionView
+  &lt;/h1&gt;
+
+  &lt;p&gt;
+    Wijmo includes an &lt;b&gt;ODataCollectionView&lt;/b&gt; class that
+    extends &lt;b&gt;CollectionView&lt;/b&gt; to provide support for
+    &lt;b&gt;OData&lt;/b&gt; sources.&lt;/p&gt;
+  &lt;p&gt;
+    &lt;a href=&quot;https://www.odata.org/&quot; target=&quot;_blanl&quot;&gt;OData&lt;/a&gt;
+    is an
+    &lt;a href=&quot;https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=odata&quot; target=&quot;_blank&quot;&gt;OASIS standard&lt;/a&gt;
+    that defines a set of best practices
+    for building and consuming RESTful APIs. OData helps you
+    focus on your business logic while building RESTful APIs
+    without having to worry about the various approaches to
+    define request and response headers, status codes,
+    HTTP methods, URL conventions, media types, payload formats,
+    query options, etc.&lt;/p&gt;
+
+  &lt;p&gt;
+    To use the &lt;b&gt;ODataCollectionView&lt;/b&gt; class, create a
+    new instance passing the URL of the data service, the
+    name of the table you want to access, any optional
+    parameters such as the fields you want to retrieve
+    and whether you want filtering, sorting, and paging
+    to be performed on the server or on the client.&lt;/p&gt;
+  &lt;p&gt;
+    If your data source supports writing, make sure to
+    include the key fields as well.&lt;/p&gt;
+  &lt;p&gt;
+    This example shows a list of Northwind customers
+    loaded from a public (read-only) OData source.&lt;/p&gt;
+  &lt;p&gt;
+    The record counter above the grid shows how the data
+    is loaded in batches. This is done by the OData
+    server.&lt;/p&gt;
+  &lt;p&gt;
+    In this example, filtering and sorting are done
+    on the server:&lt;/p&gt;
+  &lt;div id=&quot;itemCount&quot;&gt;&lt;/div&gt;
+  &lt;div id=&quot;theGrid&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  height: 300px;
+}
+body {
+  margin-bottom: 20pt;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.filter.min.js" target="_blank">wijmo.grid.filter.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.odata.min.js" target="_blank">wijmo.odata.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

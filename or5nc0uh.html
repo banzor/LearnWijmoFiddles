@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Detached Panels - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "or5nc0uh";
+        var show_src = "//fiddle.jshell.net/Wijmo5/or5nc0uh/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/or5nc0uh/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/or5nc0uh/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=or5nc0uh" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	var theTabPanel = new wijmo.nav.TabPanel(&#39;#theTabPanel&#39;, {
+
+    // show the content for the selected tab in a separate div
+    selectedIndexChanged: function (s, e) {
+        var div = document.getElementById(&#39;detachedContent&#39;);
+        div.innerHTML = &#39;Content for tab &lt;b&gt;&#39; + 
+							s.selectedTab.header.textContent + 
+            &#39;&lt;/b&gt;...&#39;;
+		}
+	});
+
+	// hide the built-in content area
+	theTabPanel.hostElement.querySelector(&#39;.wj-tabpanes&#39;).style.display = &#39;none&#39;;
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+  &lt;h1&gt;
+    Detached Panels
+  &lt;/h1&gt;
+  &lt;p&gt;
+    The TabPanel has a built-in panel that shows the content 
+    of the selected tab. In some cases, you may want to display
+    the content in a different element.&lt;/p&gt;
+  &lt;p&gt;
+    To do that, hide the built-in content element and use the
+    &lt;b&gt;selectedIndexChanged&lt;/b&gt; event to update the content.   
+  &lt;/p&gt;
+  &lt;div id=&quot;theTabPanel&quot;&gt;
+    &lt;div&gt;
+      &lt;a&gt;Africa&lt;/a&gt;
+      &lt;div&gt;&lt;/div&gt; &lt;!-- no content --&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+      &lt;a&gt;America&lt;/a&gt;
+      &lt;div&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+      &lt;a&gt;Asia&lt;/a&gt;
+      &lt;div&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+      &lt;a&gt;Europe&lt;/a&gt;
+      &lt;div&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+      &lt;a&gt;Oceania&lt;/a&gt;
+      &lt;div&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;p&gt;&lt;/p&gt;
+  &lt;div class=&quot;panel panel-success&quot;&gt;
+    &lt;!-- separate div to show the content --&gt;
+    &lt;div class=&quot;panel-heading&quot;&gt;
+      &lt;h3 id=&quot;detachedContent&quot; class=&quot;panel-title&quot;&gt;&lt;/h3&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-tabpane {
+  padding: 12px;
+}
+
+body {
+  margin-bottom: 48pt;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.nav.min.js" target="_blank">wijmo.nav.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Pareto FlexChart - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "u0stkL5w";
+        var show_src = "//fiddle.jshell.net/Wijmo5/u0stkL5w/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/u0stkL5w/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/u0stkL5w/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=u0stkL5w" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // create secondary Y axis for cumulative sales values
+  var axisY2 = new wijmo.chart.Axis();
+  axisY2.position = &#39;Right&#39;;
+  axisY2.title = &#39;Cumulative Sales&#39;;
+  axisY2.format = &#39;p0&#39;;
+  axisY2.min = 0;
+  axisY2.axisLine = true;
+
+  // create the Pareto chart
+  var theChart = new wijmo.chart.FlexChart(&#39;#theChart&#39;, {
+    itemsSource: getData(),
+    chartType: &#39;Column&#39;,
+    bindingX: &#39;make&#39;,
+    axisY: {
+      format: &#39;n0,&#39;,
+      title: &#39;Sales (thousands)&#39;,
+      axisLine: true
+    },
+    axisX: {
+      labelAngle: -90
+    },
+    legend: {
+      position: &#39;None&#39;
+    },
+    series: [{
+      binding: &#39;sales&#39;,
+      name: &#39;Sales (thousands)&#39;
+    }, {
+      binding: &#39;cumSales&#39;,
+      name: &#39;Cumulative Sales&#39;,
+      chartType: &#39;Line&#39;,
+      axisY: axisY2,
+      style: {
+        stroke: &#39;orange&#39;,
+        strokeWidth: 4
+      }
+    }]
+  });
+
+  // change the data to update the chart
+  document.getElementById(&#39;btnUpdate&#39;).addEventListener(&#39;click&#39;, function() {
+    var view = theChart.collectionView;
+    view.deferUpdate(function() {
+      view.items.forEach(function(item) {
+        item.sales += (Math.random() - .5) * .5 * item.sales;
+      })
+    });
+  });
+
+  // get the chart data
+  function getData() {
+
+    // some raw data
+    var data = [
+    	{ make: &#39;Vokswagen&#39;, sales: 2532435 }, 
+      { make: &#39;Toyota&#39;, sales: 2338453 },
+      { make: &#39;Renault-Nissan&#39;, sales: 2336543 }, 
+      { make: &#39;GM&#39;, sales: 2252543 },
+      { make: &#39;Hyundai-Kia&#39;, sales: 1553547 },
+      { make: &#39;Ford&#39;, sales: 1521153 },
+      { make: &#39;Suzuki&#39;, sales: 739123 },
+      { make: &#39;PSA&#39;, sales: 682121 },
+      { make: &#39;Daimler&#39;, sales: 440234 },
+      { make: &#39;BMW Group&#39;, sales: 586121 },
+      { make: &#39;Geely&#39;, sales: 410353 },
+      { make: &#39;Mazda&#39;, sales: 389243 },
+      { make: &#39;Chang\&#39;an&#39;, sales: 389323 },
+      { make: &#39;Subaru&#39;, sales: 230221 },
+      { make: &#39;Tata Group&#39;, sales: 242123 }
+		];
+
+    // created sorted view
+    var view = new wijmo.collections.CollectionView(data);
+    view.sortDescriptions.push(new wijmo.collections.SortDescription(&#39;sales&#39;, false));
+
+    // add cumulative sales
+    updateCumSales(view);
+
+    // update cumulative sales when the data changes
+    view.collectionChanged.addHandler(function() {
+      updateCumSales(view)
+    });
+
+    // done
+    return view;
+  }
+
+  // update cumulative sales
+  function updateCumSales(view) {
+    var totalSales = view.getAggregate(&#39;Sum&#39;, &#39;sales&#39;),
+      cumSales = 0;
+    view.items.forEach(function(item) {
+      cumSales += item.sales;
+      item.cumSales = cumSales / totalSales;
+    });
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Pareto FlexChart
+  &lt;/h1&gt;
+  &lt;p&gt;
+    Pareto charts, named after Vilfredo Pareto, contain both bars 
+    and a line graph, where individual values are represented in 
+    descending order by bars, and the cumulative total is represented
+    by the line.&lt;/p&gt;
+  &lt;p&gt;
+    The left vertical axis may contain the frequency of occurrence, 
+    cost or any another important unit of measure. The right vertical 
+    axis is the cumulative percentage of the total number of occurrences,
+    cost, or total of the particular unit of measure.&lt;/p&gt;
+  &lt;p&gt;
+    Pareto charts help identify the items that account for most of the
+    occurrences so they can be prioritized.&lt;/p&gt;
+  &lt;div id=&quot;theChart&quot;&gt;&lt;/div&gt;
+  &lt;button id=&quot;btnUpdate&quot; class=&quot;btn btn-default&quot;&gt;Update&lt;/button&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexchart {
+  max-width: 600px;
+  margin: 0 auto;
+  border: none;
+}
+body {
+  margin-bottom: 24pt;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.chart.min.js" target="_blank">wijmo.chart.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

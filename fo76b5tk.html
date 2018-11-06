@@ -1,0 +1,235 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - TreeView and Heterogeneous Data - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "fo76b5tk";
+        var show_src = "//fiddle.jshell.net/Wijmo5/fo76b5tk/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/fo76b5tk/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/fo76b5tk/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=fo76b5tk" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// create the tree
+  var tree = new wijmo.nav.TreeView(&#39;#theTree&#39;, {
+  	itemsSource: getData(),
+		displayMemberPath: &#39;continent,country,city&#39;.split(&#39;,&#39;),
+    childItemsPath: &#39;countries,cities&#39;.split(&#39;,&#39;)
+	});
+  
+  // get the data
+  function getData() {
+    return [
+	    { continent: &#39;Africa&#39;, countries: [
+		    { country: &#39;Algeria&#39;, cities: [
+			    { city: &#39;Algiers&#39; },
+			    { city: &#39;Oran&#39; },
+			    { city: &#39;Constantine&#39; }
+		    ]},
+		    { country: &#39;Angola&#39;, cities: [
+			    { city: &#39;Luanda&#39; },
+			    { city: &#39;Ambriz&#39; },
+			    { city: &#39;Bailundo&#39; }
+		    ]},
+		    { country: &#39;Benin&#39;, cities: [
+			    { city: &#39;Porto Novo&#39; },
+			    { city: &#39;Cotonou&#39; },
+			    { city: &#39;Parakou&#39; }
+		    ]},
+		    { country: &#39;Botswana&#39;, cities: [
+			    { city: &#39;Gaborone&#39; },
+			    { city: &#39;Francistown&#39; },
+			    { city: &#39;Molepolole&#39; }
+		    ]},
+	    ]},
+	    { continent: &#39;Asia&#39;, countries: [
+		    { country: &#39;Afghanistan&#39;, cities: [
+			    { city: &#39;Kabul&#39; },
+			    { city: &#39;Kandahar&#39; },
+			    { city: &#39;Herat&#39; }
+		    ]},
+		    { country: &#39;Armenia&#39;, cities: [
+			    { city: &#39;Yerevan&#39; },
+			    { city: &#39;Gyumri&#39; },
+			    { city: &#39;Vanadzor&#39; }
+		    ]},
+		    { country: &#39;Azerbaijan&#39;, cities: [
+			    { city: &#39;Baku&#39; },
+			    { city: &#39;Agjabadi&#39; },
+			    { city: &#39;Astara&#39; }
+		    ]},
+		    { country: &#39;Bahrain&#39;, cities: [
+			    { city: &#39;Manama&#39; },
+			    { city: &#39;Riffa&#39; },
+			    { city: &#39;Sitra&#39; }
+		    ]},
+	    ]},
+	    { continent: &#39;Europe&#39;, countries: [
+		    { country: &#39;Albania&#39;, cities: [
+			    { city: &#39;Tirana&#39; },
+			    { city: &#39;Elbasan&#39; },
+			    { city: &#39;Fier&#39; }
+		    ]},
+		    { country: &#39;Andorra&#39;, cities: [
+			    { city: &#39;Andorra la Vieja&#39; },
+			    { city: &#39;Canillo&#39; },
+			    { city: &#39;Encamp&#39; }
+		    ]},
+		    { country: &#39;Austria&#39;, cities: [
+			    { city: &#39;Vienna&#39; },
+			    { city: &#39;Salzburg&#39; },
+			    { city: &#39;Graz&#39; }
+		    ]},
+		    { country: &#39;Belarus&#39;, cities: [
+			    { city: &#39;Minsk&#39; },
+			    { city: &#39;Barysaw&#39; },
+			    { city: &#39;Slutsk&#39; }
+		    ]},
+	    ]},
+	    { continent: &#39;America&#39;, countries: [
+		    { country: &#39;Canada&#39;, cities: [
+			    { city: &#39;Ottawa&#39; },
+			    { city: &#39;Toronto&#39; },
+			    { city: &#39;Vancouver&#39; }
+		    ]},
+    		{ country: &#39;United States&#39;, cities: [
+    			{ city: &#39;Washington&#39; },
+    			{ city: &#39;New York&#39; },
+    			{ city: &#39;Pittsburgh&#39; }
+    		]},
+    		{ country: &#39;Mexico&#39;, cities: [
+    			{ city: &#39;Mexico City&#39; },
+    			{ city: &#39;Acapulco&#39; },
+    			{ city: &#39;San Jose&#39; }
+    		]},
+    		{ country: &#39;Belize&#39;, cities: [
+    			{ city: &#39;Belmopan&#39; },
+    			{ city: &#39;Dangriga&#39; },
+    			{ city: &#39;Belize City&#39; }
+    		]},
+	    ]},
+	    { continent: &#39;Ocenania&#39;, countries: [
+		    { country: &#39;Australia&#39;, cities: [
+			    { city: &#39;Canberra&#39; },
+			    { city: &#39;Sydney&#39; },
+			    { city: &#39;Melbourne&#39; }
+		    ]},
+		    { country: &#39;New Zealand&#39;, cities: [
+			    { city: &#39;Wellington&#39; },
+			    { city: &#39;Christchurch&#39; },
+			    { city: &#39;Auckland&#39; }
+		    ]},
+		    { country: &#39;Fiji&#39;, cities: [
+			    { city: &#39;Suva&#39; },
+			    { city: &#39;Labasa&#39; },
+			    { city: &#39;Nasinu&#39; }
+		    ]},
+		    { country: &#39;Vanuatu&#39;, cities: [
+			    { city: &#39;Port Vila&#39; },
+			    { city: &#39;Forari&#39; },
+			    { city: &#39;Etate&#39; }
+		    ]},
+	    ]},
+    ];
+  }
+
+}</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+    
+  &lt;h1&gt;
+    Heterogeneous Data&lt;/h1&gt;
+  &lt;p&gt;
+    In most TreeView applications, the &lt;b&gt;displayMemberPath&lt;/b&gt; 
+    and &lt;b&gt;childItemsPath&lt;/b&gt; properties are set to strings that
+    define the name of the property that should be displayed on 
+    the nodes and the name of the property that contains child
+    items (the default values for these properties are &#39;header&#39;
+    and &#39;items&#39;).&lt;/p&gt;
+  &lt;p&gt;
+    In some applications, however, the names of these binding 
+    properties depends on the hierarchical level of the data.
+    In these cases, you can use an array of names for either 
+    property.&lt;/p&gt;
+  &lt;p&gt;
+    The tree below is bound to a list of &#39;continent&#39; items,
+    each with a &#39;countries&#39; member that contains a list of
+    &#39;country&#39; items with a &#39;cities&#39; member:&lt;/p&gt;
+
+&lt;div id=&quot;theTree&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;</pre>
+              <pre class="tCont ">/* default trees on this sample */
+.wj-treeview {
+    display:block;
+    //height: 350px;
+    font-size: 120%;
+    margin-bottom: 8px;
+    padding: 6px;
+    background: #f0f0f0;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+body {
+  margin-bottom: 24pt;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.nav.min.js" target="_blank">wijmo.nav.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

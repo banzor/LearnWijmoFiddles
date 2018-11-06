@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Column Sizing - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "Lb786a3f";
+        var show_src = "//fiddle.jshell.net/Wijmo5/Lb786a3f/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/Lb786a3f/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/Lb786a3f/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=Lb786a3f" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function () {
+
+  // generate some random data
+  var countries = &#39;US,Germany,UK,Japan,Italy,Greece&#39;.split(&#39;,&#39;),
+      data = [];
+  for (var i = 0; i &lt; countries.length; i++) {
+    data.push({
+    	id: i,
+      country: countries[i],
+      downloads: Math.round(Math.random() * 20000),
+      sales: Math.random() * 10000,
+      expenses: Math.random() * 5000
+    });
+  }
+
+  var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+  	deferResizing: true, // show just a marker while resizing
+  	autoGenerateColumns: false,
+    columns:[
+			{ binding: &#39;id&#39;, header: &#39;ID&#39;, width: 60, allowResizing: false},
+			{ binding: &#39;country&#39;, header: &#39;Country&#39;},
+			{ binding: &#39;sales&#39;, header: &#39;Sales&#39;},
+			{ binding: &#39;expenses&#39;, header: &#39;Expenses&#39;}
+    ],
+    itemsSource: data
+  });
+ 
+}</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Column Sizing&lt;/h1&gt;
+  &lt;p&gt;
+    You can specify the column widths when creating them.
+    Ater that, users may resize the FlexGrid columns using 
+    the mouse. As in Excel, they may drag  the column 
+    header&#39;s right edge, or double-click the edge to
+    auto-size the the column so it fits its content.&lt;/p&gt;
+  &lt;p&gt;
+    If you want to prevent users from resizing the columns,
+    you can either set the grid&#39;s &lt;b&gt;allowResizing&lt;/b&gt; property 
+    to &#39;None&#39;, or prevent them from resizing specific columns
+    by setting the column&#39;s &lt;b&gt;allowResizing&lt;/b&gt; property to 
+    &#39;false&#39;.&lt;/p&gt;  
+  &lt;p&gt;
+    For example, the grid below does not allow resizing the &#39;ID&#39;
+    column. Other columns may be resized and auto-sized:&lt;/p&gt;
+  &lt;div id=&quot;theGrid&quot;&gt;&lt;/div&gt;
+  
+  &lt;div class=&quot;panel panel-warning&quot;&gt;
+    &lt;div class=&quot;panel-heading&quot;&gt;
+      The grid also allows you to resize multiple columns
+      at once. Select a range of columns and press the &#39;control&#39;
+      key while resizing them with the mouse, and all selected
+      columns will be resized at once.
+    &lt;/div&gt;
+  &lt;/div&gt;
+  
+  &lt;div class=&quot;panel panel-warning&quot;&gt;
+    &lt;div class=&quot;panel-heading&quot;&gt;
+      Wijmo uses the HTML5 drag/drop API for column resizing.
+      Unfortunately, most mobile devices do not support this API.
+      If you want to support column resizing on mobile devices,
+      we suggest you use the 
+      &lt;a href=&quot;https://github.com/Bernardo-Castilho/dragdroptouch&quot; target=&quot;_blank&quot;&gt;
+        DragDropTouch polyfill
+      &lt;/a&gt;.
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  height: 150px; 
+  margin:10px 0;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

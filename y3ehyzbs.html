@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Arrays and CollectionViews - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "y3ehyzbs";
+        var show_src = "//fiddle.jshell.net/Wijmo5/y3ehyzbs/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/y3ehyzbs/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/y3ehyzbs/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=y3ehyzbs" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // create some random data
+  var countries = &#39;US,Germany,UK,Japan,Italy,Greece&#39;.split(&#39;,&#39;);
+  var data = [];
+  for (var i = 0; i &lt; countries.length; i++) {
+    data.push({
+    	id: i,
+      country: countries[i],
+      sales: Math.random() * 10000,
+      expenses: Math.random() * 5000
+    });
+  }
+
+  // bind a grid to the raw data
+  var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+  	allowSorting: false,
+    showSort: false,
+  	autoGenerateColumns: false,
+    columns: [
+    	{ binding: &#39;country&#39;, header: &#39;Country&#39;, width: &#39;2*&#39;},
+    	{ binding: &#39;sales&#39;, header: &#39;Sales&#39;, width: &#39;*&#39;, format: &#39;n2&#39;},
+    	{ binding: &#39;expenses&#39;, header: &#39;Expenses&#39;, width: &#39;*&#39;, format: &#39;n2&#39;}
+    ],
+    itemsSource: data
+  });
+  
+	// show the current item
+	var selItemElement = document.getElementById(&#39;selectedItem&#39;);
+	function updateCurrentInfo() {
+  	selItemElement.innerHTML = 	wijmo.format(
+    	&#39;Country: &lt;b&gt;{country}&lt;/b&gt;, Sales: &lt;b&gt;{sales:c0}&lt;/b&gt; Expenses: &lt;b&gt;{expenses:c0}&lt;/b&gt;&#39;,
+      theGrid.collectionView.currentItem);
+  }
+  
+  // update current item now and when the grid selection changes
+  updateCurrentInfo();
+  theGrid.collectionView.currentChanged.addHandler(updateCurrentInfo);
+  
+  // sort the data by country
+  var sd = new wijmo.collections.SortDescription(&#39;country&#39;, true);
+	theGrid.collectionView.sortDescriptions.push(sd);
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Arrays and CollectionViews
+  &lt;/h1&gt;
+  &lt;p&gt;
+    When you set the grid&#39;s &lt;b&gt;itemsSource&lt;/b&gt; property to a
+    regular JavaScript array, it automatically creates an
+    internal &lt;b&gt;CollectionView&lt;/b&gt; and uses that as a 
+    data source so it can provide sorting and editing features
+    without forcing you to create a &lt;b&gt;CollectionView&lt;/b&gt; yourself.&lt;/p&gt;
+  &lt;p&gt;
+    This internal view is exposed by the grid&#39;s 
+    &lt;b&gt;collectionView&lt;/b&gt; property, and you can use it to
+    in case you need the extra functionality yourself.&lt;/p&gt;
+  &lt;p&gt;
+    For example, the grid below is bound to a regular array,
+    and the grid&#39;s &lt;b&gt;collectionView&lt;/b&gt; property is used
+    to show the currently selected item:&lt;/p&gt;
+  &lt;div id=&quot;selectedItem&quot;&gt;&lt;/div&gt;
+  &lt;div id=&quot;theGrid&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont "></pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

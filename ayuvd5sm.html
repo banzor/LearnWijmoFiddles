@@ -1,0 +1,147 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Column Collections - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "ayuvd5sm";
+        var show_src = "//fiddle.jshell.net/Wijmo5/ayuvd5sm/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/ayuvd5sm/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/ayuvd5sm/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=ayuvd5sm" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function () {
+
+  // generate some random data
+  var countries = &#39;US,Germany,UK,Japan,Italy,Greece&#39;.split(&#39;,&#39;),
+      data = [];
+  for (var i = 0; i &lt; countries.length; i++) {
+    data.push({
+      country: countries[i],
+      downloads: Math.round(Math.random() * 20000),
+      sales: Math.random() * 10000,
+      expenses: Math.random() * 5000
+    });
+  }
+
+	// grid with extra fixed column and auto-generated scrollable columns
+  var theFirstGrid = new wijmo.grid.FlexGrid(&#39;#theFirstGrid&#39;);
+  theFirstGrid.rowHeaders.columns.push(new wijmo.grid.Column()); // extra fixed column
+	theFirstGrid.itemsSource = data; // auto-generate scrollable columns
+  
+	// grid with no fixed columns and custom scrollable columns
+  var theSecondGrid = new wijmo.grid.FlexGrid(&#39;#theSecondGrid&#39;);
+  theSecondGrid.rowHeaders.columns.splice(0, 1); // no extra columns
+  theSecondGrid.autoGenerateColumns = false; // custom scrollable columns
+	theSecondGrid.itemsSource = data;
+  var cols = theSecondGrid.columns;
+  cols.push(new wijmo.grid.Column({ binding: &#39;country&#39;, header: &#39;Country&#39;}));
+  cols.push(new wijmo.grid.Column({ binding: &#39;sales&#39;, header: &#39;Sales&#39;}));
+  cols.push(new wijmo.grid.Column({ binding: &#39;expenses&#39;, header: &#39;Expenses&#39;}));
+  
+}</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Column Collections&lt;/h1&gt;
+  &lt;p&gt;
+    The FlexGrid control has two sets of columns:&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;
+      &lt;b&gt;Fixed Columns&lt;/b&gt;
+      This collection contains the columns on the left
+      of the grid; it is used by the &lt;b&gt;topLeftCells&lt;/b&gt;
+      and &lt;b&gt;rowHeaders&lt;/b&gt; panels.
+      By default, this collection contains one column.&lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;Scrollable Columns&lt;/b&gt;
+      This collection contains the main set of columns;
+      it is used by the &lt;b&gt;cells&lt;/b&gt;, &lt;b&gt;columnHeaders&lt;/b&gt;,
+      and &lt;b&gt;columnFooters&lt;/b&gt; panels.&lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;p&gt;
+    Both column collections are &lt;b&gt;ColumnCollection&lt;/b&gt;
+    objects, which extend regular arrays. 
+    You may add or remove columns by adding or removing 
+    &lt;b&gt;Column&lt;/b&gt; objects from these arrays.&lt;/p&gt;
+
+  &lt;p&gt;
+    For example, the grid below has an extra fixed column and 
+    automatically-generated scrollable columns:&lt;/p&gt;    
+  &lt;div id=&quot;theFirstGrid&quot;&gt;&lt;/div&gt;
+
+  &lt;p&gt;
+    And this grid has no fixed columns and a custom set of 
+    scrollable columns:&lt;/p&gt;    
+  &lt;div id=&quot;theSecondGrid&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  height: 150px; 
+  margin: 10px 0;
+}
+.extra-col {
+	background: rgb(255,255,125);
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Customize Fields - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "pm91grco";
+        var show_src = "//fiddle.jshell.net/Wijmo5/pm91grco/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/pm91grco/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/pm91grco/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=pm91grco" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // initialize pivot engine
+  var ng = new wijmo.olap.PivotEngine({
+  	autoGenerateFields: false, // turn off auto-generation
+    fields: [ // specify the fields we want (no date)
+    	{ binding: &#39;date&#39;, header: &#39;Year&#39;, format: &#39;yyyy&#39; },
+    	{ binding: &#39;date&#39;, header: &#39;Quarter&#39;, format: &#39;&quot;Q&quot;q&#39; },
+    	{ binding: &#39;buyer&#39;, header: &#39;Person&#39; },
+    	{ binding: &#39;type&#39;, header: &#39;Category&#39; },
+    	{ binding: &#39;amount&#39;, header: &#39;Total&#39;, format: &#39;c0&#39;, aggregate: &#39;Sum&#39; },
+    	{ binding: &#39;amount&#39;, header: &#39;Average&#39;, format: &#39;c0&#39;, aggregate: &#39;Avg&#39; },
+    ],
+    itemsSource: getData(10000), // raw data
+    showRowTotals: &#39;Subtotals&#39;,
+    valueFields: [&#39;Total&#39;, &#39;Average&#39;], // show amount spent
+    rowFields: [&#39;Year&#39;, &#39;Quarter&#39;] // by Year and Quarter
+  });
+
+  // show summary
+  var pivotGrid = new wijmo.olap.PivotGrid(&#39;#pivotGrid&#39;, {
+    itemsSource: ng
+  });
+
+	// customize the &quot;Average&quot; field
+  var fld = ng.fields.getField(&#39;Average&#39;);
+  var header = new wijmo.input.ComboBox(&#39;#header&#39;, {
+  	isEditable: true,
+    itemsSource: &#39;Average,Avg,Average Amount&#39;.split(&#39;,&#39;),
+    text: fld.header,
+    textChanged: function(s, e) {
+    	fld.header = s.text;
+    }
+  });
+  var format = new wijmo.input.ComboBox(&#39;#format&#39;, {
+    itemsSource: &#39;n0,n2,c0,c2&#39;.split(&#39;,&#39;),
+    text: fld.format,
+    textChanged: function(s, e) {
+    	fld.format = s.text;
+    }
+  });
+  var aggregate = new wijmo.input.ComboBox(&#39;#aggregate&#39;, {
+    itemsSource: &#39;Sum,Cnt,Avg,Min,Max,Rng,Std,Var,StdPop,VarPop,CntAll,First,Last&#39;.split(&#39;,&#39;),
+    text: wijmo.Aggregate[fld.aggregate], // get enum as text
+    textChanged: function(s, e) {
+    	fld.aggregate = s.text;
+    }
+  });
+  
+  // edit field with a dialog
+  document.getElementById(&#39;edit&#39;).addEventListener(&#39;click&#39;, function(e) {
+  	ng.editField(fld);
+  });
+  
+  // get the raw data
+  function getData(cnt) {
+    var today = new Date(),
+    		buyers = &#39;Mom,Dad,Kelly,Sheldon&#39;.split(&#39;,&#39;),
+        types = &#39;Food,Clothes,Fuel,Books,Sports,Music&#39;.split(&#39;,&#39;),
+    		data = [];
+    for (var i = 0; i &lt; cnt; i++) {
+    	data.push({
+      	date: wijmo.DateTime.addDays(today, -Math.random() * 365 * 3),
+        buyer: randomItem(buyers),
+        type: randomItem(types),
+        amount: 20 + Math.random() * 1000
+      });
+    }
+    return data;
+  }
+  function randomItem(arr) {
+  	return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Customize Fields
+  &lt;/h1&gt;
+  &lt;p&gt;
+    Fields contain information that allow the &lt;b&gt;PivotEngine&lt;/b&gt;
+    to summarize raw data. They are represented by the
+    &lt;b&gt;PivotField&lt;/b&gt; class and have properties that allow
+    you to customize where the data comes from as well as 
+    how it is summarized and presented.
+  &lt;/p&gt;
+  &lt;p&gt;
+    The main properties of the &lt;b&gt;PivotField&lt;/b&gt; class are:
+  &lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;
+      &lt;b&gt;binding&lt;/b&gt;: Determines which property of the raw
+      data objects is represented by the field.
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;header&lt;/b&gt;: Determines the title used to show the
+      summary results for the field.
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;format&lt;/b&gt;: Determines how the summary results
+      for the field are formatted or used to break up
+      the data.
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;aggregate&lt;/b&gt;: Determines how the raw data is
+      aggregated in the output summary. Possible values
+      include sum, count, average, max, min, etc.
+    &lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;p&gt;
+    This sample shows a &lt;b&gt;PivotGrid&lt;/b&gt; and allows you
+    to customize the properties of the output field:
+  &lt;/p&gt;
+  &lt;p&gt;
+    Amount spent by Person and Category.
+  &lt;/p&gt;
+  &lt;div id=&quot;pivotGrid&quot;&gt;&lt;/div&gt;
+  &lt;p&gt;
+    Customize the &quot;Average&quot; field:
+  &lt;/p&gt;
+  &lt;label for=&quot;header&quot;&gt;Header&lt;/label&gt;
+  &lt;input id=&quot;header&quot;&gt;&lt;br/&gt;
+  &lt;label for=&quot;format&quot;&gt;Format&lt;/label&gt;
+  &lt;input id=&quot;format&quot;&gt;&lt;br/&gt;
+  &lt;label for=&quot;aggregate&quot;&gt;Aggregate&lt;/label&gt;
+  &lt;input id=&quot;aggregate&quot;&gt;&lt;br/&gt;
+  &lt;label for=&quot;edit&quot;&gt;Everything&lt;/label&gt;
+  &lt;button id=&quot;edit&quot; class=&quot;btn btn-primary&quot;&gt;
+    Edit Field...
+  &lt;/button&gt;
+  
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.container &gt; label {
+  width: 120px;
+  text-align: right;
+}
+.container &gt; .wj-control {
+  margin-bottom: 6px;  
+}
+.wj-flexgrid {
+  height: 200px;
+}
+
+
+body {
+  margin-bottom: 24pt;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.filter.min.js" target="_blank">wijmo.grid.filter.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.olap.min.js" target="_blank">wijmo.olap.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

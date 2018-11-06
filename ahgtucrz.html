@@ -1,0 +1,152 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - IME Control - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "ahgtucrz";
+        var show_src = "//fiddle.jshell.net/Wijmo5/ahgtucrz/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/ahgtucrz/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/ahgtucrz/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=ahgtucrz" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // data with some Japanese names in it
+  var data = [
+		{ id: 1, en: &quot;Tokyo&quot;, ja: &quot;東京特別区部&quot;, pop: 8637098 },
+		{ id: 2, en: &quot;Yokohama&quot;, ja: &quot;横浜市&quot;, pop: 3697894 },
+		{ id: 3, en: &quot;Osaka&quot;, ja: &quot;大阪市&quot;, pop: 2668586 },
+		{ id: 4, en: &quot;Nagoya&quot;, ja: &quot;名古屋市&quot;, pop: 2283289 },
+		{ id: 5, en: &quot;Sapporo&quot;, ja: &quot;札幌市&quot;, pop: 1918096 },
+		{ id: 6, en: &quot;Kobe&quot;, ja: &quot;神戸市&quot;, pop: 1530847 },
+		{ id: 7, en: &quot;Kyoto&quot;, ja: &quot;京都市&quot;, pop: 1474570 },
+		{ id: 8, en: &quot;Fukuoka&quot;, ja: &quot;福岡市&quot;, pop: 1430371 },
+		{ id: 9, en: &quot;Kawasaki&quot;, ja: &quot;川崎市&quot;, pop: 1373630 },
+		{ id: 10, en: &quot;Saitama&quot;, ja: &quot;さいたま市&quot;, pop: 1192418 },
+		{ id: 11, en: &quot;Hiroshima&quot;, ja: &quot;広島市&quot;, pop: 1163806 },
+		{ id: 12, en: &quot;Sendai&quot;, ja: &quot;仙台市&quot;, pop: 1029552 },
+		{ id: 13, en: &quot;Kitakyūshū&quot;, ja: &quot;北九州市&quot;, pop: 986998 },
+		{ id: 14, en: &quot;Chiba&quot;, ja: &quot;千葉市&quot;, pop: 938695 },
+		{ id: 15, en: &quot;Setagaya&quot;, ja: &quot;世田谷区&quot;, pop: 855416 },
+		{ id: 16, en: &quot;Sakai&quot;, ja: &quot;堺市&quot;, pop: 835333 },
+		{ id: 17, en: &quot;Niigata&quot;, ja: &quot;新潟市&quot;, pop: 813053 },
+		{ id: 18, en: &quot;Hamamatsu&quot;, ja: &quot;浜松市&quot;, pop: 811431 },
+		{ id: 19, en: &quot;Shizuoka&quot;, ja: &quot;静岡市&quot;, pop: 710944 },
+		{ id: 20, en: &quot;Sagamihara&quot;, ja: &quot;相模原市&quot;, pop: 706342 }
+  ];
+
+  // create the grid and enable IME
+  var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+  	imeEnabled: false,
+    autoGenerateColumns: false,
+    columns: [
+      { binding: &#39;id&#39;, header: &#39;#&#39;, isReadOnly: true, width: 50 },
+      { binding: &#39;en&#39;, header: &#39;English&#39; },
+      { binding: &#39;ja&#39;, header: &#39;Japanese&#39; },
+      { binding: &#39;pop&#39;, header: &#39;Pop (tho)&#39;, format: &#39;n0,&#39; }
+    ],
+    itemsSource: data,
+		
+		// update IME mode depending on selection
+		selectionChanged: function(s, e) {
+			var ime = s.hostElement.querySelector(&#39;.wj-grid-ime&#39;),
+					sel = s.selection;
+					binding = sel.col &gt; -1 ? s.columns[sel.col].binding : &#39;&#39;;
+			s.imeEnabled = binding == &#39;ja&#39;;
+		}
+  });
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    IME Control
+  &lt;/h1&gt;
+  &lt;p&gt;
+		If you want to enable IME only for certain grid columns, use
+		the grid&#39;s &lt;b&gt;selectionChanged&lt;/b&gt; event to update the value
+		of the &lt;b&gt;imeEnabled&lt;/b&gt; property depending on the current
+		selection.
+	&lt;/p&gt;
+	&lt;p&gt;
+		For example, the grid below allows IME editing only when the
+		selection is on the &quot;Japanese&quot; column:
+	&lt;/p&gt;
+  
+  &lt;div id=&quot;theGrid&quot;&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 200px;
+  margin-bottom: 12px;
+}
+
+body {
+  margin-bottom: 24px;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.filter.min.js" target="_blank">wijmo.grid.filter.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

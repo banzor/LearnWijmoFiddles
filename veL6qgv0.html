@@ -1,0 +1,193 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - FlexChart Render Cycle - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "veL6qgv0";
+        var show_src = "//fiddle.jshell.net/Wijmo5/veL6qgv0/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/veL6qgv0/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/veL6qgv0/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=veL6qgv0" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// create a simple chart
+	var theChart = new wijmo.chart.FlexChart(&#39;#theChart&#39;, {
+		bindingX: &#39;country&#39;,
+    chartType: &#39;Line&#39;,
+    series: [
+    	{ binding: &#39;sales&#39;, name: &#39;Sales&#39; },
+      { binding: &#39;expenses&#39;, name: &#39;Expenses&#39; }
+		],
+    itemsSource: getData(),
+    rendering: function(s, e) {
+      var pt = theChart.dataToPoint(0, theChart.axisY.actualMax);
+      e.engine.drawString(&#39;rendering &#39; + Date.now(), pt, &#39;annotation&#39;);
+    },
+    rendered: function(s, e) {
+      var pt = theChart.dataToPoint(0, theChart.axisY.actualMin);
+      e.engine.drawString(&#39;rendered &#39; + Date.now(), pt, &#39;annotation&#39;);
+    }
+	});
+  
+  // refresh the chart
+  document.getElementById(&#39;btnRefresh&#39;).addEventListener(&#39;click&#39;, function() {
+  	theChart.itemsSource = getData();
+  });
+
+  // get some random data
+  function getData() {
+	  var countries = &#39;US,Germany,UK,Japan,Italy,Greece&#39;.split(&#39;,&#39;),
+	    data = [];
+	  for (var i = 0; i &lt; countries.length; i++) {
+	    data.push({
+	      country: countries[i],
+	      sales: Math.random() * 10000,
+	      expenses: Math.random() * 5000,
+	    });
+	  }
+  	return data;
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;body class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    FlexChart Render Cycle
+  &lt;/h1&gt;
+  &lt;p&gt;
+    The FlexChart is data-driven. When there are changes to the
+    data it is bound to, or to any of its properties, the chart
+    goes through a render cycle, which consists of these steps:&lt;/p&gt;
+  &lt;ol&gt;
+    &lt;li&gt;
+      &lt;b&gt;Get the data&lt;/b&gt;:&lt;br/&gt;
+      The chart has an &lt;b&gt;itemsSource&lt;/b&gt; property that represents
+      the overall data source, and each series may override this
+      using its own local &lt;b&gt;itemsSource&lt;/b&gt; property. Similarly,
+      the chart has &lt;b&gt;bindingX&lt;/b&gt; and &lt;b&gt;binding&lt;/b&gt; properties
+      that determine the values to be charted for each series.&lt;br/&gt;
+      In most cases, you will set the &lt;b&gt;itemsSource&lt;/b&gt; and
+      &lt;b&gt;bindingX&lt;/b&gt; properties on the chart object, and the
+      &lt;b&gt;binding&lt;/b&gt; property on each series.&lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;Scale the data&lt;/b&gt;:&lt;br/&gt;
+      You may set the chart&#39;s range by setting the &lt;b&gt;min&lt;/b&gt; and
+      &lt;b&gt;max&lt;/b&gt; properties on the chart&#39;s axes. By default, those
+      properties are set to null, which causes the chart to scale
+      itself automatically. By default, series use the chart&#39;s
+      main set of axes, &lt;b&gt;axisX&lt;/b&gt; and &lt;b&gt;axisY&lt;/b&gt;; but you
+      may create additional axes and assign those axes to one or
+      more series.&lt;/li&gt; 
+    &lt;li&gt;
+      &lt;b&gt;Raise the rendering event&lt;/b&gt;:&lt;br/&gt;
+      At this point, the chart is empty. Event handlers may use 
+      &lt;b&gt;engine&lt;/b&gt; parameter of the &lt;b&gt;rendering&lt;/b&gt; event to
+      add custom elements that will render behind the chart data.
+      This can be used to add background elements such as alarm
+      zones.&lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;Render each series&lt;/b&gt;&lt;br/&gt;
+      In this step, the chart creates one or more SVG elements
+      to represent each series. The simplest and most efficient
+      chart types are &#39;Line&#39; and &#39;Spline&#39;, which can usually be
+      represented by a single SVG element.
+      Other chart types require more elements to render bars and 
+      symbols.
+      The chart invokes a callback specified by the
+      &lt;b&gt;itemFormatter&lt;/b&gt; property to allow customization of 
+      specific points in each series. Axes also have an
+      &lt;b&gt;itemFormatter&lt;/b&gt; property to allow customization
+      of the axes labels.&lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;Raise the rendered event&lt;/b&gt;:&lt;br/&gt;
+      At this point, the chart has been fully rendered.
+      Event handlers may use the &lt;b&gt;engine&lt;/b&gt; parameter of the
+      &lt;b&gt;rendered&lt;/b&gt; event to add custom elements that will 
+      render above the chart data. This can be used to add
+      elements such as point annotations.&lt;/li&gt;
+  &lt;/ol&gt;    
+  
+  &lt;div id=&quot;theChart&quot;&gt;&lt;/div&gt;
+  &lt;button id=&quot;btnRefresh&quot; class=&quot;btn btn-default&quot;&gt;
+    Refresh
+  &lt;/button&gt;
+  &lt;div id=&quot;eventLog&quot;&gt;
+  &lt;/div&gt;
+  
+&lt;/body&gt;
+</pre>
+              <pre class="tCont ">.wj-flexchart {
+  height: 250px;
+}
+.annotation {
+  opacity: .5;
+  font-size: 75%;
+  font-style: italic;
+}
+body {
+  margin-bottom: 24pt;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.chart.min.js" target="_blank">wijmo.chart.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

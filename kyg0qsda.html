@@ -1,0 +1,180 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Dragging Bound Rows - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "kyg0qsda";
+        var show_src = "//fiddle.jshell.net/Wijmo5/kyg0qsda/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/kyg0qsda/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/kyg0qsda/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=kyg0qsda" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// create the grid with draggable rows
+	var dragIndex;
+  var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+    itemsSource: getData(6),
+    selectionMode: &#39;ListBox&#39;,
+    showAlternatingRows: false,
+    allowSorting: false,
+    allowDragging: &#39;Both&#39;,
+    
+    // save the drag row index when dragging starts
+		draggingRow: function (s, e) {
+    	dragIndex = e.row;
+			s.collectionView.moveCurrentToPosition(dragIndex);
+		},
+
+    // reorder items in the data source when dragging ends
+		draggedRow: function (s, e) {
+			var dropIndex = e.row,
+      		arr = s.collectionView.sourceCollection;
+			s.collectionView.deferUpdate(function () {
+      	var item = arr[dragIndex];
+        arr.splice(dragIndex, 1);
+        arr.splice(dropIndex, 0, item);
+        s.collectionView.moveCurrentToPosition(dropIndex);
+			});
+		},
+  });
+  
+  // show the current item
+  document.getElementById(&#39;currItem&#39;).addEventListener(&#39;click&#39;, function(e) {
+  	var currItem = JSON.stringify(theGrid.collectionView.currentItem);
+    alert(&#39;The currentItem is: &#39; + currItem)
+  })
+  
+  // generate some random data
+	function getData(cnt) {
+  	var countries = &#39;US,Germany,UK,Japan,Italy,Greece&#39;.split(&#39;,&#39;),
+	      data = [];
+	  for (var i = 0; i &lt; cnt; i++) {
+	    data.push({
+	      id: i,
+	      country: countries[i % countries.length],
+	      active: i % 5 != 0,
+	      downloads: Math.round(Math.random() * 200000),
+	      sales: Math.round(Math.random() * 100000 * 100)/100,
+	      expenses: Math.round(Math.random() * 50000 * 100)/100 
+	    });
+	  }
+  	return data;
+	}
+}
+
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Dragging Bound Rows
+  &lt;/h1&gt;
+  &lt;p&gt;
+    The &lt;b&gt;allowDragging&lt;/b&gt; property can be used to enable row
+    and/or column dragging within FlexGrid controls. By default,
+    it is set to allow dragging columns but not rows.&lt;/p&gt;
+  &lt;p&gt;
+    This setting works well for bound data. When the grid is bound 
+    to a data source, columns have bindings that move along with 
+    the columns and to not affect the data source. Rows, on the 
+    other hand, have references to the data objects they represent;
+    if they move, they become out of sync with the data source.&lt;/p&gt;
+  &lt;p&gt;
+    Furthermore, data sources are often sorted, and in this case
+    the row order is determined by the sorting algorithm, which
+    is not compatible with explicit positions set by dragging the
+    rows.&lt;/p&gt;
+  &lt;p&gt;
+    This sample shows how you can implement row dragging in bound
+    grids. This requires two steps:&lt;/p&gt;
+  &lt;ol&gt;
+    &lt;li&gt;
+      Set the grid&#39;s &lt;b&gt;allowSorting&lt;/b&gt; property to false to
+      prevent users from sorting the data.&lt;/li&gt;
+    &lt;li&gt;
+      Handle the grid&#39;s &lt;b&gt;draggedRow&lt;/b&gt; event to change the order
+      of the items in the data source to they match the new row
+      order.&lt;/li&gt;
+  &lt;/ol&gt;
+  &lt;p&gt;
+    Try dragging rows into new positions by dragging them by
+    the row header:&lt;/p&gt;
+  &lt;div id=&quot;theGrid&quot;&gt;&lt;/div&gt;
+  &lt;button id=&quot;currItem&quot; class=&quot;btn btn-default&quot;&gt;
+    Show current item
+  &lt;/button&gt;
+  
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 250px;
+  margin-bottom: 12px;
+}
+.wj-flexgrid .wj-cell {
+  padding: 8px;
+}
+body {
+  margin-bottom: 24pt;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

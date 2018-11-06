@@ -1,0 +1,152 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - TreeView Lazy-Loading Nodes - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "64kuc0db";
+        var show_src = "//fiddle.jshell.net/Wijmo5/64kuc0db/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/64kuc0db/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/64kuc0db/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=64kuc0db" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// create the tree
+  var tree = new wijmo.nav.TreeView(&#39;#theTree&#39;, {
+  	itemsSource: getData(),
+		displayMemberPath: &#39;header&#39;,
+    childItemsPath: &#39;items&#39;,
+    lazyLoadFunction: lazyLoadFunction
+	});
+
+  // start with three lazy-loaded nodes
+  function getData() {
+ 		return [ 
+    	{ header: &#39;Lazy Node 1&#39;, items: [] },
+      { header: &#39;Lazy Node 2&#39;, items: [] },
+      { header: &#39;Lazy Node 3&#39;, items: [] }
+		];
+	}
+
+	// function used to lazy-load node content
+  function lazyLoadFunction(node, callback) {
+  	setTimeout(function () { // simulate http delay
+    	var result = [ // simulate result
+      	{ header: &#39;Another lazy node...&#39;, items: [] },
+        { header: &#39;A non-lazy node without children&#39; },
+        { header: &#39;A non-lazy node with child nodes&#39;, items: [
+        	{ header: &#39;hello&#39; },
+          { header: &#39;world&#39; }]
+				}];
+			callback(result); // return result to control
+		}, 2500); // 2.5sec http delay
+  }
+}</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+    
+  &lt;h1&gt;
+    Lazy-Loading Nodes&lt;/h1&gt;
+
+  &lt;p&gt;
+    Lazy loading is useful when you are dealing with large hierarchical
+    data sources and would like to avoid the delays involved in loading
+    the entire data set at once.&lt;/p&gt;
+  &lt;p&gt;
+    The &lt;b&gt;TreeView&lt;/b&gt; control makes lazy-loading super easy. Only two 
+    steps are required:&lt;/p&gt;
+  &lt;ol&gt;
+    &lt;li&gt;
+      Set the &lt;b&gt;items&lt;/b&gt; property in the parent node data item to an
+      empty array.&lt;/li&gt;
+    &lt;li&gt;
+      Set the &lt;b&gt;TreeView&#39;s&lt;/b&gt; &lt;b&gt;lazyLoadFunction&lt;/b&gt; property to a
+      function to be called when the user expands the node. This function
+      takes two parameters: the parent node and a callback function to be
+      invoked when the data becomes available.&lt;/li&gt;
+  &lt;/ol&gt;
+  &lt;p&gt;
+    The tree in example below starts with three lazy-loaded nodes.
+    When you expand them, the &lt;b&gt;lazyLoadFunction&lt;/b&gt; is invoked. 
+    The function uses a timeout to simulate an http delay and
+    returns data for three child nodes, one of which is also a
+    lazy-loaded node.&lt;/p&gt;
+
+  &lt;div id=&quot;theTree&quot;&gt;&lt;/div&gt;
+
+&lt;/div&gt;</pre>
+              <pre class="tCont ">/* default trees on this sample */
+.wj-treeview {
+    display:block;
+    height: 350px;
+    font-size: 120%;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding: 6px;
+    background: #f0f0f0;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+body {
+  margin-bottom: 24pt;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.nav.min.js" target="_blank">wijmo.nav.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

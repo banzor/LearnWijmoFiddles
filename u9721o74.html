@@ -1,0 +1,189 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Wijmo TreeView Initial State - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "u9721o74";
+        var show_src = "//fiddle.jshell.net/Wijmo5/u9721o74/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/u9721o74/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/u9721o74/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=u9721o74" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// create the default tree
+  var theTree = new wijmo.nav.TreeView(&#39;#theTree&#39;, {
+  	itemsSource: getData()
+	});
+
+	// create a tree and select an item when it loads
+  var theTreeSelected = new wijmo.nav.TreeView(&#39;#theTreeSelected&#39;, {
+  	itemsSource: getData(),
+    loadedItems: function(s, e) {
+    	s.selectedItem = findItem(s.itemsSource, &#39;Solar Panel&#39;);
+    }
+	});
+
+	// create a tree and collapse it to a given level when it loads
+  var theTreeCollapsed = new wijmo.nav.TreeView(&#39;#theTreeCollapsed&#39;, {
+  	itemsSource: getData(),
+    loadedItems: function(s, e) {
+    	s.collapseToLevel(0);
+    }
+	});
+  var theTreeExpanded = new wijmo.nav.TreeView(&#39;#theTreeExpanded&#39;, {
+  	itemsSource: getData(),
+    loadedItems: function(s, e) {
+    	s.collapseToLevel(10);
+    }
+	});
+
+	// finds an item in a hierarchical array
+	function findItem(arr, text) {
+  	for (var i = 0; arr &amp;&amp; i &lt; arr.length; i++) {
+    	if (arr[i].header.indexOf(text) &gt; -1) return arr[i];
+      var item = findItem(arr[i].items, text);
+      if (item) return item;
+    }
+    return null;
+  }
+  
+  // get the tree data
+  function getData() {
+		return [
+    	{ header: &#39;Electronics&#39;, img: &#39;resources/electronics.png&#39;, items: [
+				{ header: &#39;Trimmers/Shavers&#39; },
+        { header: &#39;Tablets&#39; },
+        { header: &#39;Phones&#39;, img: &#39;resources/phones.png&#39;, items: [
+					{ header: &#39;Apple&#39; },
+          { header: &#39;Motorola&#39;, newItem: true },
+          { header: &#39;Nokia&#39; },
+          { header: &#39;Samsung&#39; }]
+				},
+        { header: &#39;Speakers&#39;, newItem: true },
+        { header: &#39;Monitors&#39; }]
+			},
+      { header: &#39;Toys&#39;, img: &#39;resources/toys.png&#39;, items: [
+      	{ header: &#39;Shopkins&#39; },
+        { header: &#39;Train Sets&#39; },
+        { header: &#39;Science Kit&#39;, newItem: true },
+        { header: &#39;Play-Doh&#39; },
+        { header: &#39;Crayola&#39; } ]
+			},
+			{ header: &#39;Home&#39;, img: &#39;resources/home.png&#39;, items: [
+      	{ header: &#39;Coffeee Maker&#39; },
+        { header: &#39;Breadmaker&#39;, newItem: true },
+        { header: &#39;Solar Panel&#39;, newItem: true },
+        { header: &#39;Work Table&#39; },
+        { header: &#39;Propane Grill&#39; }]
+			}
+		];
+	}
+}</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+    
+  &lt;h1&gt;
+    Initial State&lt;/h1&gt;
+    
+  &lt;p&gt;    
+    By default, the TreeView expands the first node at each
+    level and collapsed all others when it is bound to some 
+    data:&lt;/p&gt;
+  &lt;div id=&quot;theTree&quot;&gt;&lt;/div&gt;
+
+  &lt;h2&gt;
+    Selecting a default item&lt;/h2&gt;
+  &lt;p&gt;    
+    If you select an item when the tree loads, it will 
+    automatically ensure the selected node is visible,
+    expanding the tree and scrolling as needed.
+    In this case, we selected the &#39;Solar Panel&#39; item:&lt;/p&gt;
+  &lt;div id=&quot;theTreeSelected&quot;&gt;&lt;/div&gt;
+
+  &lt;h2&gt;
+    Collapsing to a given Level&lt;/h2&gt;
+  &lt;p&gt;    
+    Use the &lt;b&gt;collapseToLevel&lt;/b&gt; method to collapse or expand
+    the tree to a given level when it loads. For example, the
+    trees below start totally collapsed and totally expanded:&lt;/p&gt;
+  &lt;div id=&quot;theTreeCollapsed&quot;&gt;&lt;/div&gt;
+  &lt;div id=&quot;theTreeExpanded&quot;&gt;&lt;/div&gt;
+
+&lt;/div&gt;</pre>
+              <pre class="tCont ">/* default trees on this sample */
+.wj-treeview {
+    display: block;
+    width: 80%;
+    max-height: 300px;
+    font-size: 120%;
+    margin-bottom: 8px;
+    padding: 6px;
+    margin: 12pt;
+    background: #f0f0f0;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+body {
+  margin-bottom: 24pt;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.nav.min.js" target="_blank">wijmo.nav.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Controls and Elements - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "h79d5u77";
+        var show_src = "//fiddle.jshell.net/Wijmo5/h79d5u77/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/h79d5u77/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/h79d5u77/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=h79d5u77" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+    // generate some random data
+    var countries = &#39;US,Germany,UK,Japan,Italy,Greece&#39;.split(&#39;,&#39;),
+      data = [];
+    for (var i = 0; i &lt; countries.length; i++) {
+      data.push({
+        country: countries[i],
+        downloads: Math.round(Math.random() * 20000),
+        sales: Math.random() * 10000,
+        expenses: Math.random() * 5000
+      });
+    }
+
+    // create grid and show data
+    var grid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+      itemsSource: data,
+      showMarquee: true,
+      showSelectedHeaders: &#39;All&#39;,
+      showAlternatingRows: false
+    });
+
+    // toggle grid&#39;s background
+    document.getElementById(&#39;toggleBackground&#39;).addEventListener(&#39;click&#39;, function() {
+
+      // get control being hosted by element #theGrid
+      var ctl = wijmo.Control.getControl(&#39;#theGrid&#39;);
+
+      // get host element from &#39;grid&#39; control
+      var host = ctl.hostElement;
+
+      // toggle font weight
+      var style = host.style;
+			style.fontWeight = style.fontWeight ? &#39;&#39; : &#39;bold&#39;;
+    });
+
+    // resize the grid the WRONG way
+    document.getElementById(&#39;resizeBad&#39;).addEventListener(&#39;click&#39;, function() {
+      var style = grid.hostElement.style;
+      style.height = style.height ? &#39;&#39; : &#39;100px&#39;;
+    });
+
+    // resize the grid the RIGHT way
+    document.getElementById(&#39;resizeGood&#39;).addEventListener(&#39;click&#39;, function() {
+      var style = grid.hostElement.style;
+      style.height = style.height ? &#39;&#39; : &#39;100px&#39;;
+      grid.invalidate(); // update control layout after resizing the element
+      
+      // or (if you have many controls)
+      //wijmo.Control.invalidateAll();
+    });
+
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Controls and Elements&lt;/h1&gt;
+  &lt;p&gt;
+    Every Wijmo 5 control is associated with an HTML element that
+    hosts it on the page.&lt;/p&gt;
+
+  &lt;p&gt;
+    Use the &lt;b&gt;hostElement&lt;/b&gt; property (available on every Wijmo
+    control) to get a reference to the element that is hosting the 
+    control.&lt;/p&gt;
+  &lt;p&gt;
+    Use the static method &lt;b&gt;wijmo.Control.getControl(element)&lt;/b&gt;
+    to get a reference to the control being hosted by an element.&lt;/p&gt;
+
+  &lt;p&gt;
+    When the user resizes the browser window, Wijmo automatically
+    updates the layout of all controls based on the size of their 
+    host elements.&lt;/p&gt;
+  &lt;p&gt;
+    If the size or visiblility of the host element is changed in
+    code, however, the control will not be automatically notified,
+    and its layout may become invalid. This often happens in 
+    applications that have tab controls or dynamic views.&lt;/p&gt;
+  &lt;p&gt;
+    In these cases, you should call the
+    &lt;a href=&quot;https://wijmo.com/5/docs/topic/wijmo.Control.Class.html#invalidateAll&quot;&gt;
+    wijmo.Control.invalidateAll&lt;/a&gt; method to notify the controls
+    that their host element has changed and they should update their
+    layout.&lt;/p&gt;
+  &lt;p&gt;
+    For example, use the buttons below to resize a grid with and 
+    without calls to &lt;b&gt;invalidateAll&lt;/b&gt;:
+  &lt;/p&gt;
+
+  &lt;button id=&quot;toggleBackground&quot; class=&quot;btn btn-primary&quot;&gt;Toggle Font&lt;/button&gt;
+  &lt;button id=&quot;resizeBad&quot; class=&quot;btn btn-danger&quot;&gt;Toggle Size (WRONG)&lt;/button&gt;
+  &lt;button id=&quot;resizeGood&quot; class=&quot;btn btn-success&quot;&gt;Toggle Size (RIGHT)&lt;/button&gt;
+  &lt;div id=&quot;theGrid&quot;&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+   margin-top: 10px;
+}
+body {
+  margin-bottom: 24pt;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

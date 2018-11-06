@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Binding - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "y9Lj6os0";
+        var show_src = "//fiddle.jshell.net/Wijmo5/y9Lj6os0/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/y9Lj6os0/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/y9Lj6os0/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=y9Lj6os0" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // create some random data
+  var countries = &#39;US,Germany,UK,Japan,Sweden,Norway,Denmark&#39;.split(&#39;,&#39;),
+    data = [];
+  for (var i = 0; i &lt; countries.length; i++) {
+    data.push({
+      id: i,
+      country: countries[i],
+      active: i % 5 != 0,
+      downloads: Math.round(Math.random() * 200000),
+      sales: Math.random() * 100000,
+      expenses: Math.random() * 50000
+    });
+  }
+
+	// auto-generated columns
+  var theGridAutoGen = new wijmo.grid.FlexGrid(&#39;#theGridAutoGen&#39;, {
+    showAlternatingRows: false,
+  	itemsSource: data
+	});
+
+  // explicit columns 
+  var theGridExplicitCols = new wijmo.grid.FlexGrid(&#39;#theGridExplicitCols&#39;, {
+    showAlternatingRows: false,
+    autoGenerateColumns: false,
+    columns: [
+    	{ binding: &#39;country&#39;, header: &#39;Country&#39;, width: &#39;*&#39;},
+    	{ binding: &#39;downloads&#39;, header: &#39;Downloads (k)&#39;, format: &#39;n0,&#39; }, // thousands
+    	{ binding: &#39;sales&#39;, header: &#39;Sales&#39;, format: &#39;n2&#39; }, 
+    	{ binding: &#39;expenses&#39;, header: &#39;Expenses&#39;, format: &#39;n2&#39; },
+    	{ binding: &#39;active&#39;, header: &#39;Active&#39;}
+    ],
+    itemsSource: data,
+  });
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Binding
+  &lt;/h1&gt;
+  &lt;p&gt;
+    In most scenarios, the FlexGrid shows data that is loaded from a
+    server or generated in code. This data is represented as an 
+    array of objects, and the grid is bound to this array via
+    its &lt;b&gt;itemsSource&lt;/b&gt; property.&lt;/p&gt;
+  &lt;p&gt;
+    By default, when you set the &lt;b&gt;itemsSource&lt;/b&gt; property
+    the grid will scan the data objects and automatically
+    generate columns for each property in the data items.
+    For example:&lt;/p&gt;
+  &lt;div id=&quot;theGridAutoGen&quot;&gt;
+  &lt;/div&gt;
+  
+  &lt;p&gt;
+    Auto-generating columns works well for simple data sources
+    or while testing/developing applications. But in most scenarios,
+    you will want to turn off the automatic column generation and
+    specify the columns in code. This way you get complete control
+    over which columns are displayed, in what order, their widths, 
+    format, headers, etc.&lt;p&gt;
+  &lt;p&gt;
+    Each column has a &lt;b&gt;binding&lt;/b&gt; property that determines which
+    property of the data item that should be displayed in the cell.
+    For example:&lt;/p&gt;
+  &lt;div id=&quot;theGridExplicitCols&quot;&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 200px;
+  margin-bottom: 12px;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

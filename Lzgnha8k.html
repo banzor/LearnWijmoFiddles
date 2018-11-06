@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Multiple Chart Types - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "Lzgnha8k";
+        var show_src = "//fiddle.jshell.net/Wijmo5/Lzgnha8k/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/Lzgnha8k/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/Lzgnha8k/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=Lzgnha8k" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// create the chart
+  var theChart = new wijmo.chart.FlexChart(&#39;#theChart&#39;, {
+  	itemsSource: getData(),
+    bindingX: &#39;country&#39;,
+    series: [
+    	{ binding: &#39;sales&#39;, name: &#39;Sales&#39; },
+      { binding: &#39;expenses&#39;, name: &#39;Expenses&#39; },
+      { binding: &#39;downloads&#39;, name: &#39;Downloads&#39; }
+    ]
+  });
+  
+  // customize the chart
+  var theChartType = new wijmo.input.ComboBox(&#39;#chartType&#39;, {
+  	itemsSource: &#39;Column,Bar,Scatter,Line,LineSymbols,Area,Spline,SplineSymbols,SplineArea&#39;.split(&#39;,&#39;),
+    textChanged: function(s, e) {
+    	theChart.series[2].chartType = s.text;
+    },
+    text: &#39;LineSymbols&#39;
+  });
+
+	// create some random data
+  function getData() {
+	  var countries = &#39;US,Germany,UK,Japan,Italy,Greece&#39;.split(&#39;,&#39;),
+	    data = [];
+	  for (var i = 0; i &lt; countries.length; i++) {
+	    data.push({
+	      country: countries[i],
+	      sales: Math.random() * 10000,
+	      expenses: Math.random() * 5000,
+	      downloads: Math.round(Math.random() * 20000)
+	    });
+	  }
+  	return data;
+  }
+
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Multiple Chart Types
+  &lt;/h1&gt;
+
+  &lt;p&gt;
+    Each series object in the FlexChart may specify its own 
+    &lt;b&gt;chartType&lt;/b&gt; to override the chart&#39;s default. This
+    makes it easy to mix different chart types in a single
+    chart.&lt;/p&gt;
+  &lt;p&gt;
+    This example allows you to pick a chart type for the
+    &#39;Downloads&#39; series:&lt;/p&gt;    
+  
+  &lt;label for=&quot;chartType&quot;&gt;Series Chart Type:&lt;/label&gt;
+  &lt;div id=&quot;chartType&quot;&gt;&lt;/div&gt;&lt;br&gt;
+  
+  &lt;div id=&quot;theChart&quot;&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexchart {
+  height: 300px;
+}
+.wj-dropdown {
+  margin-bottom: 3px;
+}
+label {
+  width: 150px;
+  text-align: right;
+}
+body {
+  margin-bottom: 24pt;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.chart.min.js" target="_blank">wijmo.chart.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

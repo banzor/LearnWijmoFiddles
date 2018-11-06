@@ -1,0 +1,203 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Unbound Tree Grids - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "Los124e0";
+        var show_src = "//fiddle.jshell.net/Wijmo5/Los124e0/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/Los124e0/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/Los124e0/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=Los124e0" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// workers tree data (heterogeneous collection)
+  var workers = [{
+    name: &#39;Jack Smith&#39;,
+    checks: [{
+      name: &#39;check1&#39;,
+      earnings: [
+      	{ name: &#39;hourly&#39;, hours: 30.0, rate: 15.0 },
+        { name: &#39;overtime&#39;, hours: 10.0, rate: 20.0 },
+        { name: &#39;bonus&#39;, hours: 5.0, rate: 30.0}
+      ]
+    }, {
+      name: &#39;check2&#39;,
+      earnings: [
+      	{ name: &#39;hourly&#39;, hours: 20.0, rate: 18.0 },
+        { name: &#39;overtime&#39;, hours: 20.0, rate: 24.0 }
+      ]
+    }]
+  }, {
+    name: &#39;Jack Smith&#39;,
+    checks: [{
+      name: &#39;check1&#39;,
+      earnings: [
+        { name: &#39;hourly&#39;, hours: 30.0, rate: 15.0 },
+        { name: &#39;overtime&#39;, hours: 10.0, rate: 20.0 }, 
+        { name: &#39;bonus&#39;, hours: 5.0, rate: 30.0 }
+      ]
+    }, {
+      name: &#39;check2&#39;,
+      earnings: [
+        { name: &#39;hourly&#39;, hours: 20.0, rate: 18.0 },
+        { name: &#39;overtime&#39;, hours: 20.0, rate: 24.0 }
+      ]
+    }]
+  }, {
+    name: &#39;Jane Smith&#39;,
+    checks: [{
+      name: &#39;check1&#39;,
+      earnings: [
+        { name: &#39;hourly&#39;, hours: 30.0, rate: 15.0 },
+        { name: &#39;overtime&#39;, hours: 10.0, rate: 20.0 },
+        { name: &#39;bonus&#39;, hours: 5.0, rate: 30.0 }
+      ]
+    }, {
+      name: &#39;check2&#39;,
+      earnings: [
+        { name: &#39;hourly&#39;, hours: 20.0, rate: 18.0 },
+        { name: &#39;overtime&#39;, hours: 20.0, rate: 24.0 }
+      ]
+    }]
+  }];
+
+	// unbound workers tree
+  var uwt = new wijmo.grid.FlexGrid(&#39;#workersGrid&#39;, {
+  	headersVisibility: &#39;Column&#39;,
+    selectionMode: &#39;Row&#39;,
+    beginningEdit: function(s, e) {
+    	var value = e.panel.getCellData(e.row, e.col);
+      if (value == null) {
+      	e.cancel = true; // can&#39;t edit!
+      }
+    }
+  });
+  
+	// add columns
+  uwt.columns.push(new wijmo.grid.Column({ header: &#39;Name&#39; }));
+  uwt.columns.push(new wijmo.grid.Column({ header: &#39;Hours&#39;, dataType: &#39;Number&#39;, format: &#39;n2&#39; }));
+  uwt.columns.push(new wijmo.grid.Column({ header: &#39;Rate&#39;, dataType: &#39;Number&#39;, format: &#39;n2&#39; }));
+  
+  // add rows
+  for (var w = 0; w &lt; workers.length; w++) {
+
+  	// add worker
+    var worker = workers[w];
+    var row = new wijmo.grid.GroupRow(worker);
+    row.isReadOnly = false;
+    row.level = 0;
+    uwt.rows.push(row);
+    uwt.setCellData(row.index, 0, worker.name);
+    for (var c = 0; c &lt; worker.checks.length; c++) {
+
+    	// add check
+      var check = worker.checks[c];
+      row = new wijmo.grid.GroupRow(check);
+	    row.isReadOnly = false;
+      row.level = 1;
+      uwt.rows.push(row);
+      uwt.setCellData(row.index, 0, check.name);
+      for (var e = 0; e &lt; check.earnings.length; e++) {
+
+      	// add earning
+        var earning = check.earnings[e];
+        row = new wijmo.grid.GroupRow(earning);
+		    row.isReadOnly = false;
+        row.level = 2;
+        uwt.rows.push(row);
+        uwt.setCellData(row.index, 0, earning.name);
+        uwt.setCellData(row.index, 1, earning.hours);
+        uwt.setCellData(row.index, 2, earning.rate);
+
+			}
+		}
+	}
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Unbound Tree Grids&lt;/h1&gt;
+  &lt;p&gt;
+    If you prefer to work in unbound mode, you can still
+    build trees by adding rows and columns in code.&lt;/p&gt;
+  &lt;div id=&quot;workersGrid&quot;&gt;&lt;/div&gt;
+  
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 220px; 
+  margin: 10px;
+}
+.wj-cell.wj-group {
+  border: none;
+}
+.wj-cell.wj-group:not(.wj-state-selected):not(.wj-state-multi-selected) {
+  background-color: white;
+}
+body {
+   margin-bottom: 24px;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

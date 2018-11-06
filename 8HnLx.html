@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Wijmo 5 - ComboBox, AutoComplete, ListBox - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "8HnLx";
+        var show_src = "//fiddle.jshell.net/Wijmo5/8HnLx/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/8HnLx/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/8HnLx/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=8HnLx" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+    // create ComboBox
+    var cmb = new wijmo.input.ComboBox(&#39;#theCombo&#39;, {
+        itemsSource: getCountries(),
+        placeholder: &#39;select a country&#39;,
+        isEditable: false
+    });
+
+    // create AutoComplete
+    var ac = new wijmo.input.AutoComplete(&#39;#theAutoComplete&#39;, {
+        itemsSource: getCountries(),
+        placeholder: &#39;select a country&#39;
+    });
+
+    // create ListBox
+    var lb = new wijmo.input.ListBox(&#39;#theListBox&#39;, {
+        itemsSource: getCountries()
+    });
+    
+    // create (and populate) ComboBox from &lt;select&gt; element
+    var cbs = new wijmo.input.ComboBox(&#39;#theComboSelect&#39;);
+
+    // list of countries to select from
+    function getCountries() {
+        return [
+            &#39;Afghanistan&#39;, &#39;Albania&#39;, &#39;Algeria&#39;, &#39;American Samoa&#39;, &#39;Andorra&#39;, &#39;Angola&#39;, &#39;Anguilla&#39;,
+            &#39;Antigua&#39;, &#39;Argentina&#39;, &#39;Armenia&#39;, &#39;Aruba&#39;, &#39;Australia&#39;, &#39;Austria&#39;, &#39;Azerbaijan&#39;,
+            &#39;Bahamas&#39;, &#39;Bahrain&#39;, &#39;Bangladesh&#39;, &#39;Barbados&#39;, &#39;Belarus&#39;, &#39;Belgium&#39;, &#39;Belize&#39;,
+            &#39;Benin&#39;, &#39;Bermuda&#39;, &#39;Bhutan&#39;, &#39;Bolivia&#39;, &#39;Bonaire&#39;, &#39;Bosnia&#39;, &#39;Botswana&#39;, &#39;Brazil&#39;,
+            &#39;Brunei&#39;, &#39;Bulgaria&#39;, &#39;Burkina Faso&#39;, &#39;Burundi&#39;, &#39;Cambodia&#39;, &#39;Cameroon&#39;, &#39;Canada&#39;,
+            &#39;Canary Islands&#39;, &#39;Cape Verde&#39;, &#39;Cayman Islands&#39;, &#39;Central African Republic&#39;, &#39;Chad&#39;,
+            &#39;Channel Islands&#39;, &#39;Chile&#39;, &#39;China&#39;, &#39;Christmas Island&#39;, &#39;Cocos Island&#39;, &#39;Colombia&#39;,
+            &#39;Comoros&#39;, &#39;Congo&#39;, &#39;Cook Islands&#39;, &#39;Costa Rica&#39;, &quot;Cote D&#39;Ivoire&quot;, &#39;Croatia&#39;,
+            &#39;Cuba&#39;, &#39;Curacao&#39;, &#39;Cyprus&#39;, &#39;Czech Republic&#39;, &#39;Denmark&#39;, &#39;Djibouti&#39;, &#39;Dominica&#39;,
+            &#39;Dominican Republic&#39;, &#39;East Timor&#39;, &#39;Ecuador&#39;, &#39;Egypt&#39;, &#39;El Salvador&#39;, &#39;Equatorial Guinea&#39;,
+            &#39;Eritrea&#39;, &#39;Estonia&#39;, &#39;Ethiopia&#39;, &#39;Falkland Islands&#39;, &#39;Faroe Islands&#39;, &#39;Fiji&#39;, &#39;Finland&#39;,
+            &#39;France&#39;, &#39;French Guiana&#39;, &#39;French Polynesia&#39;, &#39;French Southern Ter&#39;, &#39;Gabon&#39;, &#39;Gambia&#39;,
+            &#39;Georgia&#39;, &#39;Germany&#39;, &#39;Ghana&#39;, &#39;Gibraltar&#39;, &#39;Great Britain&#39;, &#39;Greece&#39;, &#39;Greenland&#39;,
+            &#39;Grenada&#39;, &#39;Guadeloupe&#39;, &#39;Guam&#39;, &#39;Guatemala&#39;, &#39;Guinea&#39;, &#39;Guyana&#39;, &#39;Haiti&#39;, &#39;Honduras&#39;,
+            &#39;Hong Kong&#39;, &#39;Hungary&#39;, &#39;Iceland&#39;, &#39;India&#39;, &#39;Indonesia&#39;, &#39;Iran&#39;, &#39;Iraq&#39;, &#39;Ireland&#39;,
+            &#39;Isle of Man&#39;, &#39;Israel&#39;, &#39;Italy&#39;, &#39;Jamaica&#39;, &#39;Japan&#39;, &#39;Jordan&#39;, &#39;Kazakhstan&#39;, &#39;Kenya&#39;,
+            &#39;Kiribati&#39;, &#39;Korea North&#39;, &#39;Korea South&#39;, &#39;Kuwait&#39;, &#39;Kyrgyzstan&#39;, &#39;Laos&#39;, &#39;Latvia&#39;, &#39;Lebanon&#39;,
+            &#39;Lesotho&#39;, &#39;Liberia&#39;, &#39;Libya&#39;, &#39;Liechtenstein&#39;, &#39;Lithuania&#39;, &#39;Luxembourg&#39;, &#39;Macau&#39;, &#39;Macedonia&#39;,
+            &#39;Madagascar&#39;, &#39;Malaysia&#39;, &#39;Malawi&#39;, &#39;Maldives&#39;, &#39;Mali&#39;, &#39;Malta&#39;, &#39;Marshall Islands&#39;, &#39;Martinique&#39;,
+            &#39;Mauritania&#39;, &#39;Mauritius&#39;, &#39;Mayotte&#39;, &#39;Mexico&#39;, &#39;Midway Islands&#39;, &#39;Moldova&#39;, &#39;Monaco&#39;,
+            &#39;Mongolia&#39;, &#39;Montserrat&#39;, &#39;Morocco&#39;, &#39;Mozambique&#39;, &#39;Myanmar&#39;, &#39;Nambia&#39;, &#39;Nauru&#39;, &#39;Nepal&#39;,
+            &#39;Netherland Antilles&#39;, &#39;Netherlands&#39;, &#39;Nevis&#39;, &#39;New Caledonia&#39;, &#39;New Zealand&#39;, &#39;Nicaragua&#39;,
+            &#39;Niger&#39;, &#39;Nigeria&#39;, &#39;Niue&#39;, &#39;Norfolk Island&#39;, &#39;Norway&#39;, &#39;Oman&#39;, &#39;Pakistan&#39;, &#39;Palau Island&#39;,
+            &#39;Palestine&#39;, &#39;Panama&#39;, &#39;Papua New Guinea&#39;, &#39;Paraguay&#39;, &#39;Peru&#39;, &#39;Philippines&#39;, &#39;Pitcairn Island&#39;,
+            &#39;Poland&#39;, &#39;Portugal&#39;, &#39;Puerto Rico&#39;, &#39;Qatar&#39;, &#39;Republic of Montenegro&#39;, &#39;Republic of Serbia&#39;,
+            &#39;Reunion&#39;, &#39;Romania&#39;, &#39;Russia&#39;, &#39;Rwanda&#39;, &#39;St Barthelemy&#39;, &#39;St Eustatius&#39;, &#39;St Helena&#39;,
+            &#39;St Kitts-Nevis&#39;, &#39;St Lucia&#39;, &#39;St Maarten&#39;, &#39;Saipan&#39;, &#39;Samoa&#39;, &#39;Samoa American&#39;, &#39;San Marino&#39;,
+            &#39;Saudi Arabia&#39;, &#39;Scotland&#39;, &#39;Senegal&#39;, &#39;Serbia&#39;, &#39;Seychelles&#39;, &#39;Sierra Leone&#39;, &#39;Singapore&#39;,
+            &#39;Slovakia&#39;, &#39;Slovenia&#39;, &#39;Solomon Islands&#39;, &#39;Somalia&#39;, &#39;South Africa&#39;, &#39;Spain&#39;, &#39;Sri Lanka&#39;,
+            &#39;Sudan&#39;, &#39;Suriname&#39;, &#39;Swaziland&#39;, &#39;Sweden&#39;, &#39;Switzerland&#39;, &#39;Syria&#39;, &#39;Tahiti&#39;, &#39;Taiwan&#39;,
+            &#39;Tajikistan&#39;, &#39;Tanzania&#39;, &#39;Thailand&#39;, &#39;Togo&#39;, &#39;Tokelau&#39;, &#39;Tonga&#39;, &#39;Trinidad Tobago&#39;,
+            &#39;Tunisia&#39;, &#39;Turkey&#39;, &#39;Turkmenistan&#39;, &#39;Turks &amp; Caicos Is&#39;, &#39;Tuvalu&#39;, &#39;Uganda&#39;, &#39;Ukraine&#39;,
+            &#39;United Arab Emirates&#39;, &#39;United Kingdom&#39;, &#39;United States of America&#39;, &#39;Uruguay&#39;, &#39;Uzbekistan&#39;,
+            &#39;Vanuatu&#39;, &#39;Vatican City State&#39;, &#39;Venezuela&#39;, &#39;Vietnam&#39;, &#39;Virgin Islands (British)&#39;,
+            &#39;Virgin Islands (USA)&#39;, &#39;Wake Island&#39;, &#39;Yemen&#39;, &#39;Zaire&#39;, &#39;Zambia&#39;, &#39;Zimbabwe&#39;];
+    }
+}</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;ComboBox, AutoComplete, ListBox&lt;/h1&gt;
+
+  &lt;h4&gt;Choose a country using a &lt;b&gt;ComboBox&lt;/b&gt;:&lt;/h4&gt;
+  &lt;div id=&quot;theCombo&quot;&gt;&lt;/div&gt;
+
+  &lt;h4&gt;Choose a country using an &lt;b&gt;AutoComplete&lt;/b&gt;:&lt;/h4&gt;
+  &lt;div id=&quot;theAutoComplete&quot;&gt;&lt;/div&gt;
+
+  &lt;h4&gt;Choose a country using a &lt;b&gt;ListBox&lt;/b&gt;:&lt;/h4&gt;
+  &lt;div id=&quot;theListBox&quot; style=&quot;height:200px&quot;&gt;&lt;/div&gt;
+
+  &lt;h4&gt;Create a &lt;b&gt;ComboBox&lt;/b&gt; from a &amp;lt;select&amp;gt; element:&lt;/h4&gt;
+  &lt;select id=&quot;theComboSelect&quot;&gt;
+    &lt;option&gt;Austria&lt;/option&gt;
+    &lt;option&gt;Belgium&lt;/option&gt;
+    &lt;option selected&gt;Canada&lt;/option&gt;
+    &lt;option&gt;Denmark&lt;/option&gt;
+    &lt;option&gt;Egypt&lt;/option&gt;
+  &lt;/select&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">h4 {
+  margin-top: 24px;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

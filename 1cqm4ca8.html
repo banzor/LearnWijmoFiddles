@@ -1,0 +1,176 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - CollectionView Currency - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "1cqm4ca8";
+        var show_src = "//fiddle.jshell.net/Wijmo5/1cqm4ca8/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/1cqm4ca8/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/1cqm4ca8/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=1cqm4ca8" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // create some random data
+  var countries = &#39;US,Germany,UK,Japan,Italy,Greece,Spain,Portugal,Australia&#39;.split(&#39;,&#39;);
+  var data = [];
+  for (var i = 0; i &lt; countries.length; i++) {
+    data.push({
+      id: i,
+      country: countries[i],
+      downloads: Math.round(Math.random() * 20000),
+      sales: Math.random() * 10000,
+      expenses: Math.random() * 5000
+    });
+  }
+
+  // create a CollectionView
+  var view = new wijmo.collections.CollectionView(data, {
+  	currentChanged: updateDetails,
+		sortDescriptions: [&#39;country&#39;]    
+  });
+
+  // create country combo
+  var cmbCountry = new wijmo.input.ComboBox(&#39;#cmbCountry&#39;, {
+    itemsSource: view,
+    displayMemberPath: &#39;country&#39;,
+  });
+  
+  // update details
+  updateDetails();
+  function updateDetails() {
+  	updateDetail(&#39;downloads&#39;, &#39;n0&#39;);
+  	updateDetail(&#39;sales&#39;, &#39;c&#39;);
+  	updateDetail(&#39;expenses&#39;, &#39;c&#39;);
+  }
+  function updateDetail(prop, fmt) {
+  	var text = &#39;&#39;;
+    if (view.currentItem) {
+    	text = wijmo.Globalize.format(view.currentItem[prop], fmt);
+    }
+    document.getElementById(prop).textContent = text;
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    CollectionView Currency
+  &lt;/h1&gt;
+  &lt;p&gt;
+    The &lt;b&gt;CollectionView&lt;/b&gt; has a &lt;b&gt;currentItem&lt;/b&gt; property that 
+    identifies the item that is currently active.&lt;/p&gt;
+  &lt;p&gt;
+    This property is used by all Wijmo controls that support binding 
+    to lists and selection (including the FlexGrid, FlexChart, ListBox,
+    ComboBox, etc).&lt;/p&gt;
+  &lt;p&gt;
+    The example below implements a simple master/detail screen.
+    When users select a country from the &lt;b&gt;ComboBox&lt;/b&gt;, the current
+    item changes.
+    This raises the &lt;b&gt;currentChanged&lt;/b&gt; event which is used to
+    update the elements that show the current item&#39;s details.&lt;/p&gt;
+
+  &lt;table class=&quot;table table-condensed&quot;&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Country&lt;/td&gt;
+      &lt;td&gt;
+        &lt;div id=&quot;cmbCountry&quot;&gt;
+        &lt;/div&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Downloads&lt;/td&gt;
+      &lt;td id=&quot;downloads&quot;&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Sales&lt;/td&gt;
+      &lt;td id=&quot;sales&quot;&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Expenses&lt;/td&gt;
+      &lt;td id=&quot;expenses&quot;&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/table&gt;
+  
+  &lt;div class=&quot;panel panel-warning&quot;&gt;
+    &lt;div class=&quot;panel-heading&quot;&gt;
+      &lt;p&gt;
+        This fiddle uses pure JavaScript. 
+        If we were using a framework such as Angular, React, or Vue, 
+        we would use expressions such as &#39;view.currentItem.sales&#39;
+        directly in the markup, and most of the JS code would go away.&lt;/p&gt;
+      &lt;p&gt;
+        Follow this link to see an &lt;a href=&quot;https://jsfiddle.net/Wijmo5/4gcu56sk/&quot; target=&quot;_blank&quot;&gt;
+        Angular version of this fiddle
+      &lt;/a&gt;.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.table&gt;tbody&gt;tr&gt;td {
+  border: none;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

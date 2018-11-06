@@ -1,0 +1,224 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Custom Cell Content - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "8Lgc37dc";
+        var show_src = "//fiddle.jshell.net/Wijmo5/8Lgc37dc/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/8Lgc37dc/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/8Lgc37dc/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=8Lgc37dc" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function () {
+
+  // generate some data
+  var data = [
+  	{ rank: 1, title: &#39;The Wizard of Oz&#39;, rating: 4, attendance: getArr(40), revenue: getArr(20) },
+  	{ rank: 2, title: &#39;Citizen Kane&#39;, rating: 5, attendance: getArr(40), revenue: getArr(20) },
+  	{ rank: 3, title: &#39;The Godfather&#39;, rating: 5, attendance: getArr(40), revenue: getArr(20) },
+  	{ rank: 4, title: &#39;Metropolis&#39;, rating: 4, attendance: getArr(40), revenue: getArr(20) },
+  	{ rank: 5, title: &#39;Singing\&#39; in the Rain&#39;, rating: 2, attendance: getArr(40), revenue: getArr(20) },
+  	{ rank: 6, title: &#39;Casablanca&#39;, rating: 3, attendance: getArr(40), revenue: getArr(20) },
+  	{ rank: 7, title: &#39;Alien&#39;, rating: 5, attendance: getArr(40), revenue: getArr(20) },
+  	{ rank: 8, title: &#39;Vertigo&#39;, rating: 2, attendance: getArr(40), revenue: getArr(20) },
+  	{ rank: 9, title: &#39;Gone with the Wind&#39;, rating: 4, attendance: getArr(40), revenue: getArr(20) },
+  	{ rank: 10, title: &#39;Chinatown&#39;, rating: 2, attendance: getArr(40), revenue: getArr(20) }
+  ];
+  function getArr(len) {
+  	var arr = [];
+    for (var i = 0; i &lt; len; i++) {
+    	arr.push(Math.round(Math.random() * 100));
+    }
+    return arr;
+  }
+
+	// column properties
+  var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+    isReadOnly: true,
+    allowResizing: &#39;None&#39;,
+  	showAlternatingRows: false,
+  	autoGenerateColumns: false,
+    columns: [
+			{ binding: &#39;rank&#39;, header: &#39;#&#39;, width: 50 },
+			{ binding: &#39;title&#39;, header: &#39;Title&#39;, width: &#39;2*&#39; },
+			{ binding: &#39;rating&#39;, header: &#39;Rating&#39;, align: &#39;center&#39;, cssClass: &#39;cell-rating&#39;, width: &#39;*&#39; },
+			{ binding: &#39;attendance&#39;, header: &#39;Attendance&#39;, cssClass: &#39;cell-attendance&#39;, width: &#39;2*&#39; },
+  		{ binding: &#39;revenue&#39;, header: &#39;Revenue&#39;, cssClass: &#39;cell-revenue&#39;, width: &#39;2*&#39; },
+    ],
+    itemsSource: data,
+    formatItem: function (s, e) {
+    	if (e.panel == s.cells) {
+      	var item = s.rows[e.row].dataItem;
+      	switch (s.columns[e.col].binding) {
+        	case &#39;rating&#39;:
+          	formatRatingCell(e.cell, item.rating);
+            break;
+        	case &#39;attendance&#39;:
+          	formatAttendanceCell(e.cell, item.attendance);
+            break;
+        	case &#39;revenue&#39;:
+          	formatRevenueCell(e.cell, item.revenue);
+            break;
+        }
+      }
+    }
+  });
+
+	function formatRatingCell(cell, rating) {
+  	var html = &#39;&lt;div aria-label=&quot;rating:&#39; + rating + &#39; stars&quot;&gt;&#39;;
+    for (var i = 0; i &lt; rating; i++) {
+    	html += &#39;&lt;span class=&quot;glyphicon glyphicon-star&quot;&gt;&lt;/span&gt;&#39;;
+    }
+		html += &#39;&lt;/div&gt;&#39;;
+    cell.innerHTML = html;
+  }
+  function formatAttendanceCell(cell, data) {
+  	cell.innerHTML = getSparklines(data)
+  }
+  function formatRevenueCell(cell, data) {
+  	cell.innerHTML = getSparkbars(data)
+  }
+  
+  
+  // generate sparklines as SVG
+  function getSparklines(data) {
+		var svg = &#39;&#39;,
+    	min = Math.min.apply(Math, data),
+      max = Math.max.apply(Math, data),
+      x1 = 0,
+      y1 = scaleY(data[0], min, max),
+      x2, y2;
+		for (var i = 1; i &lt; data.length; i++) {
+    	x2 = Math.round((i) / (data.length - 1) * 100);
+      y2 = scaleY(data[i], min, max);
+      svg += &#39;&lt;line x1=&#39; + x1 + &#39;% y1=&#39; + y1 + &#39;% x2=&#39; + x2 + &#39;% y2=&#39; + y2 + &#39;% /&gt;&#39;;
+      x1 = x2;
+      y1 = y2;
+		}
+    return wrapSvg(svg, &#39;sparklines&#39;);
+  }
+	function getSparkbars (data) {
+  	var svg = &#39;&#39;,
+			min = Math.min.apply(Math, data),
+      max = Math.max.apply(Math, data),
+      base = Math.min(max, Math.max(min, 0)),
+      basey = scaleY(base, min, max),
+      w = Math.round(100 / data.length) - 2,
+      x, y;
+		for (var i = 0; i &lt; data.length; i++) {
+    	x = i * Math.round(100 / data.length) + 1;
+      y = scaleY(data[i], min, max);
+      svg += &#39;&lt;rect x=&#39; + x + &#39;% width=&#39; + w + &#39;% y=&#39; + Math.min(y, basey) + &#39;% height=&#39; + Math.abs(y - basey) + &#39;% /&gt;&#39;;
+		}
+    svg += &#39;&lt;rect x=0% width=100% height=1 y=&#39; + basey + &#39;% opacity=.5 /&gt;&#39;;
+    return wrapSvg(svg, &#39;sparkbars&#39;);
+}
+  
+  function scaleY(value, min, max) {
+  	return 100 - Math.round((value - min) / (max - min) * 100);
+  }
+	function wrapSvg(svg, title) {
+    return &#39;&lt;div aria-label=&quot;&#39; + title + &#39;&quot; &#39; +
+    	&#39;style=&quot;width:100%;height:100%;box-sizing:border-box;padding:4px&quot;&gt;&#39; +
+    	&#39;&lt;svg width=&quot;100%&quot; height=&quot;100%&quot; style=&quot;stroke:currentColor;&quot;&gt;&lt;g&gt;&#39; +
+			svg +
+			&#39;&lt;/g&gt;&lt;/svg&gt;&lt;/div&gt;&#39;;
+	}
+
+}</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Custom Cell Content&lt;/h1&gt;
+  &lt;p&gt;
+    The FlexGrid provides a powerful infrastructure for binding cells
+    to data and formatting the cells using CSS.&lt;/p&gt;
+  &lt;p&gt;
+    But in some cases that may not be enough. In those situations,
+    use the &lt;b&gt;formatItem&lt;/b&gt; event to customize the style or
+    the content presented in each cell.&lt;/p&gt;
+  &lt;p&gt;
+    The grid below uses &lt;b&gt;formatItem&lt;/b&gt; to format cells
+    with star ratings and sparklines:&lt;/p&gt;
+  &lt;div id=&quot;theGrid&quot;&gt;
+  &lt;/div&gt;
+    
+&lt;/div&gt;
+
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 250px;
+  margin: 10px 0;
+}
+.cell-rating {
+  color: gold
+}
+.cell-attendance:not(.wj-state-selected):not(.wj-state-multi-selected),
+.cell-revenue:not(.wj-state-selected):not(.wj-state-multi-selected){
+  color: blue  
+}
+body {
+  margin-bottom: 20px;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

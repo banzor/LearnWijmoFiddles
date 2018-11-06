@@ -1,0 +1,352 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Calendar - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "9cg71fnv";
+        var show_src = "//fiddle.jshell.net/Wijmo5/9cg71fnv/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/9cg71fnv/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/9cg71fnv/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=9cg71fnv" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // create the events to show on our calendar
+  var events = getEvents();
+
+  // create the calendar
+  var calendar = document.getElementById(&#39;calendar&#39;),
+      tooltip = new wijmo.Tooltip(),
+      start = new Date();
+  for (var i = 0; i &lt; 12; i++) {
+    var month = createMonthControl(wijmo.DateTime.addMonths(start, -i));
+    calendar.appendChild(month);
+  }
+
+  // create a month
+  function createMonthControl(date) {
+
+    // create the calendar
+    var month = wijmo.createElement(&#39;&lt;div class=&quot;month&quot;&gt;&lt;/div&gt;&#39;),
+      cal = new wijmo.input.Calendar(month, {
+        showHeader: false,
+        selectionMode: &#39;None&#39;,
+        value: date,
+        formatItem: formatDayCell
+      });
+    cal.refresh();
+
+    // add a custom header element
+    var fmt = wijmo.format(&#39;&lt;div class=&quot;month-header&quot;&gt;&#39; +
+      &#39;&lt;div class=&quot;month-title&quot;&gt;{header}&lt;/div&gt;&#39; +
+      &#39;&lt;div class=&quot;month-status&quot;&gt;{uptime}% uptime&lt;/div&gt;&#39; +
+      &#39;&lt;/div&gt;&#39;, {
+        header: wijmo.Globalize.format(date, &#39;MMMM yyyy&#39;),
+        uptime: getUptime()
+      });
+    var newHeader = wijmo.createElement(fmt);
+    var hdr = cal.hostElement.querySelector(&#39;.wj-calendar-header&#39;);
+    hdr.parentElement.insertBefore(newHeader, hdr);
+
+    // show only first letter of week day
+    var cells = cal.hostElement.querySelectorAll(&#39;table tr.wj-header td&#39;);
+    for (var i = 0; i &lt; 7; i++) {
+      cells[i].textContent = cells[i].textContent.substr(0, 1);
+    }
+
+    // done
+    return month;
+  }
+
+  // format the calendar cells to show events
+  function formatDayCell(s, e) {
+
+    // format cell content
+    var html = wijmo.format(&#39;&lt;div&gt;{date}&lt;/div&gt;&#39;, {
+      date: e.data.getDate()
+    });
+    var event = getEvent(e.data);
+    html += event 
+    	? wijmo.format(&#39;&lt;img src=&quot;https://status.slack.com/img/v2/Table{type}.png&quot;/&gt;&#39;, event) 
+      : &#39;&lt;img/&gt;&#39;;
+    e.item.innerHTML = html;
+
+    // add tooltip to cell
+    var tip = wijmo.format(&#39;&lt;div class=&quot;event-tip event-type-{eventType}&quot;&gt;&#39; +
+      &#39;&lt;div&gt;{date:MMM d, yyyy}&lt;/div&gt;&#39; +
+      &#39;&lt;div class=&quot;event&quot;&gt;{eventMessage}&lt;/div&gt;&#39; +
+      &#39;&lt;/div&gt;&#39;, {
+        date: e.data,
+        eventMessage: event ? event.msg : &#39;No incidents, outages, or maintenance.&#39;,
+        eventType: event ? event.type.toLocaleLowerCase() : &#39;none&#39;
+      });
+    tooltip.setTooltip(e.item, tip)
+  }
+
+  // generate some events between now and a year ago
+  function getEvents() {
+    var arr = [],
+      types = &#39;Maintenance,Incident,Notice,Outage&#39;.split(&#39;,&#39;),
+      messages = &#39;Connectivity Issues,ISP Reported Problem,Message Server Overflow,Security Alert,Email Failure,Power Instability,Power Outage&#39;.split(&#39;,&#39;);
+    for (var i = 0; i &lt; 120; i++) {
+      var dt = wijmo.DateTime.addDays(new Date(), -Math.round(Math.random() * 365));
+      arr.push({
+        id: i,
+        date: dt,
+        type: types[Math.floor(Math.random() * types.length)],
+        msg: messages[Math.floor(Math.random() * messages.length)]
+      });
+    }
+    return arr;
+  }
+
+  function getUptime(date) {
+    var tm = [100, 99.75, 99.998, 99.98, 99.996, 99.93];
+    return tm[Math.floor(Math.random() * tm.length)];
+  }
+
+  function getEvent(date) {
+    for (var i = 0; i &lt; events.length; i++) {
+      if (wijmo.DateTime.sameDate(events[i].date, date)) {
+        return events[i];
+      }
+    }
+    return null;
+  }
+
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Calendar
+  &lt;/h1&gt;
+
+  &lt;p&gt;
+    This page shows several &lt;b&gt;Calendar&lt;/b&gt; controls. It uses:&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;
+      The &lt;b&gt;formatItem&lt;/b&gt; event to add icons to days where
+      significant events took place,&lt;/li&gt;
+    &lt;li&gt;
+      A &lt;b&gt;Tooltip&lt;/b&gt; to show additional information related
+      to each day.&lt;/li&gt;
+    &lt;li&gt;
+      Plain CSS to customize the appearnce of the calendar and
+      tooltip.&lt;/li&gt;
+  &lt;/ul&gt;    
+  &lt;p&gt;
+    This is a Wijmo version of the 
+    &lt;a href=&quot;https://status.slack.com/calendar&quot; target=&quot;_blank&quot;&gt;Slack status page&lt;/a&gt;.
+  &lt;/p&gt;
+  
+  &lt;div class=&quot;legend&quot;&gt;
+    &lt;div&gt;&lt;img src=&quot;https://status.slack.com/img/v2/TableMaintenance.png&quot;&gt; Maintenance&lt;/div&gt;
+    &lt;div&gt;&lt;img src=&quot;https://status.slack.com/img/v2/TableIncident.png&quot;&gt; Incident&lt;/div&gt;
+    &lt;div&gt;&lt;img src=&quot;https://status.slack.com/img/v2/TableNotice.png&quot;&gt; Notice&lt;/div&gt;
+    &lt;div&gt;&lt;img src=&quot;https://status.slack.com/img/v2/TableOutage.png&quot;&gt; Outage&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div id=&quot;calendar&quot; class=&quot;calendar&quot;&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">@media (min-width: 1200px) {
+  .container {
+    width: 1250px;
+  }
+}
+body {
+    background-color: #f5f5f5;
+    font-size: 16px;
+    font-family: -apple-system-font, &#39;Segoe UI&#39;, &#39;Roboto&#39;, sans-serif;
+    padding: 0 0 10px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #026974;
+    font-family: -apple-system-font, &#39;Segoe UI Light&#39;, &#39;Segoe UI&#39;, &#39;Roboto&#39;, sans-serif;
+    font-weight: 300;
+}
+
+h2 {
+    margin-top: 24px;
+    margin-left: -12px;
+}
+
+.header {
+    color: #dcf3f6;
+    background-color: #00C1D5;
+    margin-bottom: 14px;
+    padding: 12px 0;
+}
+
+    .header h1 {
+        color: #fff;
+        font-size: 40px;
+        line-height: 1;
+        margin-top: 0;
+    }
+
+    .header img {
+        float: left;
+        margin: 0 10px 5px 0;
+    }
+
+.wj-flexgrid {
+    height: 400px;
+    margin: 6px 0;
+}
+.wj-cell {
+    border-right: none;
+    padding: 8px 3px;
+}
+
+.legend {
+    display: flex;
+    justify-content: flex-end;
+}
+.legend div {
+    margin-left: 24px;
+}
+.calendar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 32px;
+    padding-bottom: 90px;
+}
+    .calendar .wj-calendar {
+        width: 390px;
+        padding: 12px 12px 36px;
+        background-color: white;
+        margin: 8px;
+    }
+        .calendar .wj-calendar .wj-content {
+            border: none;
+        }
+        .calendar .wj-calendar .wj-day-today {
+            font-weight: normal;
+        }
+        .calendar .wj-calendar .wj-state-selected {
+            background: inherit;
+            color: inherit;
+        }
+        .calendar .wj-calendar tr:not(.wj-header) td:hover {
+            background: #eee;
+        }
+        .calendar .wj-calendar .month-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .calendar .wj-calendar .month-header .month-title{
+            font-size: 150%;
+        }
+        .calendar .wj-calendar img {
+            height: 12px;
+            margin-top: -12px;
+        }
+
+    .calendar .wj-calendar-month .wj-header {
+        font-size: 100%;
+        background-color: inherit;
+        font-weight: normal;
+    }
+    .calendar .wj-calendar .wj-day-othermonth {
+        visibility: hidden;
+    }
+
+.wj-tooltip {
+    background-color: #fff;
+    padding: 0;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 0;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    box-sizing: border-box;
+    width: 450px;
+}
+.wj-tooltip .event {
+    margin-top: 12px;
+    font-weight: bold;
+}
+.wj-tooltip .event-tip {
+    border-top: 4px solid green;
+    padding: 24px;
+}
+    .wj-tooltip .event-tip.event-type-maintenance {
+        border-top-color: #3f46ad;
+    }
+    .wj-tooltip .event-tip.event-type-incident {
+        border-top-color: #eeb522;
+    }
+    .wj-tooltip .event-tip.event-type-notice {
+        border-top-color: #ff944b;
+    }
+    .wj-tooltip .event-tip.event-type-outage {
+        border-top-color: #eb4d5c;
+    }
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

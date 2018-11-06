@@ -1,0 +1,233 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Trend Lines - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "kfpjr61s";
+        var show_src = "//fiddle.jshell.net/Wijmo5/kfpjr61s/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/kfpjr61s/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/kfpjr61s/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=kfpjr61s" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// create the chart
+  var theChart = new wijmo.chart.FlexChart(&#39;#theChart&#39;, {
+    itemsSource: getData(),
+  	chartType: &#39;Scatter&#39;,
+    axisY: {
+    	axisLine: true
+		},
+    bindingX: &#39;x&#39;,
+    series: [
+    	{ name: &#39;Raw Data&#39;, binding: &#39;y&#39; },
+		],
+	});
+
+  // show the equation on the chart
+  var equation = document.getElementById(&#39;equation&#39;);
+
+  // create a TrendLine and add it to the Chart series collection
+  var trendLine = new wijmo.chart.analytics.TrendLine();
+  trendLine.binding = &#39;y&#39;;
+  trendLine.style = { stroke: &#39;darkred&#39;, strokeWidth: 3 };
+  trendLine.visibility = &#39;Hidden&#39;;
+  theChart.series.push(trendLine);
+
+  // select trendline order
+  var order = new wijmo.input.InputNumber(&#39;#order&#39;, {
+  	value: trendLine.order,
+    step: 1,
+    min: 1,
+    max: 6,
+    valueChanged: function (s, e) {
+    	if (s.value &gt;= s.min &amp;&amp; s.value &lt;= s.max) {
+	    	trendLine.order = s.value;
+  	    showEquation();
+      }
+    }
+  });
+
+  // select fit type
+  var fitType = new wijmo.input.ComboBox(&#39;#fitType&#39;, {
+  	isRequired: false,
+    placeholder: &#39;None&#39;,
+    textChanged: function (s, e) {
+    	trendLine.name = s.text;
+      if (s.text) { // show trendline
+      	trendLine.fitType = s.text;
+        trendLine.visibility = &#39;Visible&#39;;
+      } else { // hide trendline
+      	trendLine.visibility = &#39;Hidden&#39;;
+      }
+      switch (s.text) { // enable/disable order input
+      	case &#39;Polynomial&#39;:
+      	case &#39;Fourier&#39;:
+        	order.isDisabled = false;
+          break;
+        default:
+        	order.isDisabled = true;
+          break;
+      }
+			showEquation();
+    },
+    itemsSource: &#39;Linear,Exponential,Logarithmic,Power,Fourier,Polynomial,MinX,MinY,MaxX,MaxY,AverageX,AverageY&#39;.split(&#39;,&#39;)
+	});
+
+	// show updated equation on a timeOut since the TrendLine update is async
+	function showEquation() {
+		equation.innerHTML = &#39;&#39;;
+		setTimeout(function () {
+  		equation.innerHTML = trendLine.getEquation();
+		}, 100);
+	}
+
+  // randomize the data
+  document.getElementById(&#39;btnRandomize&#39;).addEventListener(&#39;click&#39;, function() {
+  	theChart.itemsSource = getData();
+    showEquation();
+  });
+
+	// data sources
+  function getData() {
+  	var arr = [], 
+    		cnt = 50,
+        a = Math.random(),
+        b = Math.random(),
+    		x = 1;
+    for (var i = 1; i &lt; cnt; i++) {
+      arr.push({
+      	x: i,
+        y: a + i * b + i * (Math.random() - .5)
+			});
+		}
+		return arr;
+	}
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Trend Lines&lt;/h1&gt;
+  &lt;p&gt;
+    The TrendLine class extends the regular Series class to provide
+    a calculated series based on the data and parameters you 
+    select.&lt;/p&gt;
+  &lt;p&gt;
+    To add trend lines to a chart, follow these steps:&lt;/p&gt;
+  &lt;ol&gt;
+    &lt;li&gt;
+      Create one or more TrendLine objects,&lt;/li&gt;
+    &lt;li&gt;
+      Configure the TrendLine objects as you would a regular series,
+      setting their &lt;b&gt;binding&lt;/b&gt;, &lt;b&gt;chartType&lt;/b&gt;, and &lt;b&gt;style&lt;/b&gt;
+      properties for example, and&lt;/li&gt;
+    &lt;li&gt;
+      Set the TrendLine&#39;s &lt;b&gt;fitType&lt;/b&gt; and &lt;b&gt;order&lt;/b&gt; properties
+      to determine the type of trend line you want to create.&lt;/li&gt;
+  &lt;/ol&gt;
+
+  &lt;label for=&quot;fitType&quot;&gt;Trendline Type: &lt;/label&gt;
+  &lt;div id=&quot;fitType&quot;&gt;&lt;/div&gt;&lt;br/&gt;
+  &lt;label for=&quot;order&quot;&gt;Order: &lt;/label&gt;
+  &lt;div id=&quot;order&quot;&gt;&lt;/div&gt;&lt;br/&gt;
+  &lt;label&gt;Equation: &lt;/label&gt;
+  &lt;div id=&quot;equation&quot; class=&quot;equation&quot;&gt;&lt;/div&gt;&lt;br/&gt;
+  &lt;label for=&quot;btnRandomize&quot;&gt;Randomize Data&lt;/label&gt;
+  &lt;button id=&quot;btnRandomize&quot; class=&quot;btn btn-default&quot;&gt;
+    Go
+  &lt;/button&gt;
+
+  &lt;div id=&quot;theChart&quot;&gt;&lt;/div&gt;
+  
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexchart {
+  height: 250px;
+  margin: 10px 0;
+}
+.wj-control {
+  margin-bottom: 3px;
+}
+label {
+  width: 120px;
+  text-align: right;
+}
+.equation {
+  display: inline-block;
+  font-style: italic;
+  font-size: 80%;
+}
+.wj-combobox, .wj-inputnumber {
+  width: 120px;
+  margin-right: 12px;
+}
+
+body {
+  margin-bottom: 24pt;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.chart.min.js" target="_blank">wijmo.chart.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.chart.analytics.min.js" target="_blank">wijmo.chart.analytics.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

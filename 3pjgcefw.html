@@ -1,0 +1,544 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Menu - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "3pjgcefw";
+        var show_src = "//fiddle.jshell.net/Wijmo5/3pjgcefw/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/3pjgcefw/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/3pjgcefw/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=3pjgcefw" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // element used to show menu commands
+  var target = document.getElementById(&#39;menu-target&#39;),
+    targetStyle = target.style,
+    computedStyle = getComputedStyle(target);
+
+  // create File menu (uses itemClicked event)
+  var menuFile = new wijmo.input.Menu(&#39;#menu-file&#39;, {
+    header: &#39;File&#39;,
+    displayMemberPath: &#39;header&#39;,
+    subItemsPath: &#39;items&#39;,
+    openOnHover: true,
+    isAnimated: true,
+    itemsSource: getFileMenuItems(),
+    itemClicked: function(s, e) {
+      target.innerHTML = &#39;Thank you for clicking &lt;b&gt;&lt;i&gt;&#39; + s.text + &#39;&lt;/i&gt;&lt;/b&gt;!&#39;;
+    }
+  });
+
+  // create Edit menu (uses itemClicked event)
+  var menuEdit = new wijmo.input.Menu(&#39;#menu-edit&#39;, {
+    header: &#39;Edit&#39;,
+    displayMemberPath: &#39;header&#39;,
+    subItemsPath: &#39;items&#39;,
+    openOnHover: true,
+    isAnimated: true,
+    itemsSource: getEditMenuItems(),
+    itemClicked: function(s, e) {
+      target.innerHTML = &#39;Thank you for clicking &lt;b&gt;&lt;i&gt;&#39; + s.text + &#39;&lt;/i&gt;&lt;/b&gt;!&#39;;
+    }
+  });
+
+  // create Format menu (uses command property)
+  var menuFormat = new wijmo.input.Menu(&#39;#menu-format&#39;, {
+    header: &#39;Format&#39;,
+    displayMemberPath: &#39;header&#39;,
+    subItemsPath: &#39;items&#39;,
+    openOnHover: true,
+    isAnimated: true,
+    itemsSource: getFormatMenuItems(),
+    command: getFormatMenuCommand()
+  });
+
+  // toggle animations
+  document.getElementById(&#39;isAnimated&#39;).addEventListener(&#39;click&#39;, function(e) {
+    [menuFile, menuEdit, menuFormat].forEach(function(menu) {
+      menu.isAnimated = e.target.checked;
+    })
+  });
+
+  // toggle open on hover
+  document.getElementById(&#39;openOnHover&#39;).addEventListener(&#39;click&#39;, function(e) {
+    [menuFile, menuEdit, menuFormat].forEach(function(menu) {
+      menu.openOnHover = e.target.checked;
+    })
+  });
+
+  // show right-to-left menus
+  document.getElementById(&#39;rtl&#39;).addEventListener(&#39;click&#39;, function(e) {
+    var menubar = document.querySelector(&#39;.menubar&#39;);
+    menubar.setAttribute(&#39;dir&#39;, e.target.checked ? &#39;rtl&#39; : &#39;ltr&#39;);
+    wijmo.Control.refreshAll(menubar);
+  });
+
+  // file menu items
+  function getFileMenuItems() {
+    return [{
+        header: &#39;New&#39;,
+        items: [{
+            header: &#39;Project&#39;
+          },
+          {
+            header: &#39;Site&#39;
+          },
+          {
+            header: &#39;File&#39;
+          },
+        ]
+      },
+      {
+        header: &#39;Open&#39;
+      },
+      {
+        header: &#39;Save&#39;
+      },
+      {
+        header: &#39;Save As&#39;,
+        items: [{
+            header: &#39;Normal&#39;
+          },
+          {
+            header: &#39;Compressed&#39;
+          },
+          {
+            header: &#39;Encrypted&#39;
+          }
+        ]
+      },
+      {
+        header: &#39;-&#39;
+      },
+      {
+        header: &#39;Exit&#39;
+      }
+    ];
+  }
+
+  // edit menu items
+  function getEditMenuItems() {
+    return [{
+        header: &#39;Go to&#39;,
+        items: [{
+            header: &#39;Line&#39;
+          },
+          {
+            header: &#39;Symbol&#39;
+          },
+          {
+            header: &#39;File&#39;,
+            items: [{
+                header: &#39;Current Project&#39;
+              },
+              {
+                header: &#39;Current Solution&#39;
+              },
+              {
+                header: &#39;Select...&#39;
+              },
+            ]
+          },
+        ]
+      },
+      {
+        header: &#39;Find and Replace&#39;,
+        items: [{
+            header: &#39;Quick Find&#39;
+          },
+          {
+            header: &#39;Quick Replace&#39;
+          },
+          {
+            header: &#39;Find in Files&#39;
+          },
+          {
+            header: &#39;Replace in Files&#39;,
+            items: [{
+                header: &#39;All&#39;
+              },
+              {
+                header: &#39;Read/Write Only&#39;
+              },
+            ]
+          },
+        ]
+      },
+      {
+        header: &#39;-&#39;
+      },
+      {
+        header: &#39;Undo&#39;
+      },
+      {
+        header: &#39;Redo&#39;
+      }
+    ];
+  }
+
+  // format menu items
+  function getFormatMenuItems() {
+    return [{
+        header: &#39;Font&#39;,
+        items: [{
+            header: &#39;Family&#39;,
+            items: [{
+                header: &#39;Arial&#39;,
+                prop: &#39;face&#39;
+              },
+              {
+                header: &#39;Times&#39;,
+                prop: &#39;face&#39;
+              },
+              {
+                header: &#39;Courier&#39;,
+                prop: &#39;face&#39;
+              },
+              {
+                header: &#39;Verdana&#39;,
+                prop: &#39;face&#39;
+              },
+              {
+                header: &#39;Georgia&#39;,
+                prop: &#39;face&#39;
+              }
+            ]
+          },
+          {
+            header: &#39;Bold&#39;,
+            prop: &#39;font&#39;
+          },
+          {
+            header: &#39;Italic&#39;,
+            prop: &#39;font&#39;
+          },
+          {
+            header: &#39;Underline&#39;,
+            prop: &#39;font&#39;
+          },
+          {
+            header: &#39;-&#39;
+          },
+          {
+            header: &#39;Larger&#39;,
+            prop: &#39;font&#39;
+          },
+          {
+            header: &#39;Smaller&#39;,
+            prop: &#39;font&#39;
+          }
+        ]
+      },
+      {
+        header: &#39;Color&#39;,
+        items: [{
+            header: &#39;Black&#39;,
+            prop: &#39;color&#39;
+          },
+          {
+            header: &#39;Red&#39;,
+            prop: &#39;color&#39;
+          },
+          {
+            header: &#39;Green&#39;,
+            prop: &#39;color&#39;
+          },
+          {
+            header: &#39;Blue&#39;,
+            prop: &#39;color&#39;
+          }
+        ]
+      },
+      {
+        header: &#39;Background&#39;,
+        items: [{
+            header: &#39;White&#39;,
+            prop: &#39;background&#39;
+          },
+          {
+            header: &#39;Red&#39;,
+            prop: &#39;background&#39;
+          },
+          {
+            header: &#39;Green&#39;,
+            prop: &#39;background&#39;
+          },
+          {
+            header: &#39;Blue&#39;,
+            prop: &#39;background&#39;
+          }
+        ]
+      },
+    ];
+  }
+
+  // format menu command
+  function getFormatMenuCommand() {
+    return {
+      executeCommand: function(parm) {
+        switch (parm.prop) {
+          case &#39;face&#39;:
+            targetStyle.fontFamily = parm.header;
+            break;
+          case &#39;font&#39;:
+            switch (parm.header) {
+              case &#39;Bold&#39;:
+                targetStyle.fontWeight = targetStyle.fontWeight ? &#39;&#39; : &#39;bold&#39;;
+                break;
+              case &#39;Italic&#39;:
+                targetStyle.fontStyle = targetStyle.fontStyle ? &#39;&#39; : &#39;italic&#39;;
+                break;
+              case &#39;Underline&#39;:
+                targetStyle.textDecoration = targetStyle.textDecoration ? &#39;&#39; : &#39;underline&#39;;
+                break;
+              case &#39;Larger&#39;:
+                targetStyle.fontSize = (parseFloat(computedStyle.fontSize) * 1.2) + &#39;px&#39;;
+                break;
+              case &#39;Smaller&#39;:
+                targetStyle.fontSize = (parseFloat(computedStyle.fontSize) * .8) + &#39;px&#39;;
+                break;
+            }
+            break;
+          case &#39;color&#39;:
+            targetStyle.color = parm.header.toLowerCase();
+            break;
+          case &#39;background&#39;:
+            targetStyle.background = parm.header.toLowerCase();
+            break;
+        }
+      },
+      canExecuteCommand: function(parm) {
+        switch (parm.prop) {
+          case &#39;face&#39;:
+            return targetStyle.fontFamily != parm.header;
+          case &#39;font&#39;:
+            switch (parm.header) {
+              case &#39;Larger&#39;:
+                return parseFloat(computedStyle.fontSize) &lt; 24;
+              case &#39;Smaller&#39;:
+                return parseFloat(computedStyle.fontSize) &gt; 8;
+            }
+            break;
+          case &#39;color&#39;:
+          case &#39;background&#39;:
+            var color = parm.header.toLowerCase();
+            return targetStyle.color != color &amp;&amp; targetStyle.background != color;
+        }
+        return true;
+      }
+    }
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+  &lt;h1&gt;Hierarchical Menus&lt;/h1&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;menubar&quot;&gt;
+  &lt;div class=&quot;container&quot;&gt;
+    &lt;div id=&quot;menu-file&quot;&gt;&lt;/div&gt;
+    &lt;div id=&quot;menu-edit&quot;&gt;&lt;/div&gt;
+    &lt;div id=&quot;menu-format&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;container&quot;&gt;
+
+  &lt;p id=&quot;menu-target&quot;&gt;
+    Wijmo Menus are great!
+  &lt;/p&gt;
+  &lt;p&gt;
+    Wijmo&#39;s hierarchical menus support all the options supported
+    by flat menus, including &lt;b&gt;openOnHover&lt;/b&gt;, &lt;b&gt;isAnimated&lt;/b&gt;,
+    and right-to-left layouts.&lt;/p&gt;
+  &lt;div class=&quot;container&quot;&gt;
+    &lt;label&gt;
+      openOnHover
+      &lt;input id=&quot;openOnHover&quot; type=&quot;checkbox&quot; checked=&quot;checked&quot;&gt;
+    &lt;/label&gt;
+    &lt;label&gt;
+      isAnimated
+      &lt;input id=&quot;isAnimated&quot; type=&quot;checkbox&quot; checked=&quot;checked&quot;&gt;
+    &lt;/label&gt;
+    &lt;label&gt;
+      Right-to-Left
+      &lt;input id=&quot;rtl&quot; type=&quot;checkbox&quot;&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+  &lt;p&gt;
+    The menu bar above contains three Menu controls. Each one is bound to
+    a hierarchical list of commands which is an array of objects where items
+    may contain child items. For example, the File menu has a New option with
+    three sub-items: Project, Site, and
+    File.&lt;/p&gt;
+  &lt;p&gt;
+    The first two menus respond to the menu&#39;s &lt;b&gt;itemClicked&lt;/b&gt; event, which
+    is raised when the user clicks an item that does not contain child items.&lt;/p&gt;
+  &lt;p&gt;
+    This is how the File menu was created:&lt;/p&gt;
+  &lt;pre&gt;
+// create File menu (uses itemClicked event)
+var menuFile = new wijmo.input.Menu(&#39;#menu-file&#39;, {
+    header: &#39;File&#39;,
+    displayMemberPath: &#39;header&#39;,
+    subItemsPath: &#39;items&#39;,
+    itemsSource: getFileMenuItems(),
+    itemClicked: function (s, e) {
+        target.innerHTML = &#39;Thank you for clicking &amp;lt;b&amp;gt;&amp;lt;i&amp;gt;&#39; + s.text + &#39;&amp;lt;/i&amp;gt;&amp;lt;/b&amp;gt;!&#39;;
+    }
+});
+&lt;/pre&gt;
+  &lt;p&gt;
+    The last menu, Format, uses a &lt;b&gt;command&lt;/b&gt; object that contains two functions:
+  &lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;
+      &lt;b&gt;canExecuteCommand&lt;/b&gt;: function that gets invoked when the menu is about
+      to be displayed and returns a value that specifies whether the command is
+      valid for the current state of the app.&lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;executeCommand&lt;/b&gt;: function that gets invoked then the user clicks an
+      enabled option.&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;p&gt;
+    Both functions take a parameter that is defined by the menu option objects.
+    The &lt;b&gt;command&lt;/b&gt; property is often used in MVVM applications. It provides
+    a convenient way to centralize menu handling (enabling and invoking commands).
+  &lt;/p&gt;
+  &lt;p&gt;
+    This is how the Format menu was created:&lt;/p&gt;
+  &lt;pre&gt;
+// create Format menu (uses command property)
+var menuFormat = new wijmo.input.Menu(&#39;#menu-format&#39;, {
+    header: &#39;Format&#39;,
+    displayMemberPath: &#39;header&#39;,
+    subItemsPath: &#39;items&#39;,
+    itemsSource: getFormatMenuItems(),
+    command: getFormatMenuCommand()
+});
+&lt;/pre&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.container&gt;label {
+  margin-bottom: 15px;
+  margin-right: 25px;
+}
+
+/* element affected by the menu commands */
+
+#menu-target {
+  font-size: 18pt;
+  text-align: center;
+  padding: 16px;
+  margin: 6px 0;
+  background: #00c1d5;
+  color: black;
+  border: 1px solid rgba(0, 0, 0, .25);
+}
+
+/* bar containing the menus */
+
+.menubar {
+  position: sticky;
+  display: flex;
+  background: #fddfa7;
+  padding: 12px;
+  top: 0;
+}
+
+/* customize wijmo default styles */
+
+.wj-state-selected {
+  color: black;
+  background: orange;
+}
+
+.wj-menu {
+  padding: 6px 14px;
+  border: none;
+  background: transparent;
+}
+
+.wj-menu:hover,
+.wj-menu.wj-state-focused {
+  background: rgba(0, 0, 0, .05);
+}
+
+.wj-menu .wj-input-group .wj-input-group-btn {
+  display: none;
+  /* hide the menu&#39;s drop-down buttons */
+}
+
+.wj-listbox.wj-menu-items {
+  min-width: 8em;
+  border: none;
+  background: #fddfa7;
+}
+
+.wj-listbox.wj-menu-items .wj-listbox-item:not(.wj-separator) {
+  padding: 6px 12px;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="http://prerelease.componentone.com/wijmo5/latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="http://prerelease.componentone.com/wijmo5/latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="http://prerelease.componentone.com/wijmo5/latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

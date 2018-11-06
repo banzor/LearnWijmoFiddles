@@ -1,0 +1,159 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Loading JSON Dates - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "ene3rLmb";
+        var show_src = "//fiddle.jshell.net/Wijmo5/ene3rLmb/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/ene3rLmb/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/ene3rLmb/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=ene3rLmb" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // start with some data encoded as JSON 
+  // (as it would arrive from a server)
+  var json = &#39;[&#39; +
+  	&#39;{&quot;id&quot;:0,&quot;country&quot;:&quot;US&quot;,&quot;sales&quot;:489.51,&quot;expenses&quot;:2358.24,&quot;date&quot;:&quot;2017-02-08T12:47:06.405Z&quot;},&#39; +
+    &#39;{&quot;id&quot;:1,&quot;country&quot;:&quot;Germany&quot;,&quot;sales&quot;:7803.20,&quot;expenses&quot;:2513.54,&quot;date&quot;:&quot;2017-02-09T12:47:06.405Z&quot;},&#39; +
+    &#39;{&quot;id&quot;:2,&quot;country&quot;:&quot;UK&quot;,&quot;sales&quot;:9996.58,&quot;expenses&quot;:2616.71,&quot;date&quot;:&quot;2017-02-10T12:47:06.405Z&quot;},&#39; +
+    &#39;{&quot;id&quot;:3,&quot;country&quot;:&quot;Japan&quot;,&quot;sales&quot;:9351.68,&quot;expenses&quot;:3030.59,&quot;date&quot;:&quot;2017-02-10T12:47:06.405Z&quot;},&#39; +
+  	&#39;{&quot;id&quot;:4,&quot;country&quot;:&quot;Spain&quot;,&quot;sales&quot;:349.51,&quot;expenses&quot;:7358.24,&quot;date&quot;:&quot;/Date(1486561758556)&quot;}&#39; +
+	&#39;]&#39;;
+
+  // decode the data
+  // no special parsing for dates, the date field will contain strings
+  var dataBad = JSON.parse(json);
+
+	// show the bad data in a grid
+  var theGridBad = new wijmo.grid.FlexGrid(&#39;#theGridBad&#39;, {
+  	itemsSource: dataBad
+  });
+
+  // decode the data
+  // use with a Date reviver to restore date fields
+  var dataGood = JSON.parse(json, function(key, value) {
+			if (typeof value === &#39;string&#39;) {
+      
+      	// parse dates saved as JSON-strings
+	    	var m = value.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*)?)Z$/);
+				if (m) {
+    	  	return new Date(Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5], +m[6]));
+    		}
+
+    		// parse dates saved as OData-style strings
+				m = value.match(/^\/Date\((\d+)\)$/);
+      	if (m) {
+	      	return new Date(parseInt(m[1]));
+  	    }
+			}
+  		return value;  
+		});
+
+	// show the good data in a grid
+  var theGridGood = new wijmo.grid.FlexGrid(&#39;#theGridGood&#39;, {
+  	itemsSource: dataGood
+  });
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Loading JSON Dates
+  &lt;/h1&gt;
+  &lt;p&gt;
+    JSON is a great format for serializing data, but unfortunately
+    it does not support dates.&lt;/p&gt;
+    
+  &lt;h3&gt;
+    The Problem&lt;/h3&gt;    
+  &lt;p&gt;
+    If you serialize an object that contains date fields using
+    JSON.stringify, the dates will be converted to strings. 
+    If you then parse the same object using JSON.parse,
+    the date fields will remain strings.&lt;/p&gt;
+  &lt;p&gt;
+    Here&#39;s an example: note how the &quot;Date&quot; column contains 
+    strings:&lt;/p&gt;    
+  &lt;div id=&quot;theGridBad&quot;&gt; &lt;/div&gt;    
+    
+  &lt;h3&gt;
+    The Solution&lt;/h3&gt;    
+  &lt;p&gt;
+    The solution for this problem is to use a &#39;reviver&#39; function
+    in the call to JSON.parse that will inspect the strings
+    and convert those that look like dates into date objects.&lt;/p&gt;
+  &lt;p&gt;
+    Here is a grid showing the same data, this time parsed
+    with a date reviver function:&lt;/p&gt;    
+  &lt;div id=&quot;theGridGood&quot;&gt; &lt;/div&gt;    
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 250px;
+}
+body {
+  margin-bottom: 36pt;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

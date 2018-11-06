@@ -1,0 +1,178 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Clear Buttons - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "L21g8dyc";
+        var show_src = "//fiddle.jshell.net/Wijmo5/L21g8dyc/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/L21g8dyc/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/L21g8dyc/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=L21g8dyc" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// create the controls
+  var ctls = [];
+  ctls.push(new wijmo.input.InputDate(&#39;#theInputDate&#39;, {
+  	isRequired: false
+  }));
+  ctls.push(new wijmo.input.InputTime(&#39;#theInputTime&#39;, {
+  	isRequired: false
+  }));
+  ctls.push(new wijmo.input.InputDateTime(&#39;#theInputDateTime&#39;, {
+  	isRequired: false
+  }));
+  ctls.push(new wijmo.input.InputNumber(&#39;#theInputNumber&#39;, {
+  	isRequired: false,
+    step: 1,
+    value: 1234,
+    format: &#39;n2&#39;
+  }));
+  ctls.push(new wijmo.input.ComboBox(&#39;#theComboBox&#39;, {
+  	isRequired: false,
+    itemsSource: &#39;apples,oranges&#39;.split(&#39;,&#39;)
+  }));
+
+	// add clear button to all the controls
+  ctls.forEach(function(ctl) {
+  	addClearButton(ctl)	
+  });
+  
+	// add clear button to a Wijmo input control
+	function addClearButton(ctl) {
+  	var host = ctl.hostElement,
+    		input = ctl.inputElement;
+		host.classList.add(&#39;wj-clear-input&#39;);
+    host.addEventListener(&#39;mousedown&#39;, function (e) {
+    	if (e.offsetX &lt; 0 &amp;&amp; wijmo.hasClass(e.target, &#39;wj-input-group-btn&#39;) &amp;&amp;  !wijmo.closest(e.target, &#39;.wj-state-empty&#39;)) {
+      	e.preventDefault();
+        e.stopImmediatePropagation();
+        input.value = &#39;&#39;;
+        input.dispatchEvent(inputEvent);
+        input.focus();
+			}
+		}, true);
+	}
+  var inputEvent = document.createEvent(&#39;HTMLEvents&#39;);
+  inputEvent.initEvent(&#39;input&#39;, true, false);
+  
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Clear Buttons
+  &lt;/h1&gt;
+
+  &lt;p&gt;
+    This sample shows how you can add a &quot;Clear&quot; button to the
+    input elements in Wijmo input controls.&lt;/p&gt;
+  &lt;p&gt;
+    The &quot;Clear&quot; button allows users to clear the control using
+    the mouse, which may be more convenient than pressing the
+    Ctrl+A/Delete keys.&lt;/p&gt;
+
+  &lt;input id=&quot;theInputDate&quot;&gt;
+  &lt;br&gt;
+  &lt;input id=&quot;theInputTime&quot;&gt;
+  &lt;br&gt;
+  &lt;input id=&quot;theInputDateTime&quot;&gt;
+  &lt;br&gt;
+  &lt;input id=&quot;theInputNumber&quot;&gt;
+  &lt;br&gt;
+  &lt;input id=&quot;theComboBox&quot;&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-control {
+  width: 250px;
+  margin-bottom: 12px;
+}
+
+body {
+  margin-bottom: 36px;
+}
+
+.wj-clear-input .wj-input-group input.wj-form-control {
+  padding-right: 2em;
+}
+.wj-clear-input:not(.wj-state-empty) input + .wj-input-group-btn:focus {
+  outline: none;
+}
+.wj-clear-input .wj-input-group-btn {
+  position: relative;
+}
+.wj-clear-input:not(.wj-state-empty):hover input +.wj-input-group-btn:after {
+  content: &#39;\00d7&#39;;
+  position: absolute;
+  font-weight: bold;
+  width: 1.5em;
+  left: -1.5em;
+  top: 50%;
+  transform: translateY(-50%);   
+  padding: .5em;
+  cursor: pointer;
+  color: darkred;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

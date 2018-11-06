@@ -1,0 +1,185 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Gauge Elements - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "b3nuoepd";
+        var show_src = "//fiddle.jshell.net/Wijmo5/b3nuoepd/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/b3nuoepd/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/b3nuoepd/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=b3nuoepd" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// create the gauge
+  var radial = new wijmo.gauge.RadialGauge(&#39;#radial&#39;, {
+  	isReadOnly: false,
+    hasShadow: false,
+    showText: &#39;All&#39;,
+    startAngle: -30,
+    sweepAngle: 240,
+    value: 50,
+    showRanges: true,
+    showTicks: true,
+    tickSpacing: 10,
+    ranges: [
+    	{ min: 0, max: 30, color: &#39;red&#39;, thickness: .5 },
+    	{ min: 30, max: 50, color: &#39;orange&#39;, thickness: .5 },
+    	{ min: 50, max: 70, color: &#39;gold&#39;, thickness: .5 },
+    	{ min: 70, max: 100, color: &#39;green&#39;, thickness: .5 },
+    ]
+  });
+  radial.pointer.thickness = .15;
+  radial.thumbSize = 20;
+  
+  // add some tooltips
+  var tt = new wijmo.Tooltip(),
+  		host = radial.hostElement;
+  tt.setTooltip(host.querySelector(&#39;.wj-face&#39;), &#39;Face&#39;);
+  tt.setTooltip(host.querySelector(&#39;.wj-pointer&#39;), &#39;Pointer&#39;);
+  tt.setTooltip(host.querySelector(&#39;.wj-thumb&#39;), &#39;Thumb&#39;);
+  tt.setTooltip(host.querySelector(&#39;.wj-ranges&#39;), &#39;Ranges&#39;);
+  tt.setTooltip(host.querySelector(&#39;.wj-ticks&#39;), &#39;Tickmarks&#39;);
+  tt.setTooltip(host.querySelector(&#39;.wj-value&#39;), &#39;Text: Value&#39;);
+  tt.setTooltip(host.querySelector(&#39;.wj-min&#39;), &#39;Text: Min&#39;);
+  tt.setTooltip(host.querySelector(&#39;.wj-max&#39;), &#39;Text: Max&#39;);
+}
+
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+    
+  &lt;h1&gt;
+    Gauge Elements&lt;/h1&gt;
+  &lt;p&gt;
+    Every Wijmo gauge is composed of the following elements,
+    defined in the control template:&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;b&gt;Face&lt;/b&gt;:
+      The &quot;face&quot; is a range that represents the gauge background.
+      The &quot;min&quot; and &quot;max&quot; properties of the face range correspond
+      to the &quot;min&quot; and &quot;max&quot; properties of the gauge control, and
+      limit the values that the gauge can display.&lt;/li&gt;
+    &lt;li&gt;&lt;b&gt;Pointer&lt;/b&gt;:
+      The &quot;pointer&quot; is a range that indicates the gauge&#39;s current
+      value. The &quot;max&quot; property of the pointer range corresponds 
+      to the &quot;value&quot; property of the gauge.&lt;/li&gt;
+    &lt;li&gt;&lt;b&gt;Ranges&lt;/b&gt;:
+      In addition to the &quot;face&quot; and &quot;pointer&quot; ranges, gauges may
+      contain additional ranges that show zones within the gauge
+      (like &#39;bad&#39;, &#39;average&#39;, and &#39;good&#39;). Depending on the setting
+      of the &#39;showRanges&#39; property, these additional ranges may be 
+      shown at all times or used to determine the color of the
+      &#39;pointer&#39; based on the current gauge value.&lt;/li&gt;
+    &lt;li&gt;&lt;b&gt;Thumb&lt;/b&gt;:
+      The thumb is a circle shown at the end of the &#39;pointer&#39; range.
+      Use the &#39;thumbSize&#39; property to set the size of the thumb
+      element.&lt;/li&gt;
+    &lt;li&gt;&lt;b&gt;Tickmarks&lt;/b&gt;:
+      Tickmarks may be shown along the face to help users read the
+      gauge. Their visibility and position are controlled by the
+      &#39;showTicks&#39;, &#39;tickSpacing&#39;, and &#39;step&#39; properties.&lt;/li&gt;
+    &lt;li&gt;&lt;b&gt;Text Values&lt;/b&gt;:
+      Gauges may show the value of their &#39;min&#39;, &#39;max&#39;, and &#39;value&#39;
+      properties as text. Use the &#39;showText&#39; property to determine
+      which values should be displayed. Use the &#39;getText&#39; property
+      to customize the text displayed on the gauge.&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;p&gt;
+    Move the mouse over the gauge to highlight each element:&lt;/p&gt;
+  &lt;div id=&quot;radial&quot;&gt;&lt;/div&gt;
+  
+&lt;/div&gt;</pre>
+              <pre class="tCont ">.wj-gauge {
+  width: 50%;
+  height: 150px;
+  margin: 20px auto;
+  padding: 12px;
+  background: rgba(0, 0, 0, .02);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);  
+}
+.wj-gauge .wj-pointer {
+  fill: black;
+}
+.wj-gauge .wj-face,  
+.wj-gauge .wj-pointer,
+.wj-gauge .wj-thumb,
+.wj-gauge .wj-ranges, 
+.wj-gauge .wj-ticks, 
+.wj-gauge .wj-value,
+.wj-gauge .wj-min,
+.wj-gauge .wj-max {
+  opacity: .25;
+}
+.wj-gauge .wj-face:hover,
+.wj-gauge .wj-pointer:hover,
+.wj-gauge .wj-thumb:hover,
+.wj-gauge .wj-ranges:hover,
+.wj-gauge .wj-ticks:hover, 
+.wj-gauge .wj-value:hover,
+.wj-gauge .wj-min:hover,
+.wj-gauge .wj-max:hover {
+  opacity: 1;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.gauge.min.js" target="_blank">wijmo.gauge.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

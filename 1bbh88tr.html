@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Server-Side Filtering - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "1bbh88tr";
+        var show_src = "//fiddle.jshell.net/Wijmo5/1bbh88tr/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/1bbh88tr/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/1bbh88tr/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=1bbh88tr" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function () {
+
+  // generate some random data
+  var countries = &#39;US,Germany,UK,Japan,Italy,Greece&#39;.split(&#39;,&#39;),
+      data = [];
+  for (var i = 0; i &lt; 200; i++) {
+    data.push({
+    	id: i,
+      country: countries[i % countries.length],
+      downloads: Math.round(Math.random() * 20000),
+      sales: Math.random() * 10000,
+      expenses: Math.random() * 5000,
+    });
+  }
+
+	// FlexGridFilter server-side filtering
+  var svcUrl = &#39;https://services.odata.org/Northwind/Northwind.svc&#39;;
+  var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+  	isReadOnly: true,
+    itemsSource: new wijmo.odata.ODataCollectionView(svcUrl, &#39;Customers&#39;, {
+    	filterOnServer: true,
+      sortOnServer: true
+    }),
+  });
+  var serverFilter = new wijmo.grid.filter.FlexGridFilter(theGrid);
+
+  // optionally set default filter type to &#39;Condition&#39; to 
+  // avoid requests that exceed URL length limits
+	serverFilter.defaultFilterType = &#39;Condition&#39;
+}</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Server-Side Filtering
+  &lt;/h1&gt;
+  &lt;p&gt;
+    If you are loading data from an &lt;b&gt;OData&lt;/b&gt; source with the
+    &lt;b&gt;ODataCollectionView&lt;/b&gt; class, the &lt;b&gt;FlexGridFilter&lt;/b&gt;
+    can provide server-side filtering automatically.&lt;/p&gt;
+  &lt;p&gt;
+    Set the view&#39;s &lt;b&gt;sortOnServer&lt;/b&gt; property to true and
+    the &lt;b&gt;FlexGridFilter&lt;/b&gt; will automatically convert
+    your filter conditions into &lt;b&gt;OData&lt;/b&gt; filter statements
+    to be handled on the server.&lt;/p&gt;
+  &lt;div id=&quot;theGrid&quot;&gt;
+  &lt;/div&gt;
+    
+&lt;/div&gt;
+
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 250px;
+  margin:10px 0;
+}
+body {
+  margin-bottom: 20px;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.filter.min.js" target="_blank">wijmo.grid.filter.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.odata.min.js" target="_blank">wijmo.odata.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Gantt FlexChart - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "6zcmwjqr";
+        var show_src = "//fiddle.jshell.net/Wijmo5/6zcmwjqr/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/6zcmwjqr/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/6zcmwjqr/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=6zcmwjqr" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+    // create simple Gantt chart
+    new wijmo.chart.FlexChart(&#39;#simple-gantt&#39;, {
+        itemsSource: getSimpleData(7),
+        chartType: &#39;Bar&#39;,
+        bindingX: &#39;name&#39;,
+        tooltip: {
+            content: getTooltipContent
+        },
+        axisY: {
+            majorGrid: false,
+            minorGrid: true,
+            reversed: true
+        },
+        series: [
+            { binding: &#39;start,end&#39; }
+        ]
+    });
+
+    // create advanced Gantt chart
+    new wijmo.chart.FlexChart(&#39;#advanced-gantt&#39;, {
+        itemsSource: getAdvancedData(),
+        chartType: &#39;Bar&#39;,
+        bindingX: &#39;name&#39;,
+        tooltip: {
+            content: getTooltipContent
+        },
+        axisY: {
+            majorGrid: false,
+            minorGrid: true,
+            reversed: true
+        },
+        itemFormatter: ganttItemFormatter,
+        rendered: ganttChartRendered,
+        series: [
+            { binding: &#39;start,end&#39; }
+        ]
+    });
+
+    // utilities
+    function getTooltipContent(ht) {
+        var str = wijmo.format(&#39;&lt;b&gt;{name}&lt;/b&gt;:&lt;br/&gt;{start:d} - {end:d}&#39;, {
+            name: ht.x,
+            start: ht.item.start,
+            end: ht.item.end
+        });
+        if (ht.item &amp;&amp; ht.item.percent != null) {
+            str += wijmo.format(&#39;&lt;br/&gt;&lt;i&gt;percent complete: {percent}%&lt;/i&gt;&#39;, ht.item);
+        }
+        return str;
+    }
+
+    // show the percentage complete for each task
+    function ganttItemFormatter(engine, hti, defaultFormatter) {
+
+        // draw the item as usual
+        defaultFormatter();
+
+        // show percentage done
+        var task = hti.item;
+        if (wijmo.isNumber(task.percent) &amp;&amp; task.percent &gt; 0) {
+            var pct = wijmo.clamp(task.percent, 0, 100) / 100,
+                rc = getTaskRect(hti.series.chart, task).inflate(-8, -8);
+            engine.fill = pct == 1 ? &#39;green&#39; : &#39;gold&#39;;//engine.stroke;
+            engine.drawRect(rc.left, rc.top, rc.width * pct, rc.height);
+        }
+    }
+
+    // show the task dependencies
+    function ganttChartRendered(s, e) {
+        var chart = s,
+            tasks = chart.collectionView.items;
+        tasks.forEach(function (task) { // for each task
+            var parents = getTaskParents(task, tasks); // get the parent tasks
+            parents.forEach(function (parent) { // for each parent
+                drawConnectingLine(e.engine, chart, task, parent); // draw connector
+            });
+        });
+    }
+    function drawConnectingLine(engine, chart, task, parent) {
+        var rc1 = getTaskRect(chart, parent),   // parent rect
+            rc2 = getTaskRect(chart, task),     // task rect
+            x1 = rc1.left + rc1.width / 2,      // parent x center
+            x2 = rc2.left,                      // task left
+            y1 = rc1.bottom,                    // parent bottom
+            y2 = rc2.top + rc2.height / 2;      // task y center
+
+        // draw connecting line
+        var xs = [x1, x1, x2],
+            ys = [y1, y2, y2];
+        engine.drawLines(xs, ys, &#39;connector&#39;, {
+            stroke: &#39;black&#39;
+        });
+
+        // draw arrow at the end
+        var sz = 5;
+        xs = [x2 - 2 * sz, x2, x2 - 2 * sz];
+        ys = [y2 - sz, y2, y2 + sz];
+        engine.drawPolygon(xs, ys, &#39;arrow&#39;, {
+            fill: &#39;black&#39;
+        })
+    }
+    function getTaskRect(chart, task) {
+        var x1 = chart.axisX.convert(task.start),
+            x2 = chart.axisX.convert(task.end),
+            index = chart.collectionView.items.indexOf(task),
+            y1 = chart.axisY.convert(index - .35),
+            y2 = chart.axisY.convert(index + .35);
+        return new wijmo.Rect(x1, y1, x2 - x1 + 1, y2 - y1 + 1);
+    }
+    function getTaskParents(task, tasks) {
+        parents = [];
+        if (task.parent) {
+            task.parent.split(&#39;,&#39;).forEach(function (name) {
+                for (var i = 0; i &lt; tasks.length; i++) {
+                    if (tasks[i].name == name) {
+                        parents.push(tasks[i]);
+                        break;
+                    }
+                }
+            });
+        }
+        return parents;
+    }
+
+    function getSimpleData(cnt) {
+        var data = [],
+            date = new Date();
+        for (var i = 0; i &lt; cnt; i++) {
+            var low = i + Math.ceil(Math.random() * 10),
+                high = low + Math.ceil(Math.random() * 10);
+            data.push({
+                name: &#39;Task&#39; + (i + 1),
+                start: new Date(date.getTime() + low * 3600 * 24 * 1000),
+                end: new Date(date.getTime() + high * 3600 * 24 * 1000)
+            });
+        }
+        return data;
+    }
+
+    function getAdvancedData() {
+        var year = new Date().getFullYear();
+        return [
+            { name: &#39;Task1&#39;, start: new Date(year, 0, 1), end: new Date(year, 2, 31), parent: null, percent: 100 },
+            { name: &#39;Task2&#39;, start: new Date(year, 3, 1), end: new Date(year, 3, 30), parent: &#39;Task1&#39;, percent: 100 },
+            { name: &#39;Task3&#39;, start: new Date(year, 4, 1), end: new Date(year, 6, 31), parent: &#39;Task2&#39;, percent: 75 },
+            { name: &#39;Task4&#39;, start: new Date(year, 3, 1), end: new Date(year, 6, 31), parent: &#39;Task1&#39;, percent: 33 },
+            { name: &#39;Task5&#39;, start: new Date(year, 7, 1), end: new Date(year, 8, 30), parent: &#39;Task3,Task4&#39;, percent: 0 },
+            { name: &#39;Task6&#39;, start: new Date(year, 9, 1), end: new Date(year, 11, 31), parent: &#39;Task1,Task5&#39;, percent: 0 },
+            { name: &#39;Task7&#39;, start: new Date(year, 0, 1), end: new Date(year, 11, 31), parent: null, percent: 50 }
+        ];
+    }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Gantt FlexChart
+  &lt;/h1&gt;
+  &lt;p&gt;
+    Gantt charts illustrate project schedules. 
+    They show the start and finish dates of each task
+    and typically add information such as the completion state
+    of each task and dependencies between tasks.&lt;/p&gt;
+  &lt;p&gt;
+    This sample shows two Gantt charts:&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;
+      The first is a very simple chart showing bars bound to
+      the &#39;start&#39; and &#39;end&#39; properties of each data item.&lt;/li&gt;
+    &lt;li&gt;
+      The second extends this in two ways:
+      It uses the FlexChart&#39;s &lt;b&gt;itemFormatter&lt;/b&gt; property to
+      show each task&#39;s completion state, and
+      the &lt;b&gt;rendered&lt;/b&gt; event to add lines and polygons
+      that show task dependencies.&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;h3&gt;
+    Simple Gantt Chart
+  &lt;/h3&gt;
+  &lt;div id=&quot;simple-gantt&quot;&gt;&lt;/div&gt;
+  &lt;h3&gt;
+    Advanced Gantt Chart
+  &lt;/h3&gt;
+  &lt;div id=&quot;advanced-gantt&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexchart {
+  height: 300px;
+  max-width: 600px;
+  margin: 0 auto;
+  border: none;
+}
+body {
+  margin-bottom: 24pt;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.chart.min.js" target="_blank">wijmo.chart.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

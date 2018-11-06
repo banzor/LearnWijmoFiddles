@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - ComboBox as Color Input - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "b00w0ebe";
+        var show_src = "//fiddle.jshell.net/Wijmo5/b00w0ebe/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/b00w0ebe/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/b00w0ebe/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=b00w0ebe" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // ComboBox
+	var theComboBox = new wijmo.input.ComboBox(&#39;#theComboBox&#39;, {
+    textChanged: function(s, e) {
+    	document.getElementById(&#39;theColor&#39;).style.background = s.text;
+    },
+		formatItem: function(s, e) {
+    	var template = &#39;&lt;span class=&quot;colorthumb&quot; style=&quot;background:{data}&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt; {data}&#39;;
+    	e.item.innerHTML = wijmo.format(template, e);
+    },
+  	itemsSource: &#39;Aqua,Azure,Black,Blue,Brown,Chartreuse,Chocolate,Coral,Crimson,Cyan,Fuchsia,Gold,Gray,Green,Khaki,Lavender,Lime,Navy,Olive,Orange,Orchid,Pink,Plum,Purple,Red,Silver,Tan,Turquoise,Violet,White,Yellow&#39;.split(&#39;,&#39;),
+  });
+
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    ComboBox as Color Input
+  &lt;/h1&gt;
+
+  &lt;p&gt;
+    If you want users to select from a short set of well-known
+    colors, the ComboBox may be a better choice than an
+    InputColor control.&lt;/p&gt;
+  &lt;p&gt;
+    You can set the &lt;b&gt;itemsSource&lt;/b&gt; property to an array
+    containing the colors, and use the &lt;b&gt;formatItem&lt;/b&gt;
+    to show a preview of the colors on the drop-down list:&lt;/p&gt;    
+  &lt;div id=&quot;theComboBox&quot;&gt;&lt;/div&gt;
+  
+  &lt;span id=&quot;theColor&quot; class=&quot;colorthumb&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;
+
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-colorpicker {
+  margin-bottom: 18px;
+}
+#output {
+  float: right;
+  font-size: 12px;
+  border: 1px solid grey;
+  padding: 12px;
+  margin: 12px;
+}
+label {
+  width: 200px;
+  text-align: right;
+}
+.colorthumb {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  margin-right: 6px;
+  padding: 0 2px;
+}
+body {
+  margin-bottom: 24pt;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

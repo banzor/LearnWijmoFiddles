@@ -1,0 +1,258 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - PivotEngine Sort Control - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "j0dLt3qg";
+        var show_src = "//fiddle.jshell.net/Wijmo5/j0dLt3qg/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/j0dLt3qg/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/j0dLt3qg/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=j0dLt3qg" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // create pivot engine
+  var ng = new wijmo.olap.PivotEngine({
+    itemsSource: getData(100),
+    rowFields: [&#39;Country&#39;,&#39;Product&#39;],
+    valueFields: [&#39;Sales&#39;,&#39;Expenses&#39;]
+  });
+
+  // create pivot grid
+  var pivotGrid = new wijmo.olap.PivotGrid(&#39;#pivotGrid&#39;, {
+    itemsSource: ng,
+    //showRowFieldSort: true
+  });
+
+  // change the sort order for the dimension (row/column) fields
+  new wijmo.input.ComboBox(&#39;#sortCountry&#39;, {
+    itemsSource: &#39;Ascending,Descending&#39;.split(&#39;,&#39;),
+    selectedIndexChanged: function(s, e) {
+      ng.fields.getField(&#39;Country&#39;).descending = s.selectedIndex == 1;
+    }
+  })
+  new wijmo.input.ComboBox(&#39;#sortProduct&#39;, {
+    itemsSource: &#39;Ascending,Descending&#39;.split(&#39;,&#39;),
+    selectedIndexChanged: function(s, e) {
+      ng.fields.getField(&#39;Product&#39;).descending = s.selectedIndex == 1;
+    }
+  })
+
+  // change the sort order for the measure (value) fields
+  var sortSales = new wijmo.input.ComboBox(&#39;#sortSales&#39;, {
+    itemsSource: &#39;None,Ascending,Descending&#39;.split(&#39;,&#39;),
+    selectedIndexChanged: function(s, e) {
+      updateMeasureSort();
+    }
+  })
+  var sortExpenses = new wijmo.input.ComboBox(&#39;#sortExpenses&#39;, {
+    itemsSource: &#39;None,Ascending,Descending&#39;.split(&#39;,&#39;),
+    selectedIndexChanged: function(s, e) {
+      updateMeasureSort();
+    }
+  })
+  
+  // toggle subtotals
+  document.getElementById(&#39;subtotals&#39;).addEventListener(&#39;click&#39;, function(e) {
+  	ng.showRowTotals = e.target.checked ? &#39;Subtotals&#39; : &#39;GrandTotals&#39;
+  })
+
+	// utility
+  function updateMeasureSort() {
+    var sd = ng.pivotView.sortDescriptions;
+    sd.clear();
+    addMeasureSort(&#39;Sales&#39;, sortSales.text);
+    addMeasureSort(&#39;Expenses&#39;, sortExpenses.text);
+  }
+
+  function addMeasureSort(fieldName, sortDirection) {
+    if (sortDirection != &#39;None&#39;) {
+      var sd = ng.pivotView.sortDescriptions,
+        cols = pivotGrid.columns;
+      for (var c = 0; c &lt; cols.length; c++) {
+        var binding = cols[c].binding;
+        if (binding.indexOf(fieldName) == 0) {
+          sd.push(new wijmo.collections.SortDescription(binding, sortDirection == &#39;Ascending&#39;));
+        }
+      }
+    }
+  }
+
+  // create some random data
+	function getData(cnt) {
+  	var countries = &#39;US,Germany,UK,Japan,Italy&#39;.split(&#39;,&#39;),
+		    products = &#39;Widgets,Gadgets,Doohickeys&#39;.split(&#39;,&#39;),
+		    data = [];
+  	for (var i = 0; i &lt; cnt; i++) {
+    	data.push({
+	      country: countries[i % countries.length],
+	      product: products[i % products.length],
+	      downloads: Math.round(Math.random() * 20000),
+	      sales: Math.random() * 10000,
+	      expenses: Math.random() * 5000
+	    });
+	  }
+    return data;
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    PivotEngine Sort Control
+  &lt;/h1&gt;
+  &lt;p&gt;
+    The &lt;b&gt;PivotEngine&lt;/b&gt; automatically sorts dimension
+    (row and column) fields when it generates data summaries.
+    It does not sort measure (value) fields by default.
+  &lt;/p&gt;
+  
+  &lt;h4&gt;
+    Sorting Dimension (Row/Column) Fields
+  &lt;/h4&gt;
+  &lt;p&gt;
+    You can change the sort direction on dimension fields
+    by setting the field&#39;s &lt;b&gt;sort&lt;/b&gt; property in code.
+  &lt;/p&gt;
+  &lt;p&gt;
+    Users may switch the sort direction by clicking the 
+    headers on any &lt;b&gt;PivotGrid&lt;/b&gt; control attached to the 
+    engine (as long as the grid&#39;s &lt;b&gt;allowSorting&lt;/b&gt;
+    property is set to true).
+  &lt;/p&gt;
+  &lt;p&gt;
+    The &lt;b&gt;PivotGrid&lt;/b&gt; control does not show dimension
+    field sort setting by default, but you can set the
+    &lt;b&gt;showRowFieldSort&lt;/b&gt; property to true if you want
+    that feature.
+  &lt;/p&gt;
+  
+  &lt;h4&gt;
+    Sorting Measure (Value) Fields
+  &lt;/h4&gt;
+  &lt;p&gt;
+    Measure fields are not sorted by default. 
+    You can set their sort direction by changing the
+    &lt;b&gt;sortDescriptions&lt;/b&gt; property of the engine&#39;s
+    &lt;b&gt;pivotView&lt;/b&gt; collection (which contains the summary 
+    generated by the engine).
+  &lt;/p&gt;
+  &lt;p&gt;
+    This example shows how you can apply sorts to dimension
+    and measure fields:
+  &lt;/p&gt;
+
+  &lt;div class=&quot;row&quot;&gt;
+    &lt;div class=&quot;col-xs-4 panel&quot;&gt;
+    
+      &lt;h4&gt;
+        Sort Dimension fields
+      &lt;/h4&gt;
+      &lt;label&gt;
+        Country: &lt;input id=&quot;sortCountry&quot;&gt;
+      &lt;/label&gt;
+      &lt;label&gt;
+        Product: &lt;input id=&quot;sortProduct&quot;&gt;
+      &lt;/label&gt;
+      
+      &lt;h4&gt;
+        Sort Measure fields
+      &lt;/h4&gt;
+      &lt;label&gt;
+        Sales: &lt;input id=&quot;sortSales&quot;&gt;
+      &lt;/label&gt;
+      &lt;label&gt;
+        Expenses: &lt;input id=&quot;sortExpenses&quot;&gt;
+      &lt;/label&gt;
+      
+      &lt;label&gt;
+        Subtotals: &lt;input id=&quot;subtotals&quot; type=&quot;checkbox&quot;&gt;
+      &lt;/label&gt;
+      
+    &lt;/div&gt;
+
+    &lt;div class=&quot;col-xs-8&quot;&gt;
+      &lt;div id=&quot;pivotGrid&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.panel label {
+  display: block;
+}
+.panel label .wj-combobox {
+  font-weight: normal;
+}
+h4 {
+  margin-top: 20pt;
+}
+body {
+  margin-bottom: 24pt;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.filter.min.js" target="_blank">wijmo.grid.filter.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.olap.min.js" target="_blank">wijmo.olap.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

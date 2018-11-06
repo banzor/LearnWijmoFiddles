@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - InputNumber Ranges - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "wo6kfyda";
+        var show_src = "//fiddle.jshell.net/Wijmo5/wo6kfyda/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/wo6kfyda/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/wo6kfyda/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=wo6kfyda" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// InputNumber with a restricted range
+	var theInputNumber = new wijmo.input.InputNumber(&#39;#theInputNumber&#39;, {
+  		format: &#39;n0&#39;,
+      value: 1,
+      min: 1,
+      max: 5,
+      step: 1
+	});
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    InputNumber Ranges
+  &lt;/h1&gt;
+
+  &lt;p&gt;
+      Use the InputNumber&#39;s &lt;b&gt;min&lt;/b&gt; and &lt;b&gt;max&lt;/b&gt; properties
+      to restrict the range of values that can be entered.&lt;/p&gt;  
+  &lt;p&gt;
+      For example, the InputNumber below only accepts values 
+      between one and five:&lt;/p&gt;
+  &lt;label for=&quot;theInputNumber&quot;&gt;Guests&lt;/label&gt;
+  &lt;div id=&quot;theInputNumber&quot;&gt;&lt;/div&gt;
+  &lt;p&gt;
+    Note that the control will not validate the range
+    as the value is being edited, but will clamp the
+    value to the valid range when the control loses focus.&lt;/p&gt;
+  &lt;p&gt;
+    For example, you can type &quot;123&quot; in the control above, 
+    but as soon as you move the focus to another element
+    the control will apply the constraints and change the
+    value to five, the value of the &lt;b&gt;max&lt;/b&gt; property:&lt;/p&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">label {
+  width: 120px;
+  text-align: right;
+}
+.wj-inputnumber {
+  margin: 6px;
+}
+
+body {
+  margin-bottom: 24px;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

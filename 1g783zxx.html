@@ -1,0 +1,195 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Data Labels - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "1g783zxx";
+        var show_src = "//fiddle.jshell.net/Wijmo5/1g783zxx/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/1g783zxx/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/1g783zxx/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=1g783zxx" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// create a chart
+  var downloadsOnly = false;
+  var theChart = new wijmo.chart.FlexChart(&#39;#theChart&#39;, {
+  	itemsSource: getData(),
+    bindingX: &#39;country&#39;,
+    chartType: &#39;Line&#39;,
+    tooltip: {
+    	content: &#39;&#39;
+    },
+    series: [
+    	{ binding: &#39;sales&#39;, name: &#39;Sales&#39; },
+      { binding: &#39;expenses&#39;, name: &#39;Expenses&#39; },
+      {	binding: &#39;downloads&#39;, name: &#39;Downloads&#39; }
+    ],
+    dataLabel: {
+    	content: &#39;{value:n0}&#39;,
+    	position: &#39;Top&#39;, //None,Left,Top,Right,Bottom,Center
+      rendering: function(s, e) {
+        if (downloadsOnly &amp;&amp; e.hitTestInfo.series.binding != &#39;downloads&#39;) {
+        	e.cancel = true; // labels only for the &quot;downloads&quot; series
+        }
+        e.text = &#39;nanana&#39;
+      }
+    },
+  });
+  
+  // customize the data labels
+  var labelPosition = new wijmo.input.ComboBox(&#39;#labelPosition&#39;, {
+  	itemsSource: &#39;None,Left,Top,Right,Bottom,Center&#39;.split(&#39;,&#39;),
+    textChanged: function(s, e) {
+    	theChart.dataLabel.position = s.text;
+    },
+    text: &#39;Top&#39;
+  });
+  document.getElementById(&#39;linesAndBorders&#39;).addEventListener(&#39;click&#39;, function(e) {
+  	var dl = theChart.dataLabel;
+  	dl.connectingLine = dl.border = e.target.checked;
+  });
+  document.getElementById(&#39;downloadsOnly&#39;).addEventListener(&#39;click&#39;, function(e) {
+  	downloadsOnly = e.target.checked;
+    theChart.invalidate();
+  });
+  
+	// create some random data
+  function getData() {
+	  var countries = &#39;US,Germany,UK,Japan,Italy,Greece&#39;.split(&#39;,&#39;),
+	    data = [];
+	  for (var i = 0; i &lt; countries.length; i++) {
+	    data.push({
+	      country: countries[i],
+	      sales: Math.random() * 10000,
+	      expenses: Math.random() * 5000,
+	      downloads: Math.round(Math.random() * 20000),
+	    });
+	  }
+  	return data;
+  }
+
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Data Labels
+  &lt;/h1&gt;
+
+  &lt;p&gt;
+    The &lt;b&gt;dataLabels&lt;/b&gt; property allows you to show labels
+    next to each data point on the chart.&lt;/p&gt;
+  &lt;p&gt;
+    To use it, set the following properties on the &lt;b&gt;dataLabels&lt;/b&gt; 
+    object:&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;
+      &lt;b&gt;content&lt;/b&gt;: String template with property holders,
+      similar to the string used to define tooltip content.
+      For example, &lt;code&gt;&#39;{value:n0}&#39;&lt;/code&gt;.&lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;position&lt;/b&gt;: A 
+      &lt;a href=&quot;https://wijmo.com/5/docs/topic/wijmo.chart.LabelPosition.Enum.html&quot; target=&quot;_blank&quot;&gt;LabelPosition&lt;/a&gt;
+      value that determines where to place the labels relative
+      to the data points.&lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;connectingLine&lt;/b&gt;: Whether to draw a line connecting
+      the labels and corresponding data points.&lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;border&lt;/b&gt;: Whether to draw a border around the label.&lt;/li&gt;
+  &lt;/ul&gt;    
+
+  &lt;label for=&quot;labelPosition&quot;&gt;Label Position: &lt;/label&gt;
+  &lt;div id=&quot;labelPosition&quot;&gt;&lt;/div&gt;&lt;br/&gt;
+  &lt;label for=&quot;linesAndBorders&quot;&gt;Lines/Borders: &lt;/label&gt;
+  &lt;input id=&quot;linesAndBorders&quot; type=&quot;checkbox&quot;&gt;&lt;br/&gt;
+  &lt;label for=&quot;downloadsOnly&quot;&gt;Downloads Only: &lt;/label&gt;
+  &lt;input id=&quot;downloadsOnly&quot; type=&quot;checkbox&quot;&gt;
+  
+  &lt;div id=&quot;theChart&quot;&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  height: 150px; 
+  margin-top:10px;
+}
+.wj-flexchart {
+   height: 300px;
+}
+.wj-data-label {
+  font-size: 75%;
+  opacity: .9;
+}
+label {
+  width: 150px;
+  text-align: right;
+}
+.wj-control {
+  margin-bottom: 3px;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.chart.min.js" target="_blank">wijmo.chart.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

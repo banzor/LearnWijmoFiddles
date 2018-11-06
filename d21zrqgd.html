@@ -1,0 +1,175 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Cells - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "d21zrqgd";
+        var show_src = "//fiddle.jshell.net/Wijmo5/d21zrqgd/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/d21zrqgd/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/d21zrqgd/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=d21zrqgd" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// create some random data
+  var countries = &#39;US,Germany,UK,Japan,Italy,Greece&#39;.split(&#39;,&#39;),
+    data = [];
+  for (var i = 0; i &lt; 200; i++) {
+    data.push({
+      country: countries[i % countries.length],
+      downloads: Math.round(Math.random() * 20000),
+      sales: Math.random() * 10000,
+      expenses: Math.random() * 5000
+    });
+  }  
+  
+  // initialize the grid
+	var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+  	itemsSource: data,
+    formatItem: function(s, e) {
+    	if (e.panel == s.cells &amp;&amp; s.columns[e.col].binding == &#39;sales&#39;) {
+      	var item = s.rows[e.row].dataItem;
+        wijmo.toggleClass(e.cell, &#39;low&#39;, item.sales &lt; 1000);
+        wijmo.toggleClass(e.cell, &#39;high&#39;, item.sales &gt; 5000);
+      }
+		},
+  });
+  
+  // demonstrate the getCellData method
+  document.getElementById(&#39;getCellData&#39;).addEventListener(&#39;click&#39;, function() {
+  	var sel = theGrid.selection;
+    var raw = theGrid.cells.getCellData(sel.row, sel.col, false);
+    var formatted = theGrid.cells.getCellData(sel.row, sel.col, true);
+    alert(&#39;The selected cell contains this data: &#39; + raw + &#39;\n&#39; +
+    		  &#39;which is formatted as &quot;&#39; + formatted + &#39;&quot;&#39;)
+  });
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Cells&lt;/h1&gt;
+  &lt;p&gt;
+    The FlexGrid module defines &lt;b&gt;Row&lt;/b&gt; and &lt;b&gt;Column&lt;/b&gt;
+    classes, but no &lt;b&gt;Cell&lt;/b&gt; class. That is because cells
+    are just DOM elements created to represent the intersection
+    of a &lt;b&gt;Row&lt;/b&gt; and a &lt;b&gt;Column&lt;/b&gt;.&lt;/p&gt;
+  &lt;p&gt;
+    When rendering, the FlexGrid scans the rows and columns in
+    the &lt;b&gt;viewRange&lt;/b&gt; and generates a cell element for 
+    each combination. Cell elements are created based on a
+    &lt;b&gt;dataItem&lt;/b&gt; provides by the row and a &lt;b&gt;binding&lt;/b&gt;
+    provided by the column (along with some other properties).&lt;/p&gt;
+    
+  &lt;h2&gt;
+    The formatItem event&lt;/h2&gt;    
+  &lt;p&gt;
+    In some situations, you may want to customize the cell
+    element based on the data (dynamic formatting), to create
+    custom cell elements (templating), or not to use bindings
+    at all (calculated columns, unbound grids).&lt;/p&gt;
+  &lt;p&gt;
+    In these cases, use the &lt;b&gt;formatItem&lt;/b&gt; event to create or
+    modify the cell element as you see fit. For example, the
+    grid below shows sales below 1,000 in red and sales
+    over 5,000 in green:&lt;/p&gt;    
+    
+  &lt;div id=&quot;theGrid&quot;&gt;&lt;/div&gt;
+  
+  &lt;h2&gt;
+    Getting and setting cell data&lt;/h2&gt;
+  &lt;p&gt;
+    In most cases, you will modify the data directly in the
+    binding source object, and let the grid show the results.
+    But in a few cases, you may want to get or set the
+    data through the grid instead.&lt;/p&gt;
+  &lt;p&gt;
+    You can do this using the &lt;b&gt;getCellData&lt;/b&gt; and
+    &lt;b&gt;setCellData&lt;/b&gt; methods in the &lt;b&gt;GridPanel&lt;/b&gt;
+    class. These methods offer options for getting raw
+    or formatted data, coercing data types when setting
+    data, and getting or setting data on unbound grids.&lt;/p&gt;
+  &lt;p&gt;
+    &lt;button id=&quot;getCellData&quot; class=&quot;btn btn-default&quot;&gt;
+      Get the data for the currently selected cell
+    &lt;/button&gt;
+  &lt;/p&gt;    
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 250px; 
+  margin:10px;
+}
+.wj-cell.low:not(.wj-state-selected):not(.wj-state-multi-selected) {
+  color: red;   
+  font-weight: bold;
+}
+.wj-cell.high:not(.wj-state-selected):not(.wj-state-multi-selected) {
+  color: green;   
+  font-weight: bold;
+}
+body {
+  margin-bottom: 24px;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

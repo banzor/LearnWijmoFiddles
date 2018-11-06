@@ -1,0 +1,261 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - ListBox/ComboBox Grouping - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "sy7u9rn6";
+        var show_src = "//fiddle.jshell.net/Wijmo5/sy7u9rn6/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/sy7u9rn6/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/sy7u9rn6/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=sy7u9rn6" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// get grouped CollectionView
+  var data = getData();
+
+  // toggle showGroups
+  var showGroups = true;
+  document.getElementById(&#39;showGroups&#39;).addEventListener(&#39;click&#39;, function(e) {
+  	showGroups = e.target.checked;
+    theComboBox.showGroups = showGroups;
+    theListBox.showGroups = showGroups;
+	});
+
+  // toggle formatItem
+  var formatItem = true;
+  document.getElementById(&#39;formatItem&#39;).addEventListener(&#39;click&#39;, function(e) {
+  	formatItem = e.target.checked;
+		data.refresh();
+	});
+
+	// toggle checkboxes
+	var checkBoxes = false;
+	document.getElementById(&#39;checkBoxes&#39;).addEventListener(&#39;click&#39;, function(e) {
+		checkBoxes = e.target.checked;
+    theListBox.checkedMemberPath = e.target.checked ? &#39;checked&#39; : &#39;&#39;;
+	});
+
+	// show in ComboBox
+	var theComboBox = new wijmo.input.ComboBox(&#39;#theComboBox&#39;, {
+		showGroups: true,
+		formatItem: formatGroupHeader,
+    displayMemberPath: &#39;city&#39;,
+    itemsSource: data,
+    selectedIndexChanged: function(s, e) {
+    	console.log(
+				&#39;selectedIndexChanged&#39;,
+        s.selectedIndex,
+        s.selectedItem.city);
+    }
+  });
+
+  // show in ListBox
+  var theListBox = new wijmo.input.ListBox(&#39;#theListBox&#39;, {
+  	showGroups: true,
+    formatItem: formatGroupHeader,
+    displayMemberPath: &#39;city&#39;,
+    itemsSource: data,
+    selectedIndexChanged: function(s, e) {
+    	console.log(
+      	&#39;selectedIndexChanged&#39;,
+        s.selectedIndex,
+        s.selectedItem.city);
+    },
+    itemChecked: function(s, e) {
+    	console.log(
+      	&#39;itemChecked&#39;,
+        s.selectedIndex,
+        s.selectedItem.city,
+        s.selectedItem[s.checkedMemberPath]);
+      }
+    });
+
+	// show a flag in the group headers
+  function formatGroupHeader(s, e) {
+  	if (formatItem) {
+    	if (e.index &lt; 0 &amp;&amp; e.data instanceof wijmo.collections.CollectionViewGroup) {
+      	var group = e.data,
+        		code = getCountryCode(group.name);
+				if (code) {
+        	var fmt = &#39;&lt;span class=&quot;flag-icon flag-icon-{code}&quot;&gt;&lt;/span&gt; {country}&#39;;
+          e.item.innerHTML = wijmo.format(fmt, {
+          	code: code,
+            country: group.name
+					});
+        }
+      }
+    }
+  }
+  function getCountryCode(country) {
+  	switch (country) {
+    	case &#39;US&#39;: return &#39;us&#39;;
+      case &#39;Japan&#39;: return &#39;jp&#39;;
+      case &#39;UK&#39;: return &#39;gb&#39;;
+      case &#39;China&#39;: return &#39;cn&#39;;
+      case &#39;Germany&#39;: return &#39;de&#39;;
+      case &#39;France&#39;: return &#39;fr&#39;;
+      case &#39;Canada&#39;: return &#39;ca&#39;;
+      case &#39;Russia&#39;: return &#39;ru&#39;;
+    }
+    return null;
+  }
+
+  // some data for the list/combo
+	function getData() {
+  	var arr = [];
+    addCities(arr, &#39;US&#39;, &#39;New York,Los Angeles,Chicago,Houston&#39;);
+    addCities(arr, &#39;Japan&#39;, &#39;Tokyo,Osaka,Kyoto,Sendai&#39;);
+    addCities(arr, &#39;UK&#39;, &#39;London,Birmingham,Manchester,Liverpool&#39;);
+    addCities(arr, &#39;China&#39;, &#39;Shanghai,Beijing,Tianjin,Shenzhen&#39;);
+    addCities(arr, &#39;Germany&#39;, &#39;Berlin,Hamburg,Munich,Cologne&#39;);
+    addCities(arr, &#39;France&#39;, &#39;Paris,Marseille,Lyon,Toulouse&#39;);
+    addCities(arr, &#39;Canada&#39;, &#39;Toronto,Ottawa,Vancouver,Montreal&#39;);
+    addCities(arr, &#39;Russia&#39;, &#39;Moscow,St Petersburg,Novosibirsk,Yekaterinburg&#39;);
+    return new wijmo.collections.CollectionView(arr, {
+    	sortDescriptions: [&#39;country&#39;, &#39;city&#39;],
+      groupDescriptions: [&#39;country&#39;],
+      currentItem: null
+    });
+  }
+  function addCities(arr, country, cities) {
+		cities.split(&#39;,&#39;).forEach(function (city) {
+    	arr.push({
+      	country: country,
+        city: city
+      });
+    });
+  }
+}</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h2&gt;
+    ListBox/ComboBox Grouping
+  &lt;/h2&gt;
+  &lt;p&gt;
+    Use the &lt;b&gt;showGroups&lt;/b&gt; property to add group headers
+		to &lt;b&gt;ListBox&lt;/b&gt; and &lt;b&gt;ComboBox&lt;/b&gt; controls.
+  &lt;/p&gt;
+  &lt;p&gt;
+    Group header items are added if the &lt;b&gt;showGroups&lt;/b&gt;
+		property is set to true and the &lt;b&gt;itemsSource&lt;/b&gt; collection
+		has grouping enabled.
+  &lt;/p&gt;
+  &lt;p&gt;
+    Header items are presentational only. They cannot be selected
+		with the mouse or keyboard and are not bound to any data items.
+  &lt;/p&gt;
+
+  &lt;label&gt;
+		Show Groups
+    &lt;input id=&quot;showGroups&quot; type=&quot;checkbox&quot; checked&gt;
+	&lt;/label&gt;
+  &lt;label&gt;
+  	Format Group Headers
+    &lt;input id=&quot;formatItem&quot; type=&quot;checkbox&quot; checked&gt;
+	&lt;/label&gt;
+  &lt;label&gt;
+  	Show Checkboxes
+    &lt;input id=&quot;checkBoxes&quot; type=&quot;checkbox&quot;&gt;
+	&lt;/label&gt;
+
+	&lt;div class=&quot;row&quot;&gt;
+		&lt;div class=&quot;col-xs-6&quot;&gt;
+      &lt;h4&gt;
+        ComboBox
+      &lt;/h4&gt;
+		  &lt;div id=&quot;theComboBox&quot;&gt;&lt;/div&gt;
+		&lt;/div&gt;
+		&lt;div class=&quot;col-xs-6&quot;&gt;
+      &lt;h4&gt;
+        ListBox
+      &lt;/h4&gt;
+		  &lt;div id=&quot;theListBox&quot;&gt;&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-listbox {
+  height: 200px;
+  display: block;
+}
+.wj-listbox .wj-listbox-item {
+  line-height: 2em;
+}
+.wj-listbox .wj-listbox-item.wj-header {
+  opacity: 1;
+  position: sticky;
+  top: 0;
+}
+
+.container label {
+	margin: 0 24px;
+}
+
+body {
+  margin-bottom: 40px;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.css" target="_blank">flag-icon.css</a></li>
+                    <li><a href="https://test-9c0be.firebaseapp.com/wijmo/styles/wijmo.css" target="_blank">wijmo.css</a></li>
+                    <li><a href="https://test-9c0be.firebaseapp.com/wijmo/controls/wijmo.js" target="_blank">wijmo.js</a></li>
+                    <li><a href="https://test-9c0be.firebaseapp.com/wijmo/controls/wijmo.input.js" target="_blank">wijmo.input.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

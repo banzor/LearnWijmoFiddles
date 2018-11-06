@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Sizing and Auto Sizing - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "hdrtamq4";
+        var show_src = "//fiddle.jshell.net/Wijmo5/hdrtamq4/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/hdrtamq4/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/hdrtamq4/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=hdrtamq4" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // create some random data
+  var countries = &#39;US,Germany,UK,Japan,Italy,Greece&#39;.split(&#39;,&#39;);
+  var data = [];
+  for (var i = 0; i &lt; 50; i++) {
+    data.push({
+    	id: i,
+      country: countries[i % countries.length],
+      sales: Math.random() * 10000,
+      expenses: Math.random() * 5000
+    });
+  }
+
+  // show the data in a grid with fixed height
+  var theGridFixed = new wijmo.grid.FlexGrid(&#39;#theGridFixed&#39;, {
+    itemsSource: data
+  });
+
+  // show the data in a grid with auto height
+  var theGridAuto = new wijmo.grid.FlexGrid(&#39;#theGridAuto&#39;, {
+    itemsSource: data
+  });
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Sizing and Auto Sizing
+  &lt;/h1&gt;
+  &lt;p&gt;
+    By default, the FlexGrid sets its height automatically
+    to fit its content.&lt;/p&gt;
+  &lt;p&gt;
+    In most cases, however, you will want to limit the grid&#39;s
+    height using CSS. In this case, the grid will automatically
+    show scrollbars as needed and will virtualize the content
+    to improve performance.&lt;/p&gt;
+  &lt;p&gt;
+    This grid has a max-height set to 150 pixels:&lt;/p&gt;
+  &lt;div id=&quot;theGridFixed&quot;&gt;&lt;/div&gt;
+    
+  &lt;p&gt;
+    And this grid is as tall as necessary to show all its
+    content without vertical scrollbars:&lt;/p&gt;
+  &lt;div id=&quot;theGridAuto&quot;&gt;&lt;/div&gt;
+  
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">#theGridFixed.wj-flexgrid {
+  max-height: 150px;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

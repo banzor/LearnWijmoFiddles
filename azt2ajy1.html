@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Calendar Customization - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "azt2ajy1";
+        var show_src = "//fiddle.jshell.net/Wijmo5/azt2ajy1/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/azt2ajy1/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/azt2ajy1/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=azt2ajy1" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // the calendar
+  var theCalendar = new wijmo.input.Calendar(&#39;#theCalendar&#39;, {
+    valueChanged: function(s, e) {
+      showCurrentDate();
+    },
+    formatItem: function(s, e) { // apply styles to weekends and holidays
+      var weekday = e.data.getDay(),
+          holiday = getHoliday(e.data);
+      wijmo.toggleClass(e.item, &#39;date-weekend&#39;, weekday == 0 || weekday == 6);
+      wijmo.toggleClass(e.item, &#39;date-holiday&#39;, holiday != null);
+      e.item.title = holiday;
+    }
+  });
+  theCalendar.invalidate();
+
+  // show the currently selected date
+  function showCurrentDate() {
+    var el = document.getElementById(&#39;theCalendarOutput&#39;);
+    el.textContent = wijmo.Globalize.format(theCalendar.value, &#39;D&#39;);
+  }
+  showCurrentDate();
+
+  // gets the holiday for a given date
+  function getHolidays() {
+		return {
+    	&#39;1/1&#39;: &#39;New Year\&#39;s Day&#39;,
+    	&#39;6/14&#39;: &#39;Flag Day&#39;,
+    	&#39;7/4&#39;: &#39;Independence Day&#39;,
+    	&#39;11/11&#39;: &#39;Veteran\&#39;s Day&#39;,
+    	&#39;12/25&#39;: &#39;Christmas Day&#39;,
+    	&#39;1/3/1&#39;: &#39;Martin Luther King\&#39;s Birthday&#39;, // third Monday in January
+    	&#39;2/3/1&#39;: &#39;Washington\&#39;s Birthday&#39;, // third Monday in February
+    	&#39;5/3/6&#39;: &#39;Armed Forces Day&#39;, // third Saturday in May
+    	&#39;9/1/1&#39;: &#39;Labor Day&#39;, // first Monday in September
+    	&#39;10/2/1&#39;: &#39;Columbus Day&#39;, // second Monday in October
+    	&#39;11/4/4&#39;: &#39;Thanksgiving Day&#39;, // fourth Thursday in November
+  	};
+	}
+  function getHoliday(date) {
+    var day = date.getDate(),
+        month = date.getMonth() + 1,
+				holidays = getHolidays(),
+        holiday = holidays[month + &#39;/&#39; + day];
+    if (!holiday) {
+      var weekDay = date.getDay(),
+          weekNum = Math.floor((day - 1) / 7) + 1;
+      holiday = holidays[month + &#39;/&#39; + weekNum + &#39;/&#39; + weekDay];
+    }
+    return holiday;
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Calendar Customization
+  &lt;/h1&gt;
+
+  &lt;p&gt;
+    You can customize the appearance of the whole calendar using 
+    CSS, and you can use the calendar&#39;s &lt;b&gt;formatItem&lt;/b&gt; event
+    to customize the appearance of specific dates.&lt;/p&gt;
+  &lt;p&gt;
+    For example, the calendar below uses a custom style to show
+    weekends and holidays:&lt;/p&gt;
+  &lt;input id=&quot;theCalendar&quot;&gt;
+  &lt;div&gt;
+    The current date is &lt;b&gt;&lt;span id=&quot;theCalendarOutput&quot;&gt;&lt;/span&gt;&lt;/b&gt;.
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-calendar {
+  max-width: 21em;
+}
+
+.wj-calendar .wj-header {
+  color: white;
+  background: #808080;
+}
+
+.wj-calendar .date-holiday:not(.wj-state-selected) {
+  font-weight: bold;
+  color: #008f22;
+  background: #f0fff0;
+  outline: 2pt solid #008f22;
+}
+
+.wj-calendar .date-weekend:not(.wj-state-selected) {
+  background-color: #d8ffa6;
+}
+
+body {
+  margin-bottom: 36px;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

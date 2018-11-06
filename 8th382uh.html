@@ -1,0 +1,178 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Selection Events - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "8th382uh";
+        var show_src = "//fiddle.jshell.net/Wijmo5/8th382uh/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/8th382uh/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/8th382uh/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=8th382uh" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // create some random data
+  var countries = &#39;US,Germany,UK,Japan&#39;.split(&#39;,&#39;);
+  var data = [];
+  for (var i = 0; i &lt; 20; i++) {
+    data.push({
+    	id: i,
+      country: countries[i % countries.length],
+      sales: Math.random() * 10000,
+      expenses: Math.random() * 5000,
+      overdue: i % 4 == 0
+    });
+  }
+  
+  // bind a grid to the data
+  var elLog = document.getElementById(&#39;log&#39;);
+  var placeholder = elLog.innerHTML;
+  var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+    itemsSource: new wijmo.collections.CollectionView(data, {
+	  	groupDescriptions: [ &#39;country&#39; ] // group data by country
+	  }),
+    selectionChanged: function(s, e) {
+    	var html = placeholder;
+    	if (!theGrid.selection.isSingleCell) {
+      	var stats = getSelectionStats(theGrid);
+        var fmt = stats.sum != null
+        	? &#39;Avg: &lt;b&gt;{avg:n2}&lt;/b&gt;, Count: &lt;b&gt;{cnt:n0}&lt;/b&gt;, Sum: &lt;b&gt;{sum:n2}&lt;/b&gt;&#39;
+          : &#39;Count: {cnt:n2}&#39;;
+				html = wijmo.format(fmt, stats);
+      }
+			elLog.innerHTML = html;
+    }
+  });
+  
+  // get statistics for the current selection
+  function getSelectionStats(grid) {
+  	var sel = grid.selection,
+    		cnt = 0,
+        ncnt = 0,
+        sum = 0;
+    for (var r = sel.topRow; r &lt;= sel.bottomRow; r++) {
+	    for (var c = sel.leftCol; c &lt;= sel.rightCol; c++) {
+    		var val = grid.cells.getCellData(r, c, false);
+        if (val != null) {
+        	cnt++;
+          if (wijmo.isNumber(val)) {
+          	ncnt++;
+            sum += val;
+          }
+        }
+    	}
+    }
+    return {
+    	cnt: cnt,
+      sum: ncnt &gt; 0 ? sum: null,
+      avg: ncnt &gt; 0 ? sum/ncnt: null
+    }
+  }
+  
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Selection Events&lt;/h1&gt;
+  &lt;p&gt;
+    The FlexGrid&#39;s &lt;b&gt;selection&lt;/b&gt; property returns a 
+    &lt;b&gt;CellRange&lt;/b&gt; object that contains the range of
+    selected cells.&lt;/p&gt;
+  &lt;p&gt;
+    When the selection changes, the grid raises the
+    &lt;b&gt;selectionChanging&lt;/b&gt; and &lt;b&gt;selectionChanged&lt;/b&gt;
+    events.&lt;/p&gt;
+  &lt;p&gt;
+    The grid below uses the &lt;b&gt;selectionChanged&lt;/b&gt;
+    event to show a summary of the data selected.&lt;/p&gt;
+  &lt;div id=&quot;log&quot;&gt;
+    please select a range on the grid
+  &lt;/div&gt;
+  &lt;div id=&quot;theGrid&quot;&gt;
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 220px; 
+  margin:10px;
+}
+#log {
+  font-style: italic;
+  text-align: center;
+  margin-bottom: 10px;
+  opacity: .5;
+}
+.my-button {
+  opacity: .5;
+  margin: 0 6px;
+}
+.my-button:hover {
+  color: orange;  
+}
+body {
+   margin-bottom: 24px;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

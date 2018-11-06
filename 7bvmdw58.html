@@ -1,0 +1,269 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - PivotEngine Performance - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "7bvmdw58";
+        var show_src = "//fiddle.jshell.net/Wijmo5/7bvmdw58/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/7bvmdw58/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/7bvmdw58/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=7bvmdw58" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // initialize data sets
+	var ds10 = addData([], 10e3),
+      ds100 = [],
+      ds500 = [],
+      ds1M = [],
+      result = document.getElementById(&#39;result&#39;),
+      start = 0;
+
+  // initialize pivot engine
+  var ng = new wijmo.olap.PivotEngine({
+    autoGenerateFields: false, // turn off auto-generation
+    fields: [ // specify the fields we want
+      { binding: &#39;date&#39;, header: &#39;Date&#39;, format: &#39;yyyy&#39; },
+      { binding: &#39;buyer&#39;, header: &#39;Person&#39; },
+      { binding: &#39;type&#39;, header: &#39;Category&#39; },
+      { binding: &#39;amount&#39;, header: &#39;Amount&#39;, format: &#39;c0&#39;, aggregate: &#39;Sum&#39; }
+    ],
+    itemsSource: ds10,
+    showRowTotals: &#39;Subtotals&#39;,
+    valueFields: [&#39;Amount&#39;],
+    rowFields: [&#39;Person&#39;, &#39;Category&#39;],
+
+    // benchmark
+    updatingView: function(s, e) {
+      if (start == 0) {
+        start = Date.now();
+      }
+    },
+    updatedView: function(s, e) {
+      var fmt = &#39;Summarized &lt;b&gt;{cnt:n0}&lt;/b&gt; items in &lt;b&gt;{tm:n0}&lt;/b&gt;ms&#39;;
+      result.innerHTML = wijmo.format(fmt, {
+        cnt: s.itemsSource.length,
+        tm: Date.now() - start
+      });
+      start = 0;
+    }
+  });
+
+  // show summary
+  var pivotGrid = new wijmo.olap.PivotGrid(&#39;#pivotGrid&#39;, {
+    itemsSource: ng
+  });
+
+  // handle click events to apply different data sources
+  document.getElementById(&#39;buttons&#39;).addEventListener(&#39;click&#39;, function(e) {
+    switch (e.target.id) {
+      case &#39;10k&#39;:
+        ng.itemsSource = ds10;
+        break;
+      case &#39;100k&#39;:
+        ng.itemsSource = ds100;
+        break;
+      case &#39;500k&#39;:
+        ng.itemsSource = ds500;
+        break;
+      case &#39;1M&#39;:
+        ng.itemsSource = ds1M;
+        break;
+    }
+  });
+
+	// create large data asynchronously
+	createDataAsync(100e3, function(result) {
+  	ds100 = result;
+		enableButton(&#39;100k&#39;);
+	});
+	createDataAsync(500e3, function(result) {
+  	ds500 = result;
+		enableButton(&#39;500k&#39;);
+	});
+	createDataAsync(1e6, function(result) {
+  	ds1M = result;
+		enableButton(&#39;1M&#39;);
+	});
+	function enableButton(id) {
+		document.getElementById(id).disabled = false;
+	}
+	
+
+  // create data asynchronously
+  function createDataAsync(cnt, callback) {
+    var data = [];
+    addDataAsync(data, cnt, function() {
+      callback(data);
+    });
+  }
+  function addDataAsync(data, cnt, callback) {
+    setTimeout(function() {
+      addData(data, Math.min(cnt - data.length, 1000));
+      if (data.length == cnt) {
+        callback(data);
+      } else {
+        addDataAsync(data, cnt, callback);
+      }
+    });
+  }
+  function addData(data, cnt) {
+    var today = new Date(),
+      buyers = &#39;Mom,Dad,Kelly,Sheldon&#39;.split(&#39;,&#39;),
+      types = &#39;Food,Clothes,Fuel,Books,Sports,Music&#39;.split(&#39;,&#39;);
+    for (var i = 0; i &lt; cnt; i++) {
+      data.push({
+        date: today - Math.random() * 365 * 3,
+        buyer: randomItem(buyers),
+        type: randomItem(types),
+        amount: 20 + Math.random() * 1000
+      });
+    }
+    return data;
+  }
+  function randomItem(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    PivotEngine Performance
+  &lt;/h1&gt;
+  &lt;p&gt;
+    The &lt;b&gt;PivotEngine&lt;/b&gt; is fast. 
+		When used with client-side data, it can summarize data
+		sets with hundreds of thousands of records in fractions
+		of a second (especially when using modern browsers).
+  &lt;/p&gt;
+  &lt;p&gt;
+		Notice that even on slow browsers and large data sets,
+		the &lt;b&gt;PivotEngine&lt;/b&gt; generates summaries asynchronously,
+		so the UI thread is never blocked.
+  &lt;/p&gt;
+  &lt;p&gt;
+    In most client-side scenarios, data set size is limited
+		by the time it takes to download or generate the raw data,
+		not by the time it takes to summarize it.
+		This sample generates the data asynchronously.
+  &lt;/p&gt;
+  &lt;div id=&quot;buttons&quot;&gt;
+    &lt;button id=&quot;10k&quot; class=&quot;btn btn-primary&quot;&gt;
+			10k items
+		&lt;/button&gt;
+    &lt;button id=&quot;100k&quot; class=&quot;btn btn-primary&quot; disabled&gt;
+			100k items
+		&lt;/button&gt;
+    &lt;button id=&quot;500k&quot; class=&quot;btn btn-primary&quot; disabled&gt;
+			500k items
+		&lt;/button&gt;
+    &lt;button id=&quot;1M&quot; class=&quot;btn btn-primary&quot; disabled&gt;
+			One Million items
+		&lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;p id=&quot;result&quot;&gt;
+  &lt;/p&gt;
+  &lt;div class=&quot;output&quot;&gt;
+    &lt;div id=&quot;pivotGrid&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;p&gt;
+    If you deal with massive data sets, with millions of records,
+		you should consider using server-side OLAP providers like 
+		SSAS cubes or ComponentOne Data Services.
+		The &lt;b&gt;PivotEngine&lt;/b&gt; can connect to both.
+  &lt;/p&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">#buttons {
+  display: flex;
+  margin-bottom: 6px;
+}
+
+#buttons .btn {
+  margin: 6px;
+  white-space: normal;
+}
+
+.output {
+  display: flex;
+  justify-content: center;
+  margin: 6px;
+}
+
+.wj-pivotgrid {
+  width: auto;
+  max-height: 300px;
+}
+
+body {
+  margin-bottom: 36pt;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.filter.min.js" target="_blank">wijmo.grid.filter.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.olap.min.js" target="_blank">wijmo.olap.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

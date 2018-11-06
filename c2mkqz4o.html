@@ -1,0 +1,223 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Export to XLSX and PDF - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "c2mkqz4o";
+        var show_src = "//fiddle.jshell.net/Wijmo5/c2mkqz4o/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/c2mkqz4o/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/c2mkqz4o/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=c2mkqz4o" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // initialize pivot engine
+  var ng = new wijmo.olap.PivotEngine({
+		itemsSource: getData(1000), // raw data
+    valueFields: [&#39;Amount&#39;], // summarize amounts
+    rowFields: [&#39;Buyer&#39;, &#39;Type&#39;], // by buyer and Type
+		showRowTotals: &#39;Subtotals&#39;,
+		showColumnTotals: &#39;Subtotals&#39;,
+  });
+	var amountField = ng.fields.getField(&#39;Amount&#39;);
+  amountField.format = &#39;c0&#39;;
+	var dateField = ng.fields.getField(&#39;Date&#39;);
+  dateField.format = &#39;yyyy&#39;; // show dates as years
+
+  // show pivot panel
+  var pivotPanel = new wijmo.olap.PivotPanel(&#39;#pivotPanel&#39;, {
+    itemsSource: ng
+  });
+
+  // show pivot grid
+  var pivotGrid = new wijmo.olap.PivotGrid(&#39;#pivotGrid&#39;, {
+    itemsSource: ng
+  });
+	
+	// export the grid to XLSX
+	// NOTE: requires jszip, wijmo.xlsx, and wijmo.grid.xlsx
+  document.getElementById(&#39;xlsx&#39;).addEventListener(&#39;click&#39;, function() {
+
+			// create book with current view
+      var book = wijmo.grid.xlsx.FlexGridXlsxConverter.save(pivotGrid, {
+      	includeColumnHeaders: true,
+        includeRowHeaders: true
+			});
+      book.sheets[0].name = &#39;PivotGrid&#39;;
+      
+			// save the book
+      book.save(&#39;PivotGrid.xlsx&#39;);
+  })
+	
+	// export grid to PDF
+	// NOTE: requires wijmo.pdf and wijmo.grid.pdf
+  document.getElementById(&#39;pdf&#39;).addEventListener(&#39;click&#39;, function() {
+		wijmo.grid.pdf.FlexGridPdfConverter.export(pivotGrid, &#39;PivotGrid.pdf&#39;, {
+    	maxPages: 10,
+      scaleMode: wijmo.grid.pdf.ScaleMode.PageWidth,
+      documentOptions: {
+      	compress: true,
+        header: { declarative: { text: &#39;\t&amp;[Page] of &amp;[Pages]&#39; } },
+        footer: { declarative: { text: &#39;\t&amp;[Page] of &amp;[Pages]&#39; } },
+        info: { author: &#39;GrapeCity&#39;, title: &#39;PivotGrid&#39; }
+			},
+    	styles: {
+				cellStyle: { backgroundColor: &#39;#ffffff&#39;, borderColor: &#39;#c6c6c6&#39; },
+	    	altCellStyle: { backgroundColor: &#39;#f9f9f9&#39; },
+	    	groupCellStyle: { backgroundColor: &#39;#dddddd&#39; },
+    		headerCellStyle: { backgroundColor: &#39;#eaeaea&#39; }
+			}
+		});
+	});
+
+	// create a PDF document with the PivotGrid and some other content
+	// NOTE: requires wijmo.pdf and wijmo.grid.pdf
+  document.getElementById(&#39;pdfdoc&#39;).addEventListener(&#39;click&#39;, function() {
+
+		// create the document
+		var doc = new wijmo.pdf.PdfDocument({
+    	compress: true, 
+      header: { declarative: { text: &#39;\t&amp;[Page]\\&amp;[Pages]&#39; } },
+      ended: function (sender, args) {
+				wijmo.pdf.saveBlob(args.blob, &#39;PivotGridDoc.pdf&#39;);
+			}
+		});
+    
+    // add some content
+		doc.drawText(&#39;This is a PivotGrid control:&#39;);
+
+		// add the grid (400pt wide)
+		wijmo.grid.pdf.FlexGridPdfConverter.draw(pivotGrid, doc, 400);
+    
+    // finish document
+		doc.end();
+	});
+
+	// get the raw data
+  function getData(cnt) {
+    var today = new Date(),
+    		buyers = &#39;Mom,Dad,Kelly,Sheldon&#39;.split(&#39;,&#39;),
+        types = &#39;Food,Clothes,Fuel,Books,Sports,Music&#39;.split(&#39;,&#39;),
+    		data = [];
+    for (var i = 0; i &lt; cnt; i++) {
+    	data.push({
+      	date: wijmo.DateTime.addDays(today, -Math.random() * 365 * 3),
+        buyer: randomItem(buyers),
+        type: randomItem(types),
+        amount: 20 + Math.random() * 1000
+      });
+    }
+    return data;
+  }
+  function randomItem(arr) {
+  	return arr[Math.floor(Math.random() * arr.length)];
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Export to XLSX and PDF
+  &lt;/h1&gt;
+	&lt;p&gt;
+		The &lt;b&gt;PivotGrid&lt;/b&gt; exends the &lt;b&gt;FlexGrid&lt;/b&gt;, so
+		you can export it to XLSX and PDF as you would export
+		a regular &lt;b&gt;FlexGrid&lt;/b&gt;:
+	&lt;/p&gt;
+  &lt;div class=&quot;row&quot;&gt;
+    &lt;div class=&quot;col-xs-5&quot;&gt;
+      &lt;div id=&quot;pivotPanel&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;col-xs-7&quot;&gt;
+      &lt;div id=&quot;pivotGrid&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+	&lt;button id=&quot;xlsx&quot; class=&quot;btn btn-primary&quot;&gt;
+		Export to XLSX
+	&lt;/button&gt;
+	&lt;button id=&quot;pdf&quot; class=&quot;btn btn-primary&quot;&gt;
+		Export to PDF
+	&lt;/button&gt;
+	&lt;button id=&quot;pdfdoc&quot; class=&quot;btn btn-primary&quot;&gt;
+		Export to PDF Document
+	&lt;/button&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-pivotgrid {
+	max-height: 400px;
+	box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+body {
+  margin-bottom: 48pt;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.filter.min.js" target="_blank">wijmo.grid.filter.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.olap.min.js" target="_blank">wijmo.olap.min.js</a></li>
+                    <li><a href="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js" target="_blank">jszip.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.xlsx.min.js" target="_blank">wijmo.xlsx.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.xlsx.min.js" target="_blank">wijmo.grid.xlsx.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.pdf.min.js" target="_blank">wijmo.pdf.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.pdf.min.js" target="_blank">wijmo.grid.pdf.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Stable Sort - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "6gkymL4z";
+        var show_src = "//fiddle.jshell.net/Wijmo5/6gkymL4z/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/6gkymL4z/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/6gkymL4z/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=6gkymL4z" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // default grid
+  var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+    itemsSource: getData(),
+  });
+
+	// create some random data
+	function getData() {
+  
+  	// raw data
+	  var countries = &#39;US,Germany,UK,Japan,Italy,Greece&#39;.split(&#39;,&#39;),
+    colors = &#39;Red,Green,Blue,White&#39;.split(&#39;,&#39;),
+	    data = [];
+	  for (var i = 0; i &lt; 200; i++) {
+	    data.push({
+	      id: i,
+	      country: countries[i % countries.length],
+	      color: colors[i % colors.length],
+	      active: i % 5 != 0,
+	      downloads: Math.round(Math.random() * 200000),
+	      sales: Math.random() * 100000,
+	      expenses: Math.random() * 50000
+	    });
+  	}
+    
+    // sort data by country
+    data.sort(function(a, b) {
+    	return a.country &lt; b.country ? -1 :
+      	a.country &gt; b.country ? +1 :
+      	a.id - b.id;
+    });
+    
+    // create a CollectionView with a stable sort
+    var view = new wijmo.collections.CollectionView(data);
+    view.useStableSort = true;
+    
+    // return the CollectionView
+		return view;
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Stable Sort
+  &lt;/h1&gt;
+  &lt;p&gt;
+    The CollectionView class has a &quot;stableSort&quot; property that allows
+    you to keep the original sequence of items when sorting by
+    any fields in the data objects.&lt;/p&gt;
+  &lt;p&gt;
+    For example, this sample creates a CollectionView based on
+    a list of items sorted by Country and ID. If you sort the
+    grid by any property (e.g. Active), items with the same
+    sort property value will be sorted according to the original
+    order (sorted by Country and ID):&lt;/p&gt;
+  &lt;div id=&quot;theGrid&quot;&gt;
+  &lt;/div&gt;
+    
+  &lt;p&gt;
+    The &quot;stableSort&quot; property is set to false by default because
+    it does have a performance cost, and therefore should be used
+    only when needed.&lt;/p&gt;    
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 250px;
+  margin-bottom: 12px;
+}
+.header {
+  display: inline-block;
+  width: 150px;
+  text-align: right;
+  font-weight: normal;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

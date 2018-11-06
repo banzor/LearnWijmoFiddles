@@ -1,0 +1,199 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - CollectionView Validation - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "cgvks8x8";
+        var show_src = "//fiddle.jshell.net/Wijmo5/cgvks8x8/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/cgvks8x8/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/cgvks8x8/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=cgvks8x8" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // create some random data
+  var countries = &#39;US,Germany,UK,Japan,Italy,Greece&#39;.split(&#39;,&#39;);
+  var data = [];
+  for (var i = 0; i &lt; countries.length; i++) {
+    data.push({
+      country: countries[i],
+      downloads: Math.round(Math.random() * 20000),
+      sales: Math.random() * 10000,
+      expenses: Math.random() * 5000,
+      active: i % 4 == 0
+    });
+  }
+
+  // create a CollectionView
+  var view = new wijmo.collections.CollectionView(data, {
+    sortDescriptions: [&#39;country&#39;],
+    getError: function(item, property) {
+      switch (property) {
+        case &#39;country&#39;:
+          return countries.indexOf(item.country) &lt; 0 ? &#39;Invalid Country&#39; : &#39;&#39;;
+        case &#39;downloads&#39;:
+        case &#39;sales&#39;:
+        case &#39;expenses&#39;:
+          return item[property] &lt; 0 ? &#39;Negative values not allowed!&#39; : &#39;&#39;;
+        case &#39;active&#39;:
+          return item.active &amp;&amp; item.country.match(/^(US|UK)$/) 
+          	? &#39;Active items not allowed in the US or UK!&#39; 
+            : &#39;&#39;;
+      }
+      return null;
+    }
+  });
+
+  // create grid for editing with validation
+  var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+    itemsSource: view
+  });
+  
+  // use getError to provide form validation
+  var theItem = {
+  	country: theForm.country.value,
+    downloads: theForm.downloads.value,
+    sales: theForm.sales.value
+  }
+  document.getElementById(&#39;theForm&#39;).addEventListener(&#39;input&#39;, function(e) {
+  	var theProp = e.target.id;
+    theItem[theProp] = e.target.value;
+  	var err = view.getError(theItem, theProp);
+    e.target.setCustomValidity(err);
+  });
+  document.getElementById(&#39;theForm&#39;).addEventListener(&#39;submit&#39;, function(e) {
+  	e.preventDefault();
+  });
+  
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    CollectionView Validation
+  &lt;/h1&gt;
+  &lt;p&gt;
+    The &lt;b&gt;CollectionView&lt;/b&gt; has a &lt;b&gt;getError&lt;/b&gt; property
+    that provides validation support.
+    To use it, set &lt;b&gt;getError&lt;/b&gt; to a function that takes 
+    two parameters containing the data item being validated 
+    and the property to validate, and returns a string describing
+    the error condition (or null if there are no errors),&lt;/p&gt;
+  &lt;p&gt;
+    The &lt;b&gt;getError&lt;/b&gt; property goes beyond basic HTML5 validation
+    based only on the value itself (such as min, max, required, 
+    pattern, etc). It allows you to specify conditions that involve
+    multiple properties.&lt;/p&gt;
+  &lt;p&gt;
+    The &lt;b&gt;getError&lt;/b&gt; property allows you to include the 
+    validation logic in the collection itself, rather than 
+    in the UI used for editing items.
+    The same method can then be used by input forms or by 
+    controls such as the &lt;b&gt;FlexGrid&lt;/b&gt;.&lt;/p&gt;
+
+  &lt;h2&gt;
+    FlexGrid Validation
+  &lt;/h2&gt;
+  &lt;p&gt;
+    The &lt;b&gt;FlexGrid&lt;/b&gt; uses the &lt;b&gt;CollectionView.getError&lt;/b&gt;
+    property by default. Try entering an invalid country or a
+    negative number to see how the grid identifies the error
+    and prevents the invalid entry from being committed:&lt;/p&gt;
+  &lt;div id=&quot;theGrid&quot;&gt;
+  &lt;/div&gt;
+  
+  &lt;h2&gt;
+    Forms Validation
+  &lt;/h2&gt;
+  &lt;p&gt;
+    You can use the the &lt;b&gt;CollectionView.getError&lt;/b&gt; property
+    to validate forms as well. Simply call the function and 
+    apply the result to the appropriate input element using the
+    &lt;b&gt;setCustomValidity&lt;/b&gt; method that is part of the HTML5
+    validation API:
+  &lt;/p&gt;
+  &lt;form id=&quot;theForm&quot; class=&quot;form-inline&quot;&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+      &lt;label&gt;
+        Country
+        &lt;input id=&quot;country&quot; type=&quot;text&quot; class=&quot;form-control&quot; required value=&quot;US&quot;&gt;
+      &lt;/label&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+      &lt;label&gt;
+        Downloads
+        &lt;input id=&quot;downloads&quot; type=&quot;number&quot; class=&quot;form-control&quot; required value=&quot;123&quot;&gt;
+      &lt;/label&gt;
+      &lt;label&gt;
+        Sales
+        &lt;input id=&quot;sales&quot; type=&quot;number&quot; class=&quot;form-control&quot; required value=&quot;123&quot;&gt;
+      &lt;/label&gt;
+    &lt;/div&gt;
+    &lt;button type=&quot;submit&quot; class=&quot;btn btn-primary&quot;&gt;Submit&lt;/button&gt;
+  &lt;/form&gt;  
+  &lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont "></pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

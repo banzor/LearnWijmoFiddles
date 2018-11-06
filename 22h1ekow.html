@@ -1,0 +1,304 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - MultiSelect - no $checked property - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "22h1ekow";
+        var show_src = "//fiddle.jshell.net/Wijmo5/22h1ekow/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/22h1ekow/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/22h1ekow/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=22h1ekow" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // MultiSelect
+  var theMultiSelect = new wijmo.input.MultiSelect(&#39;#theMultiSelect&#39;, {
+    placeholder: &#39;Devices&#39;,
+    displayMemberPath: &#39;item.name&#39;,
+    checkedMemberPath: &#39;checked&#39;,
+    itemsSource: getCheckableData(),
+    checkedItemsChanged: function(s, e) {
+    	var checkedItems = s.checkedItems.map(function(checkableItem) {
+      	return checkableItem.item;
+      })
+      document.getElementById(&#39;checkedItems&#39;).textContent = JSON.stringify(checkedItems);
+    }
+  });
+
+	// create a data source with items and an extra checkable member
+	function getCheckableData() {
+		return getData().map(function(item) {
+    	return { item: item, checked: false }
+    })
+	}
+  
+  // list of country GDP and populations
+  // https://en.wikipedia.org/wiki/List_of_IMF_ranked_countries_by_GDP
+  function getData() {
+    return [{
+      &quot;specific_type&quot;: &quot;3067VIP10G-3G&quot;,
+      &quot;name&quot;: &quot;My Crazy VIP&quot;,
+      &quot;generic_type&quot;: &quot;vip10g&quot;,
+      &quot;id&quot;: 2,
+      &quot;model&quot;: &quot;3067VIP10G-3G&quot;,
+      &quot;properties&quot;: {
+        &quot;ndisplays&quot;: 1,
+        &quot;addr2&quot;: {
+          &quot;ip&quot;: null,
+          &quot;port&quot;: 9700
+        },
+        &quot;snmp_monitor_port&quot;: 161,
+        &quot;nvidinputs&quot;: 36,
+        &quot;addr1&quot;: {
+          &quot;ip&quot;: &quot;127.0.0.12&quot;,
+          &quot;port&quot;: 9700
+        }
+      }
+    }, {
+      &quot;specific_type&quot;: &quot;EXE&quot;,
+      &quot;name&quot;: &quot;My Crazy EXE&quot;,
+      &quot;generic_type&quot;: &quot;exe&quot;,
+      &quot;id&quot;: 3,
+      &quot;model&quot;: &quot;EXE&quot;,
+      &quot;properties&quot;: {
+        &quot;nports&quot;: 1152,
+        &quot;addr2&quot;: {
+          &quot;ip&quot;: null,
+          &quot;port&quot;: 9671
+        },
+        &quot;snmp_monitor_port&quot;: 161,
+        &quot;addr1&quot;: {
+          &quot;ip&quot;: &quot;127.0.0.1&quot;,
+          &quot;port&quot;: 9671
+        }
+      }
+    }, {
+      &quot;specific_type&quot;: &quot;3067VIP10G-3G&quot;,
+      &quot;name&quot;: &quot;Another VIP&quot;,
+      &quot;generic_type&quot;: &quot;vip10g&quot;,
+      &quot;id&quot;: 4,
+      &quot;model&quot;: &quot;3067VIP10G-3G&quot;,
+      &quot;properties&quot;: {
+        &quot;ndisplays&quot;: 1,
+        &quot;addr2&quot;: {
+          &quot;ip&quot;: null,
+          &quot;port&quot;: 9700
+        },
+        &quot;snmp_monitor_port&quot;: 161,
+        &quot;nvidinputs&quot;: 36,
+        &quot;addr1&quot;: {
+          &quot;ip&quot;: &quot;127.0.0.1&quot;,
+          &quot;port&quot;: 9700
+        }
+      }
+    }, {
+      &quot;specific_type&quot;: &quot;570IPG-3G18-SFPP12&quot;,
+      &quot;name&quot;: &quot;My Crazy IPG&quot;,
+      &quot;generic_type&quot;: &quot;ipg&quot;,
+      &quot;id&quot;: 1,
+      &quot;model&quot;: &quot;570IPG-3G18-SFPP12&quot;,
+      &quot;properties&quot;: {
+        &quot;in_band_control&quot;: {
+          &quot;ibctrl1&quot;: {
+            &quot;tally_port&quot;: 6578,
+            &quot;sfp&quot;: 1,
+            &quot;src_ip&quot;: null,
+            &quot;netmask&quot;: &quot;255.255.255.0&quot;,
+            &quot;tally_ip&quot;: null,
+            &quot;dest_ip&quot;: null,
+            &quot;dest_port&quot;: 6577
+          },
+          &quot;enabled&quot;: false,
+          &quot;ibctrl2&quot;: {
+            &quot;tally_port&quot;: 6578,
+            &quot;sfp&quot;: 3,
+            &quot;src_ip&quot;: null,
+            &quot;netmask&quot;: &quot;255.255.255.0&quot;,
+            &quot;tally_ip&quot;: null,
+            &quot;dest_ip&quot;: null,
+            &quot;dest_port&quot;: 6577
+          }
+        },
+        &quot;port_properties&quot;: {
+          &quot;sdi8&quot;: {
+            &quot;rx_sfp&quot;: &quot;Dynamic&quot;,
+            &quot;direction&quot;: &quot;In&quot;
+          },
+          &quot;sdi9&quot;: {
+            &quot;rx_sfp&quot;: &quot;Dynamic&quot;,
+            &quot;direction&quot;: &quot;In&quot;
+          },
+          &quot;sdi6&quot;: {
+            &quot;rx_sfp&quot;: &quot;Dynamic&quot;,
+            &quot;direction&quot;: &quot;In&quot;
+          },
+          &quot;sdi7&quot;: {
+            &quot;rx_sfp&quot;: &quot;Dynamic&quot;,
+            &quot;direction&quot;: &quot;In&quot;
+          },
+          &quot;sdi4&quot;: {
+            &quot;rx_sfp&quot;: &quot;Dynamic&quot;,
+            &quot;direction&quot;: &quot;In&quot;
+          },
+          &quot;sdi5&quot;: {
+            &quot;rx_sfp&quot;: &quot;Dynamic&quot;,
+            &quot;direction&quot;: &quot;In&quot;
+          },
+          &quot;sdi2&quot;: {
+            &quot;rx_sfp&quot;: &quot;Dynamic&quot;,
+            &quot;direction&quot;: &quot;In&quot;
+          },
+          &quot;sdi3&quot;: {
+            &quot;rx_sfp&quot;: &quot;Dynamic&quot;,
+            &quot;direction&quot;: &quot;In&quot;
+          },
+          &quot;sdi1&quot;: {
+            &quot;rx_sfp&quot;: &quot;Dynamic&quot;,
+            &quot;direction&quot;: &quot;In&quot;
+          },
+          &quot;sdi14&quot;: {
+            &quot;rx_sfp&quot;: &quot;Dynamic&quot;,
+            &quot;direction&quot;: &quot;In&quot;
+          },
+          &quot;sdi15&quot;: {
+            &quot;rx_sfp&quot;: &quot;Dynamic&quot;,
+            &quot;direction&quot;: &quot;In&quot;
+          },
+          &quot;sdi16&quot;: {
+            &quot;rx_sfp&quot;: &quot;Dynamic&quot;,
+            &quot;direction&quot;: &quot;In&quot;
+          },
+          &quot;sdi17&quot;: {
+            &quot;rx_sfp&quot;: &quot;Dynamic&quot;,
+            &quot;direction&quot;: &quot;In&quot;
+          },
+          &quot;sdi10&quot;: {
+            &quot;rx_sfp&quot;: &quot;Dynamic&quot;,
+            &quot;direction&quot;: &quot;In&quot;
+          },
+          &quot;sdi11&quot;: {
+            &quot;rx_sfp&quot;: &quot;Dynamic&quot;,
+            &quot;direction&quot;: &quot;In&quot;
+          },
+          &quot;sdi12&quot;: {
+            &quot;rx_sfp&quot;: &quot;Dynamic&quot;,
+            &quot;direction&quot;: &quot;In&quot;
+          },
+          &quot;sdi13&quot;: {
+            &quot;rx_sfp&quot;: &quot;Dynamic&quot;,
+            &quot;direction&quot;: &quot;In&quot;
+          },
+          &quot;sdi18&quot;: {
+            &quot;rx_sfp&quot;: &quot;Dynamic&quot;,
+            &quot;direction&quot;: &quot;In&quot;
+          }
+        },
+        &quot;addr2&quot;: {
+          &quot;ip&quot;: null,
+          &quot;port&quot;: 161
+        },
+        &quot;snmp_monitor_port&quot;: 161,
+        &quot;addr1&quot;: {
+          &quot;ip&quot;: &quot;127.0.0.1&quot;,
+          &quot;port&quot;: 161
+        }
+      }
+    }];
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+  &lt;h1&gt;
+    MultiSelect - no $checked property
+  &lt;/h1&gt;
+  &lt;p&gt;
+    The MultiSelect control requires a data member to determine
+    whether items are selected. If one is not provided, the 
+    control adds a &#39;$checked&#39; property to the data items.&lt;/p&gt;
+  &lt;p&gt;
+    You can prevent this by creating a dedicated itemsSource
+    that contains objects with two properties: the original
+    item and the checked member.&lt;/p&gt;
+  &lt;div class=&quot;row&quot;&gt;
+    &lt;div class=&quot;col-xs-5&quot;&gt;
+      &lt;div id=&quot;theMultiSelect&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;col-xs-7&quot;&gt;
+      &lt;p&gt;
+        &lt;b&gt;Checked Items:&lt;/b&gt;
+      &lt;/p&gt;
+      &lt;p id=&quot;checkedItems&quot;&gt;&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-dropdown {
+  margin-bottom: 12pt;
+}
+
+body {
+  margin-bottom: 24pt;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

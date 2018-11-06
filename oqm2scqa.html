@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - FlexChart Export - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "oqm2scqa";
+        var show_src = "//fiddle.jshell.net/Wijmo5/oqm2scqa/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/oqm2scqa/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/oqm2scqa/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=oqm2scqa" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // create the chart
+  var theChart = new wijmo.chart.FlexChart(&#39;#theChart&#39;, {
+  	header: &#39;Phase II Test Results&#39;,
+    chartType: &#39;Scatter&#39;,
+    axisY: {
+      axisLine: true
+    },
+    series: [
+    	{
+      	name: &#39;Experiment 1&#39;, 
+        itemsSource: getData(50, 0, 3),
+        bindingX: &#39;x&#39;,
+        binding: &#39;y&#39; },
+    	{
+      	name: &#39;Experiment 2&#39;,
+        itemsSource: getData(40, 100, 12),
+        bindingX: &#39;x&#39;, 
+        binding: &#39;y&#39; },
+    	{
+      	name: &#39;Experiment 3&#39;,
+        itemsSource: getData(30, -100, 24),
+        bindingX: &#39;x&#39;, 
+        binding: &#39;y&#39; },
+    ]
+  });
+
+	// save chart image to file
+  document.getElementById(&#39;saveButtons&#39;).addEventListener(&#39;click&#39;, function(e) {
+  	if (e.target instanceof HTMLButtonElement) {
+    	theChart.saveImageToFile(&#39;FlexChart.&#39; + e.target.textContent);
+    }
+  })
+  
+	// data sources
+  function getData(cnt, a, b) {
+  	var arr = [],
+    	  x = -5 * cnt / 2;
+    for (i = 0; i &lt; cnt; i++) {
+    	var rnd = Math.random() * cnt - cnt / 2;
+    	arr.push({
+      	x: x,
+        y: a + x * (b + rnd) + rnd
+      });
+      x += .5 + Math.random() * 10;
+    }
+    return arr;
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    FlexChart Export&lt;/h1&gt;
+  &lt;p&gt;
+    Saving charts as images for inclusion in other documents
+    is a common requirement. Some browsers support this as
+    a context menu option, but not all.&lt;/p&gt;
+  &lt;p&gt;
+    The FlexChart&#39;s &lt;b&gt;saveImageToFile&lt;/b&gt; method makes this
+    really easy:&lt;/p&gt;    
+  
+  &lt;p id=&quot;saveButtons&quot;&gt;
+    Save as:
+    &lt;button class=&quot;btn btn-default&quot;&gt;PNG&lt;/button&gt;
+    &lt;button class=&quot;btn btn-default&quot;&gt;JPEG&lt;/button&gt;
+    &lt;button class=&quot;btn btn-default&quot;&gt;SVG&lt;/button&gt;
+  &lt;/p&gt;
+
+  &lt;div id=&quot;theChart&quot;&gt;&lt;/div&gt;
+  
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexchart {
+  height: 300px;
+  margin: 10px 0;
+}
+body {
+  margin-bottom: 24pt;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.chart.min.js" target="_blank">wijmo.chart.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

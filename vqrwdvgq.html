@@ -1,0 +1,166 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Bullet Graphs - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "vqrwdvgq";
+        var show_src = "//fiddle.jshell.net/Wijmo5/vqrwdvgq/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/vqrwdvgq/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/vqrwdvgq/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=vqrwdvgq" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // dashboard dada
+  var dashboard = [
+  	{ heading: &#39;Revenue&#39;, sub: &#39;US$, thousands&#39;, max: 400, actual: 345, target: 340, bad: 210, good: 300 },
+  	{ heading: &#39;Profit&#39;, sub: &#39;%&#39;, max: 50, actual: 37, target: 32, bad: 20, good: 30 },
+  	{ heading: &#39;Order Size&#39;, sub: &#39;US$, average&#39;, max: 600, actual: 320, target: 520, bad: 400, good: 500 },
+  	{ heading: &#39;New Customers&#39;, sub: &#39;count&#39;, max: 1500, actual: 1100, target: 1000, bad: 600, good: 900 },
+  	{ heading: &#39;Satisfaction&#39;, sub: &#39;0 to 5&#39;, max: 5, actual: 4, target: 4.5, bad: 2.5, good: 4.5 },
+  ];
+  
+  // create the dashboard
+  var table = document.createElement(&#39;table&#39;);
+  document.getElementById(&#39;dashboard&#39;).appendChild(table);
+  dashboard.forEach(function(item) {
+  	var tr = document.createElement(&#39;tr&#39;);
+    table.appendChild(tr);
+    
+    // heading
+    var td = document.createElement(&#39;td&#39;);
+    tr.appendChild(td);
+		var fmt = &#39;&lt;div class=&quot;heading&quot;&gt;{heading}&lt;/div&gt;&lt;div class=&quot;sub&quot;&gt;{sub}&lt;/div&gt;&#39;;
+    td.innerHTML = wijmo.format(fmt, item);
+
+    // warning
+    td = document.createElement(&#39;td&#39;);
+    tr.appendChild(td);
+    if (item.actual &lt; item.target) {
+    	td.innerHTML = &#39;&lt;span class=&quot;glyphicon glyphicon-thumbs-down warning&quot;&gt;&lt;/span&gt;&#39;;
+    }
+
+    // bullet graph
+    td = document.createElement(&#39;td&#39;);
+    tr.appendChild(td);
+    var bg = new wijmo.gauge.BulletGraph(document.createElement(&#39;div&#39;), {
+      value: item.actual,
+      target: item.target,
+      max: item.max,
+      bad: item.bad,
+      good: item.good
+    });
+    td.appendChild(bg.hostElement);
+    
+    // max value
+    td = document.createElement(&#39;td&#39;);
+    tr.appendChild(td);
+		td.innerHTML = wijmo.format(&#39;&lt;div class=&quot;max&quot;&gt;{max:n0}&lt;/span&gt;&#39;, item);
+  });
+}</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+    
+  &lt;h1&gt;
+    Bullet Graphs&lt;/h1&gt;
+  &lt;p&gt;
+    The BulletGraph is a type of linear gauge designed specifically
+    for use in dashboards. It displays a single key measure along 
+    with a comparative measure and qualitative ranges to instantly
+    signal whether the measure is good, bad, or in some other state.&lt;/p&gt;
+  &lt;p&gt;
+    Bullet Graphs were created and popularized by dashboard design
+    expert Stephen Few.&lt;/p&gt;
+    
+  &lt;div id=&quot;dashboard&quot;&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+              <pre class="tCont ">#dashboard {
+  padding: 12px;
+  background: rgba(0, 0, 0, .02);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);  
+}
+.heading {
+  font-weight: bold;
+  text-align: right;
+}
+.sub {
+  font-size: 70%;
+  text-align: right;
+}
+.max {
+  font-size: 70%;
+}
+.warning {
+  color: darkred;
+  padding-left: 12px;
+}
+.wj-gauge {
+    margin-left: 1em;
+    margin-right: 1em;
+    margin-bottom: 6px;
+}
+body {
+  margin-bottom: 24pt;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.gauge.min.js" target="_blank">wijmo.gauge.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

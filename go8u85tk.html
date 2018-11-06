@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Split Buttons - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "go8u85tk";
+        var show_src = "//fiddle.jshell.net/Wijmo5/go8u85tk/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/go8u85tk/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/go8u85tk/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=go8u85tk" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// create the split-button menu
+  var theSplitButton = new wijmo.input.Menu(&#39;#theSplitButton&#39;, {
+
+  	// item clicked fires when you select an option or click the header
+    isButton: true,
+    itemClicked: function (s, e) {
+    	alert(&#39;Running &#39; + s.selectedValue);
+		},
+
+    // update header to show current selection
+    selectedIndexChanged: function (s, e) {
+    	if (s.selectedIndex &gt; -1) {
+      	s.header = wijmo.format(&#39;Run: &lt;b&gt;{header}&lt;/b&gt;&#39;, s.selectedItem);
+			}
+		},
+
+		// populate menu after hooking up the selectedIndexChanged event
+    displayMemberPath: &#39;header&#39;,
+    selectedValuePath: &#39;value&#39;,
+    itemsSource: [
+    	{ header: &#39;Internet Explorer&#39;, value: &#39;IE&#39; },
+      { header: &#39;Chrome&#39;, value: &#39;CHR&#39; },
+      { header: &#39;Firefox&#39;, value: &#39;FFX&#39; },
+      { header: &#39;Safari&#39;, value: &#39;IOS&#39; },
+      { header: &#39;Opera&#39;, value: &#39;OPR&#39; },
+		]
+	});
+
+  // initialize value
+  theSplitButton.selectedValue = &#39;FFX&#39;;
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Split Buttons
+  &lt;/h1&gt;
+  &lt;p&gt;
+    Split Buttons allow users to select a value by clicking a 
+    primary button, or select from a list of mutually exclusive
+    values displayed in a drop-down list.&lt;/p&gt;
+  &lt;p&gt;
+    To use Wijmo Menu controls as split buttons, all you have to
+    do is set the &lt;b&gt;isButton&lt;/b&gt; property to true. Once you do 
+    that, clicking the menu header will raise the &lt;b&gt;itemClicked&lt;/b&gt;
+    event instead of showing the drop-down list.&lt;/p&gt;
+    
+  &lt;div id=&quot;theSplitButton&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-dropdown {
+  margin-bottom: 18px;
+}
+
+body {
+  margin-bottom: 24pt;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

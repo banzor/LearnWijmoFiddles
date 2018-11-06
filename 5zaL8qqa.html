@@ -1,0 +1,314 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Material Design - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "5zaL8qqa";
+        var show_src = "//fiddle.jshell.net/Wijmo5/5zaL8qqa/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/5zaL8qqa/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/5zaL8qqa/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=5zaL8qqa" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  var cmbName = new wijmo.input.ComboBox(&#39;#name&#39;);
+  var cmbEmail = new wijmo.input.ComboBox(&#39;#email&#39;);
+  var cmbCountry = new wijmo.input.ComboBox(&#39;#country&#39;, {
+  	itemsSource: &#39;US,UK,Japan,Germany,France,Italy,Russia,China,India,Korea,Spain,Canada,Denmark,Sweden,,Holland,Norway,Portugal&#39;.split(&#39;,&#39;),
+    isRequired: false,
+    isEditable: true,
+    text: &#39;&#39;
+  });
+  var imCard = new wijmo.input.InputMask(&#39;#card&#39;, {
+  	mask: &#39;9999 9999 9999 9999&#39;,
+    isRequired: false,
+    value: &#39;&#39;
+  });
+  var idDate = new wijmo.input.InputDate(&#39;#date&#39;, {
+    isRequired: false,
+    value: null
+  });
+  var itTime = new wijmo.input.InputTime(&#39;#time&#39;, {
+		isRequired: false,
+    min: &#39;8:00&#39;,
+    max: &#39;18:00&#39;,
+    value: null
+  });
+  var inQty = new wijmo.input.InputNumber(&#39;#qty&#39;, {
+		isRequired: false,
+    format: &#39;n0&#39;,
+    step: 1,
+    value: null
+  });
+  var inDiscount = new wijmo.input.InputNumber(&#39;#discount&#39;, {
+		isRequired: false,
+    format: &#39;p0&#39;,
+    step: .05,
+    min: 0,
+    max: .2,
+    value: null
+  });
+  var msColors = new wijmo.input.MultiSelect(&#39;#colors&#39;, {
+		itemsSource: &#39;Black,White,Grey,Red,Green,Blue,Yellow,Pink,Purple,Orange&#39;.split(&#39;,&#39;),
+    headerFormat: &#39;{count:n0} favorite colors&#39;
+	});
+  
+}
+
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Material Design
+  &lt;/h1&gt;
+  &lt;p&gt;
+    This sample uses Wijmo&#39;s pseudo-classes to implement
+    a form with dynamic labels, validation, and focus
+    indicators similar to those in Google&#39;s Material Design
+    spec.
+  &lt;/p&gt;
+  &lt;form&gt;
+    &lt;div class=&quot;wj-dialog-header&quot; tabindex=&quot;-1&quot;&gt;
+      Edit Item
+    &lt;/div&gt;
+    &lt;div class=&quot;wj-dialog-body&quot;&gt;
+
+      &lt;!-- personal information --&gt;
+      &lt;div class=&quot;wj-labeled-input&quot;&gt;
+        &lt;div id=&quot;name&quot; autocomplete=&quot;name&quot; required accesskey=&quot;n&quot;&gt;
+        &lt;/div&gt;
+        &lt;label for=&quot;name&quot;&gt;&lt;span class=&quot;accesskey&quot;&gt;N&lt;/span&gt;ame&lt;/label&gt;
+        &lt;div class=&quot;wj-error&quot; tabindex=&quot;-1&quot;&gt;We do need your name...&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;wj-labeled-input&quot;&gt;
+        &lt;div id=&quot;email&quot; autocomplete=&quot;email&quot; required pattern=&quot;\S+@\S+\.\S+&quot; accesskey=&quot;e&quot;&gt;
+        &lt;/div&gt;
+        &lt;label for=&quot;email&quot;&gt;&lt;span class=&quot;accesskey&quot;&gt;E&lt;/span&gt;-mail&lt;/label&gt;
+        &lt;div class=&quot;wj-error&quot; tabindex=&quot;-1&quot;&gt;We need a valid e-mail...&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;wj-labeled-input&quot;&gt;
+        &lt;div id=&quot;country&quot; items-source=&quot;countries&quot; accesskey=&quot;c&quot;&gt;
+        &lt;/div&gt;
+        &lt;label for=&quot;country&quot;&gt;&lt;span class=&quot;accesskey&quot;&gt;C&lt;/span&gt;ountry&lt;/label&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;wj-labeled-input&quot;&gt;
+        &lt;div id=&quot;card&quot; autocomplete=&quot;ccnumber&quot; pattern=&quot;[0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}&quot; accesskey=&quot;r&quot;&gt;
+        &lt;/div&gt;
+        &lt;label for=&quot;card&quot;&gt;C&lt;span class=&quot;accesskey&quot;&gt;r&lt;/span&gt;edit Card #&lt;/label&gt;
+        &lt;div class=&quot;wj-error&quot; tabindex=&quot;-1&quot;&gt;Four groups of four digits...&lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- transaction information --&gt;
+      &lt;div class=&quot;wj-labeled-input&quot;&gt;
+        &lt;div id=&quot;date&quot; accesskey=&quot;d&quot;&gt;
+        &lt;/div&gt;
+        &lt;label for=&quot;date&quot;&gt;&lt;span class=&quot;accesskey&quot;&gt;D&lt;/span&gt;ate&lt;/label&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;wj-labeled-input&quot;&gt;
+        &lt;div id=&quot;time&quot; accesskey=&quot;t&quot;&gt;
+        &lt;/div&gt;
+        &lt;label for=&quot;time&quot;&gt;&lt;span class=&quot;accesskey&quot;&gt;T&lt;/span&gt;ime&lt;/label&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;wj-labeled-input&quot;&gt;
+        &lt;div id=&quot;qty&quot; accesskey=&quot;q&quot;&gt;
+        &lt;/div&gt;
+        &lt;label for=&quot;quantity&quot;&gt;&lt;span class=&quot;accesskey&quot;&gt;Q&lt;/span&gt;uantity&lt;/label&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;wj-labeled-input&quot;&gt;
+        &lt;div id=&quot;discount&quot; accesskey=&quot;i&quot;&gt;
+        &lt;/div&gt;
+        &lt;label for=&quot;discount&quot;&gt;D&lt;span class=&quot;accesskey&quot;&gt;i&lt;/span&gt;scount&lt;/label&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;wj-labeled-input&quot;&gt;
+        &lt;div id=&quot;colors&quot; accesskey=&quot;f&quot;&gt;
+        &lt;/div&gt;
+        &lt;label for=&quot;colors&quot;&gt;&lt;span class=&quot;accesskey&quot;&gt;F&lt;/span&gt;avorite Colors&lt;/label&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;wj-dialog-footer&quot;&gt;
+      &lt;button class=&quot;btn btn-primary&quot; type=&quot;submit&quot;&gt;OK&lt;/button&gt;
+      &lt;button class=&quot;btn btn-default wj-hide-cancel&quot;&gt;Cancel&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">body {
+  margin-bottom: 24pt;
+}
+form {
+  background-color: white;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  max-width: 900px;
+}
+.wj-dialog-body {
+  display: flex;
+  flex-wrap: wrap;
+}
+.wj-dialog-body &gt; .wj-labeled-input {
+  width: 160px;
+  margin: 0 .15in;
+}
+
+/* wj-labeled-input: adapted from MDL styles */
+
+/* underline access keys */
+.wj-labeled-input .accesskey {
+    text-decoration: underline;
+}
+
+/* label input container */
+.wj-labeled-input {
+    position: relative;
+    font-size: 16px;
+    display: inline-block;
+    box-sizing: border-box;
+    width: 300px;
+    max-width: 100%;
+    margin: 0 20px;
+    padding: 20px 0;
+}
+
+    /* Wijmo control in the container */
+    .wj-labeled-input .wj-control.wj-content {
+        margin: 0;
+        width: 100%;
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+    .wj-labeled-input .wj-control.wj-content button {
+        opacity: 0.75;
+        border-color: rgba(0,0,0,.1);
+    }
+
+    /* label in the container (must come after the control) */
+    .wj-labeled-input label {
+        font-size: 16px;
+        top: 24px;
+        bottom: 0;
+        margin: 0;
+        pointer-events: none;
+        position: absolute;
+        display: block;
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-align: left;
+        color: rgba(0, 0, 0, 0.258824);
+        transition-duration: .2s;
+        transition-timing-function: cubic-bezier(.4,0,.2,1);
+    }
+    
+    /* move label out of the way when control is focused or not empty */
+    .wj-static-labels .wj-labeled-input :not(.wj-state-focused) + label,
+    .wj-labeled-input .wj-state-focused + label,
+    .wj-labeled-input :not(.wj-state-empty) + label {
+        font-size: 12px;
+        top: 4px;
+        color: rgb(63,81,181);
+        visibility: visible;
+    }
+    .wj-labeled-input .wj-state-invalid + label {
+        color: #d50000;
+    }
+
+    /* underline label */
+    .wj-labeled-input label:after {
+        background-color: rgb(63,81,181);
+        bottom: 20px;
+        content: &#39;&#39;;
+        height: 2px;
+        left: 45%;
+        position: absolute;
+        transition-duration: .2s;
+        transition-timing-function: cubic-bezier(.4,0,.2,1);
+        visibility: hidden;
+        width: 10px;
+    }
+
+    /* show underline when focused */
+    .wj-labeled-input .wj-state-focused + label:after {
+        left: 0;
+        visibility: visible;
+        width: 100%;
+    }
+    .wj-labeled-input .wj-state-invalid + label:after {
+        background-color: #d50000;
+    }
+
+    /* validation message */
+    .wj-labeled-input .wj-error {
+        color: #d50000;
+        position: absolute;
+        font-size: 12px;
+        margin-top: 3px;
+        visibility: hidden;
+        display: block;
+    }
+    .wj-labeled-input .wj-control.wj-state-invalid ~ .wj-error {
+        visibility: visible;
+    }
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

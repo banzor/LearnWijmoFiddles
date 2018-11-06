@@ -1,0 +1,230 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - FlexGrid Spinners - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "h23w5emj";
+        var show_src = "//fiddle.jshell.net/Wijmo5/h23w5emj/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/h23w5emj/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/h23w5emj/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=h23w5emj" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  //---------------------------------------------------------------------
+  // create a grid to use with GIF spinner
+  var theGridGif = new wijmo.grid.FlexGrid(&#39;#theGridGif&#39;);
+  var theSpinnerGif = document.getElementById(&#39;theSpinnerGif&#39;);
+
+  // load data into the grid
+  document.getElementById(&#39;btn-load-gif&#39;).addEventListener(&#39;click&#39;, function() {
+
+    // prepare to load data
+    theGridGif.isDisabled = true;
+    theGridGif.itemsSource = null;
+    theGridGif.hostElement.insertBefore(theSpinnerGif, theGridGif.hostElement.firstChild);
+
+    // load data with a delay
+    getData(function(data) {
+      theGridGif.itemsSource = data;
+      theGridGif.isDisabled = false;
+      theSpinnerGif.parentElement.removeChild(theSpinnerGif);
+    }, 3000);
+  })
+
+  //---------------------------------------------------------------------
+  // create a grid to use with Gauge spinner
+  var theGridGauge = new wijmo.grid.FlexGrid(&#39;#theGridGauge&#39;);
+
+  // load data into the grid
+  document.getElementById(&#39;btn-load-gauge&#39;).addEventListener(&#39;click&#39;, function() {
+
+    // prepare to load data
+    theGridGauge.itemsSource = null;
+    setSpinner(theGridGauge, true);
+
+    // load data
+    getData(function(data) {
+      theGridGauge.itemsSource = data;
+      setSpinner(theGridGauge, false);
+    }, 3000);
+  });
+
+  // create a spinner Gauge
+  var theSpinnerInterval;
+  var theSpinnerGauge = new wijmo.gauge.RadialGauge(&#39;#theSpinnerGauge&#39;, {
+    isAnimated: false,
+    showText: &#39;None&#39;,
+    sweepAngle: 360,
+    step: 5,
+    showTicks: true
+  });
+  theSpinnerGauge.face.color = &#39;transparent&#39;;
+
+  // add or remove a spinner to/from the grid
+  function setSpinner(grid, on) {
+
+    // stop spinner
+    if (theSpinnerInterval) {
+      clearInterval(theSpinnerInterval);
+      theSpinnerInterval = null;
+    }
+
+    // add/remove spinner
+    var spinner = theSpinnerGauge.hostElement;
+    if (on) {
+      grid.isDisabled = true;
+      grid.hostElement.insertBefore(spinner, grid.hostElement.firstChild);
+      theSpinnerGauge.invalidate();
+      theSpinnerGauge.value = 0;
+      theSpinnerInterval = setInterval(function() {
+        theSpinnerGauge.value = (theSpinnerGauge.value + 1) % 100;
+      }, 50);
+    } else {
+      grid.isDisabled = false;
+      spinner.parentElement.removeChild(spinner);
+    }
+  }
+
+  //---------------------------------------------------------------------
+  // get some data asynchronously
+  function getData(callback, delay) {
+    var countries = &#39;US,UK,China,Germany,India&#39;.split(&#39;,&#39;),
+      data = [];
+    for (var i = 0; i &lt; 1000; i++) {
+      data.push({
+        id: i,
+        country: countries[i % countries.length],
+        sales: Math.random() * 1000,
+        downloads: Math.random() * 10000,
+      });
+    }
+    setTimeout(function() {
+      callback(data)
+    }, delay);
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    FlexGrid Spinners
+  &lt;/h1&gt;
+  &lt;p&gt;
+    This sample shows how you can add spinners to the FlexGrid control
+    to indicate it is loading data. The basic idea is to add a spinner
+    element to the grid when you start loading the data, and remove the
+    spinner when you get the data back.&lt;/p&gt;
+
+  &lt;h3&gt;
+    GIF Spinners&lt;/h3&gt;
+  &lt;p&gt;
+    This example shows an animated GIF while the grid is loading:&lt;/p&gt;
+  &lt;button id=&quot;btn-load-gif&quot; class=&quot;btn btn-primary&quot;&gt;
+    Load Grid Using GIF Spinner
+  &lt;/button&gt;
+  &lt;div id=&quot;theGridGif&quot;&gt;&lt;/div&gt;
+  &lt;div style=&quot;display:none&quot;&gt;
+    &lt;div id=&quot;theSpinnerGif&quot; class=&quot;spinner&quot;&gt;
+      &lt;img src=&quot;https://preloaders.net/preloaders/159/Rounded%20blocks.gif&quot;&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;h3&gt;
+    Gauge Spinners
+  &lt;/h3&gt;
+  &lt;p&gt;
+    This example shows an animated RadialGauge while the grid is loading:&lt;/p&gt;
+  &lt;button id=&quot;btn-load-gauge&quot; class=&quot;btn btn-primary&quot;&gt;
+    Load Grid Using Gauge Spinner
+  &lt;/button&gt;
+  &lt;div id=&quot;theGridGauge&quot;&gt;&lt;/div&gt;
+  &lt;div style=&quot;display:none&quot;&gt;
+    &lt;div id=&quot;theSpinnerGauge&quot; class=&quot;spinner&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 250px;
+}
+.wj-radialgauge.spinner {
+  margin: auto auto;
+  padding-bottom: 32px;
+  max-width: 200px;
+}
+.spinner img,
+.spinner.wj-gauge {
+  display: block;
+  margin: auto;
+  margin-top: 20px;
+}
+.btn {
+  margin-bottom: 6px;
+}
+body {
+  margin-bottom: 24pt;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.gauge.min.js" target="_blank">wijmo.gauge.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

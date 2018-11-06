@@ -1,0 +1,217 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - TreeView Architecture - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "bxpexr3q";
+        var show_src = "//fiddle.jshell.net/Wijmo5/bxpexr3q/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/bxpexr3q/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/bxpexr3q/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=bxpexr3q" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// select the number levels and nodes at each level
+  var cmbLevels = new wijmo.input.ComboBox(&#39;#cmbLevels&#39;, {
+  	itemsSource: [ 1, 2, 3 ],
+    selectedValue: 2
+	});
+  var cmbNodesPerLevel = new wijmo.input.ComboBox(&#39;#cmbNodesPerLevel&#39;, {
+  	itemsSource: [ 5, 10, 20, 40 ],
+    selectedValue: 5
+	});
+  
+	// create the tree
+  var theTree = new wijmo.nav.TreeView(&#39;#theTree&#39;, {
+  	itemsSource: getData(),
+    displayMemberPath: &#39;header&#39;,
+    childItemsPath: &#39;items&#39;,
+	});
+
+	// re-bind tree
+  document.getElementById(&#39;bind&#39;).addEventListener(&#39;click&#39;, function(e) {
+  	var start = Date.now();
+  	theTree.itemsSource = getData();
+    theTree.loadTree(); // force immediate refresh
+    var msg = wijmo.format(&#39;Bound to &lt;b&gt;{cnt:no}&lt;/b&gt; nodes in &lt;b&gt;{ms:n0}&lt;/b&gt; ms.&#39;, {
+    	cnt: theTree.totalItemCount,
+    	ms: Date.now() - start
+    });
+    document.getElementById(&#39;bindingMsg&#39;).innerHTML = msg;
+  });
+  // get the data
+  function getData() {
+  	var cnt = cmbNodesPerLevel.selectedValue,
+    		levels = cmbLevels.selectedValue;
+    		nodes = [];
+    for (var i = 0; i &lt; cnt; i++) {
+    	nodes.push(getNode(0, i, cnt, levels))
+    }
+    return nodes;
+  }
+  function getNode(level, id, cnt, levels) {
+  
+  	// create node
+  	var node = { 
+    	header: &#39;Node &#39; + (level + 1) + &#39;.&#39; + (id + 1),
+    };
+
+		// create child nodes
+    if (level &lt; levels - 1) {
+    	node.items = [];
+      for (var i = 0; i &lt; cnt; i++) {
+      	node.items.push(getNode(level + 1, i, cnt, levels))
+      }
+    }
+    
+    // done
+    return node;
+  }
+}</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    TreeView Architecture
+  &lt;/h1&gt;
+
+  &lt;p&gt;
+    The TreeView architecture is very simple, because it 
+    delegates a lot of the work to the browser&#39;s DOM.&lt;/p&gt;
+  &lt;p&gt;
+    The control is 100% data-bound. The &lt;b&gt;itemsSource&lt;/b&gt; property
+    defines an array of data items that represent nodes and may
+    contain child elements (as defined by the &lt;b&gt;childItemsPath&lt;/b&gt;
+    property).
+    When one of the binding properties change, the control populates 
+    its DOM by scanning the itemsSource array and creating DOM elements
+    to represent the nodes.&lt;/p&gt;
+  &lt;p&gt;
+    There is no virtualization, so the number of DOM elements remains 
+    constant as the user scrolls the control, collapses or expands nodes.
+    This is not a significant limitation since the TreeView supports 
+    lazy-loading, which allows you to load data as the user requests it
+    (by expanding the nodes).&lt;/p&gt;
+  &lt;p&gt;
+    The TreeView has a &lt;b&gt;selectedItem&lt;/b&gt; property that gets or sets
+    the data item in the &lt;b&gt;itemsSource&lt;/b&gt; array that is currently selected.
+    It also has a &lt;b&gt;selectedNode&lt;/b&gt; property that gets or sets the tree
+    node that wraps the current item. You can use the &lt;b&gt;selectedNode&lt;/b&gt;
+    property to collapse, expand, or move the selection.
+    You use the TreeView&#39;s &lt;b&gt;getNode&lt;/b&gt; method to get a reference to 
+    the node that represents a given data item.&lt;/p&gt;
+  &lt;p&gt;
+    To change the tree, you will normally change the &lt;b&gt;itemsSource&lt;/b&gt;
+    array and call the &lt;b&gt;loadTree&lt;/b&gt; method to re-generate the nodes.
+    The example below shows the performance of the TreeView when binding 
+    to sources of different sizes:&lt;/p&gt;
+
+  &lt;div class=&quot;row&quot;&gt;
+    &lt;div class=&quot;col-xs-6&quot;&gt;
+      &lt;label for=&quot;cmbLevels&quot;&gt;
+        Levels:
+      &lt;/label&gt;
+      &lt;div id=&quot;cmbLevels&quot;&gt;&lt;/div&gt;
+      &lt;br/&gt;
+      &lt;label for=&quot;cmbLevels&quot;&gt;
+        Nodes/Level:
+      &lt;/label&gt;
+      &lt;div id=&quot;cmbNodesPerLevel&quot;&gt;&lt;/div&gt;
+      &lt;br/&gt;
+      &lt;label&gt;&lt;/label&gt;
+      &lt;button class=&quot;btn btn-primary&quot; id=&quot;bind&quot;&gt;
+        Bind Tree
+      &lt;/button&gt;
+      &lt;div id=&quot;bindingMsg&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;col-xs-6&quot;&gt;
+      &lt;div id=&quot;theTree&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">/* default trees on this sample */
+.wj-treeview {
+    height: 350px;
+    font-size: 120%;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding: 6px;
+    background: #f0f0f0;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+.wj-combobox {
+  width: 120px;
+}
+label {
+  width: 120px;
+  text-align: right;
+  margin-bottom: 12px;
+}
+body {
+  margin-bottom: 24pt;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.nav.min.js" target="_blank">wijmo.nav.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

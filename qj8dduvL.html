@@ -1,0 +1,234 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - TreeView Nodes - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "qj8dduvL";
+        var show_src = "//fiddle.jshell.net/Wijmo5/qj8dduvL/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/qj8dduvL/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/qj8dduvL/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=qj8dduvL" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// create the tree
+  var theTree = new wijmo.nav.TreeView(&#39;#theTree&#39;, {
+  	itemsSource: getData(),
+    displayMemberPath: &#39;header&#39;,
+    childItemsPath: &#39;items&#39;,
+	});
+
+	// scan visible nodes now and when the user clicks the button
+	scanNodes(true);
+  document.getElementById(&#39;scan&#39;).addEventListener(&#39;click&#39;, function(e) {
+  	scanNodes(true);
+	});
+  
+	// scan nodes and show their information
+	function scanNodes(visible) {
+  	var result = &#39;&#39;,
+    		cnt = 0;
+  	for (var node = theTree.nodes[0]; node; node = node.next(visible)) {
+    	cnt++;
+      result += 
+      	wijmo.format(&#39;{header}&#39;, node.dataItem) +
+      	wijmo.format(&#39; &lt;span class=&quot;node-info&quot;&gt;(level: {level}, index: {index}, isCollapsed: {isCollapsed})&lt;/span&gt;&lt;br/&gt;&#39;, node);
+    }
+    document.getElementById(&#39;result&#39;).innerHTML = result;
+  }
+  
+  // get the tree data
+  function getData() {
+		return [
+    	{ header: &#39;Electronics&#39;, img: &#39;resources/electronics.png&#39;, items: [
+				{ header: &#39;Trimmers/Shavers&#39; },
+        { header: &#39;Tablets&#39; },
+        { header: &#39;Phones&#39;, img: &#39;resources/phones.png&#39;, items: [
+					{ header: &#39;Apple&#39; },
+          { header: &#39;Motorola&#39;, newItem: true },
+          { header: &#39;Nokia&#39; },
+          { header: &#39;Samsung&#39; }]
+				},
+        { header: &#39;Speakers&#39;, newItem: true },
+        { header: &#39;Monitors&#39; }]
+			},
+      { header: &#39;Toys&#39;, img: &#39;resources/toys.png&#39;, items: [
+      	{ header: &#39;Shopkins&#39; },
+        { header: &#39;Train Sets&#39; },
+        { header: &#39;Science Kit&#39;, newItem: true },
+        { header: &#39;Play-Doh&#39; },
+        { header: &#39;Crayola&#39; } ]
+			},
+			{ header: &#39;Home&#39;, img: &#39;resources/home.png&#39;, items: [
+      	{ header: &#39;Coffeee Maker&#39; },
+        { header: &#39;Breadmaker&#39;, newItem: true },
+        { header: &#39;Solar Panel&#39;, newItem: true },
+        { header: &#39;Work Table&#39; },
+        { header: &#39;Propane Grill&#39; }]
+			}
+		];
+	}
+}</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    TreeView Nodes
+  &lt;/h1&gt;
+
+  &lt;p&gt;
+    In most cases, you can work with a TreeView using only its 
+    data-binding and selection properties, and the original 
+    data items bound to the tree.&lt;/p&gt;
+  &lt;p&gt;
+    There are a few scenarios where you may need access to 
+    properties of the &lt;b&gt;TreeNode&lt;/b&gt; objects that make up
+    the actual tree.&lt;/p&gt;
+  &lt;p&gt;
+    You can get the &lt;b&gt;TreeNode&lt;/b&gt; that corresponds to a given
+    data item by calling the TreeView&#39;s &lt;b&gt;getNode&lt;/b&gt; method,
+    or use the &lt;b&gt;nodes&lt;/b&gt; property to get the collection of
+    root nodes on the TreeView.&lt;/p&gt;
+  &lt;p&gt;
+    Once you have a node, you can use its properties and methods
+    to inspect or modify the tree. These properties and methods
+    include:&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;
+      &lt;b&gt;dataItem&lt;/b&gt;: Gets the item in the data source that is
+      bound to this node.&lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;element&lt;/b&gt;: Gets the HTML element that represents this
+      node.&lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;ensureVisible&lt;/b&gt;: Expands parent nodes and scrolls the
+      TreeView as needed to ensure the node is currently visible.&lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;select&lt;/b&gt;: Selects the node and ensures it is visible.&lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;parentNode&lt;/b&gt;: Gets a reference to the node&#39;s parent node.&lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;index&lt;/b&gt;: Gets the index of this node in the node collection
+      that contains it.&lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;level&lt;/b&gt;: Gets the node&#39;s level in the outline structure.
+      Top level nodes have level zero.&lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;nodes&lt;/b&gt;: Gets an array containing the node&#39;s child nodes.&lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;previous, next, previousSibling, nextSibling&lt;/b&gt;:
+      Get references to adjacent nodes on the tree, optionally excluding
+      collapsed or non-sibling nodes.&lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;isChecked, isCollapsed, isDisabled:&lt;/b&gt; Get or set values that
+      change the state of the node.&lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;p&gt;
+    For example, click the button below to scan the &lt;i&gt;visible&lt;/i&gt;
+    nodes on the TreeView. Try expanding and collapsing some
+    nodes to see the difference when you click the button:&lt;/p&gt;
+    
+  &lt;div class=&quot;row&quot;&gt;
+    &lt;div class=&quot;col-xs-5&quot;&gt;
+      &lt;div id=&quot;theTree&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;col-xs-7&quot;&gt;
+      &lt;div id=&quot;scan&quot; class=&quot;btn btn-primary&quot;&gt;
+        Scan Visible Nodes
+      &lt;/div&gt;
+      &lt;h4&gt;
+        Visible Nodes:
+      &lt;/h4&gt;
+      &lt;div id=&quot;result&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.node-info {
+  font-size: 70%;
+  font-style: italic;
+}
+
+/* default trees on this sample */
+.wj-treeview {
+    font-size: 120%;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding: 6px;
+    background: #f0f0f0;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+.wj-combobox {
+  width: 120px;
+}
+label {
+  width: 120px;
+  text-align: right;
+  margin-bottom: 12px;
+}
+body {
+  margin-bottom: 24pt;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.nav.min.js" target="_blank">wijmo.nav.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Wijmo 5 - Date and Time Input - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "vgc3Y";
+        var show_src = "//fiddle.jshell.net/Wijmo5/vgc3Y/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/vgc3Y/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/vgc3Y/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=vgc3Y" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+    // the date/time being edited
+    var theDate = new Date();
+    
+    // create InputDate control
+    var inputDate = new wijmo.input.InputDate(&#39;#theInputDate&#39;, {
+        min: new Date(2014, 8, 1),
+        format: &#39;M/d/yyyy&#39;,
+        value: theDate
+    });
+    inputDate.valueChanged.addHandler(valueChanged);
+    
+    // create InputTime control
+    var inputTime = new wijmo.input.InputTime(&#39;#theInputTime&#39;, {
+        min: new Date(2014, 8, 1, 9, 0),
+        max: new Date(2014, 8, 1, 17, 0),
+        step: 15,
+        format: &#39;h:mm tt&#39;,
+        value: theDate
+    });
+    inputTime.valueChanged.addHandler(valueChanged);
+
+    // create Calendar control
+    var calendar = new wijmo.input.Calendar(&#39;#theCalendar&#39;, {
+        min: new Date(2014, 8, 1),
+        value: theDate
+    });
+    calendar.valueChanged.addHandler(valueChanged);
+    
+    // udpate theDate when the value changes in any of the controls
+    function valueChanged(s, e) {
+        theDate = s.value;
+        inputDate.value = inputTime.value = calendar.value = theDate;
+        document.getElementById(&#39;theDate&#39;).textContent = wijmo.Globalize.format(theDate, &#39;F&#39;);
+    }
+}</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Date and Time input
+  &lt;/h1&gt;
+
+  &lt;p&gt;
+    Choose or edit the date and time using the
+    &lt;b&gt;InputDate&lt;/b&gt; and &lt;b&gt;InputTime&lt;/b&gt; controls:&lt;/p&gt;
+  &lt;div id=&quot;theInputDate&quot;&gt;&lt;/div&gt;
+  &lt;div id=&quot;theInputTime&quot;&gt;&lt;/div&gt;
+
+  &lt;p&gt;
+    Or pick the date from the &lt;b&gt;Calendar&lt;/b&gt; 
+    control:&lt;/p&gt;
+  &lt;div id=&quot;theCalendar&quot;&gt;&lt;/div&gt;
+
+  &lt;p&gt;
+    The current date/time value is 
+    &lt;b&gt;&lt;span id=&quot;theDate&quot;&gt;&lt;/span&gt;&lt;/b&gt;&lt;/p&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-calendar {
+    max-width: 300px;
+}
+.wj-control {
+  margin-bottom: 6px;
+}
+body {
+  margin-bottom: 24pt;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

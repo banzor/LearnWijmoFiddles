@@ -1,0 +1,171 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Extra Axes - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "t7p5h580";
+        var show_src = "//fiddle.jshell.net/Wijmo5/t7p5h580/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/t7p5h580/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/t7p5h580/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=t7p5h580" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// create the chart
+  var theChart = new wijmo.chart.FlexChart(&#39;#theChart&#39;, {
+  	itemsSource: getData(),
+    bindingX: &#39;country&#39;,
+    series: [
+    	{ binding: &#39;sales&#39;, name: &#39;Sales&#39; },
+      { binding: &#39;expenses&#39;, name: &#39;Expenses&#39; },
+      { binding: &#39;downloads&#39;, name: &#39;Downloads&#39;, chartType: &#39;LineSymbols&#39; },
+    ],
+    axisY: {
+    	format: &#39;n0,&#39;,
+      title: &#39;Sales/Expenses (US$ k)&#39;,
+      axisLine: true
+    },
+  });
+  
+  // create and apply extra Y axis for &#39;Downloads&#39; series
+  var axisY2 = new wijmo.chart.Axis();
+  axisY2.position = &#39;Right&#39;;
+  axisY2.title = &#39;Downloads (k)&#39;;
+  axisY2.format = &#39;n0,&#39;;
+  axisY2.min = 0;
+  axisY2.axisLine = true;
+  getSeries(&#39;downloads&#39;).axisY = axisY2;
+
+	// toggle extra axis
+  document.getElementById(&#39;secondaryAxis&#39;).addEventListener(&#39;click&#39;, function(e) {
+  	getSeries(&#39;downloads&#39;).axisY = e.target.checked ? axisY2 : null;
+  });
+  
+  // get a series by its binding
+  function getSeries(binding) {
+  	var s = theChart.series;
+  	for (var i = 0; i &lt; s.length; i++) {
+    	if (s[i].binding == binding) {
+    		return s[i];
+    	}
+    }
+    return null;
+  }
+  
+	// create some random data
+  function getData() {
+	  var countries = &#39;US,Canada,Mexico,Germany,UK,France,Italy,Japan,Korea,China&#39;.split(&#39;,&#39;),
+	    data = [];
+	  for (var i = 0; i &lt; countries.length; i++) {
+	    data.push({
+	      country: countries[i],
+	      sales: 1000 + Math.random() * 10000,
+	      expenses: 1000 + Math.random() * 5000,
+	      downloads: Math.round(Math.random() * 100000),
+	    });
+	  }
+  	return data;
+  }
+
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Extra Axes
+  &lt;/h1&gt;
+
+  &lt;p&gt;
+    Most charts have two axes, X and Y. This works well as long
+    as all the data on the chart has the same nature and can 
+    share the same scale.&lt;/p&gt;
+  &lt;p&gt;
+    But some charts contain series that show different types of
+    data, with different units and scales. The chart below has
+    two series that represent amounts (sales and expenses) and
+    one that represents quantities (downloads).&lt;/p&gt;
+  &lt;p&gt;
+    Plotting all the series against a single Y axis squeezes 
+    the first two series against the bottom of the chart.&lt;/p&gt;
+  &lt;p&gt;
+    The easiest way to solve this problem and still using a 
+    single chart is to create a secondary Y axis and assign
+    it to the &lt;b&gt;axisY&lt;/b&gt; property of the &quot;Downloads&quot; series:&lt;/p&gt;
+
+  &lt;label for=&quot;secondaryAxis&quot;&gt;Secondary Y Axis&lt;/label&gt;
+  &lt;input id=&quot;secondaryAxis&quot; type=&quot;checkbox&quot; checked=&quot;checked&quot;&gt;
+  
+  &lt;div id=&quot;theChart&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexchart {
+  height: 300px;
+}
+.wj-control {
+  margin-bottom: 6px;
+}
+body {
+  margin-bottom: 24pt;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.chart.min.js" target="_blank">wijmo.chart.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

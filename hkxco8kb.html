@@ -1,0 +1,262 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Inline Editing - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "hkxco8kb";
+        var show_src = "//fiddle.jshell.net/Wijmo5/hkxco8kb/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/hkxco8kb/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/hkxco8kb/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=hkxco8kb" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // create some random data
+  var countries = &#39;US,Germany,UK,Japan,Sweden,Norway,Denmark&#39;.split(&#39;,&#39;);
+  var data = [];
+  for (var i = 0; i &lt; countries.length; i++) {
+    data.push({
+      id: i,
+      country: countries[i],
+      sales: Math.random() * 10000,
+      expenses: Math.random() * 5000,
+      overdue: (i + 1) % 4 == 0
+    });
+  }
+
+  // create the grid with custom editing behavior
+  var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+    isReadOnly: true,
+    selectionMode: &#39;None&#39;,
+    headersVisibility: &#39;Column&#39;,
+    itemsSource: data,
+    columns: [
+    	{ binding: &#39;id&#39;, header: &#39;ID&#39;, width: 50 },
+      { binding: &#39;country&#39;, header: &#39;Country&#39;, isRequired: true, dataMap: countries },
+      { binding: &#39;sales&#39;, header: &#39;Sales&#39;, format: &#39;n2&#39; }, 
+      { binding: &#39;expenses&#39;, header: &#39;Expenses&#39;, format: &#39;n2&#39; },
+      { binding: &#39;buttons&#39;, header: &#39;Edit&#39;, width: 160 }
+		]
+  });
+
+  // make rows taller to accommodate edit buttons and input controls
+  theGrid.rows.defaultSize = 40;
+
+  // custom formatter to paint buttons and editors
+  theGrid.formatItem.addHandler(function(s, e) {
+    if (e.panel == s.cells) {
+      var col = s.columns[e.col],
+      		item = s.rows[e.row].dataItem;
+
+      if (item == currentEditItem) {
+
+        // create editors and buttons for the item being edited
+        switch (col.binding) {
+          case &#39;buttons&#39;:
+            e.cell.innerHTML = document.getElementById(&#39;tplBtnEditMode&#39;).innerHTML;
+            e.cell.dataItem = item;
+            break;
+          case &#39;country&#39;:
+          case &#39;sales&#39;:
+          case &#39;expenses&#39;:
+            e.cell.innerHTML = &#39;&lt;input class=&quot;form-control&quot; &#39; +
+              &#39;id=&quot;&#39; + col.binding + &#39;&quot; &#39; +
+              &#39;value=&quot;&#39; + s.getCellData(e.row, e.col, true) + &#39;&quot;/&gt;&#39;;
+            break;
+        }
+      } else {
+
+        // create buttons for items not being edited
+        switch (col.binding) {
+          case &#39;buttons&#39;:
+            e.cell.innerHTML = document.getElementById(&#39;tplBtnViewMode&#39;).innerHTML;
+            e.cell.dataItem = item;
+            break;
+        }
+      }
+    }
+  });
+
+  // handle button clicks
+  theGrid.addEventListener(theGrid.hostElement, &#39;click&#39;, function(e) {
+    if (e.target.tagName == &#39;BUTTON&#39;) {
+
+      // get button&#39;s data item
+      var item = wijmo.closest(e.target, &#39;.wj-cell&#39;).dataItem;
+
+      // handle buttons
+      switch (e.target.id) {
+
+        // start editing this item
+        case &#39;btnEdit&#39;:
+          editItem(item);
+          break;
+
+          // remove this item from the collection
+        case &#39;btnDelete&#39;:
+          theGrid.collectionView.remove(item);
+          break;
+
+          // commit edits
+        case &#39;btnOK&#39;:
+          commitEdit();
+          break;
+
+          // cancel edits
+        case &#39;btnCancel&#39;:
+          cancelEdit();
+          break;
+      }
+    }
+  });
+
+  // exit edit mode when scrolling the grid or losing focus
+  theGrid.scrollPositionChanged.addHandler(cancelEdit);
+  theGrid.lostFocus.addHandler(cancelEdit);
+
+  // editing commands
+  var currentEditItem = null;
+
+  function editItem(item) {
+    cancelEdit();
+    currentEditItem = item;
+    theGrid.invalidate();
+  }
+
+  function commitEdit() {
+    if (currentEditItem) {
+      theGrid.columns.forEach(function(col) {
+        var input = theGrid.hostElement.querySelector(&#39;#&#39; + col.binding);
+        if (input) {
+          var value = wijmo.changeType(input.value, col.dataType, col.format);
+          if (wijmo.getType(value) == col.dataType) {
+            currentEditItem[col.binding] = value;
+          }
+        }
+      });
+    }
+    currentEditItem = null;
+    theGrid.invalidate();
+  }
+
+  function cancelEdit() {
+    if (currentEditItem) {
+      currentEditItem = null;
+      theGrid.invalidate();
+    }
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Inline Editing
+  &lt;/h1&gt;
+  &lt;p&gt;
+    Although the FlexGrid provides efficient, Excel-style
+    editing by default, you may want to customize the 
+    editing behavior.&lt;/p&gt;
+  &lt;p&gt;
+    If for some reason you don&#39;t like the Excel-style
+    editing and prefer to add editing buttons to every
+    row (typical of editable HTML tables), you can 
+    accomplish that using the &lt;b&gt;formatItem&lt;/b&gt; event
+    and a little code.&lt;/p&gt;
+  &lt;p&gt;
+    The grid below demonstrates this approach:&lt;/p&gt;
+  &lt;div id=&quot;theGrid&quot;&gt;
+  &lt;/div&gt;
+
+  &lt;!-- template for buttons on items in view mode --&gt;
+  &lt;div id=&quot;tplBtnViewMode&quot; style=&quot;display:none&quot;&gt;
+    &lt;button id=&quot;btnEdit&quot; class=&quot;btn btn-default btn-sm&quot;&gt;
+      &lt;span class=&quot;glyphicon glyphicon-pencil&quot;&gt;&lt;/span&gt; Edit
+    &lt;/button&gt;
+    &lt;button id=&quot;btnDelete&quot; class=&quot;btn btn-default btn-sm&quot;&gt;
+      &lt;span class=&quot;glyphicon glyphicon-remove&quot;&gt;&lt;/span&gt; Delete
+    &lt;/button&gt;
+  &lt;div&gt;
+
+  &lt;!-- template for buttons on items in edit mode --&gt;
+  &lt;div id=&quot;tplBtnEditMode&quot; style=&quot;display:none&quot;&gt;
+    &lt;button id=&quot;btnOK&quot; class=&quot;btn btn-primary btn-sm&quot;&gt;
+      &lt;span class=&quot;glyphicon glyphicon-ok&quot;&gt;&lt;/span&gt; OK
+    &lt;/button&gt;
+    &lt;button id=&quot;btnCancel&quot; class=&quot;btn btn-warning btn-sm&quot;&gt;
+      &lt;span class=&quot;glyphicon glyphicon-ban-circle&quot;&gt;&lt;/span&gt; Cancel
+    &lt;/button&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 200px;
+  margin-bottom: 12px;
+}
+
+body {
+  margin-bottom: 24px;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

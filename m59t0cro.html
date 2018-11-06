@@ -1,0 +1,201 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Wijmo Olap Tutorial - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "m59t0cro";
+        var show_src = "//fiddle.jshell.net/Wijmo5/m59t0cro/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/m59t0cro/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/m59t0cro/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=m59t0cro" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // initialize pivot engine
+  var ngIntro = new wijmo.olap.PivotEngine({
+    itemsSource: getData(), // raw data
+    valueFields: [&#39;Amount&#39;] // summarize amounts
+  });
+  ngIntro.fields.getField(&#39;Amount&#39;).format = &#39;c0&#39;; // customize field
+
+  // show raw data
+  var rawDataIntro = new wijmo.grid.FlexGrid(&#39;#rawDataIntro&#39;, {
+    itemsSource: ngIntro.collectionView
+  });
+
+  // show summary
+  var pivotGridIntro = new wijmo.olap.PivotGrid(&#39;#pivotGridIntro&#39;, {
+    itemsSource: ngIntro
+  });
+
+  // get the raw data
+  function getData() {
+    var yr = new Date().getFullYear();
+    return [{
+        date: new Date(yr, 0, 1),
+        buyer: &#39;Mom&#39;,
+        type: &#39;Fuel&#39;,
+        amount: 74
+      },
+      {
+        date: new Date(yr, 0, 15),
+        buyer: &#39;Mom&#39;,
+        type: &#39;Food&#39;,
+        amount: 235
+      },
+      {
+        date: new Date(yr, 0, 17),
+        buyer: &#39;Dad&#39;,
+        type: &#39;Sports&#39;,
+        amount: 20
+      },
+      {
+        date: new Date(yr, 0, 21),
+        buyer: &#39;Kelly&#39;,
+        type: &#39;Books&#39;,
+        amount: 125
+      },
+      {
+        date: new Date(yr, 1, 2),
+        buyer: &#39;Mom&#39;,
+        type: &#39;Food&#39;,
+        amount: 235
+      },
+      {
+        date: new Date(yr, 1, 20),
+        buyer: &#39;Kelly&#39;,
+        type: &#39;Music&#39;,
+        amount: 20
+      },
+      {
+        date: new Date(yr, 1, 25),
+        buyer: &#39;Kelly&#39;,
+        type: &#39;Tickets&#39;,
+        amount: 125
+      },
+    ];
+  }
+
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Wijmo Olap Tutorial&lt;/h1&gt;
+  &lt;p&gt;
+    Pivot tables are one of Excel&#39;s most powerful features.
+    They allow you to easily explore large, detailed data sets 
+    and  detect important trends and relations.
+    Wijmo&#39;s &lt;b&gt;wijmo.olap&lt;/b&gt; module allows you to add this 
+    functionality to your JavaScript applications.&lt;/p&gt;
+  &lt;p&gt;
+    Pibot tables are easy to use.
+    This tutorial, base on Excel&#39;s Pivot Table tutorial, 
+    shows how you can use pivot tables to analyze
+    a list of expenses and answer questions such as:&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;How much was spent by each person?&lt;/li&gt;
+    &lt;li&gt;What did each person spend money on?&lt;/li&gt;
+    &lt;li&gt;How much was spent on each expense type?&lt;/li&gt;
+    &lt;li&gt;When were these expenses made?&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;p&gt;
+    But before we get to that, let&#39;s start by creating an
+    overall summary. The FleGrid on the left shows the raw
+    data. The PivotGrid on the right shows the total
+    expenses.
+  &lt;/p&gt;
+  &lt;div class=&quot;row&quot;&gt;
+    &lt;div class=&quot;col-xs-6&quot;&gt;
+      &lt;p&gt;Raw data:&lt;/p&gt;
+      &lt;div id=&quot;rawDataIntro&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;col-xs-6&quot;&gt;
+      &lt;p&gt;
+        Total Amount spent:
+      &lt;/p&gt;
+      &lt;div id=&quot;pivotGridIntro&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;p&gt;
+    We use a PivotEngine with a single &lt;b&gt;value field&lt;/b&gt;, 
+    &#39;Amount&#39;.
+    Since there are no row or column fields, 
+    only the grand total is shown.
+  &lt;/p&gt;
+  &lt;p&gt;
+    Note that the table is live. If you edit the raw
+    data, the summary will be updated automatically.
+  &lt;/p&gt;
+
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">body {
+  margin-bottom: 24pt;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.filter.min.js" target="_blank">wijmo.grid.filter.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.olap.min.js" target="_blank">wijmo.olap.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

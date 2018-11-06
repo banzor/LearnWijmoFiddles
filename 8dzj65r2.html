@@ -1,0 +1,643 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - PivotPanel with Touch Support - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "8dzj65r2";
+        var show_src = "//fiddle.jshell.net/Wijmo5/8dzj65r2/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/8dzj65r2/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/8dzj65r2/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=8dzj65r2" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // initialize pivot engine
+  var ngPanel = new wijmo.olap.PivotEngine({
+    itemsSource: getData(), // raw data
+    valueFields: [&#39;Amount&#39;], // summarize amounts
+    rowFields: [&#39;Buyer&#39;, &#39;Type&#39;] // summarize amounts
+  });
+  ngPanel.fields.getField(&#39;Amount&#39;).format = &#39;c0&#39;; // customize field
+
+  // show pivot panel
+  var pivotPanel = new wijmo.olap.PivotPanel(&#39;#pivotPanel&#39;, {
+    itemsSource: ngPanel
+  });
+
+  // show summary
+  var pivotPanelGrid = new wijmo.olap.PivotGrid(&#39;#pivotPanelGrid&#39;, {
+    itemsSource: ngPanel
+  });
+  var pivotPanelChart = new wijmo.olap.PivotChart(&#39;#pivotPanelChart&#39;, {
+    itemsSource: ngPanel,
+    showTitle: false,
+    showLegend: &#39;Auto&#39;
+  });
+
+  // save/restore views
+  document.getElementById(&#39;saveView&#39;).addEventListener(&#39;click&#39;, function() {
+    if (ngPanel.isViewDefined) {
+      localStorage.viewDefinition = ngPanel.viewDefinition;
+    }
+  });
+  document.getElementById(&#39;restoreView&#39;).addEventListener(&#39;click&#39;, function() {
+    if (localStorage.viewDefinition) {
+      ngPanel.viewDefinition = localStorage.viewDefinition;
+    }
+  });
+
+  // get the raw data
+  function getData() {
+    var yr = new Date().getFullYear();
+    return [{
+        date: new Date(yr, 0, 1),
+        buyer: &#39;Mom&#39;,
+        type: &#39;Fuel&#39;,
+        amount: 74
+      },
+      {
+        date: new Date(yr, 0, 15),
+        buyer: &#39;Mom&#39;,
+        type: &#39;Food&#39;,
+        amount: 235
+      },
+      {
+        date: new Date(yr, 0, 17),
+        buyer: &#39;Dad&#39;,
+        type: &#39;Sports&#39;,
+        amount: 20
+      },
+      {
+        date: new Date(yr, 0, 21),
+        buyer: &#39;Kelly&#39;,
+        type: &#39;Books&#39;,
+        amount: 125
+      },
+      {
+        date: new Date(yr, 1, 2),
+        buyer: &#39;Mom&#39;,
+        type: &#39;Food&#39;,
+        amount: 235
+      },
+      {
+        date: new Date(yr, 1, 20),
+        buyer: &#39;Kelly&#39;,
+        type: &#39;Music&#39;,
+        amount: 20
+      },
+      {
+        date: new Date(yr, 1, 25),
+        buyer: &#39;Kelly&#39;,
+        type: &#39;Tickets&#39;,
+        amount: 125
+      },
+    ];
+  }
+}
+
+////////////////////////////////////////////////////////////////////////
+//
+// DragDropTouch: add touch support for HTML5 drag/drop operations
+// transpiled from TypeScript.
+//
+// https://github.com/Bernardo-Castilho/dragdroptouch
+//
+////////////////////////////////////////////////////////////////////////
+var wijmo;
+(function (wijmo) {
+    &#39;use strict&#39;;
+    /**
+     * Object used to hold the data that is being dragged during drag and drop operations.
+     *
+     * It may hold one or more data items of different types. For more information about
+     * drag and drop operations and data transfer objects, see
+     * &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer&quot;&gt;HTML Drag and Drop API&lt;/a&gt;.
+     *
+     * This object is created automatically by the @see:DragDropTouch singleton and is
+     * accessible through the @see:dataTransfer property of all drag events.
+     */
+    var DataTransfer = /** @class */ (function () {
+        function DataTransfer() {
+            this._dropEffect = &#39;move&#39;;
+            this._effectAllowed = &#39;all&#39;;
+            this._data = {};
+        }
+        Object.defineProperty(DataTransfer.prototype, &quot;dropEffect&quot;, {
+            /**
+             * Gets or sets the type of drag-and-drop operation currently selected.
+             * The value must be &#39;none&#39;,  &#39;copy&#39;,  &#39;link&#39;, or &#39;move&#39;.
+             */
+            get: function () {
+                return this._dropEffect;
+            },
+            set: function (value) {
+                this._dropEffect = wijmo.asString(value);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(DataTransfer.prototype, &quot;effectAllowed&quot;, {
+            /**
+             * Gets or sets the types of operations that are possible.
+             * Must be one of &#39;none&#39;, &#39;copy&#39;, &#39;copyLink&#39;, &#39;copyMove&#39;, &#39;link&#39;,
+             * &#39;linkMove&#39;, &#39;move&#39;, &#39;all&#39; or &#39;uninitialized&#39;.
+             */
+            get: function () {
+                return this._effectAllowed;
+            },
+            set: function (value) {
+                this._effectAllowed = wijmo.asString(value);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(DataTransfer.prototype, &quot;types&quot;, {
+            /**
+             * Gets an array of strings giving the formats that were set in the @see:dragstart event.
+             */
+            get: function () {
+                return Object.keys(this._data);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * Removes the data associated with a given type.
+         *
+         * The type argument is optional. If the type is empty or not specified, the data
+         * associated with all types is removed. If data for the specified type does not exist,
+         * or the data transfer contains no data, this method will have no effect.
+         *
+         * @param type Type of data to remove.
+         */
+        DataTransfer.prototype.clearData = function (type) {
+            if (type != null) {
+                delete this._data[type];
+            }
+            else {
+                this._data = null;
+            }
+        };
+        /**
+         * Retrieves the data for a given type, or an empty string if data for that type does
+         * not exist or the data transfer contains no data.
+         *
+         * @param type Type of data to retrieve.
+         */
+        DataTransfer.prototype.getData = function (type) {
+            return this._data[type] || &#39;&#39;;
+        };
+        /**
+         * Set the data for a given type.
+         *
+         * For a list of recommended drag types, please see
+         * https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Recommended_Drag_Types.
+         *
+         * @param type Type of data to add.
+         * @param value Data to add.
+         */
+        DataTransfer.prototype.setData = function (type, value) {
+            this._data[type] = value;
+        };
+        /**
+         * Set the image to be used for dragging if a custom one is desired.
+         *
+         * @param img An image element to use as the drag feedback image.
+         * @param offsetX The horizontal offset within the image.
+         * @param offsetY The vertical offset within the image.
+         */
+        DataTransfer.prototype.setDragImage = function (img, offsetX, offsetY) {
+            var ddt = DragDropTouch._instance;
+            ddt._imgCustom = img;
+            ddt._imgOffset = new wijmo.Point(offsetX, offsetY);
+        };
+        return DataTransfer;
+    }());
+    wijmo.DataTransfer = DataTransfer;
+    /**
+     * Defines a class that adds support for touch-based HTML5 drag/drop operations.
+     *
+     * The @see:DragDropTouch class listens to touch events and raises the
+     * appropriate HTML5 drag/drop events as if the events had been caused
+     * by mouse actions.
+     *
+     * The purpose of this class is to enable using existing, standard HTML5
+     * drag/drop code on mobile devices running IOS or Android.
+     *
+     * To use, include the DragDropTouch.js file on the page. The class will
+     * automatically start monitoring touch events and will raise the HTML5
+     * drag drop events (dragstart, dragenter, dragleave, drop, dragend) which
+     * should be handled by the application.
+     *
+     * For details and examples on HTML drag and drop, see
+     * https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Drag_operations.
+     */
+    var DragDropTouch = /** @class */ (function () {
+        /**
+         * Initializes the single instance of the @see:DragDropTouch class.
+         */
+        function DragDropTouch() {
+            this._lastClick = 0;
+            // enforce singleton pattern
+            wijmo.assert(!DragDropTouch._instance, &#39;DragDropTouch instance already created.&#39;);
+            // detect passive event support
+            // https://github.com/Modernizr/Modernizr/issues/1894
+            var supportsPassive = false;
+            document.addEventListener(&#39;test&#39;, function (_) { }, {
+                get passive() {
+                    supportsPassive = true;
+                    return true;
+                }
+            });
+            // listen to touch events
+            if (&#39;ontouchstart&#39; in document) {
+                var d = document, ts = this._touchstart.bind(this), tm = this._touchmove.bind(this), te = this._touchend.bind(this), opt = supportsPassive ? { passive: false, capture: false } : false;
+                d.addEventListener(&#39;touchstart&#39;, ts, opt);
+                d.addEventListener(&#39;touchmove&#39;, tm, opt);
+                d.addEventListener(&#39;touchend&#39;, te);
+                d.addEventListener(&#39;touchcancel&#39;, te);
+            }
+        }
+        /**
+         * Gets a reference to the @see:DragDropTouch singleton.
+         */
+        DragDropTouch.getInstance = function () {
+            return DragDropTouch._instance;
+        };
+        // ** event handlers
+        DragDropTouch.prototype._touchstart = function (e) {
+            var _this = this;
+            if (this._shouldHandle(e)) {
+                // raise double-click and prevent zooming
+                if (Date.now() - this._lastClick &lt; DragDropTouch._DBLCLICK) {
+                    if (this._dispatchEvent(e, &#39;dblclick&#39;, e.target)) {
+                        e.preventDefault();
+                        this._reset();
+                        return;
+                    }
+                }
+                // clear all variables
+                this._reset();
+                // get nearest draggable element
+                var src = wijmo.closest(e.target, &#39;[draggable]&#39;);
+                if (src &amp;&amp; src.draggable) {
+                    // give caller a chance to handle the hover/move events
+                    if (!this._dispatchEvent(e, &#39;mousemove&#39;, e.target) &amp;&amp;
+                        !this._dispatchEvent(e, &#39;mousedown&#39;, e.target)) {
+                        // get ready to start dragging
+                        this._dragSource = src;
+                        this._ptDown = this._getPoint(e);
+                        this._lastTouch = e;
+                        e.preventDefault();
+                        // show context menu if the user hasn&#39;t started dragging after a while
+                        setTimeout(function () {
+                            if (_this._dragSource == src &amp;&amp; _this._img == null) {
+                                if (_this._dispatchEvent(e, &#39;contextmenu&#39;, src)) {
+                                    _this._reset();
+                                }
+                            }
+                        }, DragDropTouch._CTXMENU);
+                    }
+                }
+            }
+        };
+        DragDropTouch.prototype._touchmove = function (e) {
+            if (this._shouldHandle(e)) {
+                // see if target wants to handle move
+                var target = this._getTarget(e);
+                if (this._dispatchEvent(e, &#39;mousemove&#39;, target)) {
+                    this._lastTouch = e;
+                    e.preventDefault();
+                    return;
+                }
+                // start dragging
+                if (this._dragSource &amp;&amp; !this._img) {
+                    var delta = this._getDelta(e);
+                    if (delta &gt; DragDropTouch._THRESHOLD) {
+                        this._dispatchEvent(e, &#39;dragstart&#39;, this._dragSource);
+                        this._createImage(e);
+                        this._dispatchEvent(e, &#39;dragenter&#39;, target);
+                    }
+                }
+                // continue dragging
+                if (this._img) {
+                    this._lastTouch = e;
+                    e.preventDefault(); // prevent scrolling
+                    if (target != this._lastTarget) {
+                        this._dispatchEvent(this._lastTouch, &#39;dragleave&#39;, this._lastTarget);
+                        this._dispatchEvent(e, &#39;dragenter&#39;, target);
+                        this._lastTarget = target;
+                    }
+                    this._moveImage(e);
+                    this._dispatchEvent(e, &#39;dragover&#39;, target);
+                }
+            }
+        };
+        DragDropTouch.prototype._touchend = function (e) {
+            if (this._shouldHandle(e)) {
+                // see if target wants to handle up
+                if (this._dispatchEvent(this._lastTouch, &#39;mouseup&#39;, e.target)) {
+                    e.preventDefault();
+                    return;
+                }
+                // user clicked the element but didn&#39;t drag, so clear the source and simulate a click
+                if (!this._img) {
+                    this._dragSource = null;
+                    this._dispatchEvent(this._lastTouch, &#39;click&#39;, e.target);
+                    this._lastClick = Date.now();
+                }
+                // finish dragging
+                this._destroyImage();
+                if (this._dragSource) {
+                    if (e.type.indexOf(&#39;cancel&#39;) &lt; 0) {
+                        this._dispatchEvent(this._lastTouch, &#39;drop&#39;, this._lastTarget);
+                    }
+                    this._dispatchEvent(this._lastTouch, &#39;dragend&#39;, this._dragSource);
+                    this._reset();
+                }
+            }
+        };
+        // ** utilities
+        // ignore events that have been handled or that involve more than one touch
+        DragDropTouch.prototype._shouldHandle = function (e) {
+            return e &amp;&amp;
+                !e.defaultPrevented &amp;&amp;
+                e.touches &amp;&amp; e.touches.length &lt; 2;
+        };
+        // clear all members
+        DragDropTouch.prototype._reset = function () {
+            this._destroyImage();
+            this._dragSource = null;
+            this._lastTouch = null;
+            this._lastTarget = null;
+            this._ptDown = null;
+            this._dataTransfer = new DataTransfer();
+        };
+        // get point for a touch event
+        DragDropTouch.prototype._getPoint = function (e, page) {
+            if (e &amp;&amp; e.touches) {
+                e = e.touches[0];
+            }
+            wijmo.assert(e &amp;&amp; (&#39;clientX&#39; in e), &#39;invalid event?&#39;);
+            if (page == true) {
+                return new wijmo.Point(e.pageX, e.pageY);
+            }
+            else {
+                return new wijmo.Point(e.clientX, e.clientY);
+            }
+        };
+        // get distance between the current touch event and the first one
+        DragDropTouch.prototype._getDelta = function (e) {
+            var p = this._getPoint(e);
+            return Math.abs(p.x - this._ptDown.x) + Math.abs(p.y - this._ptDown.y);
+        };
+        // get the element at a given touch event
+        DragDropTouch.prototype._getTarget = function (e) {
+            var pt = this._getPoint(e), el = document.elementFromPoint(pt.x, pt.y);
+            while (el &amp;&amp; getComputedStyle(el).pointerEvents == &#39;none&#39;) {
+                el = el.parentElement;
+            }
+            return el;
+        };
+        // create drag image from source element
+        DragDropTouch.prototype._createImage = function (e) {
+            // just in case...
+            if (this._img) {
+                this._destroyImage();
+            }
+            // create drag image from custom element or drag source
+            var src = this._imgCustom || this._dragSource;
+            this._img = src.cloneNode(true);
+            this._copyStyle(src, this._img);
+            this._img.style.top = this._img.style.left = &#39;-9999px&#39;;
+            // if creating from drag source, apply offset and opacity
+            if (!this._imgCustom) {
+                var rc = src.getBoundingClientRect(), pt = this._getPoint(e);
+                this._imgOffset = new wijmo.Point(pt.x - rc.left, pt.y - rc.top);
+                this._img.style.opacity = DragDropTouch._OPACITY.toString();
+            }
+            // add image to document
+            this._moveImage(e);
+            document.body.appendChild(this._img);
+        };
+        // dispose of drag image element
+        DragDropTouch.prototype._destroyImage = function () {
+            if (this._img &amp;&amp; this._img.parentElement) {
+                this._img.parentElement.removeChild(this._img);
+            }
+            this._img = null;
+            this._imgCustom = null;
+        };
+        // move the drag image element
+        DragDropTouch.prototype._moveImage = function (e) {
+            var _this = this;
+            requestAnimationFrame(function () {
+                if (_this._img) {
+                    var pt = _this._getPoint(e, true);
+                    wijmo.setCss(_this._img, {
+                        position: &#39;absolute&#39;,
+                        pointerEvents: &#39;none&#39;,
+                        zIndex: 999999,
+                        left: Math.round(pt.x - _this._imgOffset.x),
+                        top: Math.round(pt.y - _this._imgOffset.y)
+                    });
+                }
+            });
+        };
+        // copy properties from an object to another
+        DragDropTouch.prototype._copyProps = function (dst, src, props) {
+            for (var i = 0; i &lt; props.length; i++) {
+                var p = props[i];
+                dst[p] = src[p];
+            }
+        };
+        DragDropTouch.prototype._copyStyle = function (src, dst) {
+            // remove potentially troublesome attributes
+            DragDropTouch._rmvAtts.forEach(function (att) {
+                dst.removeAttribute(att);
+            });
+            // copy canvas content
+            if (src instanceof HTMLCanvasElement) {
+                var cSrc = src, cDst = dst;
+                cDst.width = cSrc.width;
+                cDst.height = cSrc.height;
+                cDst.getContext(&#39;2d&#39;).drawImage(cSrc, 0, 0);
+            }
+            // copy style (without transitions)
+            var cs = getComputedStyle(src);
+            for (var i = 0; i &lt; cs.length; i++) {
+                var key = cs[i];
+                if (key.indexOf(&#39;transition&#39;) &lt; 0) {
+                    dst.style[key] = cs[key];
+                }
+            }
+            dst.style.pointerEvents = &#39;none&#39;;
+            // and repeat for all children
+            for (var i = 0; i &lt; src.children.length; i++) {
+                this._copyStyle(src.children[i], dst.children[i]);
+            }
+        };
+        DragDropTouch.prototype._dispatchEvent = function (e, type, target) {
+            if (e &amp;&amp; target) {
+                var evt = document.createEvent(&#39;Event&#39;), t = e.touches ? e.touches[0] : e;
+                evt.initEvent(type, true, true);
+                evt.button = 0;
+                evt.which = evt.buttons = 1;
+                this._copyProps(evt, e, DragDropTouch._kbdProps);
+                this._copyProps(evt, t, DragDropTouch._ptProps);
+                evt.dataTransfer = this._dataTransfer;
+                target.dispatchEvent(evt);
+                return evt.defaultPrevented;
+            }
+            return false;
+        };
+        /*private*/ DragDropTouch._instance = new DragDropTouch(); // singleton
+        // constants
+        DragDropTouch._THRESHOLD = 5; // pixels to move before drag starts
+        DragDropTouch._OPACITY = 0.5; // drag image opacity
+        DragDropTouch._DBLCLICK = 500; // max ms between clicks in a double click
+        DragDropTouch._CTXMENU = 900; // ms to hold before raising &#39;contextmenu&#39; event
+        // copy styles/attributes from drag source to drag image element
+        DragDropTouch._rmvAtts = &#39;id,class,style,draggable&#39;.split(&#39;,&#39;);
+        // synthesize and dispatch an event
+        // returns true if the event has been handled (e.preventDefault == true)
+        DragDropTouch._kbdProps = &#39;altKey,ctrlKey,metaKey,shiftKey&#39;.split(&#39;,&#39;);
+        DragDropTouch._ptProps = &#39;pageX,pageY,clientX,clientY,screenX,screenY&#39;.split(&#39;,&#39;);
+        return DragDropTouch;
+    }());
+    wijmo.DragDropTouch = DragDropTouch;
+})(wijmo || (wijmo = {}));
+//# sourceMappingURL=DragDropTouch.js.map
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    PivotPanel with Touch Support
+  &lt;/h1&gt;
+  &lt;p&gt;
+    The &lt;b&gt;PivotPanel&lt;/b&gt; control uses HTML5 drag/drop to
+		enable dragging fields among lists.
+  &lt;/p&gt;
+  &lt;p&gt;
+    This feature is not natively supported on most 
+		mobile devices, but you can enable it by adding
+		a reference to a
+		&lt;a href=&quot;https://github.com/Bernardo-Castilho/dragdroptouch&quot; taget=&quot;_blank&quot;&gt;DragDropTouch&lt;/a&gt;
+		polyfill.
+  &lt;/p&gt;
+	&lt;p&gt;
+		The &lt;b&gt;PivotPanel&lt;/b&gt; below demonstrates. You can drag
+		the fields by dragging them with the mouse or using touch.
+	&lt;/p&gt;
+  &lt;div class=&quot;row&quot;&gt;
+    &lt;div class=&quot;col-xs-6&quot;&gt;
+      &lt;p&gt;
+        Drag and drop fields to build views:
+      &lt;/p&gt;
+      &lt;div id=&quot;pivotPanel&quot;&gt;&lt;/div&gt;
+      &lt;p&gt;
+        For example, drag the &quot;Buyer&quot; field from the &quot;Rows&quot; list 
+        to the &quot;Columns&quot; list.
+      &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;col-xs-6&quot;&gt;
+      &lt;p&gt;
+        Summary for the current view definition:
+      &lt;/p&gt;
+      &lt;div id=&quot;pivotPanelGrid&quot;&gt;&lt;/div&gt;
+      &lt;div id=&quot;pivotPanelChart&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;p&gt;
+    View definitions can be saved and restored using the 
+    PivotEngine&#39;s &lt;b&gt;viewDefinition&lt;/b&gt; property:
+  &lt;/p&gt;
+  &lt;button id=&quot;saveView&quot; class=&quot;btn btn-default&quot;&gt;
+    Save View
+  &lt;/button&gt;
+  &lt;button id=&quot;restoreView&quot; class=&quot;btn btn-default&quot;&gt;
+    Restore View
+  &lt;/button&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-pivotchart .wj-flexchart {
+  border: none;
+  height: 300px;
+}
+.wj-pivotpanel {
+	background: #eee;
+	box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+.wj-pivotpanel .wj-flexgrid {
+	background: inherit;
+}
+
+body {
+  margin-bottom: 24pt;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.filter.min.js" target="_blank">wijmo.grid.filter.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.chart.min.js" target="_blank">wijmo.chart.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.olap.min.js" target="_blank">wijmo.olap.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

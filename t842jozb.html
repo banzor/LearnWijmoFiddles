@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Wijmo 5 - LinearGauge - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "t842jozb";
+        var show_src = "//fiddle.jshell.net/Wijmo5/t842jozb/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/t842jozb/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/t842jozb/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=t842jozb" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">// define app, include Wijmo 5 directives
+var app = angular.module(&#39;app&#39;, [&#39;wj&#39;]);
+
+// controller
+app.controller(&#39;appCtrl&#39;, function ($scope) {
+    $scope.min = 0;
+    $scope.max = 100;
+    $scope.value = 50;
+});</pre>
+              <pre class="tCont ">&lt;!-- mark this as an Angular application and give it a controller --&gt;
+&lt;div ng-app=&quot;app&quot; ng-controller=&quot;appCtrl&quot; class=&quot;container&quot;&gt;
+    
+&lt;h1&gt;LinearGauge Demo&lt;/h1&gt;
+    
+    &lt;p&gt;
+        The &lt;b&gt;isReadOnly&lt;/b&gt; property is set to false, 
+        so you can change the value by clicking on the gauge.&lt;/p&gt;
+    
+    &lt;wj-linear-gauge
+        thickness=&quot;.5&quot;
+        value=&quot;value&quot;
+        min=&quot;{{min}}&quot;
+        max=&quot;{{max}}&quot; 
+        is-read-only=&quot;false&quot;&gt;
+        &lt;wj-range wj-property=&quot;pointer&quot; thickness=&quot;0.5&quot;&gt;&lt;/wj-range&gt;
+        &lt;wj-range min=&quot;0&quot; max=&quot;{{max*.33}}&quot; color=&quot;rgba(100,255,100,.1)&quot;&gt;&lt;/wj-range&gt;
+        &lt;wj-range min=&quot;{{max*.33}}&quot; max=&quot;{{max*.66}}&quot; color=&quot;rgba(255,255,100,.1)&quot;&gt;&lt;/wj-range&gt;
+        &lt;wj-range min=&quot;{{max*.66}}&quot; max=&quot;{{max}}&quot; color=&quot;rgba(255,100,100,.1)&quot;&gt;&lt;/wj-range&gt;
+    &lt;/wj-linear-gauge&gt;
+    
+    &lt;p&gt;
+        Same thing, but with simpler/cleaner style:&lt;/p&gt;
+    
+    &lt;wj-linear-gauge
+        class=&quot;cleanGauge&quot;
+        use-shadow=&quot;false&quot;
+        thickness=&quot;.5&quot;
+        value=&quot;value&quot;
+        min=&quot;{{min}}&quot;
+        max=&quot;{{max}}&quot; 
+        is-read-only=&quot;false&quot;&gt;
+    &lt;/wj-linear-gauge&gt;
+    
+    &lt;p&gt;
+        &lt;b&gt;The current value is {{value}}.&lt;/b&gt;&lt;/p&gt;
+
+&lt;/div&gt;</pre>
+              <pre class="tCont ">.wj-lineargauge {
+    margin: 20px;
+    width: 50%;
+}
+
+/* clean style */
+.cleanGauge.wj-gauge .wj-face path {
+  fill: #f8f8f8;
+  stroke: none;
+}
+.cleanGauge.wj-gauge .wj-pointer path {
+  fill: #404040;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.gauge.min.js" target="_blank">wijmo.gauge.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/interop/angular/wijmo.angular.min.js" target="_blank">wijmo.angular.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

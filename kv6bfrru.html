@@ -1,0 +1,166 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Re-loading Lazy-Loaded Nodes - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "kv6bfrru";
+        var show_src = "//fiddle.jshell.net/Wijmo5/kv6bfrru/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/kv6bfrru/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/kv6bfrru/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=kv6bfrru" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// create the tree
+  var theTree = new wijmo.nav.TreeView(&#39;#theTree&#39;, {
+    displayMemberPath: &#39;header&#39;,
+    childItemsPath: &#39;items&#39;,
+    isContentHtml: true,
+    itemsSource: getData(),
+    allowDragging: true,
+    expandOnClick: false,
+    autoCollapse: false,
+    
+    // load elements with a simulated http delay
+    lazyLoadFunction: function(node, callback) {
+      setTimeout(function() {
+        var result = getLazyData();
+        callback(result);
+      }, 1000);
+    },
+
+		// when collapsing a node with &#39;reload&#39; set to true, 
+    // clear its contents to reload later
+    isCollapsedChanging: function(s, e) {
+      var node = e.node,
+          tree = node.treeView;
+      if (!node.isCollapsed &amp;&amp; node.dataItem.reload == true) {
+
+        // remove previous lazy-loaded items from data source
+        node.dataItem.items = [];
+
+        // re-bind the tree to remove the old nodes
+        tree.loadTree();
+      }
+    }
+  });
+
+  // starting data
+  function getData() {
+    return [
+    	{ header: &#39;Electronics &lt;i&gt;(reload when opening)&lt;/i&gt;&#39;, items: [], reload: true },
+      { header: &#39;Toys &lt;i&gt;(load once)&lt;/i&gt;&#39;, items: [] },
+      { header: &#39;Home &lt;i&gt;(load once)&lt;/i&gt;&#39;, items: [] },
+    ];
+  }
+
+	// lazy data (re-loaded when opening nodes)
+  function getLazyData() {
+  	var creationTime = wijmo.Globalize.format(new Date(), &#39;hh:mm:ss&#39;);
+		return [
+			{ header: &#39;Empty Node at: &#39; + creationTime },
+      { header: &#39;Node with child nodes at: &#39; + creationTime, items: [
+      	{ header: &#39;hello&#39; },
+        { header: &#39;world&#39; } ]
+			},
+      { header: &#39;Lazy node &lt;i&gt;(reload when opening)&lt;/i&gt;&#39;, items: [], reload: true },
+    ]
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Re-loading Lazy-Loaded Nodes
+  &lt;/h1&gt;
+  &lt;p&gt;
+    The TreeView&#39;s &lt;b&gt;lazyLoadFunction&lt;/b&gt; property allows you to
+    create nodes that are loaded only when the node is expanded.&lt;/p&gt;
+  &lt;p&gt;
+    This can be used to improve performance in cases where data is
+    loaded asynchronously.&lt;/p&gt;
+  &lt;p&gt;
+    By default, lazy nodes load their data only once, when the node
+    is expanded for the first time. This sample shows how you can 
+    change that behavior for selected nodes causing them to re-load
+    their data whenever they are expanded. The sample does this by:&lt;/p&gt;
+  &lt;ol&gt;
+    &lt;li&gt;
+      Clearing the node&#39;s lazy-loaded data when the node is 
+      collapsed, and&lt;/li&gt;
+    &lt;li&gt;
+      Re-binding the tree to remove the old nodes.&lt;/li&gt;
+  &lt;/ol&gt;
+
+  &lt;div id=&quot;theTree&quot;&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-treeview {
+  background-color: rgba(0,0,0,.1);
+  padding: 12px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  height: 400px;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.nav.min.js" target="_blank">wijmo.nav.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Alerts and Prompts - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "9vxtfaf3";
+        var show_src = "//fiddle.jshell.net/Wijmo5/9vxtfaf3/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/9vxtfaf3/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/9vxtfaf3/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=9vxtfaf3" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // alert popup
+  function alertPopup(options, callback) {
+    var dialog = createDialog(options);
+    var popup = new wijmo.input.Popup(dialog);
+    popup.show(true, function(sender) {
+      if (callback) {
+        callback(sender.dialogResult)
+      }
+    });
+  }
+
+  // prompt popup
+  function propmtPopup(options, callback) {
+    var dialog = createDialog(options, true);
+    var popup = new wijmo.input.Popup(dialog);
+    popup.show(true, function(sender) {
+      if (callback) {
+        var result = sender.dialogResult.indexOf(&#39;ok&#39;) &gt; -1
+        	? dialog.querySelector(&#39;input&#39;).value 
+          : null;
+        callback(result);
+      }
+    });
+  }
+
+  // create dialog to use as an alert or prompt
+  function createDialog(options, input) {
+
+    // fill out default options
+    options.ok = options.ok || &#39;OK&#39;;
+    options.cancel = options.cancel || &#39;Cancel&#39;;
+    options.clsDialog = options.clsDialog || &#39;wj-dialog&#39;;
+    options.clsHeader = options.clsHeader || &#39;wj-dialog-header&#39;;
+    options.clsBody = options.clsBody || &#39;wj-dialog-body&#39;;
+    options.clsInput = options.clsInput || &#39;wj-control&#39;;
+    options.clsFooter = options.clsFooter || &#39;wj-dialog-footer&#39;;
+    options.clsOK = options.clsOK || &#39;wj-btn&#39;;
+    options.clsCancel = options.clsCancel || &#39;wj-btn&#39;;
+
+    // create dialog
+    var template = &#39;&lt;div class=&quot;{clsDialog}&quot; role=&quot;dialog&quot;&gt;&#39; +
+      &#39;&lt;div class=&quot;{clsHeader}&quot;&gt;&#39; +
+      &#39;&lt;h4&gt;{header}&lt;/h4&gt;&#39; +
+      &#39;&lt;/div&gt;&#39; +
+      &#39;&lt;div class=&quot;{clsBody}&quot;&gt;&#39; +
+      &#39;&lt;p&gt;{body}&lt;/p&gt;&#39; +
+      (input ? &#39;&lt;input class=&quot;{clsInput}&quot;&gt;&#39; : &#39;&#39;) +
+      &#39;&lt;/div&gt;&#39; +
+      &#39;&lt;div class=&quot;{clsFooter}&quot;&gt;&#39; +
+      &#39;&lt;button class=&quot;{clsOK} wj-hide-ok&quot;&gt;{ok}&lt;/button&gt;&#39; +
+      (options.cancel ? &#39;&lt;button class=&quot;{clsCancel} wj-hide&quot;&gt;{cancel}&lt;/button&gt;&#39; : &#39;&#39;) +
+      &#39;&lt;/div&gt;&#39; +
+      &#39;&lt;/div&gt;&#39;;
+    var dialog = wijmo.createElement(wijmo.format(template, options));
+
+    // honor &#39;small&#39; option
+    dialog.style.width = options.small ? &#39;20%&#39; : &#39;40%&#39;
+
+    // dialog is ready
+    return dialog;
+  }
+
+  // show the Alert/Prompt
+  document.getElementById(&#39;btnShow&#39;).addEventListener(&#39;click&#39;, function() {
+    var options = getOptions();
+    if (cmbType.text == &#39;Alert&#39;) {
+      alertPopup(options, function(result) {
+        alert(&#39;you entered: &#39; + result);
+      });
+    } else {
+      propmtPopup(options, function(result) {
+        alert(&#39;you entered: &#39; + result);
+      });
+    }
+  });
+
+  // create form
+  var cmbType = new wijmo.input.ComboBox(&#39;#type&#39;, {
+  	textChanged: function(s, e) {
+    	document.getElementById(&#39;btnShow&#39;).textContent = &#39;Show &#39; + s.text;
+    },
+  	itemsSource: &#39;Alert,Prompt&#39;.split(&#39;,&#39;) 
+	});
+  var header = new wijmo.input.ComboBox(&#39;#header&#39;, { text: &#39;Header&#39; });
+  var body = new wijmo.input.ComboBox(&#39;#body&#39;, { text: &#39;Dialog message.&#39; });
+  var defVal = new wijmo.input.ComboBox(&#39;#defVal&#39;, { text: &#39;Default value&#39; });
+  var ok = new wijmo.input.ComboBox(&#39;#ok&#39;, { text: &#39;OK&#39; });
+  var cancel = new wijmo.input.ComboBox(&#39;#cancel&#39;, { text: &#39;Cancel&#39; });
+  var clsDialog = new wijmo.input.ComboBox(&#39;#clsDialog&#39;, { text: &#39;modal-dialog&#39; });
+  var clsHeader = new wijmo.input.ComboBox(&#39;#clsHeader&#39;, { text: &#39;modal-header&#39; });
+  var clsBody = new wijmo.input.ComboBox(&#39;#clsBody&#39;, { text: &#39;modal-body&#39; });
+  var clsInput = new wijmo.input.ComboBox(&#39;#clsInput&#39;, { text: &#39;form-control&#39; });
+  var clsFooter = new wijmo.input.ComboBox(&#39;#clsFooter&#39;, { text: &#39;modal-footer&#39; });
+  var clsOK = new wijmo.input.ComboBox(&#39;#clsOK&#39;, { text: &#39;btn btn-primary&#39; });
+  var clsCancel = new wijmo.input.ComboBox(&#39;#clsCancel&#39;, { text: &#39;btn btn-default&#39; });
+  function getChecked(id) {
+    return document.getElementById(id).checked;
+  }
+
+	// load options into an object
+  function getOptions() {
+    return {
+      header: header.text,
+      body: body.text,
+      defVal: defVal.text,
+      small: getChecked(&#39;small&#39;),
+      ok: ok.text,
+      cancel: cancel.text,
+      clsDialog: clsDialog.text,
+      clsHeader: clsHeader.text,
+      clsBody: clsBody.text,
+      clsInput: clsInput.text,
+      clsFooter: clsFooter.text,
+      clsOK: clsOK.text,
+      clsCancel: clsCancel.text,
+    }
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Alerts and Prompts
+  &lt;/h1&gt;
+  &lt;p&gt;
+    The Popup control can be used to implement static 
+    methods for showing alert and prompt dialogs:&lt;/p&gt;
+
+  &lt;label for=&quot;btnShow&quot;&gt;Show&lt;/label&gt;
+  &lt;button id=&quot;btnShow&quot; class=&quot;btn btn-primary&quot;&gt;Show Popup&lt;/button&gt;
+  &lt;br/&gt;
+  &lt;br/&gt;
+  &lt;div class=&quot;row&quot;&gt;
+
+    &lt;div class=&quot;col-xs-6&quot;&gt;
+
+      &lt;!-- important options --&gt;
+      &lt;label for=&quot;type&quot;&gt;Type&lt;/label&gt;
+      &lt;div id=&quot;type&quot;&gt;&lt;/div&gt;
+      &lt;br/&gt;
+      &lt;label for=&quot;header&quot;&gt;Header&lt;/label&gt;
+      &lt;input id=&quot;header&quot;&gt;
+      &lt;br/&gt;
+      &lt;label for=&quot;body&quot;&gt;Body&lt;/label&gt;
+      &lt;input id=&quot;body&quot;&gt;
+      &lt;br/&gt;
+      &lt;label for=&quot;defVal&quot;&gt;Default Value&lt;/label&gt;
+      &lt;input id=&quot;defVal&quot;&gt;
+      &lt;br/&gt;
+      &lt;label for=&quot;small&quot;&gt;Small&lt;/label&gt;
+      &lt;input id=&quot;small&quot; type=&quot;checkbox&quot;&gt;
+      &lt;br/&gt;
+      &lt;label for=&quot;ok&quot;&gt;OK Text&lt;/label&gt;
+      &lt;input id=&quot;ok&quot;&gt;
+      &lt;br/&gt;
+      &lt;label for=&quot;cancel&quot;&gt;Cancel Text&lt;/label&gt;
+      &lt;input id=&quot;cancel&quot;&gt;
+      &lt;br/&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;col-xs-6&quot;&gt;
+
+      &lt;!-- details --&gt;
+      &lt;label for=&quot;clsDialog&quot;&gt;Dialog Class&lt;/label&gt;
+      &lt;input id=&quot;clsDialog&quot;&gt;
+      &lt;br/&gt;
+      &lt;label for=&quot;clsHeader&quot;&gt;Header Class&lt;/label&gt;
+      &lt;input id=&quot;clsHeader&quot;&gt;
+      &lt;br/&gt;
+      &lt;label for=&quot;clsBody&quot;&gt;Body Class&lt;/label&gt;
+      &lt;input id=&quot;clsBody&quot;&gt;
+      &lt;br/&gt;
+      &lt;label for=&quot;clsInput&quot;&gt;Input Class&lt;/label&gt;
+      &lt;input id=&quot;clsInput&quot;&gt;
+      &lt;br/&gt;
+      &lt;label for=&quot;clsFooter&quot;&gt;Body Class&lt;/label&gt;
+      &lt;input id=&quot;clsFooter&quot;&gt;
+      &lt;br/&gt;
+      &lt;label for=&quot;clsOK&quot;&gt;OK Class&lt;/label&gt;
+      &lt;input id=&quot;clsOK&quot;&gt;
+      &lt;br/&gt;
+      &lt;label for=&quot;clsCancel&quot;&gt;Cancel Class&lt;/label&gt;
+      &lt;input id=&quot;clsCancel&quot;&gt;
+      &lt;br/&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">label {
+  width: 90px;
+  text-align: right;
+  margin-right: 6px;
+}
+
+.wj-combobox {
+  width: 140px;
+  margin-bottom: 6px;
+}
+
+body {
+  margin-bottom: 24pt;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

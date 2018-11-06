@@ -1,0 +1,140 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Input Control Arquitecture - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "yb006bpe";
+        var show_src = "//fiddle.jshell.net/Wijmo5/yb006bpe/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/yb006bpe/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/yb006bpe/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=yb006bpe" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active"></pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Input Control Architecture
+  &lt;/h1&gt;
+
+  &lt;p&gt;
+    Wijmo&#39;s input controls are composed of standard HTML elements.
+    Many have an inner input element where the user can type,
+    buttons used to show drop-down editors, or clickable/selectable
+    areas.&lt;/p&gt;
+  &lt;p&gt;
+    All Wijmo input controls were designed to make data-entry easy
+    and effective by providing early validation whenever possible.
+    Users cannot, for example, clear the content of any controls if
+    the &lt;b&gt;isRequired&lt;/b&gt; property is set to true, or type 
+    alphabetical characters in numeric input controls.&lt;/p&gt;
+  &lt;p&gt;
+    Most of Wijmo&#39;s input controls have a set of common properties 
+    that reflect basic HTML attributes:&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;isRequired &lt;span class=&quot;detail&quot;&gt;&quot;required&quot; attribute&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;isDisabled &lt;span class=&quot;detail&quot;&gt;&quot;disabled&quot; attribute&lt;/span&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;p&gt;
+    The &quot;is&quot; prefix prevents conflicts in markup between the names 
+    of control properties and HTML attributes.&lt;/p&gt;
+  
+  &lt;p&gt;
+    Input controls based on HTML input elements have more properties
+    in common:&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;inputElement &lt;span class=&quot;detail&quot;&gt;reference to the inner input element&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;isReadOnly &lt;span class=&quot;detail&quot;&gt;&quot;readonly&quot; attribute&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;text &lt;span class=&quot;detail&quot;&gt;formatted value&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;value &lt;span class=&quot;detail&quot;&gt;parsed text&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;format &lt;span class=&quot;detail&quot;&gt;format used to convert between text and value&lt;/span&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+  
+  &lt;p&gt;
+    And controls used to input numbers, dates, and times have the 
+    folowing properties in common:&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;min &lt;span class=&quot;detail&quot;&gt;minimum value&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;max &lt;span class=&quot;detail&quot;&gt;maximum value&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;step &lt;span class=&quot;detail&quot;&gt;increment applied with mouse wheel or spinner buttons&lt;/span&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">body {
+  margin-bottom: 24pt;
+}
+ul {
+  padding-left: 15px;
+}
+li {
+  list-style-type: square;
+}
+.detail {
+  opacity: .5;
+  font-style: italic;
+}
+  .detail:before {
+    content: &quot;(&quot;
+  }
+  .detail:after {
+    content: &quot;)&quot;
+  }
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

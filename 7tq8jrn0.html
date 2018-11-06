@@ -1,0 +1,317 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - FlexGrid autoSearch - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "7tq8jrn0";
+        var show_src = "//fiddle.jshell.net/Wijmo5/7tq8jrn0/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/7tq8jrn0/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/7tq8jrn0/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=7tq8jrn0" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+    var grid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+        autoSearch: true,
+        isReadOnly: true,
+        selectionMode: &#39;ListBox&#39;,
+        autoGenerateColumns: false,
+        columns: [
+            { binding: &#39;name&#39;, header: &#39;Country&#39;, width: &#39;2*&#39; },
+            { binding: &#39;pop&#39;, header: &#39;Population (mi)&#39;, format: &#39;n0,,&#39;, width: &#39;*&#39; },
+            { binding: &#39;gdp&#39;, header: &#39;GDP (US$mi/yr)&#39;, format: &#39;n0&#39;, width: &#39;*&#39; },
+            { binding: &#39;pci&#39;, header: &#39;Income (US$/yr/cap)&#39;, format: &#39;n0&#39;, width: &#39;*&#39; },
+        ],
+        itemsSource: getData()
+    });
+
+    function getData() {
+        var countries = [
+            { name: &#39;United States&#39;, pop: 320723000, gdp: 17348075 },
+            { name: &#39;China&#39;, pop: 1357000000, gdp: 10356508 },
+            { name: &#39;Japan&#39;, pop: 127300000, gdp: 4602367 },
+            { name: &#39;Germany&#39;, pop: 80620000, gdp: 3874437 },
+            { name: &#39;United Kingdom&#39;, pop: 64596800, gdp: 2950039 },
+            { name: &#39;France&#39;, pop: 65821885, gdp: 2833687 },
+            { name: &#39;Brazil&#39;, pop: 200400000, gdp: 2346583 },
+            { name: &#39;Italy&#39;, pop: 60705991, gdp: 2147744 },
+            { name: &#39;India&#39;, pop: 1252000000, gdp: 2051228 },
+            { name: &#39;Russia&#39;, pop: 143500000, gdp: 1860598 },
+            { name: &#39;Canada&#39;, pop: 34482779, gdp: 1785387 },
+            { name: &#39;Australia&#39;, pop: 24170869, gdp: 1442722 },
+            { name: &#39;South Korea&#39;, pop: 48219000, gdp: 1410383 },
+            { name: &#39;Spain&#39;, pop: 46162024, gdp: 1406538 },
+            { name: &#39;Mexico&#39;, pop: 122300000, gdp: 1291062 },
+            { name: &#39;Indonesia&#39;, pop: 249900000, gdp: 888648 },
+            { name: &#39;Netherlands&#39;, pop: 16715489, gdp: 880716 },
+            { name: &#39;Turkey&#39;, pop: 76667864, gdp: 798332 },
+            { name: &#39;Saudi Arabia&#39;, pop: 27136977, gdp: 746248 },
+            { name: &#39;Switzerland&#39;, pop: 8039060, gdp: 703852 },
+            { name: &#39;Nigeria&#39;, pop: 173600000, gdp: 573999 },
+            { name: &#39;Sweden&#39;, pop: 9471174, gdp: 570591 },
+            { name: &#39;Poland&#39;, pop: 38092000, gdp: 547894 },
+            { name: &#39;Argentina&#39;, pop: 40117096, gdp: 543061 },
+            { name: &#39;Belgium&#39;, pop: 10839905, gdp: 534230 },
+            { name: &#39;Taiwan&#39;, pop: 23197947, gdp: 529597 },
+            { name: &#39;Norway&#39;, pop: 5316800, gdp: 499817 },
+            { name: &#39;Austria&#39;, pop: 8419776, gdp: 437582 },
+            { name: &#39;Iran&#39;, pop: 80117000, gdp: 416490 },
+            { name: &#39;Thailand&#39;, pop: 69519000, gdp: 404824 },
+            { name: &#39;United Arab Emirates&#39;, pop: 8264070, gdp: 399451 },
+            { name: &#39;Colombia&#39;, pop: 48389000, gdp: 377867 },
+            { name: &#39;South Africa&#39;, pop: 50586757, gdp: 350082 },
+            { name: &#39;Denmark&#39;, pop: 5579204, gdp: 342362 },
+            { name: &#39;Malaysia&#39;, pop: 28334135, gdp: 338108 },
+            { name: &#39;Singapore&#39;, pop: 5183700, gdp: 307872 },
+            { name: &#39;Israel&#39;, pop: 7798600, gdp: 305673 },
+            { name: &#39;Hong Kong&#39;, pop: 7108100, gdp: 290896 },
+            { name: &#39;Egypt&#39;, pop: 88094000, gdp: 286435 },
+            { name: &#39;Philippines&#39;, pop: 98390000, gdp: 284618 },
+            { name: &#39;Finland&#39;, pop: 5394389, gdp: 272649 },
+            { name: &#39;Chile&#39;, pop: 17248450, gdp: 258017 },
+            { name: &#39;Ireland&#39;, pop: 4581269, gdp: 250814 },
+            { name: &#39;Pakistan&#39;, pop: 191282000, gdp: 246849 },
+            { name: &#39;Greece&#39;, pop: 10787690, gdp: 237970 },
+            { name: &#39;Portugal&#39;, pop: 10555853, gdp: 229948 },
+            { name: &#39;Iraq&#39;, pop: 32105000, gdp: 223508 },
+            { name: &#39;Kazakhstan&#39;, pop: 16615000, gdp: 216036 },
+            { name: &#39;Algeria&#39;, pop: 36300000, gdp: 213518 },
+            { name: &#39;Qatar&#39;, pop: 1699435, gdp: 210109 },
+            { name: &#39;Venezuela&#39;, pop: 31220000, gdp: 206252 },
+            { name: &#39;Czech Republic&#39;, pop: 10542080, gdp: 205270 },
+            { name: &#39;Peru&#39;, pop: 29797694, gdp: 202642 },
+            { name: &#39;Romania&#39;, pop: 21436000, gdp: 199093 },
+            { name: &#39;New Zealand&#39;, pop: 4577100, gdp: 197502 },
+            { name: &#39;Vietnam&#39;, pop: 89700000, gdp: 185897 },
+            { name: &#39;Bangladesh&#39;, pop: 156600000, gdp: 183824 },
+            { name: &#39;Kuwait&#39;, pop: 2818000, gdp: 172608 },
+            { name: &#39;Hungary&#39;, pop: 9985722, gdp: 136989 },
+            { name: &#39;Ukraine&#39;, pop: 45668028, gdp: 130660 },
+            { name: &#39;Angola&#39;, pop: 19618000, gdp: 129326 },
+            { name: &#39;Morocco&#39;, pop: 33803400, gdp: 110009 },
+            { name: &#39;Ecuador&#39;, pop: 14483499, gdp: 100543 },
+            { name: &#39;Slovakia&#39;, pop: 5437126, gdp: 99869 },
+            { name: &#39;Oman&#39;, pop: 2773479, gdp: 77779 },
+            { name: &#39;Syria&#39;, pop: 23362000, gdp: 77460 },
+            { name: &#39;Belarus&#39;, pop: 9468000, gdp: 76139 },
+            { name: &#39;Sri Lanka&#39;, pop: 20653000, gdp: 74924 },
+            { name: &#39;Sudan&#39;, pop: 30894000, gdp: 74766 },
+            { name: &#39;Azerbaijan&#39;, pop: 9111100, gdp: 74145 },
+            { name: &#39;Luxembourg&#39;, pop: 511840, gdp: 65683 },
+            { name: &#39;Dominican Republic&#39;, pop: 9378818, gdp: 64058 },
+            { name: &#39;Myanmar&#39;, pop: 48337000, gdp: 63135 },
+            { name: &#39;Uzbekistan&#39;, pop: 28000000, gdp: 62613 },
+            { name: &#39;Kenya&#39;, pop: 38610097, gdp: 60937 },
+            { name: &#39;Guatemala&#39;, pop: 14713763, gdp: 58728 },
+            { name: &#39;Uruguay&#39;, pop: 3368595, gdp: 57471 },
+            { name: &#39;Croatia&#39;, pop: 4290612, gdp: 57073 },
+            { name: &#39;Bulgaria&#39;, pop: 7364570, gdp: 55824 },
+            { name: &#39;Ethiopia&#39;, pop: 94100000, gdp: 54809 },
+            { name: &#39;Lebanon&#39;, pop: 4259000, gdp: 50028 },
+            { name: &#39;Slovenia&#39;, pop: 2081660, gdp: 49570 },
+            { name: &#39;Costa Rica&#39;, pop: 4563539, gdp: 49553 },
+            { name: &#39;Tunisia&#39;, pop: 10673800, gdp: 48633 },
+            { name: &#39;Lithuania&#39;, pop: 3207100, gdp: 48288 },
+            { name: &#39;Tanzania&#39;, pop: 43188000, gdp: 48089 },
+            { name: &#39;Turkmenistan&#39;, pop: 5105000, gdp: 47932 },
+            { name: &#39;Serbia&#39;, pop: 7120666, gdp: 43866 },
+            { name: &#39;Panama&#39;, pop: 3405813, gdp: 43777 },
+            { name: &#39;Yemen&#39;, pop: 23833000, gdp: 43229 },
+            { name: &#39;Libya&#39;, pop: 6423000, gdp: 41148 },
+            { name: &#39;Ghana&#39;, pop: 24233431, gdp: 38616 },
+            { name: &#39;Democratic Republic of the Congo&#39;, pop: 67758000, gdp: 35918 },
+            { name: &#39;Jordan&#39;, pop: 6783300, gdp: 35878 },
+            { name: &#39;Bahrain&#39;, pop: 1234571, gdp: 33862 },
+            { name: &#39;Côte d\&#39;Ivoire&#39;, pop: 21395000, gdp: 33741 },
+            { name: &#39;Bolivia&#39;, pop: 10426154, gdp: 33237 },
+            { name: &#39;Latvia&#39;, pop: 2209000, gdp: 31972 },
+            { name: &#39;Cameroon&#39;, pop: 19406100, gdp: 31777 },
+            { name: &#39;Paraguay&#39;, pop: 6337127, gdp: 30220 },
+            { name: &#39;Trinidad and Tobago&#39;, pop: 1317714, gdp: 28874 },
+            { name: &#39;Uganda&#39;, pop: 32939800, gdp: 27616 },
+            { name: &#39;Zambia&#39;, pop: 13046508, gdp: 26611 },
+            { name: &#39;Estonia&#39;, pop: 1340194, gdp: 26506 },
+            { name: &#39;El Salvador&#39;, pop: 6227000, gdp: 25164 },
+            { name: &#39;Cyprus&#39;, pop: 803200, gdp: 23263 },
+            { name: &#39;Afghanistan&#39;, pop: 32358000, gdp: 20444 },
+            { name: &#39;Nepal&#39;, pop: 26620809, gdp: 19761 },
+            { name: &#39;Honduras&#39;, pop: 8215313, gdp: 19511 },
+            { name: &#39;Gabon&#39;, pop: 1534000, gdp: 18209 },
+            { name: &#39;Bosnia and Herzegovina&#39;, pop: 3843126, gdp: 18165 },
+            { name: &#39;Brunei&#39;, pop: 422700, gdp: 17104 },
+            { name: &#39;Iceland&#39;, pop: 318452, gdp: 17036 },
+            { name: &#39;Papua New Guinea&#39;, pop: 7014000, gdp: 16809 },
+            { name: &#39;Mozambique&#39;, pop: 23049621, gdp: 16684 },
+            { name: &#39;Cambodia&#39;, pop: 13395682, gdp: 16551 },
+            { name: &#39;Georgia&#39;, pop: 4469200, gdp: 16536 },
+            { name: &#39;Senegal&#39;, pop: 12855153, gdp: 15683 },
+            { name: &#39;Equatorial Guinea&#39;, pop: 720000, gdp: 15530 },
+            { name: &#39;Botswana&#39;, pop: 2031000, gdp: 15217 },
+            { name: &#39;South Sudan&#39;, pop: 8260490, gdp: 14304 },
+            { name: &#39;Chad&#39;, pop: 10329208, gdp: 13945 },
+            { name: &#39;Zimbabwe&#39;, pop: 12754000, gdp: 13833 },
+            { name: &#39;Jamaica&#39;, pop: 2705800, gdp: 13709 },
+            { name: &#39;Namibia&#39;, pop: 2324000, gdp: 13632 },
+            { name: &#39;Republic of the Congo&#39;, pop: 4140000, gdp: 13552 },
+            { name: &#39;Albania&#39;, pop: 3194972, gdp: 13276 },
+            { name: &#39;Mauritius&#39;, pop: 1280924, gdp: 12588 },
+            { name: &#39;Burkina Faso&#39;, pop: 15730977, gdp: 12503 },
+            { name: &#39;Mali&#39;, pop: 14517176, gdp: 12094 },
+            { name: &#39;Mongolia&#39;, pop: 2736800, gdp: 12037 },
+            { name: &#39;Nicaragua&#39;, pop: 5815524, gdp: 11806 },
+            { name: &#39;Laos&#39;, pop: 6348800, gdp: 11681 },
+            { name: &#39;Armenia&#39;, pop: 3266300, gdp: 11644 },
+            { name: &#39;Macedonia&#39;, pop: 2057284, gdp: 11342 },
+            { name: &#39;Madagascar&#39;, pop: 18866000, gdp: 10674 },
+            { name: &#39;Malta&#39;, pop: 417617, gdp: 10514 },
+            { name: &#39;Tajikistan&#39;, pop: 7616000, gdp: 9242 },
+            { name: &#39;Haiti&#39;, pop: 10085214, gdp: 8711 },
+            { name: &#39;Benin&#39;, pop: 9100000, gdp: 8685 },
+            { name: &#39;Bahamas&#39;, pop: 353658, gdp: 8511 },
+            { name: &#39;Niger&#39;, pop: 15730754, gdp: 8024 },
+            { name: &#39;Moldova&#39;, pop: 3560400, gdp: 7962 },
+            { name: &#39;Rwanda&#39;, pop: 10412826, gdp: 7897 },
+            { name: &#39;Kyrgyzstan&#39;, pop: 5477600, gdp: 7402 },
+            { name: &#39;Kosovo&#39;, pop: 1870981, gdp: 7319 },
+            { name: &#39;Guinea&#39;, pop: 10217591, gdp: 6707 },
+            { name: &#39;Malawi&#39;, pop: 13077160, gdp: 6055 },
+            { name: &#39;Suriname&#39;, pop: 529000, gdp: 5210 },
+            { name: &#39;Mauritania&#39;, pop: 3340627, gdp: 5081 },
+            { name: &#39;Timor-Leste&#39;, pop: 1066409, gdp: 4970 },
+            { name: &#39;Sierra Leone&#39;, pop: 5997000, gdp: 4815 },
+            { name: &#39;Togo&#39;, pop: 5753324, gdp: 4594 },
+            { name: &#39;Montenegro&#39;, pop: 620029, gdp: 4551 },
+            { name: &#39;Swaziland&#39;, pop: 1203000, gdp: 4416 },
+            { name: &#39;Barbados&#39;, pop: 276302, gdp: 4354 },
+            { name: &#39;Fiji&#39;, pop: 868000, gdp: 4289 },
+            { name: &#39;Eritrea&#39;, pop: 5415000, gdp: 3858 },
+            { name: &#39;Burundi&#39;, pop: 8575000, gdp: 3094 },
+            { name: &#39;Guyana&#39;, pop: 784894, gdp: 3059 },
+            { name: &#39;Maldives&#39;, pop: 317280, gdp: 2885 },
+            { name: &#39;Lesotho&#39;, pop: 2194000, gdp: 2220 },
+            { name: &#39;Liberia&#39;, pop: 3476608, gdp: 2013 },
+            { name: &#39;Bhutan&#39;, pop: 708265, gdp: 1983 },
+            { name: &#39;Cape Verde&#39;, pop: 491575, gdp: 1858 },
+            { name: &#39;San Marino&#39;, pop: 32093, gdp: 1786 },
+            { name: &#39;Central African Republic&#39;, pop: 4487000, gdp: 1726 },
+            { name: &#39;Belize&#39;, pop: 312698, gdp: 1699 },
+            { name: &#39;Djibouti&#39;, pop: 818159, gdp: 1589 },
+            { name: &#39;Seychelles&#39;, pop: 90945, gdp: 1423 },
+            { name: &#39;Saint Lucia&#39;, pop: 166526, gdp: 1404 },
+            { name: &#39;Antigua and Barbuda&#39;, pop: 89138, gdp: 1248 },
+            { name: &#39;Solomon Islands&#39;, pop: 542287, gdp: 1155 },
+            { name: &#39;Guinea-Bissau&#39;, pop: 1520830, gdp: 1111 },
+            { name: &#39;Grenada&#39;, pop: 110821, gdp: 912 },
+            { name: &#39;Saint Kitts and Nevis&#39;, pop: 51970, gdp: 852 },
+            { name: &#39;Samoa&#39;, pop: 184032, gdp: 827 },
+            { name: &#39;The Gambia&#39;, pop: 1776000, gdp: 824 },
+            { name: &#39;Vanuatu&#39;, pop: 234023, gdp: 822 },
+            { name: &#39;Saint Vincent and the Grenadines&#39;, pop: 100892, gdp: 729 },
+            { name: &#39;Comoros&#39;, pop: 754000, gdp: 697 },
+            { name: &#39;Dominica&#39;, pop: 71685, gdp: 524 },
+            { name: &#39;Tonga&#39;, pop: 105000, gdp: 438 },
+            { name: &#39;São Tomé and Príncipe&#39;, pop: 169000, gdp: 338 },
+            { name: &#39;Micronesia&#39;, pop: 102624, gdp: 308 },
+            { name: &#39;Palau&#39;, pop: 21000, gdp: 249 },
+            { name: &#39;Marshall Islands&#39;, pop: 54305, gdp: 193 },
+            { name: &#39;Kiribati&#39;, pop: 101000, gdp: 181 },
+            { name: &#39;Tuvalu&#39;, pop: 10000, gdp: 38 }
+        ];
+
+        // calculate the per-capita income and add that to each data point
+        countries.forEach(function (country) {
+            country.pci = country.gdp / country.pop * 1e6; // US$/year/capita
+        });
+
+        return countries;
+    }
+
+}</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    FlexGrid autoSearch
+  &lt;/h1&gt;
+    &lt;p&gt;
+        Select a cell in any column and start typing to search.
+		&lt;/p&gt;
+    &lt;p&gt;
+        If the &lt;b&gt;autoSearch&lt;/b&gt; property is set to true, the grid will 
+        search as you type on non-editable columns.
+		&lt;/p&gt;
+    &lt;div id=&quot;theGrid&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 250px;
+  margin-bottom: 12px;
+}
+.header {
+  display: inline-block;
+  width: 150px;
+  text-align: right;
+  font-weight: normal;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

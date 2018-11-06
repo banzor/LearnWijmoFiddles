@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Color Input - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "z84ebpec";
+        var show_src = "//fiddle.jshell.net/Wijmo5/z84ebpec/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/z84ebpec/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/z84ebpec/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=z84ebpec" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // InputColor
+	var theInputColor = new wijmo.input.InputColor(&#39;#theInputColor&#39;, {
+  	placeholder: &#39;Select the color&#39;,
+  	valueChanged: function(s, e) {
+    	setBackground(s.value);
+		}
+  });
+
+	// ColorPicker
+	var theColorPicker = new wijmo.input.ColorPicker(&#39;#theColorPicker&#39;, {
+  	valueChanged: function(s, e) {
+    	setBackground(s.value);
+		}
+  });
+  
+  // show the color that was selected
+  function setBackground(color) {
+  	document.getElementById(&#39;output&#39;).style.background = color;
+  	theInputColor.value = color;
+    theColorPicker.value = color;
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Color Input
+    &lt;div id=&quot;output&quot;&gt;
+      Select a background for me!
+    &lt;/div&gt;
+  &lt;/h1&gt;
+
+  &lt;p&gt;
+    Use the InputColor control to edit color values
+    when you have only a little room:&lt;/p&gt;
+  &lt;div id=&quot;theInputColor&quot;&gt;&lt;/div&gt;
+    
+  &lt;p&gt;
+    Use the ColorPicker control to edit color values
+    when you have enough room:&lt;/p&gt;
+  &lt;div id=&quot;theColorPicker&quot;&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-dropdown {
+  margin-bottom: 18px;
+}
+#output {
+  float: right;
+  font-size: 12px;
+  border: 1px solid grey;
+  padding: 12px;
+  xmargin: 12px;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

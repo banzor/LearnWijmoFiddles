@@ -1,0 +1,229 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Tree Grids - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "kk9j93bL";
+        var show_src = "//fiddle.jshell.net/Wijmo5/kk9j93bL/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/kk9j93bL/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/kk9j93bL/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=kk9j93bL" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// family tree data (homogeneous collection)
+	var family = [
+  	{ name: &#39;Albert&#39;, children: [
+    	{ name: &#39;Anton&#39; },
+    	{ name: &#39;Annette&#39; },
+    ]},
+  	{ name: &#39;Benjamin&#39;, children: [
+    	{ name: &#39;Bridget&#39;, children: [
+	    	{ name: &#39;Billy&#39; },
+  	  	{ name: &#39;Bernard&#39; },
+      ] },
+    	{ name: &#39;Bella&#39; },
+    	{ name: &#39;Bob&#39; },
+    ]},
+  	{ name: &#39;Charlie&#39;, children: [
+    	{ name: &#39;Chris&#39; },
+    	{ name: &#39;Connie&#39; },
+    	{ name: &#39;Carrie&#39; },
+    ]},
+  	{ name: &#39;Douglas&#39;, children: [
+    	{ name: &#39;Dinah&#39; },
+    	{ name: &#39;Donald&#39; }
+    ]},
+  ];
+  
+  // family tree
+  var familyGrid = new wijmo.grid.FlexGrid(&#39;#familyGrid&#39;, {
+  	headersVisibility: &#39;None&#39;,
+    childItemsPath: &#39;children&#39;,
+  	itemsSource: family
+  });
+  familyGrid.columns[0].width = &#39;*&#39;;
+  
+  // toggle family tree
+  document.getElementById(&#39;asTree&#39;).addEventListener(&#39;click&#39;, function(e) {
+  	familyGrid.childItemsPath = e.target.checked ? &#39;children&#39;	: &#39;&#39;;
+  })
+
+	// workers tree data (heterogeneous collection)
+  var workers = [{
+    name: &#39;Jack Smith&#39;,
+    checks: [{
+      name: &#39;check1&#39;,
+      earnings: [
+      	{ name: &#39;hourly&#39;, hours: 30.0, rate: 15.0 },
+        { name: &#39;overtime&#39;, hours: 10.0, rate: 20.0 },
+        { name: &#39;bonus&#39;, hours: 5.0, rate: 30.0}
+      ]
+    }, {
+      name: &#39;check2&#39;,
+      earnings: [
+      	{ name: &#39;hourly&#39;, hours: 20.0, rate: 18.0 },
+        { name: &#39;overtime&#39;, hours: 20.0, rate: 24.0 }
+      ]
+    }]
+  }, {
+    name: &#39;Jack Smith&#39;,
+    checks: [{
+      name: &#39;check1&#39;,
+      earnings: [
+        { name: &#39;hourly&#39;, hours: 30.0, rate: 15.0 },
+        { name: &#39;overtime&#39;, hours: 10.0, rate: 20.0 }, 
+        { name: &#39;bonus&#39;, hours: 5.0, rate: 30.0 }
+      ]
+    }, {
+      name: &#39;check2&#39;,
+      earnings: [
+        { name: &#39;hourly&#39;, hours: 20.0, rate: 18.0 },
+        { name: &#39;overtime&#39;, hours: 20.0, rate: 24.0 }
+      ]
+    }]
+  }, {
+    name: &#39;Jane Smith&#39;,
+    checks: [{
+      name: &#39;check1&#39;,
+      earnings: [
+        { name: &#39;hourly&#39;, hours: 30.0, rate: 15.0 },
+        { name: &#39;overtime&#39;, hours: 10.0, rate: 20.0 },
+        { name: &#39;bonus&#39;, hours: 5.0, rate: 30.0 }
+      ]
+    }, {
+      name: &#39;check2&#39;,
+      earnings: [
+        { name: &#39;hourly&#39;, hours: 20.0, rate: 18.0 },
+        { name: &#39;overtime&#39;, hours: 20.0, rate: 24.0 }
+      ]
+    }]
+  }];
+
+	// workers tree
+  var workersGrid = new wijmo.grid.FlexGrid(&#39;#workersGrid&#39;, {
+  	headersVisibility: &#39;Column&#39;,
+    childItemsPath: [&#39;checks&#39;,&#39;earnings&#39;],
+    autoGenerateColumns: false,
+    columns: [
+    	{ binding: &#39;name&#39; },
+    	{ binding: &#39;hours&#39;, dataType: &#39;Number&#39; },
+    	{ binding: &#39;rate&#39;, dataType: &#39;Number&#39; }
+    ],
+  	itemsSource: workers,
+    
+  });
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Tree Grids&lt;/h1&gt;
+  &lt;p&gt;
+    If your data items contain collections of child items,
+    you may use the FlexGrid&#39;s &lt;b&gt;childItemsPath&lt;/b&gt; to
+    show the data as a tree.&lt;/p&gt;
+
+  &lt;p&gt;
+    For example, consider a list of &#39;person&#39; objects
+    which have a &#39;children&#39; property. The &#39;children&#39; 
+    property contains an array of more person objects.
+    This is sometimes called a &lt;i&gt;homogeneous&lt;/i&gt; 
+    hierarchy.&lt;/p&gt;
+  &lt;p&gt;
+    The grid below was built by binding the grid to
+    the top-level persons list and setting the 
+    &lt;b&gt;childItemsPath&lt;/b&gt; property to &#39;children&#39;:&lt;/p&gt;
+    
+  &lt;label for=&quot;asTree&quot;&gt;Show as Tree: &lt;/label&gt;
+  &lt;input id=&quot;asTree&quot; type=&quot;checkbox&quot; checked=&quot;checked&quot;&gt;
+  
+  &lt;div id=&quot;familyGrid&quot;&gt;&lt;/div&gt;
+  
+  &lt;p&gt;
+    There are also &#39;heterogeneous&#39; hierarchies, where
+    items at different levels have different types and
+    different child item properties.&lt;/p&gt;
+  &lt;p&gt;
+    For example, the grid below is bound to a collection
+    of &#39;worker&#39; objects which receive &#39;checks&#39; which list
+    &#39;earnings&#39;:&lt;/p&gt;
+  &lt;div id=&quot;workersGrid&quot;&gt;&lt;/div&gt;
+  
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 220px; 
+  margin: 10px;
+}
+.wj-cell.wj-group {
+  border: none;
+}
+.wj-cell.wj-group:not(.wj-state-selected):not(.wj-state-multi-selected) {
+  background-color: white;
+}
+body {
+   margin-bottom: 24px;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

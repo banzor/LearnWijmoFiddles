@@ -1,0 +1,168 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Axis Ranges - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "abrn5uow";
+        var show_src = "//fiddle.jshell.net/Wijmo5/abrn5uow/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/abrn5uow/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/abrn5uow/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=abrn5uow" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// create the chart
+  var theChart = new wijmo.chart.FlexChart(&#39;#theChart&#39;, {
+  	itemsSource: getData(),
+    bindingX: &#39;country&#39;,
+    series: [
+    	{ binding: &#39;sales&#39;, name: &#39;Sales&#39; }
+    ],
+    axisY: {
+    	format: &#39;n0,&#39;,
+      title: &#39;US$ (thousands)&#39;
+    },
+    legend: {
+    	position: &#39;None&#39;
+    },
+  });
+
+	// toggle the custom range
+  var warning = document.getElementById(&#39;warning&#39;);
+  document.getElementById(&#39;customRange&#39;).addEventListener(&#39;click&#39;, function(e) {
+  	if (e.target.checked) {
+	  	theChart.axisY.min = 150000;
+      theChart.axisY.max = 160000;
+      warning.style.display = &#39;&#39;;
+		} else {
+    	theChart.axisY.min = theChart.axisY.max = null;
+      warning.style.display = &#39;none&#39;;
+    }
+  });
+
+	// create some random data
+  function getData() {
+	  var countries = &#39;US,Canada,Mexico,Germany,UK,France,Italy,Japan,Korea,China&#39;.split(&#39;,&#39;),
+	    data = [];
+	  for (var i = 0; i &lt; countries.length; i++) {
+	    data.push({
+	      country: countries[i],
+	      sales: 150000 + Math.random() * 10000,
+	      expenses: 10000 + Math.random() * 5000,
+	    });
+	  }
+  	return data;
+  }
+
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Axis Ranges
+  &lt;/h1&gt;
+
+  &lt;p&gt;
+    The FlexChart calculates axis ranges automatically, based on
+    the data being shown. Because of this, in most cases you 
+    don&#39;t have to worry about setting the axis &lt;b&gt;min&lt;/b&gt;,
+    &lt;b&gt;max&lt;/b&gt;, &lt;b&gt;majorUnit&lt;/b&gt;, or &lt;b&gt;minorUnit&lt;/b&gt; properties.&lt;/p&gt;
+  &lt;p&gt;
+    In a few cases, however, setting these values explicitly may
+    improve the chart.&lt;/p&gt;
+  &lt;p&gt;
+    For example, the chart below shows values that are relatively
+    close, so all bars have almost the same height. The chart shows
+    that sales are even across countries, but it does not show the
+    differences clearly.&lt;/p&gt;    
+  &lt;p&gt;
+    To emphasize the differences, click the &#39;Custom Range&#39; checkbox.
+    It will set the &lt;b&gt;min&lt;/b&gt; and &lt;b&gt;max&lt;/b&gt; properties of the 
+    Y axis so it starts at 150k, close to the minimum value for 
+    all countries but higher than zero. The chart will show the same
+    data, but the differences will appear much larger.&lt;/p&gt;
+
+  &lt;label for=&quot;customRange&quot;&gt;Custom Range&lt;/label&gt;
+  &lt;input id=&quot;customRange&quot; type=&quot;checkbox&quot;&gt;
+  &lt;div id=&quot;warning&quot; class=&quot;panel panel-warning&quot; style=&quot;display:none&quot;&gt;
+    &lt;div class=&quot;panel-heading&quot;&gt;
+      The Y axis does not start at zero, so the chart magnifies
+      differences in sales across countries. The largest difference
+      is only about 7%.
+    &lt;/div&gt;
+  &lt;/div&gt;
+  
+  &lt;div id=&quot;theChart&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexchart {
+  height: 300px;
+}
+.wj-control {
+  margin-bottom: 6px;
+}
+body {
+  margin-bottom: 24pt;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.chart.min.js" target="_blank">wijmo.chart.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

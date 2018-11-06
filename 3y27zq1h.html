@@ -1,0 +1,332 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - PivotPanel Custom Layout - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "3y27zq1h";
+        var show_src = "//fiddle.jshell.net/Wijmo5/3y27zq1h/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/3y27zq1h/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/3y27zq1h/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=3y27zq1h" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// add Grid-based layout for the PivotPanel
+	wijmo.olap.PivotPanel.controlTemplate = &#39;&lt;div class=&quot;root&quot;&gt;&#39;+
+    &#39;&lt;div class=&quot;field-list-label&quot;&gt;&#39;+
+      &#39;&lt;label wj-part=&quot;g-flds&quot;&gt;&lt;/label&gt;&#39;+
+    &#39;&lt;/div&gt;&#39;+
+    &#39;&lt;div class=&quot;field-list pad&quot;&gt;&#39;+
+      &#39;&lt;div wj-part=&quot;d-fields&quot;&gt;&lt;/div&gt;&#39;+
+    &#39;&lt;/div&gt;&#39;+
+    
+    &#39;&lt;div class=&quot;drag-areas-label&quot;&gt;&#39;+
+      &#39;&lt;label wj-part=&quot;g-drag&quot;&gt;&lt;/label&gt;&#39;+
+    &#39;&lt;/div&gt;&#39;+
+    &#39;&lt;div class=&quot;filter-list pad&quot;&gt;&#39;+
+      &#39;&lt;label&gt;&#39;+
+        &#39;&lt;span class=&quot;wj-glyph wj-glyph-filter&quot;&gt;&lt;/span&gt; &#39;+
+        &#39;&lt;span wj-part=&quot;g-flt&quot;&gt;&lt;/span&gt;&#39;+
+      &#39;&lt;/label&gt;&#39;+
+      &#39;&lt;div wj-part=&quot;d-filters&quot;&gt;&lt;/div&gt;&#39;+
+    &#39;&lt;/div&gt;&#39;+
+    &#39;&lt;div class=&quot;column-list pad bdr-left&quot;&gt;&#39;+
+      &#39;&lt;label&gt;&#39;+
+        &#39;&lt;span class=&quot;wj-glyph&quot;&gt;⫴&lt;/span&gt; &#39;+
+        &#39;&lt;span wj-part=&quot;g-cols&quot;&gt;&lt;/span&gt;&#39;+
+      &#39;&lt;/label&gt;&#39;+
+      &#39;&lt;div wj-part=&quot;d-cols&quot;&gt;&lt;/div&gt;&#39;+
+    &#39;&lt;/div&gt;&#39;+
+    &#39;&lt;div class=&quot;row-list pad bdr-top&quot;&gt;&#39;+
+      &#39;&lt;label&gt;&#39;+
+        &#39;&lt;span class=&quot;wj-glyph&quot;&gt;≡&lt;/span&gt; &#39;+
+        &#39;&lt;span wj-part=&quot;g-rows&quot;&gt;&lt;/span&gt;&#39;+
+      &#39;&lt;/label&gt;&#39;+
+      &#39;&lt;div wj-part=&quot;d-rows&quot;&gt;&lt;/div&gt;&#39;+
+    &#39;&lt;/div&gt;&#39;+
+    &#39;&lt;div class=&quot;values-list pad bdr-left bdr-top&quot;&gt;&#39;+
+      &#39;&lt;label&gt;&#39;+
+        &#39;&lt;span class=&quot;wj-glyph&quot;&gt;Σ&lt;/span&gt; &#39;+
+        &#39;&lt;span wj-part=&quot;g-vals&quot;&gt;&lt;/span&gt;&#39;+
+      &#39;&lt;/label&gt;&#39;+
+      &#39;&lt;div wj-part=&quot;d-vals&quot;&gt;&lt;/div&gt;&#39;+
+    &#39;&lt;/div&gt;&#39;+
+    
+		&#39;&lt;div wj-part=&quot;d-prog&quot; class=&quot;progress-bar&quot;&gt;&lt;/div&gt;&#39;+
+    &#39;&lt;div class=&quot;control-area&quot;&gt;&#39;+
+      &#39;&lt;label&gt;&#39;+
+        &#39;&lt;input wj-part=&quot;chk-defer&quot; type=&quot;checkbox&quot;&gt; &#39;+
+        &#39;&lt;span wj-part=&quot;g-defer&quot;&gt;Defer Updates&lt;/span&gt;&#39;+
+      &#39;&lt;/label&gt;&#39;+
+      &#39;&lt;button wj-part=&quot;btn-update&quot; class=&quot;wj-btn&quot; type=&quot;button&quot;&gt;&#39;+
+        &#39;Update&#39;+
+      &#39;&lt;/button&gt;&#39;+
+    &#39;&lt;/div&gt;&#39;+
+  &#39;&lt;/div&gt;&#39;;
+
+  // initialize pivot engine
+  var ngPanel = new wijmo.olap.PivotEngine({
+    itemsSource: getData(), // raw data
+    valueFields: [&#39;Amount&#39;], // summarize amounts
+    rowFields: [&#39;Buyer&#39;, &#39;Type&#39;] // summarize amounts
+  });
+  ngPanel.fields.getField(&#39;Amount&#39;).format = &#39;c0&#39;; // customize field
+
+  // show pivot panel
+  var pivotPanel = new wijmo.olap.PivotPanel(&#39;#pivotPanel&#39;, {
+    itemsSource: ngPanel
+  });
+
+  // show summary
+  var pivotPanelGrid = new wijmo.olap.PivotGrid(&#39;#pivotPanelGrid&#39;, {
+    itemsSource: ngPanel
+  });
+
+  // get the raw data
+  function getData() {
+    var yr = new Date().getFullYear();
+    return [{
+        date: new Date(yr, 0, 1),
+        buyer: &#39;Mom&#39;,
+        type: &#39;Fuel&#39;,
+        amount: 74
+      },
+      {
+        date: new Date(yr, 0, 15),
+        buyer: &#39;Mom&#39;,
+        type: &#39;Food&#39;,
+        amount: 235
+      },
+      {
+        date: new Date(yr, 0, 17),
+        buyer: &#39;Dad&#39;,
+        type: &#39;Sports&#39;,
+        amount: 20
+      },
+      {
+        date: new Date(yr, 0, 21),
+        buyer: &#39;Kelly&#39;,
+        type: &#39;Books&#39;,
+        amount: 125
+      },
+      {
+        date: new Date(yr, 1, 2),
+        buyer: &#39;Mom&#39;,
+        type: &#39;Food&#39;,
+        amount: 235
+      },
+      {
+        date: new Date(yr, 1, 20),
+        buyer: &#39;Kelly&#39;,
+        type: &#39;Music&#39;,
+        amount: 20
+      },
+      {
+        date: new Date(yr, 1, 25),
+        buyer: &#39;Kelly&#39;,
+        type: &#39;Tickets&#39;,
+        amount: 125
+      },
+    ];
+  }
+
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    PivotPanel with a CSS Grid Layout
+  &lt;/h1&gt;
+  &lt;h3&gt;
+    Areas Only (1 by 4) 
+  &lt;/h3&gt;
+  &lt;p&gt;
+    The &lt;b&gt;PivotPanel&lt;/b&gt; control has a layout that shows the
+    Fields Section above the Areas Section. This is the default
+    layout used by Excel as well.
+  &lt;/p&gt;
+  &lt;p&gt;
+    This sample replaces the &lt;b&gt;PivotPanel&lt;/b&gt;&#39;s default 
+    &lt;b&gt;controlTemplate&lt;/b&gt; with one that uses a CSS Grid-based layout. 
+    This allows you to achieve virtually any layout you want
+    simply by adjusting a few CSS rules.
+  &lt;/p&gt;
+
+  &lt;div class=&quot;row&quot;&gt;
+    &lt;div class=&quot;col-xs-6&quot;&gt;
+      &lt;p&gt;
+        Here is the PivotPanel:
+      &lt;/p&gt;
+      &lt;div id=&quot;pivotPanel&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;col-xs-6&quot;&gt;
+      &lt;p&gt;
+        And here is the output view:
+      &lt;/p&gt;
+      &lt;div id=&quot;pivotPanelGrid&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  
+  &lt;div class=&quot;panel panel-warning&quot;&gt;
+    &lt;div class=&quot;panel-heading&quot;&gt;
+      IE11 support for CSS Grid layouts is outdated and will
+      not be updated, but you can use 
+      &lt;a href=&quot;https://autoprefixer.github.io/&quot;&gt;AutoPrefixer&lt;/a&gt;
+      to add the IE11 support to your CSS automatically.
+    &lt;/div&gt;
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">/*
+  IE11 support added with AutoPrevixer
+  https://autoprefixer.github.io/
+*/
+.wj-pivotpanel {
+  min-height: 0;
+  max-width: 600px;
+  margin: 12px auto;
+  display: block;
+	background: #eee;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+.wj-pivotpanel .wj-flexgrid {
+  min-height: 4em;
+	background: inherit;
+}
+
+.wj-pivotpanel .root {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 100%;
+      grid-template-columns: 100%;
+}
+
+.wj-pivotpanel .field-list-label {
+  display: none;
+}
+.wj-pivotpanel .field-list {
+  display: none;
+}
+.wj-pivotpanel .drag-areas-label {
+  display: none;
+}
+.wj-pivotpanel .filter-list {
+  -ms-grid-row: 1;
+  grid-row: 1;  
+}
+.wj-pivotpanel .row-list {
+  -ms-grid-row: 2;
+  grid-row: 2;  
+}
+.wj-pivotpanel .column-list {
+  -ms-grid-row: 3;
+  grid-row: 3;  
+}
+.wj-pivotpanel .values-list {
+  -ms-grid-row: 4;
+  grid-row: 4;  
+}
+
+.wj-pivotpanel .progress-bar {
+  -ms-grid-row: 5;
+  grid-row: 5;
+  width: 0px;
+  height: 3px;
+}
+
+.wj-pivotpanel .control-area {
+  -ms-grid-column: 1;
+  grid-column: 1;
+  -ms-grid-row: 5;
+  grid-row: 5;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: end;
+  -ms-grid-columns: 1fr auto;
+      grid-template-columns: 1fr auto;
+}
+.wj-pivotpanel .control-area button {
+  -ms-grid-column: 2;
+  grid-column: 2;
+  -ms-flex-item-align: end;
+      -ms-grid-row-align: end;
+      align-self: end;
+}
+
+
+.wj-pivotpanel .pad {
+  padding: 6px;
+}
+
+body {
+  margin-bottom: 24pt;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.filter.min.js" target="_blank">wijmo.grid.filter.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.chart.min.js" target="_blank">wijmo.chart.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.olap.min.js" target="_blank">wijmo.olap.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

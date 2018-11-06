@@ -1,0 +1,194 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Multi-Pane Grid - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "p8hw2a3v";
+        var show_src = "//fiddle.jshell.net/Wijmo5/p8hw2a3v/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/p8hw2a3v/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/p8hw2a3v/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=p8hw2a3v" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function () {
+
+	// create the grids (bound to the same data)
+	var theGridLeft = new wijmo.grid.FlexGrid(&#39;#theGridLeft&#39;, {
+  	itemsSource: getData(),
+    showAlternatingRows: false,
+    scrollPositionChanged: function (s, e) {
+    	syncGrids(s, theGridRight)
+		}
+	});
+  var theGridRight = new wijmo.grid.FlexGrid(&#39;#theGridRight&#39;, {
+  	itemsSource: theGridLeft.collectionView,
+    headersVisibility: &#39;Column&#39;,
+    showAlternatingRows: false,
+    scrollPositionChanged: function (s, e) {
+    	syncGrids(s, theGridLeft)
+		}
+	});
+  
+  // support wheel scrolling on both grids
+	theGridLeft.hostElement.addEventListener(&#39;wheel&#39;, applyWheel);
+	theGridRight.hostElement.addEventListener(&#39;wheel&#39;, applyWheel);
+  function applyWheel(e) {
+  	var root = wijmo.closest(e.target, &#39;[wj-part=&quot;root&quot;]&#39;);
+    if (root) {
+	    root.scrollTop += 32 * (e.deltaY &lt; 0 ? -1 : +1);
+	    e.preventDefault();
+    }
+  }
+  
+  // synchronize the vertical scrolling position
+  // NOTE: the selection is synchronized automatically since both
+  // grids are bound to the same CollectionView
+  function syncGrids(main, sub) {
+  	sub.scrollPosition = new wijmo.Point(sub.scrollPosition.x, main.scrollPosition.y);
+	}
+  
+	// move the last two columns to the grid on the right
+	theGridRight.columns.clear();
+	for (var i = 0; i &lt; 2; i++) {
+  	var lastCol = theGridLeft.columns[theGridLeft.columns.length - 1];
+    theGridLeft.columns.remove(lastCol);
+    theGridRight.columns.push(lastCol);
+	}
+  
+  // get some random data
+	function getData() {
+  	var countries = &#39;US,Germany,UK,Japan,Italy,Greece,Austria,Belgium,China,Korea&#39;.split(&#39;,&#39;),
+    		data = [];
+		for (var i = 0; i &lt; 200; i++) {
+    	data.push({
+      	id: i,
+        country: countries[i % countries.length],
+        downloads: Math.round(Math.random() * 20000),
+        sales: Math.random() * 10000,
+        expenses: Math.random() * 5000,
+        amount1: Math.random() * 5000,
+        amount2: Math.random() * 5000,
+        amount3: Math.random() * 5000,
+        amount4: Math.random() * 5000,
+        amount5: Math.random() * 5000,
+        amount6: Math.random() * 5000,
+        amount7: Math.random() * 5000,
+        amount8: Math.random() * 5000,
+        important: i % 5 == 0
+			});
+		}
+    return data;
+	}
+}</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Multi-Pane Grid&lt;/h1&gt;
+  &lt;p&gt;
+    The FlexGrid does not allow you to freeze columns on the right
+    of the grid, or rows along the bottom. But this example shows
+    how you can implement something similar using two grids 
+    bound to the same data source:&lt;/p&gt;
+    
+  &lt;div class=&quot;freeze-right&quot;&gt;
+    &lt;div id=&quot;theGridLeft&quot;&gt;&lt;/div&gt;
+    &lt;div id=&quot;theGridRight&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+    
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">/* the container for the grids */
+.freeze-right {
+  background: rgba(0,0,0,.1);
+  border: 1px solid grey;
+  height: 350px;
+  width: auto;
+  display: inline-block;
+}
+
+/* the grids in the container */
+.freeze-right &gt; .wj-flexgrid {
+  display: inline-block;
+  height: 100%;
+  width: auto;
+  max-width: 400px;
+  border: none;
+  border-radius: 0;
+}
+
+/* remove the vertical scrolbar from the grids grid */
+.freeze-right &gt; .wj-flexgrid:first-child div[wj-part=root] {
+  overflow-y: hidden !important;
+}
+
+/* don&#39;t show selection on grids that don&#39;t have the focus */
+.freeze-right .wj-flexgrid:not(.wj-state-focused) .wj-cell.wj-state-selected {
+  background-color: inherit;
+  color: inherit;
+}
+
+body {
+  margin-bottom: 20px;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

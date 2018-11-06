@@ -1,0 +1,213 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - TreeView Drag and Drop Nodes - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "1duLq6t2";
+        var show_src = "//fiddle.jshell.net/Wijmo5/1duLq6t2/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/1duLq6t2/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/1duLq6t2/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=1duLq6t2" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// create the tree
+  var tree = new wijmo.nav.TreeView(&#39;#theTree&#39;, {
+  	itemsSource: getData(),
+		displayMemberPath: &#39;header&#39;,
+    childItemsPath: &#39;items&#39;,
+    showCheckboxes: true,
+    imageMemberPath: &#39;img&#39;,
+    allowDragging: true,
+    
+		// use the dragStart event to honor the allowDraggingParentNodes setting
+    // by setting the &#39;cancel&#39; event parameter to true
+    dragStart: function(s, e) {
+			if (e &amp;&amp; e.node &amp;&amp; e.node.hasChildren) {
+      	if (!document.getElementById(&#39;allowDraggingParentNodes&#39;).checked) {
+        	e.cancel = true; // prevent dragging parent nodes
+				} else {
+        	e.node.isCollapsed = true; // collapse parent nodes when dragging
+				}
+			}
+    },
+
+		// use the dragOver event to honor the allowDroppingIntoEmpty setting
+    // by changing the &#39;position&#39; event parameter to &#39;Before&#39;
+		dragOver: function(s, e) {
+			if (!document.getElementById(&#39;allowDroppingIntoEmpty&#39;).checked &amp;&amp;
+      	!e.dropTarget.hasChildren &amp;&amp;
+        e.position == wijmo.nav.DropPosition.Into) {
+					e.position = wijmo.nav.DropPosition.Before;
+				}
+    }
+	});
+  
+  // handle options
+  document.getElementById(&#39;allowDragging&#39;).addEventListener(&#39;click&#39;, function(e) {
+  	tree.allowDragging = e.target.checked;
+  });
+
+  // get the tree data
+  function getData() {
+	  var imgUrl = &#39;https://demos.wijmo.com/5/PureJS/TreeViewIntro/TreeViewIntro/resources/&#39;;
+		return [
+    	{ header: &#39;Electronics&#39;, img: imgUrl + &#39;electronics.png&#39;, items: [
+				{ header: &#39;Trimmers/Shavers&#39; },
+        { header: &#39;Tablets&#39; },
+        { header: &#39;Phones&#39;, img: imgUrl + &#39;phones.png&#39;, items: [
+					{ header: &#39;Apple&#39; },
+          { header: &#39;Motorola&#39;, newItem: true },
+          { header: &#39;Nokia&#39; },
+          { header: &#39;Samsung&#39; }]
+				},
+        { header: &#39;Speakers&#39;, newItem: true },
+        { header: &#39;Monitors&#39; }]
+			},
+      { header: &#39;Toys&#39;, img: imgUrl + &#39;/toys.png&#39;, items: [
+      	{ header: &#39;Shopkins&#39; },
+        { header: &#39;Train Sets&#39; },
+        { header: &#39;Science Kit&#39;, newItem: true },
+        { header: &#39;Play-Doh&#39; },
+        { header: &#39;Crayola&#39; } ]
+			},
+			{ header: &#39;Home&#39;, img: imgUrl + &#39;home.png&#39;, items: [
+      	{ header: &#39;Coffeee Maker&#39; },
+        { header: &#39;Breadmaker&#39;, newItem: true },
+        { header: &#39;Solar Panel&#39;, newItem: true },
+        { header: &#39;Work Table&#39; },
+        { header: &#39;Propane Grill&#39; }]
+			}
+		];
+	}
+}</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+    
+  &lt;h1&gt;
+    Drag and Drop&lt;/h1&gt;
+
+  &lt;p&gt;
+    Set the &lt;b&gt;allowDragging&lt;/b&gt; property to true to allow users
+    to drag nodes to new positions within the &lt;b&gt;TreeView&lt;/b&gt;.&lt;/p&gt;
+  &lt;p&gt;
+    When dragging is allowed, users may drag any node to any position 
+    within the tree. Specifically, nodes can be dragged to a position
+    above, below, or into (as a child of) other nodes.&lt;/p&gt;
+  &lt;p&gt;    
+    You can customize this behavior by handling the &lt;b&gt;TreeView&lt;/b&gt;
+    drag/drop events:&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;
+      &lt;b&gt;dragStart:&lt;/b&gt; Occurs when a drag/drop operation is about to start.
+      You may examine the node about to be dragged and cancel the operation 
+      by setting the event&#39;s &lt;b&gt;cancel&lt;/b&gt; parameter to true.&lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;dragOver:&lt;/b&gt; Occurs while the user drags the node over other nodes
+      on the tree. You may examine the current target node and drop position 
+      and prevent the drop or modify its location setting the event&#39;s
+      &lt;b&gt;cancel&lt;/b&gt; and &lt;b&gt;position&lt;/b&gt; parameters.&lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;drop:&lt;/b&gt; Occurs when the user drops the node into its new location.
+      You may examine the current target node and drop position and
+      prevent the drop or modify its location setting the event&#39;s 
+      &lt;b&gt;cancel&lt;/b&gt; and &lt;b&gt;position&lt;/b&gt; parameters.&lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;dragEnd:&lt;/b&gt; Occurs after the drag/drop operation is finished, 
+      even if it was canceled and the source node was not moved.&lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;label&gt;
+    &lt;input id=&quot;allowDragging&quot; type=&quot;checkbox&quot; checked=&quot;checked&quot;&gt;
+    allow dragging
+  &lt;/label&gt;
+  &lt;br /&gt;
+  &lt;label&gt;
+    &lt;input id=&quot;allowDraggingParentNodes&quot; type=&quot;checkbox&quot; checked=&quot;checked&quot;&gt;
+    allow dragging parent nodes
+  &lt;/label&gt;
+  &lt;br /&gt;
+  &lt;label&gt;
+    &lt;input id=&quot;allowDroppingIntoEmpty&quot; type=&quot;checkbox&quot; checked=&quot;checked&quot;&gt;
+    allow dropping into empty nodes
+  &lt;/label&gt;
+
+  &lt;div id=&quot;theTree&quot;&gt;&lt;/div&gt;
+  
+
+&lt;/div&gt;</pre>
+              <pre class="tCont ">/* default trees on this sample */
+.wj-treeview {
+    display:block;
+    height: 350px;
+    font-size: 120%;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding: 6px;
+    background: #f0f0f0;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+body {
+  margin-bottom: 24pt;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.nav.min.js" target="_blank">wijmo.nav.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

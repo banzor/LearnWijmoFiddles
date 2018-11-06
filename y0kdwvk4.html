@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - ListBox formatItem - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "y0kdwvk4";
+        var show_src = "//fiddle.jshell.net/Wijmo5/y0kdwvk4/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/y0kdwvk4/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/y0kdwvk4/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=y0kdwvk4" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// Wijmo glyphs
+	var glyphs = &#39;asterisk,calendar,check,circle,clock,diamond,down,&#39; +
+  	&#39;down-left,down-right,file,filter,left,minus,pencil,plus,right,&#39; +
+    &#39;square,step-backward,step-forward,up,up-left,up-right&#39;;
+
+	// ListBox
+  var theListBox = new wijmo.input.ListBox(&#39;#theListBox&#39;, {
+  	formatItem: function(s, e) {
+    	e.item.innerHTML = &#39;&lt;div class=&quot;wj-glyph&quot;&gt;&#39; +
+      	&#39;&lt;span class=&quot;wj-glyph-&#39; + e.data + &#39;&quot;&gt;&lt;/span&gt;&#39; +
+        &#39;&lt;/div&gt;&#39; +
+        e.data;
+		},
+    selectedIndexChanged: function(s, e) {
+    	document.getElementById(&#39;selectedItem&#39;).innerHTML =
+      	&#39;&lt;span class=&quot;wj-glyph-&#39; + s.selectedItem + &#39;&quot;&gt;&lt;/span&gt;&#39;;
+    },
+    itemsSource: glyphs.split(&#39;,&#39;)
+	});
+}</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    ListBox formatItem
+  &lt;/h1&gt;
+
+  &lt;p&gt;
+    The ListBox has a &lt;b&gt;formatItem&lt;/b&gt; event you can use to 
+    customize the display of the items in the list:
+  &lt;/p&gt;
+  &lt;div class=&quot;row&quot;&gt;
+    &lt;div class=&quot;col-xs-4&quot;&gt;
+      &lt;div id=&quot;theListBox&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;col-xs-8&quot;&gt;
+      &lt;h1 id=&quot;selectedItem&quot;&gt;&lt;/h1&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-listbox {
+  max-height: 150px;
+}
+.wj-listbox .wj-glyph {
+  display: inline-block;
+  width: 2em;
+  text-align: center;
+}
+.wj-listbox .wj-listbox-item:not(.wj-state-selected) .wj-glyph {
+  color: navy;
+}
+body {
+  margin-bottom: 24pt;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

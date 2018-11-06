@@ -1,0 +1,331 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Formatting Dates and Numbers - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "u9fo3ynp";
+        var show_src = "//fiddle.jshell.net/Wijmo5/u9fo3ynp/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/u9fo3ynp/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/u9fo3ynp/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=u9fo3ynp" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// select culture
+  var theCulture = new wijmo.input.ComboBox(&#39;#theCulture&#39;, {
+  	displayMemberPath: &#39;name&#39;,
+  	itemsSource: [
+			{ name: &#39;English&#39;, key: &#39;en&#39; },
+			{ name: &#39;Spanish&#39;, key: &#39;es&#39; },
+			{ name: &#39;Italian&#39;, key: &#39;it&#39; },
+			{ name: &#39;French&#39;, key: &#39;fr&#39; },
+			{ name: &#39;German&#39;, key: &#39;de&#39; },
+			{ name: &#39;Dutch&#39;, key: &#39;nl&#39; },
+			{ name: &#39;Japanese&#39;, key: &#39;ja&#39; },
+			{ name: &#39;Korean&#39;, key: &#39;ko&#39; },
+			{ name: &#39;Chinese&#39;, key: &#39;zh-HK&#39; },
+    ],
+    selectedIndexChanged: function(s, e) {
+    
+    	// get culture url
+    	var url = &#39;https://cdn.grapecity.com/wijmo/5.latest/controls/cultures/wijmo.culture.&#39; +
+    		s.selectedItem.key +
+				&#39;.min.js&#39;;
+
+			// apply new culture to page
+			var scripts = document.getElementsByTagName(&#39;script&#39;),
+				  script;
+      for (var i = 0; i &lt; scripts.length; i++) {
+    		script = scripts[i];
+      	if (script.src.indexOf(&#39;/cultures/wijmo.culture.&#39;) &gt; -1) {
+          script.parentElement.removeChild(script);
+					break;
+				}
+			}
+			script = document.createElement(&#39;script&#39;);
+      script.onload = updateTables;
+			script.src = url;
+			document.head.appendChild(script);
+    }
+  });
+  
+	// initialize value and precision
+	var theValue = new wijmo.input.InputNumber(&#39;#theValue&#39;, {
+  	value: 1234.5678,
+    step: 1,
+    valueChanged: updateTables
+  });
+	var thePrecision = new wijmo.input.InputNumber(&#39;#thePrecision&#39;, {
+  	value: 2,
+    step: 1,
+    min: 0,
+    max: 10,
+    valueChanged: updateTables
+  });
+  
+  // update the tables
+  updateTables();
+  function updateTables() {
+  
+  		// update dates
+      var theDate = new Date();
+  	  var rows = document.body.querySelectorAll(&#39;#tblDates tbody tr&#39;);
+      for (var i = 0; i &lt; rows.length; i++) {
+				var cells = rows[i].children,
+        		fmt = cells[0].textContent;
+        cells[2].textContent = wijmo.Globalize.format(theDate, fmt);
+      }
+
+			// update numbers
+  	  var rows = document.body.querySelectorAll(&#39;#tblNumbers tbody tr&#39;);
+      for (var i = 0; i &lt; rows.length; i++) {
+				var cells = rows[i].children,
+        		fmt = cells[0].textContent.replace(&#39;*&#39;, thePrecision.value.toString());
+        cells[2].textContent = wijmo.Globalize.format(theValue.value, fmt);
+      }
+  }
+}</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Formatting Dates and Numbers&lt;/h1&gt;
+  &lt;p&gt;
+    To globalize your Wijmo application, include a reference to 
+    the appropriate culture file after loading Wijmo.
+    &lt;a href=&quot;https://wijmo.com/5/docs/static/globalization.html&quot; target=&quot;_blank&quot;&gt;
+    Wijmo includes over 45 culture files you can choose from.
+    &lt;/a&gt;&lt;/p&gt;
+
+  &lt;label&gt;
+    Please Select a Culture
+    &lt;div id=&quot;theCulture&quot;&gt;
+    &lt;/div&gt;
+  &lt;/label&gt;
+
+  &lt;h2&gt;
+    Dates&lt;/h2&gt;
+  &lt;p&gt;
+    Dates are formatted using the 
+    &lt;b&gt;Globalize.formatDate&lt;/b&gt; function. 
+    The format strings are described here:
+    &lt;a href=&quot;https://wijmo.com/5/docs/topic/wijmo.Globalize.Class.html#formatDate&quot; target=&quot;_blank&quot; &gt;
+      Date and Time Format Strings
+    &lt;/a&gt;&lt;/p&gt;
+  &lt;table id=&quot;tblDates&quot; class=&quot;table table-condensed&quot;&gt;
+    &lt;thead&gt;
+      &lt;th&gt;format&lt;/th&gt;
+      &lt;th&gt;description&lt;/th&gt;
+      &lt;th&gt;result&lt;/th&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;b&gt;d&lt;/b&gt;&lt;/td&gt;
+        &lt;td&gt;Short Date Pattern&lt;/td&gt;
+        &lt;td&gt;xx&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;b&gt;D&lt;/b&gt;&lt;/td&gt;
+        &lt;td&gt;Long Date Pattern&lt;/td&gt;
+        &lt;td&gt;xx&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;b&gt;f&lt;/b&gt;&lt;/td&gt;
+        &lt;td&gt;Full Date/Time Pattern (short time)&lt;/td&gt;
+        &lt;td&gt;xx&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;b&gt;F&lt;/b&gt;&lt;/td&gt;
+        &lt;td&gt;Full Date/Time Pattern (long time)&lt;/td&gt;
+        &lt;td&gt;xx&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;b&gt;t&lt;/b&gt;&lt;/td&gt;
+        &lt;td&gt;Short Time Pattern&lt;/td&gt;
+        &lt;td&gt;xx&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;b&gt;T&lt;/b&gt;&lt;/td&gt;
+        &lt;td&gt;Long Time Pattern&lt;/td&gt;
+        &lt;td&gt;xx&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;b&gt;&#39;Q&#39;Q yyyy&lt;/b&gt;&lt;/td&gt;
+        &lt;td&gt;Quarter/Year&lt;/td&gt;
+        &lt;td&gt;xx&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;b&gt;MMMM dd, yyyy&lt;/b&gt;&lt;/td&gt;
+        &lt;td&gt;Custom format&lt;/td&gt;
+        &lt;td&gt;xx&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+  
+  &lt;div class=&quot;panel panel-warning&quot;&gt;
+    &lt;div class=&quot;panel-heading&quot;&gt;
+      In addition to the standard .NET format specifiers, Wijmo supports
+      a few additional specifiers including &#39;Q/q&#39; for quarter, &#39;U/u&#39; for
+      fiscal quarter, and &#39;EEEE/eeee&#39; for fiscal year.
+    &lt;/div&gt;
+  &lt;/div&gt;
+    
+  &lt;h2&gt;
+    Numbers&lt;/h2&gt;
+  &lt;p&gt;
+    Numbers are formatted using the &lt;b&gt;Globalize.formatNumber&lt;/b&gt;
+    function. 
+    The format strings are described here:
+    &lt;a href=&quot;https://wijmo.com/5/docs/topic/wijmo.Globalize.Class.html#formatNumber&quot; target=&quot;_blank&quot; &gt;
+      Numeric Format Strings
+    &lt;/a&gt;&lt;/p&gt;
+  &lt;label&gt;
+    Value
+    &lt;div id=&quot;theValue&quot;&gt;
+    &lt;/div&gt;
+  &lt;/label&gt;
+  &lt;br/&gt;
+  &lt;label&gt;
+    Precision
+    &lt;div id=&quot;thePrecision&quot;&gt;
+    &lt;/div&gt;
+  &lt;/label&gt;
+
+  &lt;table id=&quot;tblNumbers&quot; class=&quot;table table-condensed&quot;&gt;
+    &lt;thead&gt;
+      &lt;th&gt;specifier&lt;/th&gt;
+      &lt;th&gt;description&lt;/th&gt;
+      &lt;th class=&quot;text-right&quot;&gt;result&lt;/th&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;b&gt;n*&lt;/b&gt;&lt;/td&gt;
+        &lt;td&gt;Number&lt;/td&gt;
+        &lt;td class=&quot;text-right&quot;&gt;xx&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;b&gt;n*,&lt;/b&gt;&lt;/td&gt;
+        &lt;td&gt;Number (thousands)&lt;/td&gt;
+        &lt;td class=&quot;text-right&quot;&gt;xx&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;b&gt;n*,,&lt;/b&gt;&lt;/td&gt;
+        &lt;td&gt;Number (millions)&lt;/td&gt;
+        &lt;td class=&quot;text-right&quot;&gt;xx&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;b&gt;f*&lt;/b&gt;&lt;/td&gt;
+        &lt;td&gt;Fixed-point&lt;/td&gt;
+        &lt;td class=&quot;text-right&quot;&gt;xx&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;b&gt;g*&lt;/b&gt;&lt;/td&gt;
+        &lt;td&gt;General (no trailing zeros)&lt;/td&gt;
+        &lt;td class=&quot;text-right&quot;&gt;xx&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;b&gt;d*&lt;/b&gt;&lt;/td&gt;
+        &lt;td&gt;Decimal (integers)&lt;/td&gt;
+        &lt;td class=&quot;text-right&quot;&gt;xx&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;b&gt;x*&lt;/b&gt;&lt;/td&gt;
+        &lt;td&gt;Hexadecimal (integers)&lt;/td&gt;
+        &lt;td class=&quot;text-right&quot;&gt;xx&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;b&gt;c*&lt;/b&gt;&lt;/td&gt;
+        &lt;td&gt;Currency&lt;/td&gt;
+        &lt;td class=&quot;text-right&quot;&gt;xx&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;b&gt;c*€&lt;/b&gt;&lt;/td&gt;
+        &lt;td&gt;Currency (explicit currency symbol)&lt;/td&gt;
+        &lt;td class=&quot;text-right&quot;&gt;xx&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;b&gt;c*&amp;#x200b;&lt;/b&gt;&lt;/td&gt; &lt;!-- &amp;#x200b; is a zero-width space --&gt;
+        &lt;td&gt;Currency (no currency symbol)&lt;/td&gt;
+        &lt;td class=&quot;text-right&quot;&gt;xx&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;b&gt;p*&lt;/b&gt;&lt;/td&gt;
+        &lt;td&gt;Percent&lt;/td&gt;
+        &lt;td class=&quot;text-right&quot;&gt;xx&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+  
+  &lt;div class=&quot;panel panel-warning&quot;&gt;
+    &lt;div class=&quot;panel-heading&quot;&gt;
+      Wijmo numeric formats allows you to include an explicit currency symbol
+      to be used instead of the current culture&#39;s symbol.
+      For example, an English application may need to generate lists with 
+      amounts in Dollars, Euros, and Yens.
+    &lt;/div&gt;
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+</pre>
+              <pre class="tCont "></pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

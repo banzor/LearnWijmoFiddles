@@ -1,0 +1,232 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Copying Custom Content to the Clipboard - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "184bmpra";
+        var show_src = "//fiddle.jshell.net/Wijmo5/184bmpra/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/184bmpra/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/184bmpra/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=184bmpra" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // default clipboard behavior
+  var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+    showAlternatingRows: false,
+		autoGenerateColumns: false,
+		columns: [
+			{ binding: &#39;id&#39;, header: &#39;ID&#39;, width: 60 },
+			{ binding: &#39;country&#39;, header: &#39;Country&#39;, width: 100 },
+			{ binding: &#39;downloads&#39;, header: &#39;Downloads&#39;, format: &#39;n0,&#39;, width: 80 },
+			{ binding: &#39;sales&#39;, header: &#39;Sales&#39;, format: &#39;n0,&#39;, width: 80 },
+			{ binding: &#39;expenses&#39;, header: &#39;Expenses&#39;, format: &#39;n0,&#39;, width: 80 },
+		],
+    itemsSource: getData(),
+		
+		// add some custom content to cells
+		formatItem: function(s, e) {
+			if (e.panel == s.cells) {
+				var binding = s.columns[e.col].binding;
+				if (binding == &#39;downloads&#39;) {
+					var value = s.getCellData(e.row, e.col);
+					if (value &gt; 100000) {
+						e.cell.innerHTML += &#39;&lt;span class=&quot;high value&quot;&gt; high&lt;/span&gt;&#39;;
+					} else if (value &lt; 90000) {
+						e.cell.innerHTML += &#39;&lt;span class=&quot;low value&quot;&gt; low&lt;/span&gt;&#39;;
+					}
+				}
+			}
+		},
+    
+    // copy HTML to the clipboard
+    copying: function(s, e) {
+			var customCopy = document.getElementById(&#39;customCopy&#39;).checked;
+			if (customCopy) {
+      	var text = &#39;&#39;;
+      	var sel = s.selection;
+      
+				// create temporary cell element
+    		let etemp = document.createElement(&#39;div&#39;);
+    		etemp.style.visibility = &#39;hidden&#39;;
+    		s.cells.hostElement.appendChild(etemp);
+    
+	      // loop through selected rows/columns
+	      for (var r = sel.topRow; r &lt;= sel.bottomRow; r++) {
+	      	var firstCell = true;
+		      for (var c = sel.leftCol; c &lt;= sel.rightCol; c++) {
+	        	if (firstCell) {
+	          	firstCell = false;
+	          } else {
+		        	text += &#39;\t&#39;; // tab after each cell
+	          }
+            
+	          // add cell text
+						s.cellFactory.updateCell(s.cells, r, c, etemp);
+						text += etemp.textContent;
+	      	}
+					text += &#39;\n&#39;; // new line after each row
+	      }
+
+				// dispose of temporary cell
+				s.cellFactory.disposeCell(etemp);
+	      etemp.parentElement.removeChild(etemp);
+
+  	    // copy the custom clip string to the clipboard
+	      wijmo.Clipboard.copy(text);
+
+  	    // prevent the grid from overwriting our clipboard content
+	      e.cancel = true;
+			}
+			
+			// tell user we&#39;re done
+			alert(&#39;selection copied to the Clipboard.&#39;)
+			// tell user we&#39;re done
+    },
+    
+  });
+
+  // create some random data
+  function getData() {
+	  var countries = &#39;US,Germany,UK,Japan,Sweden,Norway,Denmark&#39;.split(&#39;,&#39;);
+  	var data = [];
+  	for (var i = 0; i &lt; 200; i++) {
+	    data.push({
+	      id: i,
+	      country: countries[i % countries.length],
+	      downloads: Math.round(Math.random() * 200000),
+	      sales: Math.random() * 100000,
+	      expenses: Math.random() * 50000
+	    });
+	  }
+    return data;
+  }
+  
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Copying Custom Content to the Clipboard
+  &lt;/h1&gt;
+  &lt;p&gt;
+    The FlexGrid has built-in clipboard support.
+    Users may use the ctrl+C and ctrl+V commands to 
+		copy and paste the text in cell ranges.
+  &lt;/p&gt;
+  &lt;p&gt;
+    By default, the grid copies and pastes cell data
+		directly from the grid&#39;s &lt;b&gt;itemsSource&lt;/b&gt;, parsed and 
+		formatted according based on each column&#39;s &lt;b&gt;format&lt;/b&gt;
+		property.
+		This method is fast and ensures consistent results when
+		copying and pasting data, but it does not include any
+		custom content added to the cells by &lt;b&gt;formatItem&lt;/b&gt;
+		event handlers or cell templates.
+  &lt;/p&gt;
+  &lt;p&gt;
+		This sample shows how you can include custom content
+		when copying ranges. It does this by handling the 
+		&lt;b&gt;copying&lt;/b&gt; event and generating a custom clip
+		string built using a temporary cell element 
+		its &lt;b&gt;textContent&lt;/b&gt; property. We do not use the
+		&lt;b&gt;getCellElement&lt;/b&gt; method because that only works
+		for cells that are currently in view, and the selection
+		may exend beyond that area.
+  &lt;/p&gt;
+	&lt;p&gt;
+		To see the difference, try copying a range of cells 
+		that includes the &quot;Downloads&quot; column. The regular copy
+		will contain only numbers. The custom copy will include
+		the &quot;high&quot; and &quot;low&quot; custom content as well.
+	&lt;/p&gt;
+	&lt;label&gt;
+		Copy Custom Content
+		&lt;input id=&quot;customCopy&quot; type=&quot;checkbox&quot; checked&gt;
+	&lt;/label&gt;
+  &lt;div id=&quot;theGrid&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  margin-bottom: 12px;
+	height: 200px;
+}
+.wj-cell span.value {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	font-size: 8pt;
+	font-style: italic;
+}
+.wj-cell span.value.low {
+	color: red;
+}
+.wj-cell span.value.high {
+	color: green;
+}
+
+body {
+  margin-bottom: 24px;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

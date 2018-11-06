@@ -1,0 +1,166 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - PivotGrid Sparklines - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "4a8fu653";
+        var show_src = "//fiddle.jshell.net/Wijmo5/4a8fu653/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/4a8fu653/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/4a8fu653/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=4a8fu653" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  var theEngine = new wijmo.olap.PivotEngine({
+    autoGenerateFields: false,
+    fields: [
+    	{ binding: &#39;country&#39;, header: &#39;Country&#39;, width: 90 }, 
+      { binding: &#39;product&#39;, header: &#39;Product&#39;},
+      { header: &#39;Emotion&#39;, subFields: [
+	      { binding: &#39;emotion.happiness&#39;, header: &#39;Happiness&#39;, dataType: &#39;Number&#39; },
+    	  { binding: &#39;emotion.surprise&#39;, header: &#39;Surprise&#39;, dataType: &#39;Number&#39; },
+  	    { binding: &#39;emotion.fear&#39;, header: &#39;Fear&#39;, dataType: &#39;Number&#39; },
+      	{ binding: &#39;emotion.disgust&#39;, header: &#39;Disgust&#39;, dataType: &#39;Number&#39; }
+			]}
+		],
+		rowFields: [&#39;Product&#39;],
+		valueFields: [&#39;Happiness&#39;, &#39;Surprise&#39;],
+    itemsSource: getData(1000)
+  });
+  var thePanel = new wijmo.olap.PivotPanel(&#39;#thePanel&#39;, {
+		engine: theEngine // also OK
+  })
+  var theGrid = new wijmo.olap.PivotGrid(&#39;#theGrid&#39;, {
+    itemsSource: theEngine
+  })
+
+  // create some random data
+  function getData(count) {
+    var countries = &#39;Germany,Italy,Japan,UK,US&#39;.split(&#39;,&#39;),
+      products = &#39;Widgets,Gadgets,Doohickeys&#39;.split(&#39;,&#39;),
+      data = [];
+    for (var i = 0; i &lt; count; i++) {
+      var trend = (i % countries.length + 1) * (i % products.length + 1);
+      data.push({
+        country: countries[i % countries.length],
+        product: products[i % products.length],
+        downloads: Math.round(Math.random() * 20000),
+        active: i % 5 == 0,
+        due: new Date(),
+        sales: Math.random() * 10000 * trend,
+        expenses: Math.random() * 5000 * trend,
+        downloads: Math.random() * 100000 * trend,
+        emotion: {
+          happiness: Math.random(),
+          fear: Math.random(),
+          surprise: Math.random(),
+          disgust: Math.random()
+        }
+      });
+    }
+    return data;
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+  &lt;h1&gt;
+    Wijmo Olap and Deep-Bindings
+  &lt;/h1&gt;
+  &lt;p&gt;
+    You can bind &lt;b&gt;PivotField&lt;/b&gt; objects to sub-properties
+    of the data items.
+	&lt;/p&gt;
+  &lt;p&gt;
+    For example, the data in this sample has an &#39;emotion&#39; member
+		that has four sub-properties.
+    The &lt;b&gt;PivotEngine&lt;/b&gt; has fields that bind to each one using
+    binding strings &#39;emotion.happiness&#39;, &#39;emotion.fear&#39;, etc.
+	&lt;/p&gt;
+  &lt;p&gt;
+    In this sample, we grouped the deep-bound properties 
+		under a master &#39;Emotion&#39; field.
+	&lt;/p&gt;
+  &lt;div class=&quot;row&quot;&gt;
+    &lt;div class=&quot;col-xs-5&quot;&gt;
+      &lt;div id=&quot;thePanel&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;col-xs-7&quot;&gt;
+      &lt;div id=&quot;theGrid&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont "> .wj-flexgrid {
+   max-height: 300px;
+   margin-top: 10px;
+ }
+ 
+ body {
+ 	margin-bottom: 36pt;
+ }</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.filter.min.js" target="_blank">wijmo.grid.filter.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.chart.min.js" target="_blank">wijmo.chart.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.olap.min.js" target="_blank">wijmo.olap.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

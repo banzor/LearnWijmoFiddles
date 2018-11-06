@@ -1,0 +1,182 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Dynamic DataMaps (customize) - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "9aoo7mzm";
+        var show_src = "//fiddle.jshell.net/Wijmo5/9aoo7mzm/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/9aoo7mzm/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/9aoo7mzm/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=9aoo7mzm" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // create data maps
+  var countryMap = new wijmo.grid.DataMap(getCountries(), &#39;id&#39;, &#39;name&#39;);
+  var cityMap = new wijmo.grid.DataMap(getCities(), &#39;id&#39;, &#39;name&#39;);
+
+	// override cityMap&#39;s getDisplayValues method to get cities that
+  // correspond to the current item
+  cityMap.getDisplayValues = function(dataItem) {
+  	var arr = [],
+  		cities = getCities(),
+    	country = theGrid.collectionView.currentItem.country;
+    for (var i = 0; i &lt; cities.length; i++) {
+    	var city = cities[i];
+      if (city.country == country) {
+      	arr.push(city.name);
+      }
+    }
+    return arr;
+  };
+
+	// create and bind the grid
+  var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+  	autoGenerateColumns: false,
+    columns: [
+	    { binding: &#39;country&#39;, header: &#39;Country&#39;, dataMap: countryMap },
+	    { binding: &#39;city&#39;, header: &#39;City&#39;, dataMap: cityMap },
+	    { binding: &#39;downloads&#39;, header: &#39;Downloads&#39; },
+	    { binding: &#39;sales&#39;, header: &#39;Sales&#39; }
+		],
+    itemsSource: getData()
+	});
+
+  // create some random data
+  function getData() {
+	  var countries = getCountries(),
+    	cities = getCities(),
+      data = [];
+	  for (var i = 0; i &lt; cities.length; i++) {
+	    data.push({
+	      country: cities[i].country,
+	      city: cities[i].id,
+	      downloads: Math.round(Math.random() * 20000),
+	      sales: Math.random() * 10000,
+	      expenses: Math.random() * 5000
+	    });
+	  }
+    return data;
+  }
+	function getCountries() {
+  	return [
+	  	{ id: 0, name: &#39;US&#39; },
+	    { id: 1, name: &#39;Germany&#39; },
+	    { id: 2, name: &#39;UK&#39; },
+	    { id: 3, name: &#39;Japan&#39; },
+	    { id: 4, name: &#39;Italy&#39; },
+	    { id: 5, name: &#39;Greece&#39; }
+		];
+	}
+  function getCities() {
+  	return [
+  		{ id: 0, country: 0, name: &#39;Washington&#39; },
+    	{ id: 1, country: 0, name: &#39;Miami&#39; },
+    	{ id: 2, country: 0, name: &#39;Seattle&#39; },
+    	{ id: 3, country: 1, name: &#39;Bonn&#39; },
+    	{ id: 4, country: 1, name: &#39;Munich&#39; },
+    	{ id: 5, country: 1, name: &#39;Berlin&#39; },
+    	{ id: 6, country: 2, name: &#39;London&#39; },
+    	{ id: 7, country: 2, name: &#39;Oxford&#39; },
+    	{ id: 8, country: 2, name: &#39;Bath&#39; }, 
+    	{ id: 9, country: 3, name: &#39;Tokyo&#39; },
+    	{ id: 10, country: 3, name: &#39;Sendai&#39; }, 
+    	{ id: 11, country: 3, name: &#39;Kobe&#39; },
+    	{ id: 12, country: 4, name: &#39;Rome&#39; },
+    	{ id: 13, country: 4, name: &#39;Florence&#39; },
+    	{ id: 14, country: 4, name: &#39;Milan&#39; },
+    	{ id: 15, country: 5, name: &#39;Athens&#39; },
+    	{ id: 16, country: 5, name: &#39;Santorini&#39; },
+    	{ id: 17, country: 5, name: &#39;Thebes&#39; }
+		];
+	}
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Dynamic DataMaps (customize)
+  &lt;/h1&gt;
+  &lt;p&gt;
+    In some situations, you may want to change the data map used
+    with a column depending on the value of another column.
+    For example, you may want the drop-down in the &#39;City&#39; column
+    to show only cities in the country that is selected for the
+    current row.&lt;/p&gt;
+  &lt;p&gt;
+    The grid below does this by customizing the DataMap used for
+    the &quot;cities&quot; column. The code overrides the city map&#39;s
+    &lt;b&gt;getDisplayValues&lt;/b&gt; method to return only cities that
+    belong to the current country:&lt;/p&gt;
+  &lt;div id=&quot;theGrid&quot;&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 200px;
+  margin: 12px 0;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

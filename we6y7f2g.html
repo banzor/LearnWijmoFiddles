@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Dynamic DataMaps - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "we6y7f2g";
+        var show_src = "//fiddle.jshell.net/Wijmo5/we6y7f2g/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/we6y7f2g/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/we6y7f2g/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=we6y7f2g" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active"></pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Dynamic DataMaps
+  &lt;/h1&gt;
+  &lt;p&gt;
+    In some situations, you may want to change the data map used
+    with a column depending on the value of another column.
+    For example, you may want the drop-down in the &#39;City&#39; column
+    to show only cities in the country that is selected for the
+    current row.&lt;/p&gt;
+  &lt;p&gt;
+    This is not as simple as it may seem, because the maps are
+    used by all cells, not just by the ones being edited. So
+    changing the map values could change the whole grid.&lt;/p&gt;
+  &lt;p&gt;
+    But there are two ways you can handle this:&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;
+      &lt;p&gt;
+        &lt;b&gt;Customized DataMaps&lt;/b&gt;: You can override the DataMap&#39;s 
+        &lt;b&gt;getDisplayValues&lt;/b&gt; method to get only values that
+        apply to the current context.&lt;/p&gt;
+      &lt;p&gt;
+        For example:&lt;/p&gt;        
+      &lt;pre&gt;
+// create data map
+var cityMap = new wijmo.grid.DataMap(getCities(), &#39;id&#39;, &#39;name&#39;);
+
+// override cityMap&#39;s getDisplayValues method to get cities that
+// correspond to the current item
+cityMap.getDisplayValues = function(dataItem) {
+  var arr = [],
+  cities = getCities(),
+  country = theGrid.collectionView.currentItem.country;
+  for (var i = 0; i &amp;lt; cities.length; i++) {
+    var city = cities[i];
+    if (city.country == country) {
+      arr.push(city.name);
+    }
+  }
+  return arr;
+};&lt;/pre&gt;
+    &lt;/li&gt;  
+    &lt;li&gt;
+      &lt;p&gt;
+        &lt;b&gt;String-Only DataMaps&lt;/b&gt;: If your data maps contain only
+        array strings, then it is not used as a real map. The cells
+        actually contain the strings stored in the grid, and in
+        this case it is safe to switch data maps before editing
+        cells.&lt;/p&gt;
+      &lt;p&gt;
+        For example:&lt;/p&gt;        
+&lt;pre&gt;
+// update cities data map depending on country
+beginningEdit: function(s, e) {
+  var col = s.columns[e.col];
+  if (col.binding == &#39;city&#39;) {
+    switch (s.rows[e.row].dataItem.country) {
+      case &#39;US&#39;:
+        col.dataMap = [&#39;Washington&#39;, &#39;Miami&#39;, &#39;Seattle&#39;];
+        break;
+      case &#39;UK&#39;:
+        col.dataMap = [&#39;London&#39;, &#39;Oxford&#39;, &#39;Bath&#39;];
+        break;
+      // ... other countries ...
+      default:
+        col.dataMap = [&#39;Unknown Country!&#39;];
+        break;
+    }
+  }
+});&lt;/pre&gt;
+    &lt;/li&gt;  
+  &lt;/ul&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont "></pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

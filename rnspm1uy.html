@@ -1,0 +1,207 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - CollectionView Grouping - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "rnspm1uy";
+        var show_src = "//fiddle.jshell.net/Wijmo5/rnspm1uy/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/rnspm1uy/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/rnspm1uy/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=rnspm1uy" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// create some random data
+	var countries = &#39;US,Germany,UK,Japan,Italy,Greece&#39;.split(&#39;,&#39;);
+	var products = &#39;Piano,Violin,Flute,Guitar,Cello&#39;.split(&#39;,&#39;);
+  var data = [];
+	for (var i = 0; i &lt; 1000; i++) {
+  	data.push({
+    	id: i,
+    	country: countries[i % countries.length],
+    	product: products[i % products.length],
+    	sales: Math.random() * 10000,
+    	expenses: Math.random() * 5000
+  	});
+	}
+  
+  // create a CollectionView
+  var view = new wijmo.collections.CollectionView(data, {
+  	sortDescriptions: [new wijmo.collections.SortDescription(&#39;sales&#39;, false)]
+  });
+  
+	// initialize item count display
+	view.onCollectionChanged();
+
+  // show the data in a grid
+  var flex = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+  	itemsSource: view,
+    showAlternatingRows: false,
+    headersVisibility: &#39;Column&#39;
+  });
+  
+  // change the grouping
+  document.addEventListener(&#39;change&#39;, function(e) {
+  
+  	// remove the old groups
+    view.groupDescriptions.clear();
+    
+    // add the new groups
+		var props = e.target.value.split(&#39;,&#39;);
+    for (var i = 0; i &lt; props.length; i++) {
+    	var prop = props[i];
+      
+      // group sales by value ranges
+      var gd;
+      if (prop == &#39;sales&#39;) {
+    		gd = new wijmo.collections.PropertyGroupDescription(prop, function(item) {
+        	if (item.sales &gt; 8000) return &#39;High&#39;;
+        	if (item.sales &gt; 4000) return &#39;Medium&#39;;
+        	return &#39;Low&#39;;
+        });
+      } else { // group others by value
+    		gd = new wijmo.collections.PropertyGroupDescription(prop);
+      }
+    	view.groupDescriptions.push(gd);
+    }
+  });
+  
+  // dump grouped data to console (no grid)
+  document.getElementById(&#39;btnDump&#39;).addEventListener(&#39;click&#39;, function() {
+  	if (!view.groups) {
+    	console.log(&#39;*** no groups&#39;);
+    } else {
+    	console.log(&#39;*** &#39; + view.groups.length + &#39; groups:&#39;);
+			for (var i = 0; i &lt; view.groups.length; i++) {
+      	dumpGroup(view.groups[i], &#39;&#39;);
+      }
+		}
+  });
+  
+	function dumpGroup(group, level) {
+
+		// show information for this group
+		var propName = group.groupDescription[&#39;propertyName&#39;];
+    var groupName = group.name;
+    var groupInfo = propName + &#39; &gt; &#39; + groupName; // group summary
+    groupInfo += &#39; (&#39; + group.items.length + &#39; items)&#39;; // item count
+    groupInfo += &#39; total sales: &#39; + wijmo.Globalize.format(group.getAggregate(&#39;Sum&#39;, &#39;sales&#39;), &#39;c2&#39;);
+    console.log(level + groupInfo);
+    
+    // show subgroups
+		if (group.groups) {
+    	for (var i = 0; i &lt; group.groups.length; i++) {
+      	dumpGroup(group.groups[i], level + &#39;  &#39;);
+      }
+    }
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    CollectionView Grouping
+  &lt;/h1&gt;
+
+  &lt;p&gt;
+    Use the &lt;b&gt;CollectionView.groupDescriptions&lt;/b&gt; property to specify
+    which fields should be grouped.&lt;/p&gt;
+  &lt;p&gt;
+    To see an example, choose one of the options:&lt;/p&gt;
+
+  &lt;label&gt;
+    &lt;input type=&quot;radio&quot; name=&quot;filter&quot; value=&quot;&quot; checked=&quot;true&quot; /&gt;    
+    No Grouping
+  &lt;/label&gt; 
+  &lt;label&gt;
+    &lt;input type=&quot;radio&quot; name=&quot;filter&quot; value=&quot;country&quot; /&gt;    
+    By Country
+  &lt;/label&gt; 
+  &lt;label&gt;
+    &lt;input type=&quot;radio&quot; name=&quot;filter&quot; value=&quot;country,product&quot; /&gt;    
+    By Country and by Product
+  &lt;/label&gt; 
+  &lt;label&gt;
+    &lt;input type=&quot;radio&quot; name=&quot;filter&quot; value=&quot;country,product,sales&quot; /&gt;    
+    By Country, Product, and Sales
+  &lt;/label&gt; 
+
+  &lt;p&gt;
+    Result:
+    &lt;button id=&quot;btnDump&quot; class=&quot;btn btn-default&quot;&gt;
+      Show on Console
+    &lt;/button&gt;
+    
+  &lt;/p&gt;
+  &lt;div id=&quot;theGrid&quot;&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 250px;
+}
+label {
+  width: 100%
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - ComboBox with HTML Content - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "8k4fav0x";
+        var show_src = "//fiddle.jshell.net/Wijmo5/8k4fav0x/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/8k4fav0x/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/8k4fav0x/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=8k4fav0x" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // define template for the details
+  var template = &#39;&lt;div class=&quot;item&quot;&gt;&#39; +
+    &#39;&lt;h1&gt;{name}&lt;/h1&gt;&#39; +
+    &#39;&lt;b&gt;{city}&lt;/b&gt; ({state})&lt;br/&gt;&#39; +
+    &#39;{address}&lt;br/&gt;&#39; +
+    &#39;Phone: &lt;b&gt;{phone}&lt;/b&gt;&lt;br/&gt;&#39; +
+    &#39;Fax: &lt;b&gt;{fax}&lt;/b&gt;&lt;br/&gt;&#39; +
+    &#39;Website: &lt;a href=&quot;{site}&quot; target=&quot;_blank&quot;&gt;{site}&lt;/a&gt;&lt;br/&gt;&#39; +
+    &#39;&lt;/div&gt;&#39;;
+
+  // show items in a ComboBox
+  var theCombo = new wijmo.input.ComboBox(&#39;#theCombo&#39;, {
+    displayMemberPath: &#39;name&#39;,
+    headerPath: &#39;name&#39;,
+    itemsSource: getData(),
+    formatItem: function(s, e) {
+			var html = wijmo.format(template, e.data, function(data, name, fmt, val) {
+      	return wijmo.isString(data[name]) ? wijmo.escapeHtml(data[name]) : val;
+			});
+      e.item.innerHTML = html;
+    }
+  });
+
+  // some data to show in our accordion
+  function getData() {
+    return [{
+      name: &#39;Electro Mart&#39;,
+      city: &#39;Accident&#39;,
+      state: &#39;Maryland&#39;,
+      address: &#39;8785 Windfall St.&#39;,
+      phone: &#39;(800) 555-1234&#39;,
+      fax: &#39;(800) 555-5678&#39;,
+      site: &#39;https://www.electromartnot.com&#39;
+    }, {
+      name: &#39;Sue\&#39;s Depot&#39;,
+      city: &#39;Big Arm&#39;,
+      state: &#39;Montana&#39;,
+      address: &#39;77 Winchester Lane&#39;,
+      phone: &#39;(800) 555-2345&#39;,
+      fax: &#39;(800) 555-6789&#39;,
+      site: &#39;https://www.suesdepotnot.com&#39;
+    }, {
+      name: &#39;D&amp;K Digital Locker&#39;,
+      city: &#39;Chicken&#39;,
+      state: &#39;Alaska&#39;,
+      address: &#39;787 Lakeview St. &#39;,
+      phone: &#39;(800) 555-3456&#39;,
+      fax: &#39;(800) 555-7890&#39;,
+      site: &#39;https://www.digilockernot.com&#39;
+    }, {
+      name: &#39;Paul\&#39;s Pub &amp; Bistro&#39;,
+      city: &#39;Coupon&#39;,
+      state: &#39;Pennsylvania&#39;,
+      address: &#39;711 Old York Drive &#39;,
+      phone: &#39;(800) 555-0987&#39;,
+      fax: &#39;(800) 555-6543&#39;,
+      site: &#39;https://www.paulspubnot.com&#39;
+    }, {
+      name: &#39;Amazing Deals Inc&#39;,
+      city: &#39;Cut And Shoot&#39;,
+      state: &#39;Texas&#39;,
+      address: &#39;91 Beech St.&#39;,
+      phone: &#39;(800) 955-2109&#39;,
+      fax: &#39;(800) 955-8765&#39;,
+      site: &#39;https://www.amazingdealsnot.com&#39;
+    }];
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+  &lt;h1&gt;
+    ComboBox with HTML Content&lt;/h1&gt;
+  &lt;p&gt;
+    Most ComboBox controls display items in the drop-down list
+    as plain text. You can override this using the
+    &lt;b&gt;isContentHTML&lt;/b&gt; property or by assigning HTML directly
+    to the items using the &lt;b&gt;formatItem&lt;/b&gt; event.&lt;/p&gt;
+  &lt;p&gt;
+    The &lt;b&gt;formatItem&lt;/b&gt; event provides more flexibility because
+    it can be used to apply arbitrary templates to raw Javascript
+    objects. If you do this, remember to set the combo&#39;s
+    &lt;b&gt;headerPath&lt;/b&gt; property to the name of a property to display
+    in the combo&#39;s input element (which can only show plain text):&lt;/p&gt;
+    
+  &lt;div id=&quot;theCombo&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">body {
+  margin-bottom: 24pt;
+}
+.item {
+  margin: 8px;
+  font-size: 80%;
+}
+.wj-listbox-item h1 {
+  font-size: 12pt;
+  font-weight: bold;
+  margin: 4px -8px;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

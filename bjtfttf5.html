@@ -1,0 +1,237 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Parsing Dates and Numbers - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "bjtfttf5";
+        var show_src = "//fiddle.jshell.net/Wijmo5/bjtfttf5/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/bjtfttf5/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/bjtfttf5/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=bjtfttf5" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // select culture
+  var theCulture = new wijmo.input.ComboBox(&#39;#theCulture&#39;, {
+    displayMemberPath: &#39;name&#39;,
+    itemsSource: [{
+      name: &#39;English&#39;,
+      key: &#39;en&#39;
+    }, {
+      name: &#39;Spanish&#39;,
+      key: &#39;es&#39;
+    }, {
+      name: &#39;Italian&#39;,
+      key: &#39;it&#39;
+    }, {
+      name: &#39;French&#39;,
+      key: &#39;fr&#39;
+    }, {
+      name: &#39;German&#39;,
+      key: &#39;de&#39;
+    }, {
+      name: &#39;Dutch&#39;,
+      key: &#39;nl&#39;
+    }, {
+      name: &#39;Japanese&#39;,
+      key: &#39;ja&#39;
+    }, {
+      name: &#39;Korean&#39;,
+      key: &#39;ko&#39;
+    }, {
+      name: &#39;Chinese&#39;,
+      key: &#39;zh-HK&#39;
+    }, ],
+    selectedIndexChanged: function(s, e) {
+
+      // get culture url
+    	var url = &#39;https://cdn.grapecity.com/wijmo/5.latest/controls/cultures/wijmo.culture.&#39; +
+        s.selectedItem.key +
+        &#39;.min.js&#39;;
+
+      // apply new culture to page
+      var scripts = document.getElementsByTagName(&#39;script&#39;),
+			    script;
+      for (var i = 0; i &lt; scripts.length; i++) {
+        script = scripts[i];
+        if (script.src.indexOf(&#39;/cultures/wijmo.culture.&#39;) &gt; -1) {
+          script.parentElement.removeChild(script);
+					break;
+				}
+			}
+      script = document.createElement(&#39;script&#39;);
+      script.src = url;
+      document.head.appendChild(script);
+    }
+  });
+
+	// parse dates
+  document.getElementById(&#39;dtBtn&#39;).addEventListener(&#39;click&#39;, function() {
+  	var text = document.getElementById(&#39;dtIn&#39;).value;
+    var fmt = document.getElementById(&#39;dtFmt&#39;).value;
+    var value = wijmo.Globalize.parseDate(text, fmt);
+    var output = document.getElementById(&#39;dtOutput&#39;);
+    if (wijmo.isDate(value)) {
+    	output.textContent = &#39;Parsed OK: &#39; + wijmo.Globalize.format(value, fmt);
+    } else {
+    	output.textContent = &#39;** Could not parse date... **&#39;;
+    }
+	});
+  
+	// parse numbers
+  document.getElementById(&#39;numBtn&#39;).addEventListener(&#39;click&#39;, function() {
+  	var text = document.getElementById(&#39;numIn&#39;).value;
+    var fmt = document.getElementById(&#39;numFmt&#39;).value;
+    var value = wijmo.Globalize.parseFloat(text, fmt);
+    var output = document.getElementById(&#39;numOutput&#39;);
+    if (wijmo.isNumber(value)) {
+    	output.textContent = &#39;Parsed OK: &#39; + wijmo.Globalize.format(value, fmt);
+    } else {
+    	output.textContent = &#39;** Could not parse number... **&#39;;
+    }
+  });
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Parsing Dates and Numbers&lt;/h1&gt;
+  &lt;p&gt;
+    To globalize your Wijmo application, include a reference
+    to the appropriate culture file after loading Wijmo.
+    &lt;a href=&quot;https://wijmo.com/5/docs/static/globalization.html&quot; target=&quot;_blank&quot;&gt;
+    Wijmo includes over 45 culture files you can choose from.
+    &lt;/a&gt;&lt;/p&gt;
+
+  &lt;label&gt;
+    Please Select a Culture
+    &lt;div id=&quot;theCulture&quot;&gt;
+    &lt;/div&gt;
+  &lt;/label&gt;
+
+  &lt;h2&gt;
+    Dates&lt;/h2&gt;
+  &lt;p&gt;
+    Dates are parsed using the
+    &lt;b&gt;Globalize.parseDate&lt;/b&gt; function.
+    The format strings are the same used to format dates and are described here:
+    &lt;a href=&quot;https://wijmo.com/5/docs/topic/wijmo.Globalize.Class.html#formatDate&quot; target=&quot;_blank&quot;&gt;
+      Date and Time Format Strings
+    &lt;/a&gt;&lt;/p&gt;
+
+  &lt;p&gt;
+    Try it for yourself:&lt;/p&gt;
+  &lt;label&gt;
+    Input format
+    &lt;input id=&quot;dtFmt&quot; value=&quot;d&quot;&gt;
+  &lt;/label&gt;
+  &lt;br&gt;
+  &lt;label&gt;
+    Input string
+    &lt;input id=&quot;dtIn&quot; value=&quot;12/31/2016&quot;&gt;
+  &lt;/label&gt;
+  &lt;button id=&quot;dtBtn&quot; class=&quot;btn btn-default&quot;&gt;
+    Parse Date
+  &lt;/button&gt;
+  &lt;br&gt;
+  &lt;div id=&quot;dtOutput&quot;&gt;
+  &lt;/div&gt;
+
+  &lt;h2&gt;
+    Numbers&lt;/h2&gt;
+  &lt;p&gt;
+    Numbers are parsed using the &lt;b&gt;Globalize.parseFloat&lt;/b&gt; function.
+    The format strings are the same used to format numbers and
+    are described here:
+    &lt;a href=&quot;https://wijmo.com/5/docs/topic/wijmo.Globalize.Class.html#formatNumber&quot; target=&quot;_blank&quot;&gt;
+      Numeric Format Strings
+    &lt;/a&gt;&lt;/p&gt;
+
+  &lt;p&gt;
+    Try it for yourself:&lt;/p&gt;
+  &lt;label&gt;
+    Input format
+    &lt;input id=&quot;numFmt&quot; value=&quot;n2&quot;&gt;
+  &lt;/label&gt;
+  &lt;br&gt;
+  &lt;label&gt;
+    Input string
+    &lt;input id=&quot;numIn&quot; value=&quot;123.456&quot;&gt;
+  &lt;/label&gt;
+  &lt;button id=&quot;numBtn&quot; class=&quot;btn btn-default&quot;&gt;
+    Parse Number
+  &lt;/button&gt;
+  &lt;br&gt;
+  &lt;div id=&quot;numOutput&quot;&gt;
+  &lt;/div&gt;
+
+  &lt;div style=&quot;margin-bottom:2in&quot;&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">label {
+  width: 200px;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

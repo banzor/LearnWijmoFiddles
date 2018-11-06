@@ -1,0 +1,160 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Column Properties - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "w9p0em0d";
+        var show_src = "//fiddle.jshell.net/Wijmo5/w9p0em0d/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/w9p0em0d/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/w9p0em0d/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=w9p0em0d" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function () {
+
+  // generate some random data
+  var countries = &#39;US,Germany,UK,Japan,Italy,Greece&#39;.split(&#39;,&#39;),
+      data = [];
+  for (var i = 0; i &lt; countries.length; i++) {
+    data.push({
+      country: countries[i],
+      downloads: Math.round(Math.random() * 20000),
+      sales: Math.random() * 10000,
+      expenses: Math.random() * 5000
+    });
+  }
+
+	// grid with custom columns
+  var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+  	allowResizing: &#39;None&#39;,
+  	autoGenerateColumns: false,
+    columns: [
+    	{ binding: &#39;country&#39;, header: &#39;Country&#39;, width: &#39;2*&#39;, align: &#39;center&#39;, isReadOnly: true },
+    	{ binding: &#39;sales&#39;, header: &#39;Sales&#39;, format: &#39;c0&#39;, width: &#39;*&#39; },
+    	{ binding: &#39;expenses&#39;, header: &#39;Expenses&#39;, format: &#39;c0&#39;, width: &#39;*&#39;  },
+    ],
+    itemsSource: data
+  });
+}</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Column Properties&lt;/h1&gt;
+  &lt;p&gt;
+    The &lt;b&gt;wijmo.grid.Column&lt;/b&gt; class has 
+    &lt;a href=&quot;https://wijmo.com/5/docs/topic/wijmo.grid.Column.Class.html&quot; target=&quot;_blank&quot;&gt;
+      almost 40 properties 
+    &lt;/a&gt; you can use to configure each column&#39;s appearance and behavior.&lt;/p&gt;
+  &lt;p&gt;
+    These properties are set automatically for auto-generated
+    columns, but when creating columns in code you will normally
+    set a few of these:&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;
+      &lt;b&gt;binding&lt;/b&gt;:
+      Defines the property of the data item that will be shown in this
+      column.&lt;/li&gt; 
+    &lt;li&gt;
+      &lt;b&gt;header&lt;/b&gt;:
+      Defines the content of this column&#39;s header cell.&lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;format&lt;/b&gt;:
+      Format string used to convert numbers and dates into display
+      strings for this column.&lt;/li&gt;   
+    &lt;li&gt;
+      &lt;b&gt;width&lt;/b&gt;:
+      Width of this column in pixels. You may also use &#39;star&#39; sizing
+      to specify the column width in relative units (e.g. &#39;2*&#39; is 
+      twice as wide as &#39;*&#39;).&lt;/li&gt;   
+    &lt;li&gt;
+      &lt;b&gt;align&lt;/b&gt;:
+      Defines the horizontal alignment of items in this column.
+      This is set to null by default, which aligns data based
+      on the column&#39;s data type. You can override the default 
+      by setting this property to &#39;left&#39;, &#39;right&#39;, or &#39;center&#39;.&lt;/li&gt; 
+    &lt;li&gt;
+      &lt;b&gt;isReadOnly&lt;/b&gt;:
+      Determines whether this column can be edited by the user.
+      You can disable editing altogether by setting the grid&#39;s
+      &lt;b&gt;isReadOnly&lt;/b&gt; property to false.&lt;/li&gt; 
+    &lt;li&gt;
+      &lt;b&gt;isRequired&lt;/b&gt;:
+      Determines whether users should be able to set values
+      in this column to empty strings or null values.&lt;/li&gt; 
+  &lt;/ul&gt;
+      
+  &lt;p&gt;
+    For example, the grid below has a custom set of columns with the main
+    properties set in code:&lt;/p&gt;    
+  &lt;div id=&quot;theGrid&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  height: 150px; 
+  margin: 10px 0;
+}
+body {
+	margin-bottom: 24pt;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

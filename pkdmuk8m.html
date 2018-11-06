@@ -1,0 +1,160 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Scrolling and ViewRange - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "pkdmuk8m";
+        var show_src = "//fiddle.jshell.net/Wijmo5/pkdmuk8m/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/pkdmuk8m/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/pkdmuk8m/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=pkdmuk8m" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // create some random data
+  var countries = &#39;US,Germany,UK,Japan,Sweden,Norway,Denmark&#39;.split(&#39;,&#39;),
+    data = [];
+  for (var i = 0; i &lt; 200; i++) {
+    data.push({
+      id: i,
+      country: countries[i % countries.length],
+      active: i % 5 != 0,
+      downloads: Math.round(Math.random() * 200000),
+      sales: Math.random() * 100000,
+      expenses: Math.random() * 50000
+    });
+  }
+
+	// auto-generated columns
+  var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+  	itemsSource: data
+	});
+
+	// scroll into view
+  document.getElementById(&#39;scrollIntoView&#39;).addEventListener(&#39;click&#39;, function() {
+  	theGrid.scrollIntoView(100, -1);
+	})
+
+	// set top cell
+	document.getElementById(&#39;scrollToTop&#39;).addEventListener(&#39;click&#39;, function() {
+		if (true) {
+    
+    	// get cell rect, adjust scrollPosition.y to bring it to the top
+			var rc = theGrid.cells.getCellBoundingRect(100, 0, true);
+	    theGrid.scrollPosition = new wijmo.Point(theGrid.scrollPosition.x, -rc.top);
+  		
+		} else {
+    
+    	// simpler but less efficient (requires a timeOut)
+  		theGrid.scrollIntoView(theGrid.rows.length - 1, -1);
+      setTimeout(function() {
+      	theGrid.scrollIntoView(100, -1);
+      })
+    }
+  })
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Scrolling and ViewRange
+  &lt;/h1&gt;
+  &lt;p&gt;
+    When the user selects a cell using the mouse or keyboard,
+    the FlexGrid automatically ensures it is visible by
+    calling the &lt;b&gt;scrollIntoView&lt;/b&gt; method.&lt;/p&gt;
+  &lt;p&gt;
+    The &lt;b&gt;scrollIntoView&lt;/b&gt; method causes the grid to
+    scroll as needed so the requested cell is within the
+    current &lt;b&gt;viewRange&lt;/b&gt;. The grid will scroll the
+    minimum amount needed to show the cell, so it may
+    become visible at the top, middle, or bottom of the
+    view range.&lt;/p&gt;
+  &lt;p&gt;
+    If you want to show a specific row at the top of the view
+    range, you need a slightly different approach: get the
+    bounding rectangle of the cell you want to show to the
+    top and use the coordinates to set the grid&#39;s 
+    &lt;b&gt;scrollPosition&lt;/b&gt; property.&lt;/p&gt;
+  &lt;p&gt;
+    For example:&lt;/p&gt;    
+  &lt;button id=&quot;scrollIntoView&quot; class=&quot;btn btn-default&quot;&gt;
+    Scroll Row 100 Into View 
+  &lt;/button&gt;
+  &lt;button id=&quot;scrollToTop&quot; class=&quot;btn btn-default&quot;&gt;
+    Set Top Cell to Row 100
+  &lt;/button&gt;
+  &lt;div id=&quot;theGrid&quot;&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 200px;
+  margin: 12px 0;
+}
+body {
+  margin-bottom: 20px;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

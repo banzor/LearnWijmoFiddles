@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Wijmo 5 - InputNumber - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "Cf9L9";
+        var show_src = "//fiddle.jshell.net/Wijmo5/Cf9L9/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/Cf9L9/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/Cf9L9/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=Cf9L9" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function () {
+
+    // create all the InputNumber controls
+    var niInteger = new wijmo.input.InputMask(&#39;#theInteger&#39;, {
+    });
+    
+    //niInteger.onLostFocus=onLostFocus;
+    niInteger.lostFocus.addHandler(onLostFocus);
+}    
+
+var onLostFocus = function(s, e) {
+	console.log(&#39;lost focus&#39;)
+};
+
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+	&lt;h1&gt;InputNumber&lt;/h1&gt;
+
+	&lt;/p&gt; 1: click to  input control &lt;/p&gt;
+  &lt;/p&gt; 2: click to submit button to fire onLostFocus event&lt;/p&gt;
+  &lt;/p&gt; 3: Let see popup frequency and popup content&lt;/p&gt;
+	&lt;div id=&quot;theInteger&quot;&gt;&lt;/div&gt;
+  &lt;/br&gt;
+  &lt;input type=&quot;button&quot; value=&quot;submit&quot; id=&quot;submitBtn&quot; onclick=&quot;console.log(&#39;submit&#39;)&quot;&gt;
+
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-control, body {
+	margin-bottom: 24px;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Pseudo Classes - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "qhp9s0nx";
+        var show_src = "//fiddle.jshell.net/Wijmo5/qhp9s0nx/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/qhp9s0nx/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/qhp9s0nx/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=qhp9s0nx" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active"></pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Pseudo Classes
+  &lt;/h1&gt;
+  &lt;p&gt;
+    CSS pseudo-classes are keywords added to selectors that specify
+    a special state of the element to be selected. For example,
+    &lt;code&gt;:hover&lt;/code&gt; will apply a style when the user hovers
+    over the element specified by the selector.&lt;/p&gt;
+&lt;p&gt;
+    Pseudo-classes are important in forms because they let you apply
+    styles to elements not only in relation to the content of the
+    document tree, but also in relation to external factors like whether
+    the element has the focus (&lt;code&gt;:focus&lt;/code&gt;) or is in an invalid
+    state (&lt;code&gt;:invalid&lt;/code&gt;).
+&lt;p&gt;
+    Some of the standard pseudo-classes are limited in their usefulness
+    because they apply only to specific elements, and not to the elements
+    ancestors. For example, many Wijmo input controls contain input elements;
+    when the input elements have the focus, the inner input element gets
+    the &lt;code&gt;:focus&lt;/code&gt; pseudo-class, but the host element that contains
+    the control does not.&lt;/p&gt;
+&lt;p&gt;
+    For this reason, Wijmo adds some pseudo-classes of its own to make
+    building effective forms easier:&lt;/p&gt;
+&lt;ul&gt;
+    &lt;li&gt;
+        &lt;b&gt;wj-state-focused&lt;/b&gt;: Added to control host elements when 
+        the control &lt;b&gt;contains&lt;/b&gt; the active element (not necessarily 
+        when the host element &lt;b&gt;is&lt;/b&gt; the active element).&lt;/li&gt;
+    &lt;li&gt;
+        &lt;b&gt;wj-state-invalid&lt;/b&gt;: Added to control host elements when 
+        the control contains input elements in an invalid state.&lt;/li&gt;
+    &lt;li&gt;
+        &lt;b&gt;wj-state-empty&lt;/b&gt;: Added to control host elements when the 
+        control contains an input element with no content (this is different
+        from the &lt;code&gt;:empty&lt;/code&gt; pseudo-class which is applied to
+        elements that have no children.&lt;/li&gt;
+    &lt;li&gt;
+        &lt;b&gt;wj-state-readonly&lt;/b&gt;: Added to control host elements when
+        the control&#39;s &lt;b&gt;isReadOnly&lt;/b&gt; property is set to true.&lt;/li&gt;
+    &lt;li&gt;
+        &lt;b&gt;wj-state-disabled&lt;/b&gt;: Added to control host elements when the 
+        control&#39;s &lt;b&gt;isDisabled&lt;/b&gt; property is set to true (which 
+        corresponds to adding a &quot;disabled&quot; attribute to the control&#39;s
+        host element).&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont "></pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

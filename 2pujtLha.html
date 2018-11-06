@@ -1,0 +1,448 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Wijmo Ribbon - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "2pujtLha";
+        var show_src = "//fiddle.jshell.net/Wijmo5/2pujtLha/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/2pujtLha/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/2pujtLha/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=2pujtLha" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // initialize editor element
+  var editor = document.getElementById(&#39;editor&#39;);
+  execCommand(&#39;styleWithCSS&#39;, true);
+  if (localStorage.editorContent) {
+    document.getElementById(&#39;editor&#39;).innerHTML = localStorage.editorContent;
+  }
+
+  // create ribbon
+  var ribbon = new wijmo.nav.TabPanel(&#39;#ribbon&#39;);
+  addTooltips(ribbon);
+
+	// toggle ribbon content visibility on double-clicks, restore on clicks
+  document.querySelector(&#39;.wj-tabheaders&#39;).addEventListener(&#39;dblclick&#39;, function (e) {
+  	if (!wijmo.hasClass(e.target, &#39;wj-tabheader&#39;)) {
+    	wijmo.toggleClass(ribbon.hostElement, &#39;hide-content&#39;);
+		}
+	});
+	document.querySelector(&#39;.wj-tabheaders&#39;).addEventListener(&#39;click&#39;, function (e) {
+		if (wijmo.hasClass(e.target, &#39;wj-tabheader&#39;)) {
+			wijmo.toggleClass(ribbon.hostElement, &#39;hide-content&#39;, false);
+		}
+	});
+
+  // populate combos
+  var fontFace = new wijmo.input.ComboBox(&#39;#font-face&#39;, {
+    itemsSource: &#39;Arial,Courier New,Garamond,Tahoma,Times,Verdana,WingDings&#39;.split(&#39;,&#39;),
+    textChanged: function(s, e) {
+      execCommand(&#39;fontName&#39;, s.text);
+    }
+  });
+  var fontSize = new wijmo.input.ComboBox(&#39;#font-size&#39;, {
+    itemsSource: &#39;Very Small,Smaller,Small,Medium,Large,Larger,Very Large&#39;.split(&#39;,&#39;),
+    selectedIndex: 3,
+    textChanged: function(s, e) {
+      execCommand(&#39;fontSize&#39;, s.selectedIndex + 1);
+    }
+  });
+
+  // set up color pickers
+  var clrBack = createColorPicker(function(s, e) {
+    execCommand(&#39;backColor&#39;, s.value);
+  });
+  document.getElementById(&#39;background&#39;).addEventListener(&#39;click&#39;, function(e) {
+    wijmo.showPopup(clrBack.hostElement, e.target, false, true, false);
+    clrBack.focus();
+  });
+  var clrFore = createColorPicker(function(s, e) {
+    execCommand(&#39;foreColor&#39;, s.value);
+  });
+  document.getElementById(&#39;color&#39;).addEventListener(&#39;click&#39;, function(e) {
+    wijmo.showPopup(clrFore.hostElement, e.target, false, true, false);
+    clrFore.focus();
+  });
+
+  // execute commands
+  ribbon.hostElement.addEventListener(&#39;click&#39;, function(e) {
+    switch (e.target.id) {
+
+      // format group
+      case &#39;save&#39;:
+        localStorage.editorContent = document.getElementById(&#39;editor&#39;).innerHTML;
+        alert(&#39;Saved to Local Storage&#39;);
+        break;
+      case &#39;undo&#39;:
+      case &#39;redo&#39;:
+      case &#39;preview&#39;:
+      case &#39;removeFormat&#39;:
+      case &#39;cut&#39;:
+      case &#39;copy&#39;:
+      case &#39;paste&#39;:
+      case &#39;selectAll&#39;:
+        execCommand(e.target.id);
+        break;
+
+        // font group
+      case &#39;bold&#39;:
+      case &#39;italic&#39;:
+      case &#39;underline&#39;:
+      case &#39;strikethrough&#39;:
+      case &#39;subscript&#39;:
+      case &#39;superscript&#39;:
+        execCommand(e.target.id);
+        break;
+
+      case &#39;click-me&#39;:
+        alert(&#39;Wijmo Ribbon Sample&#39;);
+    }
+  });
+
+  // execute editor commands
+  function execCommand(cmd, parm) {
+  
+  	// save focus
+  	var ae = document.activeElement;
+    
+    // execute command
+    editor.focus();
+    document.execCommand(cmd, false, parm);
+    
+    // restore focus
+    if (ae) ae.focus();
+  }
+
+  // save/restore editor selection on focus changes
+  // https://stackoverflow.com/questions/3315824/preserve-text-selection-in-contenteditable-while-interacting-with-jquery-ui-dial/3316483#3316483
+  var selection = null;
+  editor.addEventListener(&#39;blur&#39;, function(e) {
+    selection = saveSelection();
+  }, true);
+  editor.addEventListener(&#39;focus&#39;, function(e) {
+    restoreSelection(selection);
+  }, true);
+  function saveSelection() {
+    if (window.getSelection) {
+      sel = window.getSelection();
+      if (sel.getRangeAt &amp;&amp; sel.rangeCount) {
+        return sel.getRangeAt(0);
+      }
+    } else if (document.selection &amp;&amp; document.selection.createRange) {
+      return document.selection.createRange();
+    }
+    return null;
+  }
+  function restoreSelection(range) {
+    if (range) {
+      if (window.getSelection) {
+        sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+      } else if (document.selection &amp;&amp; range.select) {
+        range.select();
+      }
+    }
+  }
+
+  // add tooltips based on the element&#39;s aria-label attribute
+  function addTooltips(ctl) {
+    var tt = new wijmo.Tooltip();
+    var els = ctl.hostElement.querySelectorAll(&#39;[aria-label]&#39;);
+    for (var i = 0; i &lt; els.length; i++) {
+      tt.setTooltip(els[i], els[i].getAttribute(&#39;aria-label&#39;));
+    }
+  }
+
+  // create an auto-hiding color picker control
+  function createColorPicker(valueChanged) {
+
+    // create picker
+    var host = wijmo.createElement(&#39;&lt;div class=&quot;wj-dropdown-panel&quot;&gt;&lt;/div&gt;&#39;);
+    var picker = new wijmo.input.ColorPicker(host, {
+      valueChanged: function(s, e) {
+        valueChanged(s, e);
+      },
+      lostFocus: function(s, e) {
+        	setTimeout(function() {
+          	if (!s.containsFocus()) {
+			        wijmo.hidePopup(s.hostElement);
+            }
+          }, 100);
+      }
+    });
+
+    // close picker on clicks
+    host.addEventListener(&#39;click&#39;, function() {
+			wijmo.hidePopup(host);
+    });
+
+    // done
+    return picker;
+  }
+
+}
+</pre>
+              <pre class="tCont ">&lt;link href=&quot;https://fonts.googleapis.com/icon?family=Material+Icons&quot; rel=&quot;stylesheet&quot;&gt;
+
+&lt;div class=&quot;container&quot;&gt;
+  &lt;h1&gt;
+    Wijmo Ribbon
+  &lt;/h1&gt;
+  &lt;p&gt;
+    Wijmo 5 does not include a Ribbon control, but you can
+    create ribbons easily using the &lt;b&gt;TabPanel&lt;/b&gt; control
+    and the controls in Wijmo&#39;s input module.&lt;/p&gt;
+  &lt;p&gt;
+    This example shows how you can build a simple text editor
+    with a custom ribbon.&lt;/p&gt;
+  &lt;p&gt;
+    The ribbon element is a &lt;b&gt;TabPanel&lt;/b&gt;. The tab pages
+    contain groups of controls arranged in rows and columns.
+    Controls in the groups use
+    &lt;a href=&quot;https://material.io/tools/icons/?style=baseline&quot; target=&quot;_blank&quot;&gt;Material Icons&lt;/a&gt;, and have tooltips created
+    automatically based on the &lt;b&gt;aria-label&lt;/b&gt; attribute
+    assigned to each control.&lt;/p&gt;
+  &lt;p&gt;
+    You can toggle the ribbon content visibility by double-clicking 
+    the empty area beside the tab headers.&lt;/p&gt;    
+  &lt;div&gt;
+    &lt;div id=&quot;ribbon&quot;&gt;
+
+      &lt;!-- Format --&gt;
+      &lt;div&gt;
+        &lt;div&gt;Format&lt;/div&gt;
+        &lt;div&gt;
+          &lt;div class=&quot;wj-group&quot;&gt;
+            &lt;div class=&quot;wj-content&quot;&gt;
+              &lt;div class=&quot;wj-column&quot;&gt;
+                &lt;button id=&quot;save&quot; class=&quot;wj-btn wj-btn-large&quot;&gt;
+                  &lt;i class=&quot;material-icons&quot;&gt;save&lt;/i&gt;
+                  &lt;br/&gt;
+                  Save
+                &lt;/button&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;wj-column&quot;&gt;
+                &lt;div class=&quot;wj-row&quot;&gt;
+                  &lt;button id=&quot;undo&quot; class=&quot;wj-btn&quot; aria-label=&quot;Undo&quot;&gt;
+                    &lt;i class=&quot;material-icons&quot;&gt;undo&lt;/i&gt;
+                  &lt;/button&gt;
+                  &lt;button id=&quot;redo&quot; class=&quot;wj-btn&quot; aria-label=&quot;Redo&quot;&gt;
+                    &lt;i class=&quot;material-icons&quot;&gt;redo&lt;/i&gt;
+                  &lt;/button&gt;
+                  &lt;button id=&quot;preview&quot; class=&quot;wj-btn&quot; aria-label=&quot;Preview&quot;&gt;
+                    &lt;i class=&quot;material-icons&quot;&gt;pageview&lt;/i&gt;
+                  &lt;/button&gt;
+                  &lt;button id=&quot;removeFormat&quot; class=&quot;wj-btn&quot; aria-label=&quot;Remove Format&quot;&gt;
+                    &lt;i class=&quot;material-icons&quot;&gt;format_clear&lt;/i&gt;
+                  &lt;/button&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;wj-row&quot;&gt;
+                  &lt;button id=&quot;cut&quot; class=&quot;wj-btn&quot; aria-label=&quot;Cut&quot;&gt;
+                    &lt;i class=&quot;material-icons&quot;&gt;&amp;#x2702;&lt;/i&gt;
+                  &lt;/button&gt;
+                  &lt;button id=&quot;copy&quot; class=&quot;wj-btn&quot; aria-label=&quot;Copy&quot;&gt;
+                    &lt;i class=&quot;material-icons&quot;&gt;&amp;#xE14D;&lt;/i&gt;
+                  &lt;/button&gt;
+                  &lt;button id=&quot;paste&quot; class=&quot;wj-btn&quot; aria-label=&quot;Paste&quot;&gt;
+                    &lt;i class=&quot;material-icons&quot;&gt;&amp;#xE85D;&lt;/i&gt;
+                  &lt;/button&gt;
+                  &lt;button id=&quot;selectAll&quot; class=&quot;wj-btn&quot; aria-label=&quot;Select All&quot;&gt;
+                    &lt;i class=&quot;material-icons&quot;&gt;select_all&lt;/i&gt;
+                  &lt;/button&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;wj-header&quot;&gt;Actions&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;wj-group&quot;&gt;
+            &lt;div class=&quot;wj-content&quot;&gt;
+              &lt;div class=&quot;wj-row&quot;&gt;
+                &lt;div id=&quot;font-face&quot; aria-label=&quot;Font Face&quot;&gt;&lt;/div&gt;
+                &lt;div id=&quot;font-size&quot; aria-label=&quot;Font Size&quot;&gt;&lt;/div&gt;
+                &lt;button id=&quot;background&quot; class=&quot;wj-btn&quot; aria-label=&quot;Background Color&quot;&gt;
+                  &lt;i class=&quot;material-icons&quot;&gt;format_color_fill&lt;/i&gt;
+                &lt;/button&gt;
+                &lt;button id=&quot;color&quot; class=&quot;wj-btn&quot; aria-label=&quot;Text Color&quot;&gt;
+                  &lt;i class=&quot;material-icons&quot;&gt;format_color_text&lt;/i&gt;
+                &lt;/button&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;wj-row&quot;&gt;
+                &lt;button id=&quot;bold&quot; class=&quot;wj-btn&quot; aria-label=&quot;Bold&quot;&gt;
+                  &lt;i class=&quot;material-icons&quot;&gt;format_bold&lt;/i&gt;
+                &lt;/button&gt;
+                &lt;button id=&quot;italic&quot; class=&quot;wj-btn&quot; aria-label=&quot;Italic&quot;&gt;
+                  &lt;i class=&quot;material-icons&quot;&gt;format_italic&lt;/i&gt;
+                &lt;/button&gt;
+                &lt;button id=&quot;underline&quot; class=&quot;wj-btn&quot; aria-label=&quot;Underline&quot;&gt;
+                  &lt;i class=&quot;material-icons&quot;&gt;format_underline&lt;/i&gt;
+                &lt;/button&gt;
+                &lt;button id=&quot;strikethrough&quot; class=&quot;wj-btn&quot; aria-label=&quot;Strikethrough&quot;&gt;
+                  &lt;i class=&quot;material-icons&quot;&gt;format_strikethrough&lt;/i&gt;
+                &lt;/button&gt;
+                &lt;button id=&quot;subscript&quot; class=&quot;wj-btn&quot; aria-label=&quot;Subscript&quot;&gt;
+                  &lt;i class=&quot;material-icons&quot;&gt;vertical_align_bottom&lt;/i&gt;
+                &lt;/button&gt;
+                &lt;button id=&quot;superscript&quot; class=&quot;wj-btn&quot; aria-label=&quot;Superscript&quot;&gt;
+                  &lt;i class=&quot;material-icons&quot;&gt;vertical_align_top&lt;/i&gt;
+                &lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;wj-header&quot;&gt;Font&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Custom Tab --&gt;
+      &lt;div&gt;
+        &lt;div&gt;Custom Tab&lt;/div&gt;
+        &lt;div&gt;
+          &lt;div class=&quot;wj-group&quot;&gt;
+            &lt;div class=&quot;wj-content&quot;&gt;
+              &lt;div class=&quot;wj-column&quot;&gt;
+                &lt;button id=&quot;click-me&quot; class=&quot;wj-btn wj-btn-large&quot;&gt;
+                  Click Me
+                &lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;wj-header&quot;&gt;Custom Group&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&quot;editor&quot; contenteditable=&quot;true&quot;&gt;
+      &lt;b&gt;Lorem Ipsum&lt;/b&gt; is simply dummy text of the printing
+      and typesetting industry. Lorem Ipsum has been the industry&#39;s
+      standard dummy text ever since the 1500s, when an unknown 
+      printer took a galley of type and scrambled it to make a 
+      type specimen book.
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-tabpane {
+  white-space: nowrap; /* keep groups on a single line */
+}
+.wj-group {
+  display: inline-block;
+  border-right: 1px solid #eee;
+  padding: 3px 6px 0 3px;
+}
+.wj-group &gt;.wj-header {
+  text-align: center;
+  background: transparent;
+  font-weight: normal;
+  font-size: 80%;
+  margin-top: 6px;
+}
+.wj-group &gt;.wj-content {
+  border: none;
+  height: 5.5em;
+  overflow: visible;
+}
+.wj-group .wj-column {
+  display: inline-block;
+  vertical-align: top;
+}
+.wj-group .wj-row {
+  margin-bottom: 2px;
+}
+.wj-control .wj-group .wj-content .wj-btn {
+  font-weight: normal;
+  padding: 5px 12px;
+}
+.wj-group .wj-content .wj-btn.wj-btn-large {
+  padding: 2em 1.5em;
+}
+.wj-group .material-icons {
+  font-size: 110%;
+  padding-top: 2px;
+  pointer-events: none;
+}
+.wj-group .wj-dropdown {
+  width: 10em;
+  border: none;
+  background: #eee;
+}
+
+/* hide ribbon content */
+.wj-tabpanel.hide-content .wj-tabpanes {
+    height: 0;
+    transition: height linear 400ms;
+}
+
+#editor {
+  height: 300px;
+  overflow: auto;
+  padding: 12px;
+  background: #ffe;
+  border: 1px solid #ccc;
+}
+
+boady {
+  margin-bottom: 36pt;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.nav.min.js" target="_blank">wijmo.nav.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

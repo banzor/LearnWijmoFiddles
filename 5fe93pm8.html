@@ -1,0 +1,184 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Menu - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "5fe93pm8";
+        var show_src = "//fiddle.jshell.net/Wijmo5/5fe93pm8/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/5fe93pm8/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/5fe93pm8/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=5fe93pm8" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// create file and edit menus
+  var menuFile = createMenu(&#39;menuFile&#39;);
+  menuFile.itemClicked.addHandler(menuClick);
+  var menuEdit = createMenu(&#39;menuEdit&#39;);
+	menuEdit.itemClicked.addHandler(menuClick);
+
+	// use the same event handler for both
+  function menuClick(s, e) {
+  	var msg = wijmo.format(&#39;You selected option **{selectedIndex}** from menu **{header}**&#39;, s);
+    alert(msg);
+	}
+
+	// create menu from markup
+  function createMenu(elementId) {
+
+  	// get host element, header, items
+    var host = document.getElementById(elementId);
+    var header = host.firstChild.textContent.trim();
+    var items = host.querySelectorAll(&#39;div&#39;);
+    var menuItems = [];
+    for (var i = 0; i &lt; items.length; i++) {
+    	var item = items[i];
+      menuItems.push(item.outerHTML);
+		}
+
+		// clear host and instantiate menu
+    host.innerHTML = &#39;&#39;;
+    var menu = new wijmo.input.Menu(host, {
+    	header: header,
+      itemsSource: menuItems
+		});
+
+    // done, return menu
+    return menu;
+	}
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Menu
+  &lt;/h1&gt;
+
+  &lt;p&gt;
+    The Menu control extends the ComboBox to add features 
+    like a non-editable header, an &lt;b&gt;itemClicked&lt;/b&gt; event,
+    and commands.&lt;/p&gt;
+  &lt;p&gt;
+    The simplest way to use the Menu control is by populating
+    the Menu via its &lt;b&gt;itemsSource&lt;/b&gt; property and handling 
+    the &lt;b&gt;itemClicked&lt;/b&gt; event. The event handler can inspect
+    the menu&#39;s &lt;b&gt;selectedItem&lt;/b&gt; property to determine which
+    item was clicked and take the appropriate action.&lt;/p&gt;
+
+  &lt;div id=&quot;menuFile&quot;&gt;
+    File
+    &lt;div&gt;
+      &lt;span class=&quot;glyphicon glyphicon-asterisk&quot;&gt;&lt;/span&gt;&amp;nbsp;&amp;nbsp;
+      &lt;b&gt;New&lt;/b&gt;
+      &lt;br&gt;
+      &lt;small&gt;&lt;i&gt;create a new file&lt;/i&gt;&lt;/small&gt;&lt;/div&gt;
+    &lt;div&gt;
+      &lt;span class=&quot;glyphicon glyphicon-folder-open&quot;&gt;&lt;/span&gt;&amp;nbsp;&amp;nbsp;
+      &lt;b&gt;Open&lt;/b&gt;
+      &lt;br&gt;
+      &lt;small&gt;&lt;i&gt;open an existing file or folder&lt;/i&gt;&lt;/small&gt;&lt;/div&gt;
+    &lt;div&gt;
+      &lt;span class=&quot;glyphicon glyphicon-floppy-disk&quot;&gt;&lt;/span&gt;&amp;nbsp;&amp;nbsp;
+      &lt;b&gt;Save&lt;/b&gt;
+      &lt;br&gt;
+      &lt;small&gt;&lt;i&gt;save the current file&lt;/i&gt;&lt;/small&gt;&lt;/div&gt;
+    &lt;div class=&quot;wj-separator&quot;&gt;&lt;/div&gt;
+    &lt;div&gt;
+      &lt;span class=&quot;glyphicon glyphicon-remove&quot;&gt;&lt;/span&gt;&amp;nbsp;&amp;nbsp;
+      &lt;b&gt;Exit&lt;/b&gt;
+      &lt;br&gt;
+      &lt;small&gt;&lt;i&gt;exit the application&lt;/i&gt;&lt;/small&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div id=&quot;menuEdit&quot;&gt;
+    Edit
+    &lt;div&gt;
+      &lt;span class=&quot;glyphicon glyphicon-scissors&quot;&gt;&lt;/span&gt;&amp;nbsp;&amp;nbsp;
+      &lt;b&gt;Cut&lt;/b&gt;
+      &lt;br&gt;
+      &lt;small&gt;&lt;i&gt;move the current selection to the clipboard&lt;/i&gt;&lt;/small&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+      &lt;span class=&quot;glyphicon glyphicon-copy&quot;&gt;&lt;/span&gt;&amp;nbsp;&amp;nbsp;
+      &lt;b&gt;Copy&lt;/b&gt;
+      &lt;br&gt;
+      &lt;small&gt;&lt;i&gt;copy the current selection to the clipboard&lt;/i&gt;&lt;/small&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+      &lt;span class=&quot;glyphicon glyphicon-paste&quot;&gt;&lt;/span&gt;&amp;nbsp;&amp;nbsp;
+      &lt;b&gt;Paste&lt;/b&gt;
+      &lt;br&gt;
+      &lt;small&gt;&lt;i&gt;insert clipboard content at the cursor position&lt;/i&gt;&lt;/small&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-dropdown {
+  margin-bottom: 18px;
+}
+
+body {
+  margin-bottom: 24pt;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

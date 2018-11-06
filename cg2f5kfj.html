@@ -1,0 +1,186 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Custom Aggregates - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "cg2f5kfj";
+        var show_src = "//fiddle.jshell.net/Wijmo5/cg2f5kfj/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/cg2f5kfj/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/cg2f5kfj/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=cg2f5kfj" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function () {
+
+  // generate some random data
+  var countries = &#39;US,Germany,UK,Japan,Italy,Greece&#39;.split(&#39;,&#39;),
+  		products = &#39;Phones,Computers,Cameras,Stereos&#39;.split(&#39;,&#39;),
+      data = [];
+  for (var i = 0; i &lt; 200; i++) {
+    data.push({
+    	id: i,
+      country: countries[i % countries.length],
+      product: products[i % products.length],
+      sales: Math.random() * 10000,
+      expenses: Math.random() * 5000,
+    });
+	}
+
+	// create a group to show the grand totals
+	var grandTotalsGroup = new wijmo.collections.PropertyGroupDescription(&#39;Grand Total&#39;, 
+  	function(item, propName) {
+       return &#39;&#39;;
+    }
+	);  
+
+	// grid with custom aggregates
+  var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+  	autoGenerateColumns: false,
+	  columns: [ // column definitions with aggregates
+  		{ binding: &#39;id&#39;, header: &#39;ID&#39;, width: 60, isReadOnly: true },
+    	{ binding: &#39;country&#39;, header: &#39;Country&#39; },
+    	{ binding: &#39;product&#39;, header: &#39;Product&#39; },
+    	{ binding: &#39;sales&#39;, header: &#39;Sales&#39;, aggregate: &#39;Sum&#39; },
+    	{ binding: &#39;expenses&#39;, header: &#39;Expenses&#39;, aggregate: &#39;Sum&#39; },
+      { binding: &#39;profit&#39;, header: &#39;Profit&#39;, dataType: &#39;Number&#39;, isReadOnly: true }
+  	],
+    itemsSource: new wijmo.collections.CollectionView(data, {
+    	groupDescriptions: [
+      	grandTotalsGroup,
+        &#39;country&#39;
+      ]
+    })
+  });
+  
+  // start collapsed
+	theGrid.collapseGroupsToLevel(1);
+  
+  // custom cell calculation
+  theGrid.formatItem.addHandler(function(s, e) {
+  
+  	// cells and column footer panels only
+    if (e.panel == s.cells) {
+
+			// get row, column, and data item (or group description)
+			var r = s.rows[e.row];
+      var c = s.columns[e.col];
+      var item = s.rows[e.row].dataItem;
+			var group = r instanceof wijmo.grid.GroupRow ? item : null;
+      
+      // assume value is not negative
+      var negative = false;
+
+			// calculate profit
+      if (c.binding == &#39;profit&#39;) {
+	      var profit = group
+  	    	? group.getAggregate(&#39;Sum&#39;, &#39;sales&#39;) - group.getAggregate(&#39;Sum&#39;, &#39;expenses&#39;)
+    	    : item.sales - item.expenses;
+        e.cell.textContent = wijmo.Globalize.format(profit, c.format);
+        negative = profit &lt; 0;
+      }
+
+			// update &#39;negative&#39; class on cell
+			wijmo.toggleClass(e.cell, &#39;negative&#39;, negative);
+    }
+    
+  });
+}</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Custom Aggregates&lt;/h1&gt;
+  &lt;p&gt;
+    The FlexGrid columns have an &lt;b&gt;aggregate&lt;/b&gt; property that
+    allows you to show data summaries for the whole grid or
+    for each group.&lt;/p&gt;
+  &lt;p&gt;
+    In some cases, however, the &lt;b&gt;aggregate&lt;/b&gt; property is 
+    not flexible enough, and you may need to calculate
+    aggregates using custom code.&lt;/p&gt;
+  &lt;p&gt;
+    The grid below includes a &#39;Profit&#39; column that shows
+    the difference between &#39;Sales&#39; and &#39;Expenses&#39;.&lt;/p&gt;
+  &lt;p&gt;
+    The &#39;Profit&#39; column is calculated in the &lt;b&gt;formatItem&lt;/b&gt;
+    event. The profit for regular data items is based on
+    the actual data items. The profit for groups is calculated
+    using the group&#39;s &lt;b&gt;getAggregate&lt;/b&gt; method.&lt;/p&gt;    
+  &lt;div id=&quot;theGrid&quot;&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 250px;
+  margin: 10px 0;
+}
+.wj-cell.wj-frozen-row {
+    border-bottom: none;
+}
+.negative {
+  color: red;
+}
+body {
+  margin-bottom: 20px;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

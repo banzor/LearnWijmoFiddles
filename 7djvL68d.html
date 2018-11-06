@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Tooltips - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "7djvL68d";
+        var show_src = "//fiddle.jshell.net/Wijmo5/7djvL68d/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/7djvL68d/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/7djvL68d/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=7djvL68d" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	var tt = new wijmo.Tooltip();
+	tt.setTooltip(&#39;#setTooltip&#39;, &#39;#setTooltipDocs&#39;);
+	tt.setTooltip(&#39;#theSpan&#39;, &#39;This is the &lt;b&gt;first&lt;/b&gt; span.&#39;);
+	tt.setTooltip(&#39;#theOtherSpan&#39;, &#39;This is the &lt;b&gt;second&lt;/b&gt; span.&#39;);
+	tt.setTooltip(&#39;#btnAddNew&#39;, &#39;Click to add 1,000 items using the &lt;b&gt;addNew&lt;/b&gt; method.&#39;);
+	tt.setTooltip(&#39;#btnPush&#39;, &#39;Click to add 1,000 items using the &lt;b&gt;push&lt;/b&gt; method.&#39;);
+	tt.setTooltip(&#39;#btnPushDefer&#39;, &#39;Click to add 1,000 items using the &lt;b&gt;push&lt;/b&gt; method&lt;br&gt;within a &lt;b&gt;deferUpdate&lt;/b&gt; block.&#39;);
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Tooltips
+  &lt;/h1&gt;
+  &lt;p&gt;
+    Tooltips are provided by the Wijmo core. They are not controls,
+    but popups containing HTML that appear when the mouse hovers
+    over designated elements.&lt;/p&gt;
+  &lt;p&gt;
+    You can associate a tooltip with one or more elements on the
+    page using the &lt;b id=&quot;setTooltip&quot;&gt;Tooltip.setTooltip&lt;/b&gt; method.&lt;/p&gt;
+  &lt;p&gt;
+    And this paragraph has a &lt;b id=&quot;theSpan&quot;&gt;span with a tooltip&lt;/b&gt;
+    and another &lt;i id=&quot;theOtherSpan&quot;&gt;span with a different tooltip&lt;/i&gt;.&lt;/p&gt;
+  &lt;p&gt;
+    The buttons below also have tooltips:&lt;/p&gt;
+  &lt;button id=&quot;btnAddNew&quot; class=&quot;btn btn-default&quot;&gt;
+    addNew
+  &lt;/button&gt;
+  &lt;br&gt;
+  &lt;button id=&quot;btnPush&quot; class=&quot;btn btn-default&quot;&gt;
+    push
+  &lt;/button&gt;
+  &lt;br&gt;
+  &lt;button id=&quot;btnPushDefer&quot; class=&quot;btn btn-default&quot;&gt;
+    push + defer updates
+  &lt;/button&gt;
+  
+  &lt;div style=&quot;display:none&quot;&gt;
+    &lt;div id=&quot;setTooltipDocs&quot;&gt;
+      &lt;p&gt;
+        The &lt;b&gt;setTooltip&lt;/b&gt; method a ssigns tooltip content to given elements on the page.
+      &lt;/p&gt;
+      &lt;p&gt;
+         The same tooltip may be used to display information for any number
+         of elements on the page. To remove the tooltip from an element, 
+         call the &lt;b&gt;setTooltip&lt;/b&gt; method and specify null for the content.
+      &lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.btn {
+  margin: 4px;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

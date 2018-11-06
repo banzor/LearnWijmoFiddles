@@ -1,0 +1,199 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Axis Origin and Position - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "b5vzbu34";
+        var show_src = "//fiddle.jshell.net/Wijmo5/b5vzbu34/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/b5vzbu34/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/b5vzbu34/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=b5vzbu34" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // create the chart
+  var theChart = new wijmo.chart.FlexChart(&#39;#theChart&#39;, {
+    chartType: &#39;Scatter&#39;,
+    axisY: {
+      axisLine: true,
+    },
+    legend: {
+    	position: &#39;None&#39;
+    },
+    series: [
+    	{
+      	name: &#39;Experiment 1&#39;, 
+        itemsSource: getData(50, 0, 3),
+        bindingX: &#39;x&#39;,
+        binding: &#39;y&#39; },
+    	{
+      	name: &#39;Experiment 2&#39;,
+        itemsSource: getData(40, 100, 12),
+        bindingX: &#39;x&#39;, 
+        binding: &#39;y&#39; },
+    	{
+      	name: &#39;Experiment 3&#39;,
+        itemsSource: getData(30, -100, 24),
+        bindingX: &#39;x&#39;, 
+        binding: &#39;y&#39; },
+    ]
+  });
+  
+  // change axis postion and origin
+  var xPos = new wijmo.input.ComboBox(&#39;#xPosition&#39;, {
+  	itemsSource: &#39;None,Top,Bottom,Auto&#39;.split(&#39;,&#39;),
+    textChanged: function(s, e) {
+    	theChart.axisX.position = s.text;
+    },
+    text: &#39;Bottom&#39;
+  });
+  document.getElementById(&#39;xOrigin&#39;).addEventListener(&#39;click&#39;, function(e) {
+  	theChart.axisX.origin = e.target.checked ? 0 : null;
+  });
+
+	var yPos = new wijmo.input.ComboBox(&#39;#yPosition&#39;, {
+  	itemsSource: &#39;None,Left,Right,Auto&#39;.split(&#39;,&#39;),
+    textChanged: function(s, e) {
+    	theChart.axisY.position = s.text;
+    },
+    text: &#39;Left&#39;
+  });
+  document.getElementById(&#39;yOrigin&#39;).addEventListener(&#39;click&#39;, function(e) {
+  	theChart.axisY.origin = e.target.checked ? 0 : null;
+  });
+  
+	// data sources
+  function getData(cnt, a, b) {
+  	var arr = [],
+    	  x = -5 * cnt / 2;
+    for (i = 0; i &lt; cnt; i++) {
+    	var rnd = Math.random() * cnt - cnt / 2;
+    	arr.push({
+      	x: x,
+        y: a + x * (b + rnd) + rnd
+      });
+      x += .5 + Math.random() * 10;
+    }
+    return arr;
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Axis Origin and Position&lt;/h1&gt;
+  &lt;p&gt;
+    By default the FlexChart places the X axis at the bottom of 
+    the plot area and the Y axis on the left. This keeps the
+    axes outside the plot area and away from the data.&lt;/p&gt;
+  &lt;p&gt;
+    You can change this default behavior using two properties:&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;
+      &lt;b&gt;position&lt;/b&gt;: Specifies the position of the axis as
+      None, Left, Top, Right, Bottom, or Auto.&lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;origin&lt;/b&gt;: Specifies the value where the axis 
+      crosses its perpendicular axis. If speficied, 
+      &lt;b&gt;origin&lt;/b&gt; takes precendence over 
+      &lt;b&gt;position&lt;/b&gt;.&lt;/li&gt;
+  &lt;/ul&gt;    
+  &lt;div class=&quot;row&quot;&gt;
+    &lt;div class=&quot;col-xs-6&quot;&gt;
+      &lt;label&gt;X Axis&lt;/label&gt;&lt;br/&gt;
+      &lt;label for=&quot;xOrigin&quot;&gt;Origin at Zero: &lt;/label&gt;
+      &lt;input id=&quot;xOrigin&quot; type=&quot;checkbox&quot;&gt;&lt;br/&gt;
+      &lt;label for=&quot;xPosition&quot;&gt;Position: &lt;/label&gt;
+      &lt;div id=&quot;xPosition&quot;&gt;&lt;/div&gt;&lt;br/&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;col-xs-6&quot;&gt;
+      &lt;label&gt;Y Axis&lt;/label&gt;&lt;br/&gt;
+      &lt;label for=&quot;yOrigin&quot;&gt;Origin at Zero: &lt;/label&gt;
+      &lt;input id=&quot;yOrigin&quot; type=&quot;checkbox&quot;&gt;&lt;br/&gt;
+      &lt;label for=&quot;yPosition&quot;&gt;Position: &lt;/label&gt;
+      &lt;div id=&quot;yPosition&quot;&gt;&lt;/div&gt;&lt;br/&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  
+  &lt;div id=&quot;theChart&quot;&gt;&lt;/div&gt;
+  
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexchart {
+  height: 300px;
+  margin: 10px 0;
+}
+label {
+  width: 120px;
+  text-align: right;
+}
+.row .wj-combobox {
+  width: 100px;
+}
+body {
+  margin-bottom: 24pt;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.chart.min.js" target="_blank">wijmo.chart.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

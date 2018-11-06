@@ -1,0 +1,343 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Server-side Data (OLAP Cube, Specific Fields) - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "poey8tr9";
+        var show_src = "//fiddle.jshell.net/Wijmo5/poey8tr9/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/poey8tr9/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/poey8tr9/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=poey8tr9" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // initialize pivot engine
+  var ngCube = new wijmo.olap.PivotEngine({
+
+    // specify the fields to use (no auto-generate)
+    autoGenerateFields: false,
+    fields: [{
+        header: &quot;Customer&quot;,
+        dataType: 0,
+        aggregate: 2,
+        format: &quot;n0&quot;,
+        subFields: [{
+          header: &quot;Location&quot;,
+          dataType: 0,
+          aggregate: 2,
+          format: &quot;n0&quot;,
+          dimensionType: 5,
+          subFields: [{
+              binding: &quot;[Customer].[Country]&quot;,
+              header: &quot;Country&quot;,
+              dataType: 1,
+              aggregate: 2,
+              format: &quot;n0&quot;,
+              key: &quot;[Customer].[Country]&quot;,
+              dimensionType: 6
+            },
+            {
+              binding: &quot;[Customer].[State-Province]&quot;,
+              header: &quot;State-Province&quot;,
+              dataType: 1,
+              aggregate: 2,
+              format: &quot;n0&quot;,
+              key: &quot;[Customer].[State-Province]&quot;,
+              dimensionType: 6
+            }
+          ]
+        }]
+      },
+      {
+        header: &quot;Internet Sales&quot;,
+        dataType: 2,
+        aggregate: 1,
+        format: &quot;n0&quot;,
+        dimensionType: 1,
+        subFields: [{
+            binding: &quot;[Measures].[Internet Sales Amount]&quot;,
+            header: &quot;Internet Sales Amount&quot;,
+            dataType: 2,
+            aggregate: 1,
+            format: &quot;n0&quot;,
+            key: &quot;[Measures].[Internet Sales Amount]&quot;,
+            dimensionType: 1
+          },
+          {
+            binding: &quot;[Measures].[Internet Order Quantity]&quot;,
+            header: &quot;Internet Order Quantity&quot;,
+            dataType: 2,
+            aggregate: 1,
+            format: &quot;n0&quot;,
+            key: &quot;[Measures].[Internet Order Quantity]&quot;,
+            dimensionType: 1
+          },
+          {
+            binding: &quot;[Measures].[Internet Extended Amount]&quot;,
+            header: &quot;Internet Extended Amount&quot;,
+            dataType: 2,
+            aggregate: 1,
+            format: &quot;n0&quot;,
+            key: &quot;[Measures].[Internet Extended Amount]&quot;,
+            dimensionType: 1
+          },
+          {
+            binding: &quot;[Measures].[Internet Tax Amount]&quot;,
+            header: &quot;Internet Tax Amount&quot;,
+            dataType: 2,
+            aggregate: 1,
+            format: &quot;n0&quot;,
+            key: &quot;[Measures].[Internet Tax Amount]&quot;,
+            dimensionType: 1
+          },
+          {
+            binding: &quot;[Measures].[Internet Freight Cost]&quot;,
+            header: &quot;Internet Freight Cost&quot;,
+            dataType: 2,
+            aggregate: 1,
+            format: &quot;n0&quot;,
+            key: &quot;[Measures].[Internet Freight Cost]&quot;,
+            dimensionType: 1
+          },
+          {
+            binding: &quot;[Measures].[Internet Total Product Cost]&quot;,
+            header: &quot;Internet Total Product Cost&quot;,
+            dataType: 2,
+            aggregate: 1,
+            format: &quot;n0&quot;,
+            key: &quot;[Measures].[Internet Total Product Cost]&quot;,
+            dimensionType: 1
+          },
+          {
+            binding: &quot;[Measures].[Internet Standard Product Cost]&quot;,
+            header: &quot;Internet Standard Product Cost&quot;,
+            dataType: 2,
+            aggregate: 1,
+            format: &quot;n0&quot;,
+            key: &quot;[Measures].[Internet Standard Product Cost]&quot;,
+            dimensionType: 1
+          },
+          {
+            binding: &quot;[Measures].[Internet Gross Profit]&quot;,
+            header: &quot;Internet Gross Profit&quot;,
+            dataType: 2,
+            aggregate: 1,
+            format: &quot;n0&quot;,
+            key: &quot;[Measures].[Internet Gross Profit]&quot;,
+            dimensionType: 1
+          },
+          {
+            binding: &quot;[Measures].[Internet Gross Profit Margin]&quot;,
+            header: &quot;Internet Gross Profit Margin&quot;,
+            dataType: 2,
+            aggregate: 1,
+            format: &quot;n0&quot;,
+            key: &quot;[Measures].[Internet Gross Profit Margin]&quot;,
+            dimensionType: 1
+          },
+          {
+            binding: &quot;[Measures].[Internet Average Unit Price]&quot;,
+            header: &quot;Internet Average Unit Price&quot;,
+            dataType: 2,
+            aggregate: 1,
+            format: &quot;n0&quot;,
+            key: &quot;[Measures].[Internet Average Unit Price]&quot;,
+            dimensionType: 1
+          },
+          {
+            binding: &quot;[Measures].[Internet Average Sales Amount]&quot;,
+            header: &quot;Internet Average Sales Amount&quot;,
+            dataType: 2,
+            aggregate: 1,
+            format: &quot;n0&quot;,
+            key: &quot;[Measures].[Internet Average Sales Amount]&quot;,
+            dimensionType: 1
+          },
+        ]
+      },
+      {
+        header: &quot;Product&quot;,
+        dataType: 0,
+        aggregate: 2,
+        format: &quot;n0&quot;,
+        dimensionType: 0,
+        subFields: [{
+            binding: &quot;[Product].[Category]&quot;,
+            header: &quot;Category&quot;,
+            dataType: 1,
+            aggregate: 2,
+            format: &quot;n0&quot;,
+            key: &quot;[Product].[Category]&quot;,
+            dimensionType: 6
+          },
+          {
+            binding: &quot;[Product].[Model Name]&quot;,
+            header: &quot;Model Name&quot;,
+            dataType: 1,
+            aggregate: 2,
+            format: &quot;n0&quot;,
+            key: &quot;[Product].[Model Name]&quot;,
+            dimensionType: 6
+          },
+          {
+            binding: &quot;[Product].[Product]&quot;,
+            header: &quot;Product&quot;,
+            dataType: 1,
+            aggregate: 2,
+            format: &quot;n0&quot;,
+            key: &quot;[Product].[Product]&quot;,
+            dimensionType: 6
+          },
+          {
+            binding: &quot;[Product].[Product Line]&quot;,
+            header: &quot;Product Line&quot;,
+            dataType: 1,
+            aggregate: 2,
+            format: &quot;n0&quot;,
+            key: &quot;[Product].[Product Line]&quot;,
+            dimensionType: 6
+          },
+          {
+            binding: &quot;[Product].[Style]&quot;,
+            header: &quot;Style&quot;,
+            dataType: 1,
+            aggregate: 2,
+            format: &quot;n0&quot;,
+            key: &quot;[Product].[Style]&quot;,
+            dimensionType: 6
+          }
+        ]
+      }
+    ],
+
+    // build default view
+    valueFields: [ &#39;[Measures].[Internet Sales Amount]&#39; ],
+    rowFields: [ &#39;[Customer].[Country]&#39; ],
+
+    // connect to cube
+    itemsSource: {
+      url: &#39;https://ssrs.componentone.com/OLAP/msmdpump.dll&#39;,
+      cube: &#39;Adventure Works&#39;
+    }
+  });
+
+  // show pivot panel
+  var pivotPanel = new wijmo.olap.PivotPanel(&#39;#pivotPanel&#39;, {
+    itemsSource: ngCube
+  });
+
+  // show summary
+  var pivotGrid = new wijmo.olap.PivotGrid(&#39;#pivotGrid&#39;, {
+    itemsSource: ngCube
+  });
+
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Server-side Data (OLAP Cube, Specific Fields)
+  &lt;/h1&gt;
+  &lt;p&gt;
+    This sample connects to the AdventureWorks OLAP cube
+    and specifies which fields should be loaded.
+  &lt;/p&gt;
+  &lt;p&gt;  
+    This reduces loading time and makes the &lt;b&gt;PivotPanel&lt;/b&gt;
+    easier to navigate and use (there are over 230 fields
+    in the full cube!)
+  &lt;/p&gt;
+  &lt;p&gt;
+    For more details on using &lt;b&gt;wijmo.olap&lt;/b&gt; with SASS cubes
+    and other data sources, plase see our blog
+    &lt;a href=&quot;https://www.grapecity.com/en/blogs/wijmo-olap-and-microsoft-ssas-cubes&quot; target=&quot;_blank&quot;&gt;Connect directly to Microsoft SSAS Cubes with Wijmo OLAP&lt;/a&gt;.
+  &lt;/p&gt;
+  &lt;div class=&quot;row&quot;&gt;
+    &lt;div class=&quot;col-xs-6&quot;&gt;
+      &lt;p&gt;
+        Drag and drop fields to build views:
+      &lt;/p&gt;
+      &lt;div id=&quot;pivotPanel&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;col-xs-6&quot;&gt;
+      &lt;p&gt;
+        Summary for the current view definition:
+      &lt;/p&gt;
+      &lt;div id=&quot;pivotGrid&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 400px;
+}
+
+body {
+  margin-bottom: 24pt;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.filter.min.js" target="_blank">wijmo.grid.filter.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.olap.min.js" target="_blank">wijmo.olap.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

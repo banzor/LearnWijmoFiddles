@@ -1,0 +1,281 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Draggable Dialogs - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "f344L1b8";
+        var show_src = "//fiddle.jshell.net/Wijmo5/f344L1b8/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/f344L1b8/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/f344L1b8/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=f344L1b8" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // create forms
+  var frmLogin = createDialog(&#39;#frmLogin&#39;);
+  var frmCreateAccount = createDialog(&#39;#frmCreateAccount&#39;);
+  var frmEditAccount = createDialog(&#39;#frmEditAccount&#39;);
+  
+  // create dialogs with transition effects
+  function createDialog(selector) {
+  	var host = wijmo.getElement(selector);
+	  return new wijmo.input.Popup(host, {
+    	isDraggable: true
+  	});
+  }
+
+
+  // show forms
+  document.getElementById(&#39;btnLogin&#39;).addEventListener(&#39;click&#39;, function() {
+    frmLogin.show(true, function(sender) {
+      switch (sender.dialogResult) {
+        case &#39;submit&#39;:
+          alert(&#39;form submitted&#39;);
+          break;
+        case &#39;wj-hide-create&#39;:
+          btnCreateAccount.click(); // open the Create Account form
+          break;
+      }
+    });
+  });
+  document.getElementById(&#39;btnCreateAccount&#39;).addEventListener(&#39;click&#39;, function() {
+    frmCreateAccount.show(true, function(sender) {
+      if (sender.dialogResult == &#39;submit&#39;) {
+        alert(&#39;form submitted&#39;);
+      }
+    });
+  });
+  document.getElementById(&#39;btnEditAccount&#39;).addEventListener(&#39;click&#39;, function() {
+    frmEditAccount.show(true, function(sender) {
+      if (sender.dialogResult == &#39;submit&#39;) {
+        alert(&#39;form submitted&#39;);
+      }
+    });
+  });
+
+  // validate the form but don&#39;t submit
+  document.body.addEventListener(&#39;submit&#39;, function(e) {
+    e.preventDefault(); // don&#39;t submit
+    if (e.target.checkValidity()) {
+      var dlg = wijmo.Control.getControl(e.target);
+      dlg.hide(&#39;submit&#39;); // close the dialog passing a dialogResult
+    }
+  });
+
+  // validate password/new password confirmation
+  ensureSameValue(&#39;password&#39;, &#39;confirm&#39;);
+  ensureSameValue(&#39;newPassword&#39;, &#39;newConfirm&#39;);
+  function ensureSameValue(f1, f2) {
+    var inputs = [document.getElementById(f1), document.getElementById(f2)];
+    inputs.forEach(function(input) {
+      input.addEventListener(&#39;input&#39;, function(e) {
+        var err = inputs[0].value != inputs[1].value ? &#39;Passwords don\&#39;t match.&#39; : &#39;&#39;;
+        inputs[1].setCustomValidity(err);
+      });
+    })
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Draggable Dialogs
+  &lt;/h1&gt;
+  &lt;p&gt;
+    Use the Popup&#39;s &lt;b&gt;isDraggable&lt;/b&gt; property to make dialogs
+    draggable..&lt;/p&gt;
+  &lt;p&gt;
+    To be draggable, popups must contain an element with the 
+    &quot;.wj-dialog-header&quot; class.&lt;/p&gt;
+
+  &lt;button id=&quot;btnLogin&quot; class=&quot;btn btn-primary&quot;&gt;
+    Log In
+  &lt;/button&gt;
+
+  &lt;button id=&quot;btnCreateAccount&quot; class=&quot;btn btn-primary&quot;&gt;
+    Create Account
+  &lt;/button&gt;
+
+  &lt;button id=&quot;btnEditAccount&quot; class=&quot;btn btn-primary&quot;&gt;
+    Edit Account
+  &lt;/button&gt;
+
+  &lt;!-- Log In form --&gt;
+  &lt;form id=&quot;frmLogin&quot;&gt;
+    &lt;div class=&quot;wj-dialog-header&quot;&gt;
+            Log in
+            &lt;button type=&quot;button&quot; tabindex=&quot;-1&quot; class=&quot;close wj-hide&quot;&gt;&amp;times;&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;wj-dialog-body&quot;&gt;
+      &lt;label&gt;
+        Email:
+        &lt;input class=&quot;form-control&quot; required type=&quot;email&quot; /&gt;
+      &lt;/label&gt;
+      &lt;br /&gt;
+      &lt;label&gt;
+        Password:
+        &lt;input class=&quot;form-control&quot; type=&quot;password&quot; required pattern=&quot;.{4,}&quot; title=&quot;Please enter 4 characters or more.&quot; /&gt;
+      &lt;/label&gt;
+      &lt;br /&gt;
+      &lt;label&gt;
+        Remember Me
+        &lt;input type=&quot;checkbox&quot; /&gt;
+      &lt;/label&gt;
+      &lt;br /&gt;
+      &lt;a href=&quot;&quot; class=&quot;wj-hide-create&quot;&gt;Don&#39;t have an account yet?&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;wj-dialog-footer&quot;&gt;
+      &lt;button class=&quot;btn btn-primary&quot; type=&quot;submit&quot;&gt;
+        Log in
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+
+  &lt;!-- Create Account form --&gt;
+  &lt;form id=&quot;frmCreateAccount&quot;&gt;
+    &lt;div class=&quot;wj-dialog-header&quot;&gt;
+      Create Account
+      &lt;button type=&quot;button&quot; tabindex=&quot;-1&quot; class=&quot;close wj-hide&quot; &gt;&amp;times;&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;wj-dialog-body&quot;&gt;
+      &lt;label&gt;
+        Name:
+        &lt;input id=&quot;name&quot; class=&quot;form-control&quot; required pattern=&quot;.{2,}&quot; title=&quot;Please enter 2 characters or more.&quot; /&gt;
+      &lt;/label&gt;
+      &lt;br /&gt;
+      &lt;label&gt;
+        Email:
+        &lt;input id=&quot;email&quot; class=&quot;form-control&quot; type=&quot;email&quot; required/&gt;
+      &lt;/label&gt;
+      &lt;br /&gt;
+      &lt;label&gt;
+        Password:
+        &lt;input id=&quot;password&quot; class=&quot;form-control&quot; type=&quot;password&quot; required pattern=&quot;.{4,}&quot; title=&quot;Please enter 4 characters or more.&quot; /&gt;
+      &lt;/label&gt;
+      &lt;br /&gt;
+      &lt;label&gt;
+        Confirm Password:
+        &lt;input id=&quot;confirm&quot; class=&quot;form-control&quot; type=&quot;password&quot; /&gt;
+      &lt;/label&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;wj-dialog-footer&quot;&gt;
+      &lt;button class=&quot;btn btn-primary&quot; type=&quot;submit&quot;&gt;
+        Create Account
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+
+  &lt;!-- Edit Account form --&gt;
+  &lt;form id=&quot;frmEditAccount&quot;&gt;
+    &lt;div class=&quot;wj-dialog-header&quot;&gt;
+      Edit Account
+      &lt;button type=&quot;button&quot; tabindex=&quot;-1&quot; class=&quot;close wj-hide&quot;&gt;&amp;times;&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;wj-dialog-body&quot;&gt;
+      &lt;label&gt;
+        Email:
+        &lt;input id=&quot;email&quot; class=&quot;form-control&quot; required type=&quot;email&quot; /&gt;
+      &lt;/label&gt;
+      &lt;br /&gt;
+      &lt;label&gt;
+        Current Password:
+        &lt;input id=&quot;password&quot; class=&quot;form-control&quot; type=&quot;password&quot; required pattern=&quot;.{4,}&quot; title=&quot;Please enter 4 characters or more.&quot; /&gt;
+      &lt;/label&gt;
+      &lt;br /&gt;
+      &lt;label&gt;
+        New Name:
+        &lt;input id=&quot;newName&quot; class=&quot;form-control&quot; required pattern=&quot;.{2,}&quot; title=&quot;Please enter 2 characters or more.&quot; /&gt;
+      &lt;/label&gt;
+      &lt;br /&gt;
+      &lt;label&gt;
+        New Password:
+        &lt;input id=&quot;newPassword&quot; class=&quot;form-control&quot; type=&quot;password&quot; required pattern=&quot;.{4,}&quot; title=&quot;Please enter 4 characters or more.&quot; /&gt;
+      &lt;/label&gt;
+      &lt;br /&gt;
+      &lt;label&gt;
+        Confirm New Password:
+        &lt;input id=&quot;newConfirm&quot; class=&quot;form-control&quot; type=&quot;password&quot; /&gt;
+      &lt;/label&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;wj-dialog-footer&quot;&gt;
+      &lt;button class=&quot;btn btn-primary&quot; type=&quot;submit&quot;&gt;
+        Update Account
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.modal-body {
+  min-width: 300px;
+}
+
+input:invalid {
+  border-color: red;
+}
+
+body {
+  margin-bottom: 24pt;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

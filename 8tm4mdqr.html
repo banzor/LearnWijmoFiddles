@@ -1,0 +1,168 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Editing Events - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "8tm4mdqr";
+        var show_src = "//fiddle.jshell.net/Wijmo5/8tm4mdqr/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/8tm4mdqr/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/8tm4mdqr/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=8tm4mdqr" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // create some random data
+  var countries = &#39;US,Germany,UK,Japan,Sweden,Norway,Denmark&#39;.split(&#39;,&#39;);
+  var data = [];
+  for (var i = 0; i &lt; countries.length; i++) {
+    data.push({
+    	id: i,
+      country: countries[i],
+      sales: Math.random() * 10000,
+      expenses: Math.random() * 5000,
+      overdue: (i + 1) % 4 == 0
+    });
+  }
+
+  // show the data in a grid
+	var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+    itemsSource: data,
+    columns: [
+    	{ binding: &#39;id&#39;, header: &#39;ID&#39;, width: 50, isReadOnly: true },
+    	{ binding: &#39;country&#39;, header: &#39;Country&#39;, isRequired: true, dataMap: countries },
+    	{ binding: &#39;sales&#39;, header: &#39;Sales&#39;, format: &#39;n2&#39; },
+    	{ binding: &#39;expenses&#39;, header: &#39;Expenses&#39;, format: &#39;n2&#39; },
+    	{ binding: &#39;overdue&#39;, header: &#39;Overdue&#39; }
+    ],
+    beginningEdit: function(s, e) {
+    	var col = s.columns[e.col];
+      if (col.binding != &#39;overdue&#39;) {
+      	var item = s.rows[e.row].dataItem;
+      	if (item.overdue) { // prevent editing overdue items
+					e.cancel = true;
+        	showMessage(&#39;Overdue items cannot be edited&#39;);
+      	}
+			}
+    },
+    cellEditEnding: function(s, e) {
+			showMessage(&#39;&amp;nbsp;&#39;);
+    	var col = s.columns[e.col];
+      if (col.binding == &#39;sales&#39; || col.binding == &#39;expenses&#39;) {
+      	var value = wijmo.changeType(s.activeEditor.value, wijmo.DataType.Number, col.format);
+        if (!wijmo.isNumber(value) || value &lt; 0) { // prevent negative sales/expenses
+        	e.cancel = true;
+	        showMessage(&#39;Please enter a positive amount&#39;);
+        }
+      }
+    }
+  });
+  
+  // show log message
+  var elLog = document.getElementById(&#39;log&#39;);
+  function showMessage(msg) {
+  	elLog.innerHTML = msg;
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Editing Events
+  &lt;/h1&gt;
+  &lt;p&gt;
+    The FlexGrid has several events related to editing.&lt;/p&gt;
+  &lt;p&gt;
+    This example shows how you can use two of them:&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;
+      &lt;b&gt;beginningEdit&lt;/b&gt;:
+      Prevent editing overdue items by setting the &lt;b&gt;cancel&lt;/b&gt;
+      parameter to true.&lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;cellEditEnding&lt;/b&gt;:
+      Prevent entering negative amounts for the &#39;sales&#39; and
+      &#39;expenses&#39; columns.&lt;/li&gt;
+  &lt;/ul&gt;    
+  &lt;div id=&quot;log&quot;&gt;
+    &amp;nbsp;
+  &lt;/div&gt;
+  &lt;div id=&quot;theGrid&quot;&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 200px;
+  margin-bottom: 12px;
+}
+#log {
+  font-style: italic;
+  text-align: center;
+  margin-bottom: 10px;
+  opacity: .5;
+}
+body {
+   margin-bottom: 24px;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

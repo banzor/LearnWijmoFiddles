@@ -1,0 +1,167 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Mouse Events - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "16kyxo0n";
+        var show_src = "//fiddle.jshell.net/Wijmo5/16kyxo0n/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/16kyxo0n/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/16kyxo0n/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=16kyxo0n" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // create some random data
+  var countries = &#39;US,Germany,UK,Japan&#39;.split(&#39;,&#39;);
+  var data = [];
+  for (var i = 0; i &lt; 20; i++) {
+    data.push({
+    	id: i,
+      country: countries[i % countries.length],
+      sales: Math.random() * 10000,
+      expenses: Math.random() * 5000,
+      overdue: i % 4 == 0
+    });
+  }
+  
+  // bind a grid to the data
+  var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+    itemsSource: new wijmo.collections.CollectionView(data, {
+	  	groupDescriptions: [ &#39;country&#39; ] // group data by country
+	  }),
+    formatItem: function(s, e) {  // add &#39;button&#39; to country cells
+    	if (e.panel == s.cells) {
+      	if (s.columns[e.col].binding == &#39;country&#39;) {
+        	var html = &#39;&lt;span class=&quot;my-button&quot;&gt;&amp;#x2b24;&lt;/span&gt; &#39; + e.cell.innerHTML;
+        	e.cell.innerHTML = html;
+        }
+			}
+    }
+  });
+
+	// monitor and log mouse moves
+	var logEl = document.getElementById(&#39;log&#39;);
+  theGrid.addEventListener(theGrid.hostElement, &#39;mousemove&#39;, function(e) {
+  	var ht = theGrid.hitTest(e);
+    var logText = wijmo.format(&#39;panel &lt;b&gt;{cellType}&lt;/b&gt; row &lt;b&gt;{row}&lt;/b&gt; col &lt;b&gt;{col}&lt;/b&gt;&#39;, {
+    	cellType: wijmo.grid.CellType[ht.cellType],
+      row: ht.row,
+      col: ht.col
+    });
+    if (e.target.classList.contains(&#39;my-button&#39;)) {
+    	logText += &#39; (fake button!)&#39;;
+    } else if (e.target.tagName == &#39;INPUT&#39; &amp;&amp; e.target.type == &#39;checkbox&#39;) {
+    	logText += &#39; (checkbox!)&#39;;
+    } else if (ht.panel == theGrid.cells) {
+    	if (theGrid.rows[ht.row] instanceof wijmo.grid.GroupRow) {
+	    	logText += &#39; (group row)&#39;;
+      } else {
+	    	logText += &#39; (value: &lt;b&gt;&#39; + theGrid.cells.getCellData(ht.row, ht.col, true) + &#39;&lt;/b&gt;)&#39;;
+      }
+    }
+    logEl.innerHTML = logText;
+  });
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Mouse Events&lt;/h1&gt;
+  &lt;p&gt;
+    To handle mouse events, add a listener to the grid&#39;s 
+    &lt;b&gt;hostElement&lt;/b&gt; and use the &lt;b&gt;hitTest&lt;/b&gt; method
+    to determine which grid panel and cell were clicked.&lt;/p&gt;
+  &lt;p&gt;
+    The grid below has a handler attached to the &#39;mousemove&#39;
+    event, and shows information about the element under
+    the mouse.&lt;/p&gt;
+  &lt;div id=&quot;log&quot;&gt;
+    please move the mouse over the grid
+  &lt;/div&gt;
+  &lt;div id=&quot;theGrid&quot;&gt;
+  &lt;/div&gt;
+  
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 220px; 
+  margin:10px;
+}
+#log {
+  font-style: italic;
+  text-align: center;
+  margin-bottom: 10px;
+  opacity: .5;
+}
+.my-button {
+  opacity: .5;
+  margin: 0 6px;
+}
+.my-button:hover {
+  color: orange;  
+}
+body {
+   margin-bottom: 24px;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

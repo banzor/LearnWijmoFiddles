@@ -1,0 +1,208 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Context Menus - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "bx7cto2u";
+        var show_src = "//fiddle.jshell.net/Wijmo5/bx7cto2u/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/bx7cto2u/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/bx7cto2u/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=bx7cto2u" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // create the menu
+  var div = document.createElement(&#39;div&#39;);
+  var menu = new wijmo.input.Menu(div, {
+    displayMemberPath: &#39;header&#39;,
+    selectedValuePath: &#39;cmd&#39;,
+    dropDownCssClass: &#39;ctx-menu&#39;,
+    itemsSource: [
+    	{ header: &#39;&lt;span class=&quot;glyphicon glyphicon-asterisk&quot;&gt;&lt;/span&gt;&amp;nbsp;&amp;nbsp;New&#39;, cmd: &#39;NEW&#39; }, 
+      { header: &#39;&lt;span class=&quot;glyphicon glyphicon-folder-open&quot;&gt;&lt;/span&gt;&amp;nbsp;&amp;nbsp;Open&#39;, cmd: &#39;OPEN&#39; }, 
+      { header: &#39;&lt;span class=&quot;glyphicon glyphicon-floppy-disk&quot;&gt;&lt;/span&gt;&amp;nbsp;&amp;nbsp;Save&#39;, cmd: &#39;SAVE&#39; },
+      { header: &#39;&lt;span class=&quot;wj-separator&quot;&gt;&lt;/span&gt;&#39; }, 
+      { header: &#39;&lt;span class=&quot;glyphicon glyphicon-remove&quot;&gt;&lt;/span&gt;&amp;nbsp;&amp;nbsp;Exit&#39;, cmd: &#39;EXIT&#39; },
+		],
+    itemClicked: function(s, e) {
+      alert(&#39;Executing **&#39; + menu.selectedValue + &#39;** for element **&#39; + menu.owner.id + &#39;**&#39;);
+    }
+  });
+
+  // use it as a context menu for one or more elements
+  var els = document.querySelectorAll(&#39;.has-ctx-menu&#39;);
+  for (var i = 0; i &lt; els.length; i++) {
+    els[i].addEventListener(&#39;contextmenu&#39;, function(e) {
+      menu.owner = wijmo.closest(e.target, &#39;.has-ctx-menu&#39;);
+      if (menu.owner) {
+	      e.preventDefault();
+	      menu.show(e);
+      }
+    }, true);
+  }
+  
+  // create FlexChart and FlexGrid
+  var theChart = new wijmo.chart.FlexChart(&#39;#theChart&#39;, {
+  	itemsSource: getData(),
+    bindingX: &#39;country&#39;,
+    series: [
+    	 { binding: &#39;sales&#39;, name: &#39;Sales&#39; },
+       { binding: &#39;expenses&#39;, name: &#39;Expenses&#39; },
+    ]
+  });
+  var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+  	itemsSource: getData()
+  });
+
+  // create some random data
+  function getData() {
+    var countries = &#39;US,Germany,UK,Japan,Italy,Greece&#39;.split(&#39;,&#39;),
+      data = [];
+    for (var i = 0; i &lt; countries.length; i++) {
+      data.push({
+        id: i,
+        country: countries[i % countries.length],
+        sales: Math.random() * 100000,
+        expenses: Math.random() * 50000
+      });
+    }
+    return data;
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Context Menus
+  &lt;/h1&gt;
+  &lt;p&gt;
+    You can use the Menu control to create context menus.&lt;/p&gt;
+  &lt;p&gt;
+    For example, this fiddle creates a single context menu and
+    handles the &#39;contextmenu&#39; event on several elements to show
+    the menu when the user requests it:&lt;/p&gt;
+
+  &lt;div class=&quot;owners&quot;&gt;
+    &lt;div id=&quot;FIRST&quot; class=&quot;has-ctx-menu&quot; style=&quot;background:#f0a0a0&quot;&gt;
+      I have a Context Menu.
+    &lt;/div&gt;
+    &lt;div id=&quot;SECOND&quot; class=&quot;has-ctx-menu&quot; style=&quot;background:#a0f0a0&quot;&gt;
+      I have the same Context Menu.
+    &lt;/div&gt;
+    &lt;div id=&quot;THIRD&quot; class=&quot;has-ctx-menu&quot; style=&quot;background:#a0a0f0&quot;&gt;
+      You guessed it, me too.
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;p&gt;
+    The same approach works with all Wijmo controls:&lt;/p&gt;
+
+  &lt;h3&gt;
+    FlexChart with ContextMenu
+  &lt;/h3&gt;
+  &lt;div id=&quot;theChart&quot; class=&quot;has-ctx-menu&quot;&gt;&lt;/div&gt;
+
+  &lt;h3&gt;
+    FlexGrid with ContextMenu
+  &lt;/h3&gt;
+  &lt;div id=&quot;theGrid&quot; class=&quot;has-ctx-menu&quot;&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.owners:after {
+  content: &quot;&quot;;
+  clear: both;
+  display: block;
+}
+.owners &gt; div {
+  float: left;
+  margin: 20px;
+  padding: 20px;
+}
+.wj-flexgrid {
+  max-height: 250px;
+}
+.wj-flexchart {
+  max-height: 250px;
+}
+
+.ctx-menu {
+  padding: 3px;
+  min-width: 120px;
+  background: #FFFBDD;
+  overflow: hidden;
+}
+
+.ctx-menu .wj-listbox-item {
+  text-align: center;
+  margin: 6px;
+}
+
+body {
+  margin-bottom: 24pt;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.chart.min.js" target="_blank">wijmo.chart.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

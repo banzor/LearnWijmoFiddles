@@ -1,0 +1,815 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Grouping By Initial - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "x2td7qrw";
+        var show_src = "//fiddle.jshell.net/Wijmo5/x2td7qrw/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/x2td7qrw/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/x2td7qrw/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=x2td7qrw" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// create GroupDescription to group by initial
+	var gdInitial = new wijmo.collections.GroupDescription();
+	gdInitial.groupNameFromItem = function(item) {
+		return item[0];
+	}
+	
+  // get grouped CollectionView
+  var data = new wijmo.collections.CollectionView(getData(), {
+		sortDescriptions: [&#39;&#39;],
+		groupDescriptions: [ gdInitial ],
+		currentItem: null
+	});
+
+  // toggle showGroups
+  var showGroups = true;
+  document.getElementById(&#39;showGroups&#39;).addEventListener(&#39;click&#39;, function(e) {
+    showGroups = e.target.checked;
+    theComboBox.showGroups = showGroups;
+    theListBox.showGroups = showGroups;
+  });
+
+  // show in ComboBox
+  var theComboBox = new wijmo.input.ComboBox(&#39;#theComboBox&#39;, {
+    showGroups: true,
+    itemsSource: data,
+  });
+
+  // show in ListBox
+  var theListBox = new wijmo.input.ListBox(&#39;#theListBox&#39;, {
+    showGroups: true,
+    itemsSource: data,
+  });
+
+  // some data for the list/combo
+  // https://www.mockaroo.com/
+  function getData() {
+    return [
+      &#39;Andrus Lockie&#39;,
+      &#39;Davy Imos&#39;,
+      &#39;Kathryn Lotze&#39;,
+      &#39;Vin Colbran&#39;,
+      &#39;Scarlett Spalls&#39;,
+      &#39;Robbi Eckford&#39;,
+      &#39;Feodor Rippin&#39;,
+      &#39;Jami Balmforth&#39;,
+      &#39;Wenonah Clemendot&#39;,
+      &#39;Cortney Cota&#39;,
+      &#39;Iormina Sullly&#39;,
+      &#39;Leona Philpot&#39;,
+      &#39;Renelle Dulinty&#39;,
+      &#39;Dorella Gawthrope&#39;,
+      &#39;Brenda Hannaway&#39;,
+      &#39;Katya Thiem&#39;,
+      &#39;Tommy Beenham&#39;,
+      &#39;Dari Willets&#39;,
+      &#39;Gilburt Seagrove&#39;,
+      &#39;Silvana Gabbett&#39;,
+      &#39;Noemi McCree&#39;,
+      &#39;Jaquelyn Autie&#39;,
+      &#39;D\&#39;arcy Myton&#39;,
+      &#39;Wash Petrasso&#39;,
+      &#39;Bertrand Costi&#39;,
+      &#39;Garrick Attyeo&#39;,
+      &#39;Helaina Castle&#39;,
+      &#39;Gauthier Hosby&#39;,
+      &#39;Aime Danhel&#39;,
+      &#39;Tiffie Sallis&#39;,
+      &#39;Charmian Pettipher&#39;,
+      &#39;Yolanthe Wildt&#39;,
+      &#39;Toiboid Stoyles&#39;,
+      &#39;Cati Lamble&#39;,
+      &#39;Mohandas Bellord&#39;,
+      &#39;Brew World&#39;,
+      &#39;Dorri Davydochkin&#39;,
+      &#39;Winonah Doudny&#39;,
+      &#39;Sax Broadhead&#39;,
+      &#39;Gilligan Maskelyne&#39;,
+      &#39;Aldus McIntee&#39;,
+      &#39;Pammy Sheivels&#39;,
+      &#39;Israel Hodgin&#39;,
+      &#39;Odo Berrisford&#39;,
+      &#39;Aldo Lobell&#39;,
+      &#39;Erik Ca&#39;,
+      &#39;Roy Hallatt&#39;,
+      &#39;Wally Edie&#39;,
+      &#39;Ash Adamowicz&#39;,
+      &#39;Alexandrina Whitney&#39;,
+      &#39;Jenelle Matthis&#39;,
+      &#39;Bobina Emlin&#39;,
+      &#39;Emmet Townshend&#39;,
+      &#39;Baudoin Dulen&#39;,
+      &#39;Dominga MacPaik&#39;,
+      &#39;Mela Guare&#39;,
+      &#39;Edwina Scotchmoor&#39;,
+      &#39;Dorree Creus&#39;,
+      &#39;Ivor Burnep&#39;,
+      &#39;Guinna Leggin&#39;,
+      &#39;Marice Woodier&#39;,
+      &#39;Jamesy Kettlewell&#39;,
+      &#39;Mommy Barrows&#39;,
+      &#39;Waylin Beeres&#39;,
+      &#39;Preston Culham&#39;,
+      &#39;Adolf Shirtcliffe&#39;,
+      &#39;Jorey Rigge&#39;,
+      &#39;Toni Huriche&#39;,
+      &#39;Merrily Corryer&#39;,
+      &#39;Ellary Jepson&#39;,
+      &#39;Clemence Niblo&#39;,
+      &#39;Petey Tireman&#39;,
+      &#39;Juan Biddlecombe&#39;,
+      &#39;Durand Eddy&#39;,
+      &#39;Tersina Baggiani&#39;,
+      &#39;Margery Philpotts&#39;,
+      &#39;Robin Bonafacino&#39;,
+      &#39;Dalia Kneebone&#39;,
+      &#39;Libbi Bransdon&#39;,
+      &#39;Parke Niblo&#39;,
+      &#39;Clark Powell&#39;,
+      &#39;Flory Bleythin&#39;,
+      &#39;Chandler Olenov&#39;,
+      &#39;Horton Birdis&#39;,
+      &#39;Frazer Dragoe&#39;,
+      &#39;Suzie Ackroyd&#39;,
+      &#39;Adams Wilcox&#39;,
+      &#39;Duane Ceschelli&#39;,
+      &#39;Cris Vakhlov&#39;,
+      &#39;Hodge Jedrzej&#39;,
+      &#39;Alexio Ionnidis&#39;,
+      &#39;Dalia Piotrowski&#39;,
+      &#39;Rhodia Gritsunov&#39;,
+      &#39;Melody Driuzzi&#39;,
+      &#39;Gauthier Waycott&#39;,
+      &#39;Ivy Domerque&#39;,
+      &#39;Carolyne Gadsdon&#39;,
+      &#39;Maison Durdan&#39;,
+      &#39;Blancha Hissie&#39;,
+      &#39;Ty Mouan&#39;,
+      &#39;Ania Whittock&#39;,
+      &#39;Riki Mariet&#39;,
+      &#39;Tybi Levesley&#39;,
+      &#39;Jemmie Ghilardini&#39;,
+      &#39;Boniface Lighton&#39;,
+      &#39;Janetta Gaskell&#39;,
+      &#39;Darrelle Hartless&#39;,
+      &#39;Theadora Taberer&#39;,
+      &#39;Tabb Pawley&#39;,
+      &#39;Cleavland Wardesworth&#39;,
+      &#39;Risa Mary&#39;,
+      &#39;Clovis Dilks&#39;,
+      &#39;Linn Duckinfield&#39;,
+      &#39;Rachele Tampen&#39;,
+      &#39;Raeann Boddis&#39;,
+      &#39;Lydon Warden&#39;,
+      &#39;Kennedy Duberry&#39;,
+      &#39;Barb Colegate&#39;,
+      &#39;Regine Feldbrin&#39;,
+      &#39;Kerr Boddie&#39;,
+      &#39;Rube Giamuzzo&#39;,
+      &#39;Thibaud Arnaldo&#39;,
+      &#39;Gherardo Swinglehurst&#39;,
+      &#39;Ofilia Obin&#39;,
+      &#39;Jae Craigie&#39;,
+      &#39;Benoit Rabson&#39;,
+      &#39;Cass Kempston&#39;,
+      &#39;Yard Drewson&#39;,
+      &#39;Dex Aloshikin&#39;,
+      &#39;Carlos Yurasov&#39;,
+      &#39;Any Moriarty&#39;,
+      &#39;Kaspar Broady&#39;,
+      &#39;Vlad Maffucci&#39;,
+      &#39;Ginelle Barus&#39;,
+      &#39;Nance Gommey&#39;,
+      &#39;Chandra Flay&#39;,
+      &#39;Shem Woffinden&#39;,
+      &#39;Theodor Coase&#39;,
+      &#39;Jillana Olivet&#39;,
+      &#39;Cornelle Donnan&#39;,
+      &#39;Andie Bourrel&#39;,
+      &#39;Miquela MacIlory&#39;,
+      &#39;Schuyler Ramsbottom&#39;,
+      &#39;Heddie Saull&#39;,
+      &#39;Devi Boch&#39;,
+      &#39;Sissie Gaunson&#39;,
+      &#39;Porty Goodliffe&#39;,
+      &#39;Donalt Bore&#39;,
+      &#39;Elvyn Toffano&#39;,
+      &#39;Mata Glassup&#39;,
+      &#39;Maximilian Schanke&#39;,
+      &#39;Kenton Tourle&#39;,
+      &#39;Maurine Revitt&#39;,
+      &#39;Hyacinthe Kira&#39;,
+      &#39;Husain Nairy&#39;,
+      &#39;Janaya Isted&#39;,
+      &#39;Cindy Helling&#39;,
+      &#39;Astrid Glasner&#39;,
+      &#39;Ganny Treece&#39;,
+      &#39;Marybelle Belson&#39;,
+      &#39;Jarrod Ferreira&#39;,
+      &#39;Stephine Rapier&#39;,
+      &#39;Randene Hadenton&#39;,
+      &#39;Amie Durrett&#39;,
+      &#39;Rawley Arlidge&#39;,
+      &#39;Rolf Cattrall&#39;,
+      &#39;Germain Sibbons&#39;,
+      &#39;Lynnette Akam&#39;,
+      &#39;Bobinette Paige&#39;,
+      &#39;Dido House&#39;,
+      &#39;Helen-elizabeth Hedgecock&#39;,
+      &#39;Gaylord McCuaig&#39;,
+      &#39;Alexei Chaikovski&#39;,
+      &#39;Beverlie Worral&#39;,
+      &#39;Roana Quinevan&#39;,
+      &#39;Collete Townson&#39;,
+      &#39;Ezequiel Johanning&#39;,
+      &#39;Alyce Shanley&#39;,
+      &#39;Vilma Piscopello&#39;,
+      &#39;Michel Amiss&#39;,
+      &#39;Leia Monan&#39;,
+      &#39;Ana Wedmore&#39;,
+      &#39;Elnar Frankcom&#39;,
+      &#39;Rachel Lovett&#39;,
+      &#39;Rubia Hague&#39;,
+      &#39;Andy Switland&#39;,
+      &#39;Nonah Barkway&#39;,
+      &#39;Lira Ardy&#39;,
+      &#39;Kylila Hows&#39;,
+      &#39;Sondra Meechan&#39;,
+      &#39;Colly Skerritt&#39;,
+      &#39;Lanae Morrissey&#39;,
+      &#39;Lukas Eronie&#39;,
+      &#39;Marjy Ffoulkes&#39;,
+      &#39;Bern Pacey&#39;,
+      &#39;Carroll Bentsen&#39;,
+      &#39;Kim McCaw&#39;,
+      &#39;Aigneis Tousy&#39;,
+      &#39;Damita Dunderdale&#39;,
+      &#39;Rahel Silvermann&#39;,
+      &#39;Roosevelt Handes&#39;,
+      &#39;Shandee Dutnall&#39;,
+      &#39;Milicent Beevor&#39;,
+      &#39;Oberon Bilbrook&#39;,
+      &#39;Genia Etherton&#39;,
+      &#39;Carlee Valenta&#39;,
+      &#39;Edgard Lindholm&#39;,
+      &#39;Tiebold Seeler&#39;,
+      &#39;Peggie Withur&#39;,
+      &#39;Steffie Ruppertz&#39;,
+      &#39;Charles Kordas&#39;,
+      &#39;Phylys Joscelin&#39;,
+      &#39;Eberto Byrd&#39;,
+      &#39;Ewan Ding&#39;,
+      &#39;Gilemette Mewton&#39;,
+      &#39;Linell Birkmyre&#39;,
+      &#39;Faydra Tineman&#39;,
+      &#39;Bidget Girton&#39;,
+      &#39;Barton Tomney&#39;,
+      &#39;Mellisa Aburrow&#39;,
+      &#39;Rivy Shreeve&#39;,
+      &#39;Barbabra Espinha&#39;,
+      &#39;Fidelio Kimmince&#39;,
+      &#39;Bendix Lavens&#39;,
+      &#39;Michaela Skains&#39;,
+      &#39;Isadore Woodruff&#39;,
+      &#39;Doralyn Davidowsky&#39;,
+      &#39;Quinn Tett&#39;,
+      &#39;Harriett Curman&#39;,
+      &#39;Ephraim Dicks&#39;,
+      &#39;Mayor Cords&#39;,
+      &#39;Mattheus Bowcock&#39;,
+      &#39;Nataniel Gadsdon&#39;,
+      &#39;Sharyl Bolver&#39;,
+      &#39;Kristo Rizzi&#39;,
+      &#39;Andromache Gregan&#39;,
+      &#39;Modestia Strete&#39;,
+      &#39;Malva Reach&#39;,
+      &#39;Lanie Myton&#39;,
+      &#39;Stern Grandisson&#39;,
+      &#39;Carlyn Emmins&#39;,
+      &#39;Mikkel Dalston&#39;,
+      &#39;Dina Curtoys&#39;,
+      &#39;Daloris Pasquale&#39;,
+      &#39;Lenora Alexandrescu&#39;,
+      &#39;Harbert Flag&#39;,
+      &#39;Niles Hucquart&#39;,
+      &#39;Nananne Castledine&#39;,
+      &#39;Wallache Lasseter&#39;,
+      &#39;Jordan Thornally&#39;,
+      &#39;Dallas Aldred&#39;,
+      &#39;Theodore Dugget&#39;,
+      &#39;Carlita Dillinger&#39;,
+      &#39;Giles Lulham&#39;,
+      &#39;Micah Frizzell&#39;,
+      &#39;Corenda Dunsford&#39;,
+      &#39;Carrol Wittke&#39;,
+      &#39;Aylmar Frayn&#39;,
+      &#39;Melisa Farenden&#39;,
+      &#39;Diarmid Goodboddy&#39;,
+      &#39;Gregoire Pinsent&#39;,
+      &#39;Roderigo Palumbo&#39;,
+      &#39;Lion Deny&#39;,
+      &#39;Rhys Wyeth&#39;,
+      &#39;Madella Hold&#39;,
+      &#39;Agata Leates&#39;,
+      &#39;Angelica O\&#39;Kennedy&#39;,
+      &#39;Webb Coen&#39;,
+      &#39;Dorris McAlpine&#39;,
+      &#39;Oswell Castelijn&#39;,
+      &#39;Rolfe Burns&#39;,
+      &#39;Marion Kirkam&#39;,
+      &#39;Stefania Millichip&#39;,
+      &#39;Arlette Tufts&#39;,
+      &#39;Dre Lewzey&#39;,
+      &#39;Jaymee Markel&#39;,
+      &#39;Helen-elizabeth Eich&#39;,
+      &#39;Melodee Deveral&#39;,
+      &#39;Darell Borne&#39;,
+      &#39;Junette Burkill&#39;,
+      &#39;Winonah Obbard&#39;,
+      &#39;Ansel Dibsdale&#39;,
+      &#39;Rozalie Chidley&#39;,
+      &#39;Saree Greendale&#39;,
+      &#39;Nanine Eisikowitch&#39;,
+      &#39;Nisse Forbear&#39;,
+      &#39;Kit Tournay&#39;,
+      &#39;Thia Boorn&#39;,
+      &#39;Vivie Aspinal&#39;,
+      &#39;Dirk Wigan&#39;,
+      &#39;Tammie Knowlson&#39;,
+      &#39;Morten Purcell&#39;,
+      &#39;Eolanda Messum&#39;,
+      &#39;Samuele Heineken&#39;,
+      &#39;Cam Fyndon&#39;,
+      &#39;Zane Horwell&#39;,
+      &#39;Gabie Mazey&#39;,
+      &#39;Durward Healey&#39;,
+      &#39;Des Ellams&#39;,
+      &#39;Gabrila Molen&#39;,
+      &#39;Dimitri Limrick&#39;,
+      &#39;Filmore Slemming&#39;,
+      &#39;Zaccaria Jencken&#39;,
+      &#39;Raimondo Cathcart&#39;,
+      &#39;Raymond Skipper&#39;,
+      &#39;Garrek Labden&#39;,
+      &#39;Wolfy Fabri&#39;,
+      &#39;Jarrad D\&#39;Alessandro&#39;,
+      &#39;Calli Ainley&#39;,
+      &#39;Sayres Train&#39;,
+      &#39;Malissia Gilbride&#39;,
+      &#39;Cornell Colclough&#39;,
+      &#39;Jens Clackson&#39;,
+      &#39;Filippo Spoure&#39;,
+      &#39;Leigh Tremouille&#39;,
+      &#39;Aldon Rois&#39;,
+      &#39;Rey Lethieulier&#39;,
+      &#39;Whit Vasic&#39;,
+      &#39;Melly Blankhorn&#39;,
+      &#39;Dorie Anker&#39;,
+      &#39;Brier Rosbrough&#39;,
+      &#39;Manon Phipard-Shears&#39;,
+      &#39;Sondra Spencers&#39;,
+      &#39;Mylo Pease&#39;,
+      &#39;Rhea Antyshev&#39;,
+      &#39;Rosa Crellin&#39;,
+      &#39;Marlee Chaster&#39;,
+      &#39;Erie Frankema&#39;,
+      &#39;Gonzalo McCrillis&#39;,
+      &#39;Sadella Zink&#39;,
+      &#39;Roscoe Paffot&#39;,
+      &#39;Angel Armal&#39;,
+      &#39;Clifford Sackes&#39;,
+      &#39;Kiah Velasquez&#39;,
+      &#39;Dewey Jobern&#39;,
+      &#39;Elnar Free&#39;,
+      &#39;Paule Shannon&#39;,
+      &#39;Fawne Cassar&#39;,
+      &#39;Shawnee Mc Ilwrick&#39;,
+      &#39;Jessie Stops&#39;,
+      &#39;Sharlene Blaiklock&#39;,
+      &#39;Anna-diana Gockeler&#39;,
+      &#39;Mahala Offell&#39;,
+      &#39;Jourdan Skipp&#39;,
+      &#39;Ignacius Wathall&#39;,
+      &#39;Marijn Maber&#39;,
+      &#39;Alexandr Lathey&#39;,
+      &#39;Sutton Lambrecht&#39;,
+      &#39;Michael Penhaligon&#39;,
+      &#39;Rebbecca Kinnin&#39;,
+      &#39;Mill Hickford&#39;,
+      &#39;Bendick Wheadon&#39;,
+      &#39;Sissie Kiss&#39;,
+      &#39;Dan Reeders&#39;,
+      &#39;Valentine Swadlin&#39;,
+      &#39;Odessa Sancias&#39;,
+      &#39;Lurlene Woolford&#39;,
+      &#39;Donica Fearenside&#39;,
+      &#39;Ortensia Galpen&#39;,
+      &#39;Cthrine Lilian&#39;,
+      &#39;Gaby Thresh&#39;,
+      &#39;Dalis Whyberd&#39;,
+      &#39;Colver Malster&#39;,
+      &#39;Nomi Klesl&#39;,
+      &#39;Winston Slyne&#39;,
+      &#39;Bianca Hazzard&#39;,
+      &#39;Gaultiero Rottcher&#39;,
+      &#39;Arte Fairfoul&#39;,
+      &#39;Bendite Ardling&#39;,
+      &#39;Aggy Spearett&#39;,
+      &#39;Fremont McKirton&#39;,
+      &#39;Phillis Addlestone&#39;,
+      &#39;Zelig Durman&#39;,
+      &#39;Bo Bremond&#39;,
+      &#39;Luz Stirrup&#39;,
+      &#39;Ofelia Andreotti&#39;,
+      &#39;Morey Gilhool&#39;,
+      &#39;Derril Brisse&#39;,
+      &#39;Dian Denness&#39;,
+      &#39;Feodora Michie&#39;,
+      &#39;Sheri Screach&#39;,
+      &#39;Kellina Braxay&#39;,
+      &#39;Nanni Handslip&#39;,
+      &#39;Cobby Grzelczyk&#39;,
+      &#39;Alf Bankes&#39;,
+      &#39;Jim Crichmere&#39;,
+      &#39;Calypso Cheshir&#39;,
+      &#39;Waring Altimas&#39;,
+      &#39;Nikos MacMurray&#39;,
+      &#39;Web Blayney&#39;,
+      &#39;Barbe Meachan&#39;,
+      &#39;Fonz Rennebach&#39;,
+      &#39;Electra Neissen&#39;,
+      &#39;Reynolds Peterffy&#39;,
+      &#39;Murry Hannam&#39;,
+      &#39;Ileana Rodolfi&#39;,
+      &#39;Star Lauritsen&#39;,
+      &#39;Reginald Maliphant&#39;,
+      &#39;Minny Flanne&#39;,
+      &#39;Delmer Cornil&#39;,
+      &#39;Vina Ion&#39;,
+      &#39;Arnold Krelle&#39;,
+      &#39;Sayres Kernan&#39;,
+      &#39;Matti Ilyukhov&#39;,
+      &#39;Hastings Von Oertzen&#39;,
+      &#39;Thea Hugenin&#39;,
+      &#39;Maurise Leitch&#39;,
+      &#39;Marsha Falck&#39;,
+      &#39;Merry Ladlow&#39;,
+      &#39;Mandi Fouracre&#39;,
+      &#39;Emmett Kahan&#39;,
+      &#39;Ronnie Chastan&#39;,
+      &#39;Ricoriki Shah&#39;,
+      &#39;Kevin Burfoot&#39;,
+      &#39;Felicia Dyke&#39;,
+      &#39;Corena Glazer&#39;,
+      &#39;Eirena Skillen&#39;,
+      &#39;Pierce Jobling&#39;,
+      &#39;Blythe Gambles&#39;,
+      &#39;Orella Ollett&#39;,
+      &#39;Cristin Callendar&#39;,
+      &#39;Killian Cromar&#39;,
+      &#39;Pembroke Carlyle&#39;,
+      &#39;Ben Toopin&#39;,
+      &#39;Ansel Shoebrook&#39;,
+      &#39;Timmy Huyghe&#39;,
+      &#39;Noni Seccombe&#39;,
+      &#39;Georgianne Larcier&#39;,
+      &#39;Jimmy Pannaman&#39;,
+      &#39;Antonio Nuccitelli&#39;,
+      &#39;Hildy Angier&#39;,
+      &#39;Grenville Baise&#39;,
+      &#39;Blakelee Addekin&#39;,
+      &#39;Raquela Karys&#39;,
+      &#39;Sharline Blackler&#39;,
+      &#39;Florrie Ricks&#39;,
+      &#39;Lou Osan&#39;,
+      &#39;Charmian Mount&#39;,
+      &#39;Dunc Houdhury&#39;,
+      &#39;Nelle Illingsworth&#39;,
+      &#39;Audra Jeannel&#39;,
+      &#39;Raoul Church&#39;,
+      &#39;Adrien Grigoriscu&#39;,
+      &#39;Sybilla Benzi&#39;,
+      &#39;Natal Lamke&#39;,
+      &#39;Burgess Furphy&#39;,
+      &#39;Vaughan Yakubovich&#39;,
+      &#39;Laverna Snarr&#39;,
+      &#39;Ettore Blanpein&#39;,
+      &#39;Chrissy Cranshaw&#39;,
+      &#39;Reg Rispin&#39;,
+      &#39;Raymund Uccelli&#39;,
+      &#39;Irv Baskerville&#39;,
+      &#39;Preston Hembling&#39;,
+      &#39;Lew Battershall&#39;,
+      &#39;Leigh Gingles&#39;,
+      &#39;Benjamin Chicchetto&#39;,
+      &#39;Ailina Padden&#39;,
+      &#39;Dasya Terbruggen&#39;,
+      &#39;Gerrie Danaher&#39;,
+      &#39;Danyelle Finnigan&#39;,
+      &#39;Benny Neeves&#39;,
+      &#39;Prescott Trappe&#39;,
+      &#39;Marya Burstowe&#39;,
+      &#39;Pincas Ludlem&#39;,
+      &#39;Bondie Patton&#39;,
+      &#39;Robena Friedlos&#39;,
+      &#39;Kelila Minithorpe&#39;,
+      &#39;Shalom Bargery&#39;,
+      &#39;Cad Grosvener&#39;,
+      &#39;Alisun Ranklin&#39;,
+      &#39;Rustie Inold&#39;,
+      &#39;Domenic Crosser&#39;,
+      &#39;Silas Hannan&#39;,
+      &#39;Benny Tax&#39;,
+      &#39;Gabrielle Rickardsson&#39;,
+      &#39;Jannel Dominetti&#39;,
+      &#39;Ron Shewen&#39;,
+      &#39;Saidee Dorken&#39;,
+      &#39;Cart Pullman&#39;,
+      &#39;Jaquelyn Chrispin&#39;,
+      &#39;Theressa Coil&#39;,
+      &#39;Judah Ritchman&#39;,
+      &#39;Tammie Ivantsov&#39;,
+      &#39;Rubetta Hemstead&#39;,
+      &#39;Fifine McGuggy&#39;,
+      &#39;Consolata Pendrill&#39;,
+      &#39;Raquel Brokenshire&#39;,
+      &#39;Audry Physick&#39;,
+      &#39;Siusan Magner&#39;,
+      &#39;Napoleon Hoggins&#39;,
+      &#39;Skipp Besson&#39;,
+      &#39;Myrvyn Caruth&#39;,
+      &#39;Meredithe Pickworth&#39;,
+      &#39;Dudley Worters&#39;,
+      &#39;Anatollo Kenefick&#39;,
+      &#39;Maurits Di Ruggero&#39;,
+      &#39;Odetta Hanalan&#39;,
+      &#39;Brittani Moorman&#39;,
+      &#39;Marilee Pickering&#39;,
+      &#39;Jo-anne Tweedy&#39;,
+      &#39;Bing Enochsson&#39;,
+      &#39;Baird Hebborne&#39;,
+      &#39;Jervis Brierton&#39;,
+      &#39;Frederick Boorn&#39;,
+      &#39;Alane Bertin&#39;,
+      &#39;Danita Dytham&#39;,
+      &#39;Ruby Craufurd&#39;,
+      &#39;Miller Godwin&#39;,
+      &#39;Giacobo Erwin&#39;,
+      &#39;Cary Stryde&#39;,
+      &#39;Hephzibah Fiddy&#39;,
+      &#39;Tadd Saunton&#39;,
+      &#39;Linnie Halsted&#39;,
+      &#39;Beauregard Selvey&#39;,
+      &#39;Marlow Cappleman&#39;,
+      &#39;Kissiah Mannering&#39;,
+      &#39;Meriel Poschel&#39;,
+      &#39;Sanders Althrop&#39;,
+      &#39;Delmar Shelford&#39;,
+      &#39;Ailene Trahair&#39;,
+      &#39;Merci Garrie&#39;,
+      &#39;Lance Isaak&#39;,
+      &#39;Rafe Maier&#39;,
+      &#39;Somerset Kern&#39;,
+      &#39;Quincy Fayerbrother&#39;,
+      &#39;Gussy Kits&#39;,
+      &#39;Ode Cownden&#39;,
+      &#39;Cairistiona Gocke&#39;,
+      &#39;Patrice Freebury&#39;,
+      &#39;Gavra Cuell&#39;,
+      &#39;Edita Liebermann&#39;,
+      &#39;Zonnya Stanborough&#39;,
+      &#39;Goraud Bence&#39;,
+      &#39;Pen Headington&#39;,
+      &#39;Charyl Leap&#39;,
+      &#39;Cherrita Danilov&#39;,
+      &#39;Derward Murney&#39;,
+      &#39;Gayla Martinec&#39;,
+      &#39;Joly Furman&#39;,
+      &#39;Frasco Antoney&#39;,
+      &#39;Kahlil Cawthorne&#39;,
+      &#39;Billie Burkart&#39;,
+      &#39;Jobey Ilyin&#39;,
+      &#39;Virginia Frayn&#39;,
+      &#39;Toni Cosgrove&#39;,
+      &#39;Pamella Rodgerson&#39;,
+      &#39;Rubia Thorndycraft&#39;,
+      &#39;Ezechiel Aubray&#39;,
+      &#39;Marlowe Drew-Clifton&#39;,
+      &#39;Charlotta Cainey&#39;,
+      &#39;Allyson Braikenridge&#39;,
+      &#39;Alidia Tutt&#39;,
+      &#39;Margaretha Ovendale&#39;,
+      &#39;Beatrisa Ilett&#39;,
+      &#39;Wilfrid Ellson&#39;,
+      &#39;Alvera Slym&#39;,
+      &#39;Ann Brocklebank&#39;,
+      &#39;Nisse Bleiman&#39;,
+      &#39;Allan Limbourne&#39;,
+      &#39;Myrtie Althrop&#39;,
+      &#39;Arden Zmitrichenko&#39;,
+      &#39;Ileana Leifer&#39;,
+      &#39;Elva Hewes&#39;,
+      &#39;Felecia Galland&#39;,
+      &#39;Tamara Pinsent&#39;,
+      &#39;Marlon Gleadle&#39;,
+      &#39;Sorcha Sallowaye&#39;,
+      &#39;Letizia Trenouth&#39;,
+      &#39;Claudio Hammer&#39;,
+      &#39;Roberto Neill&#39;,
+      &#39;Terrijo Hansman&#39;,
+      &#39;Yank Darrigrand&#39;,
+      &#39;Agna Perutto&#39;,
+      &#39;Thekla Verillo&#39;,
+      &#39;Gonzalo Spilsburie&#39;,
+      &#39;Bern Crowhurst&#39;,
+      &#39;Odetta Depka&#39;,
+      &#39;Marlowe Fellenor&#39;,
+      &#39;Prescott De Rechter&#39;,
+      &#39;Karoline Tolotti&#39;,
+      &#39;Hadley Caddell&#39;,
+      &#39;Hewie Smiley&#39;,
+      &#39;Sharla Stryde&#39;,
+      &#39;Nolana Stern&#39;,
+      &#39;Merwin Bassill&#39;,
+      &#39;Ikey Longforth&#39;,
+      &#39;Holly Chaperlin&#39;,
+      &#39;Fowler Yurin&#39;,
+      &#39;Wally Colomb&#39;,
+      &#39;Ricky Ibert&#39;,
+      &#39;Audry Joris&#39;,
+      &#39;Vanna Sponton&#39;,
+      &#39;Zeke Prettyjohn&#39;,
+      &#39;Clayson McClifferty&#39;,
+      &#39;Clare Allot&#39;,
+      &#39;Bowie De Bruijne&#39;,
+      &#39;Gordie Jentgens&#39;,
+      &#39;Alyss Hazelgreave&#39;,
+      &#39;Lisette Danks&#39;,
+      &#39;Poppy Haysar&#39;,
+      &#39;Bryn Bubbear&#39;,
+      &#39;Glori Darco&#39;,
+      &#39;Manuel Plevin&#39;,
+      &#39;Erika Oldford&#39;,
+      &#39;Gottfried O\&#39;Currine &#39;,
+      &#39;Clywd Claasen&#39;,
+      &#39;Kass Judgkins&#39;,
+      &#39;Noella Langfat&#39;,
+      &#39;Damian Conan&#39;,
+      &#39;Patrizius Culp&#39;,
+      &#39;Gwennie Jenner&#39;,
+      &#39;Lyman Hollow&#39;,
+      &#39;Gayelord Brunke&#39;,
+      &#39;Blane Zywicki&#39;,
+      &#39;Tibold Crielly&#39;,
+      &#39;Roman Wankling&#39;,
+      &#39;Rosaline Skullet&#39;,
+      &#39;Adele Muffin&#39;,
+      &#39;Demetria Peete&#39;,
+      &#39;Stanislaw Spera&#39;,
+      &#39;Rolph Ivanyutin&#39;,
+      &#39;Trixie Brislawn&#39;,
+      &#39;Freda Bower&#39;,
+      &#39;Dorree Lardeur&#39;,
+      &#39;Benni Petzolt&#39;,
+      &#39;Joseph Dunbleton&#39;,
+      &#39;Hart Dimont&#39;,
+      &#39;Dwayne Liddyard&#39;,
+      &#39;Conrad Smalls&#39;
+    ];
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h2&gt;
+    Grouping By Initial
+  &lt;/h2&gt;
+  &lt;p&gt;
+    The &lt;b&gt;CollectionView&lt;/b&gt; class allows you to group
+		items based on their content. In most cases, the
+		content is the value of a property (e.g. Product,
+		Color, Country), but you can also group by calculated
+		values by overriding the &lt;b&gt;GroupDescription&lt;/b&gt;&#39;s
+		&lt;b&gt;groupNameFromItem&lt;/b&gt; method.&lt;/p&gt;
+  &lt;p&gt;
+    Custom grouping can be useful to group data into 
+		value bins (e.g. high, low, medium), date ranges
+		(e.g. this week, this year), etc.&lt;/p&gt;
+  &lt;p&gt;
+    This sample demonstrates this by creating a
+		&lt;b&gt;GroupDescription&lt;/b&gt; that returns the 
+		first letter of the name. This groups the
+		data by initial:&lt;/p&gt;
+
+  &lt;label&gt;
+		Show Groups
+    &lt;input id=&quot;showGroups&quot; type=&quot;checkbox&quot; checked&gt;
+	&lt;/label&gt;
+
+  &lt;div class=&quot;row&quot;&gt;
+    &lt;div class=&quot;col-xs-6&quot;&gt;
+      &lt;h4&gt;
+        ComboBox
+      &lt;/h4&gt;
+      &lt;div id=&quot;theComboBox&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;col-xs-6&quot;&gt;
+      &lt;h4&gt;
+        ListBox
+      &lt;/h4&gt;
+      &lt;div id=&quot;theListBox&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-listbox {
+  height: 200px;
+  display: block;
+}
+
+.wj-listbox .wj-listbox-item {
+  line-height: 2em;
+}
+
+.wj-listbox .wj-listbox-item.wj-header {
+  opacity: 1;
+  position: sticky;
+  top: 0;
+	font-size: 125%;
+	text-align: right;
+}
+
+.container label {
+  margin: 0 24px;
+}
+
+body {
+  margin-bottom: 40pt;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.css" target="_blank">flag-icon.css</a></li>
+                    <li><a href="https://test-9c0be.firebaseapp.com/wijmo/styles/wijmo.css" target="_blank">wijmo.css</a></li>
+                    <li><a href="https://test-9c0be.firebaseapp.com/wijmo/controls/wijmo.js" target="_blank">wijmo.js</a></li>
+                    <li><a href="https://test-9c0be.firebaseapp.com/wijmo/controls/wijmo.input.js" target="_blank">wijmo.input.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

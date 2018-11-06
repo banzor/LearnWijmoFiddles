@@ -1,0 +1,189 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - DataMaps - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "cn3p3wq7";
+        var show_src = "//fiddle.jshell.net/Wijmo5/cn3p3wq7/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/cn3p3wq7/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/cn3p3wq7/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=cn3p3wq7" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // create some random data
+  var countries = &#39;US,Germany,UK,Japan,Sweden,Norway,Denmark&#39;.split(&#39;,&#39;);
+  var customers = [
+  	{ id: 0, name: &#39;Paul Perkins&#39;, address: &#39;123 Main St&#39; }, 
+    { id: 1, name: &#39;Susan Smith&#39;, address: &#39;456 Grand Ave&#39; }, 
+    { id: 2, name: &#39;Joan Jett&#39;, address: &#39;789 Broad St&#39; }, 
+    { id: 3, name: &#39;Don Davis&#39;, address: &#39;321 Shattuck Ave&#39; }, 
+	];
+  var data = [];
+  for (var i = 0; i &lt; countries.length; i++) {
+    data.push({
+      id: i,
+      country: countries[i],
+      customer: customers[i % customers.length].id,
+      active: i % 5 != 0,
+      downloads: Math.round(Math.random() * 200000),
+      sales: Math.random() * 100000,
+      expenses: Math.random() * 50000
+    });
+  }
+
+	// create customer data map
+  var customerMap = new wijmo.grid.DataMap(customers, &#39;id&#39;, &#39;name&#39;);
+  
+  // show the data in a grid
+  var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+    showAlternatingRows: false,
+    autoGenerateColumns: false,
+    columns: [
+      { binding: &#39;customer&#39;, header: &#39;Customer&#39;, width: &#39;1.5*&#39;, dataMap: customerMap },
+    	{ binding: &#39;country&#39;, header: &#39;Country&#39;, width: &#39;*&#39;, dataMap: countries },
+      { binding: &#39;downloads&#39;, header: &#39;Downloads&#39;, width: &#39;*&#39;, format: &#39;n0&#39; },
+      { binding: &#39;sales&#39;, header: &#39;Sales&#39;, width: &#39;*&#39;, format: &#39;n0&#39; },
+      { binding: &#39;expenses&#39;, header: &#39;Expenses&#39;, width: &#39;*&#39;, format: &#39;n0&#39; }
+    ],
+    itemsSource: data,
+  });
+
+	// show customers as well
+	var theGridCustomers = new wijmo.grid.FlexGrid(&#39;#theGridCustomers&#39;, {
+		itemsSource: customers,
+    rowEditEnded: function() {
+    	theGrid.refresh(); // update customer names on the main grid
+    }
+	})
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    DataMaps
+  &lt;/h1&gt;
+  &lt;p&gt;
+    In many situations, you may want columns to map values so 
+    cells display a value that is different from what is 
+    actually stored in the grid.&lt;/p&gt;
+  &lt;p&gt;
+    For example, you may have a &#39;rating&#39; column with values
+    ranging from zero to three, and you would like to display
+    the strings &#39;Low&#39;, &#39;Medium&#39;, or &#39;High&#39; instead.&lt;/p&gt;
+  &lt;p&gt;
+    Or maybe you have a &#39;customer&#39; column that contains the
+    customer ID, and you would like to display the customer 
+    name instead.&lt;/p&gt;
+  &lt;p&gt;
+    You could accomplish both tasks using the &lt;b&gt;formatItem&lt;/b&gt;
+    event, but the &lt;b&gt;FlexGrid&lt;/b&gt; provides a better alternative:
+    &lt;b&gt;DataMaps&lt;/b&gt;. If you set a column&#39;s &lt;b&gt;dataMap&lt;/b&gt; property
+    to an instance of a &lt;b&gt;DataMap&lt;/b&gt;, the grid will use it to:&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Look up display values for each data item, and&lt;/li&gt;
+    &lt;li&gt;Provide a drop-down list with valid items when editing
+    the cells.&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;p&gt;
+    For example, the grid below has a &#39;Customer&#39; column with a 
+    &lt;b&gt;DataMap&lt;/b&gt; that associates customer names and IDs.
+    The data source contains customer IDs, but the grid shows
+    their names instead, and provides a drop-down list for 
+    selecting the customer for each item.&lt;/p&gt;
+  &lt;p&gt;
+    The grid also assigns a &lt;b&gt;dataMap&lt;/b&gt; to the &#39;Country&#39;
+    column. In this case, the map is just a string array
+    with the country names. There is no real mapping, but
+    you still get the drop-down list to pick from. Users
+    will not be able to enter any countries that are not 
+    on the list.&lt;/p&gt;
+  &lt;div id=&quot;theGrid&quot;&gt;
+  &lt;/div&gt;
+  
+  &lt;p&gt;
+    And here is another grid showing all the customers.
+    If you edit their names, you will see the change in the
+    top grid:&lt;/p&gt;
+  &lt;div id=&quot;theGridCustomers&quot;&gt;
+  &lt;/div&gt;
+      
+    
+  &lt;div class=&quot;panel panel-warning&quot;&gt;
+    &lt;div class=&quot;panel-heading&quot;&gt;
+      For more &lt;b&gt;DataMap&lt;/b&gt; details and examples, please refer to the 
+      &lt;a href=&quot;https://wijmo.com/5/docs/topic/wijmo.grid.DataMap.Class.html&quot; target=&quot;_blank&quot;&gt;
+        on-line documentation
+      &lt;/a&gt;.
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 200px;
+  margin: 12px 0;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Wijmo 5 - CollectionView Navigators - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "s8tT4";
+        var show_src = "//fiddle.jshell.net/Wijmo5/s8tT4/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/s8tT4/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/s8tT4/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=s8tT4" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">// define app, include Wijmo 5 directives
+var app = angular.module(&#39;app&#39;, [&#39;wj&#39;]);
+
+// controller
+app.controller(&#39;appCtrl&#39;, function ($scope) {
+
+    // create lots of items
+    var countries = &#39;US,Germany,UK,Japan,Italy,Greece&#39;.split(&#39;,&#39;),
+        data = [];
+    for (var i = 0; i &lt; 100000; i++) {
+        data.push({
+            id: i,
+            country: countries[i % countries.length],
+            downloads: Math.round(Math.random() * 20000),
+            sales: Math.random() * 10000,
+            expenses: Math.random() * 5000
+        });
+    }
+
+    // create CollectionView, set page size to 20
+    var cv = new wijmo.collections.CollectionView(data);
+    cv.pageSize = 20;
+    $scope.data = cv;
+});</pre>
+              <pre class="tCont ">&lt;!-- mark this as an Angular application and give it a controller --&gt;
+&lt;div ng-app=&quot;app&quot; ng-controller=&quot;appCtrl&quot; class=&quot;container&quot;&gt;
+    
+&lt;h1&gt;CollectionView Navigators&lt;/h1&gt;
+
+    &lt;p&gt;Choose the page:&lt;/p&gt;
+    &lt;wj-collection-view-pager cv=&quot;data&quot;&gt;
+    &lt;/wj-collection-view-pager&gt;
+    
+    &lt;p&gt;&lt;/p&gt;
+    
+    &lt;p&gt;Choose the item within the page:&lt;/p&gt;
+    &lt;wj-collection-view-navigator cv=&quot;data&quot;&gt;
+    &lt;/wj-collection-view-navigator&gt;
+    
+    &lt;p&gt;&lt;/p&gt;
+
+    &lt;p&gt;Here is the data:&lt;/p&gt;
+    &lt;wj-flex-grid style=&quot;max-height:300px&quot; items-source=&quot;data&quot;&gt;
+    &lt;/wj-flex-grid&gt;
+&lt;/div&gt;</pre>
+              <pre class="tCont "></pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/interop/angular/wijmo.angular.min.js" target="_blank">wijmo.angular.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

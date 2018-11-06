@@ -1,0 +1,165 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - TabPanel Markup - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "3tLbk982";
+        var show_src = "//fiddle.jshell.net/Wijmo5/3tLbk982/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/3tLbk982/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/3tLbk982/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=3tLbk982" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  new wijmo.nav.TabPanel(&#39;#theTabPanel&#39;, {
+  	// selectedIndex: 3 // Europe
+  });
+
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+  &lt;h1&gt;
+    TabPanel Markup
+  &lt;/h1&gt;
+  &lt;p&gt;
+    The markup used to initialize TabPanel controls consists
+    of one element per tab, each with two children:
+    the tab header and the tab content.&lt;/p&gt;
+  &lt;p&gt;
+    We suggest you use anchor elements (tag a) for the tab
+    headers because they are semantically more meaningful than 
+    plain div elements.&lt;/p&gt;
+  &lt;p&gt;
+    In this example, we added a &quot;wj-state-active&quot; class to the
+    &quot;America&quot; pane markup. That defines the tab that is initially
+    selected. Alternatively, we could have initialized the
+    TabPanel&#39;s &lt;b&gt;selectedIndex&lt;/b&gt; property in JavaScript.&lt;/p&gt;
+  &lt;div id=&quot;theTabPanel&quot;&gt;
+    &lt;div&gt;
+      &lt;a&gt;Africa&lt;/a&gt;
+      &lt;div&gt;
+        &lt;ul&gt;
+          &lt;li&gt;Algeria&lt;/li&gt;
+          &lt;li&gt;Angola&lt;/li&gt;
+          &lt;li&gt;Benin&lt;/li&gt;
+          &lt;li&gt;Botswana&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+      &lt;a class=&quot;wj-state-active&quot;&gt;
+            America
+        &lt;/a&gt;
+      &lt;div&gt;
+        &lt;ul&gt;
+          &lt;li&gt;Canada&lt;/li&gt;
+          &lt;li&gt;Chile&lt;/li&gt;
+          &lt;li&gt;Mexico&lt;/li&gt;
+          &lt;li&gt;United States&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+      &lt;a&gt;Asia&lt;/a&gt;
+      &lt;div&gt;
+        &lt;ul&gt;
+          &lt;li&gt;China&lt;/li&gt;
+          &lt;li&gt;Korea&lt;/li&gt;
+          &lt;li&gt;India&lt;/li&gt;
+          &lt;li&gt;Japan&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+      &lt;a&gt;Europe&lt;/a&gt;
+      &lt;div&gt;
+        &lt;ul&gt;
+          &lt;li&gt;Austria&lt;/li&gt;
+          &lt;li&gt;England&lt;/li&gt;
+          &lt;li&gt;France&lt;/li&gt;
+          &lt;li&gt;Germany&lt;/li&gt;
+          &lt;li&gt;Netherlands&lt;/li&gt;
+          &lt;li&gt;Switzerland&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+      &lt;a&gt;Oceania&lt;/a&gt;
+      &lt;div&gt;
+        &lt;ul&gt;
+          &lt;li&gt;Australia&lt;/li&gt;
+          &lt;li&gt;Fiji&lt;/li&gt;
+          &lt;li&gt;New Zealand&lt;/li&gt;
+          &lt;li&gt;Samoa&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-tabpane {
+  padding: 12px;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.nav.min.js" target="_blank">wijmo.nav.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

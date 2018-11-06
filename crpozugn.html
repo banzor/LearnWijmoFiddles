@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Globalization and Custom UIs - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "crpozugn";
+        var show_src = "//fiddle.jshell.net/Wijmo5/crpozugn/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/crpozugn/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/crpozugn/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=crpozugn" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// create some random data
+	var countries = &#39;US,Germany,UK,Japan,Italy,Greece&#39;.split(&#39;,&#39;);
+  var data = [];
+	for (var i = 0; i &lt; countries.length; i++) {
+  	data.push({
+    	country: countries[i],
+    	downloads: Math.round(Math.random() * 20000),
+    	sales: Math.random() * 10000,
+    	expenses: Math.random() * 5000
+  	});
+	}
+
+	// customize grid filter conditions
+	var filter = wijmo.culture.FlexGridFilter;
+	var Operator = wijmo.grid.filter.Operator;
+	filter.stringOperators = [
+  	{ name: &#39;(not set)&#39;, op: null },
+    { name: &#39;Same&#39;, op: Operator.EQ },
+    { name: &#39;Different&#39;, op: Operator.NE },
+    { name: &#39;Bigger&#39;, op: Operator.GT }, // added
+  	{ name: &#39;Smaller&#39;, op: Operator.LT }, // added
+  	//{ name: &#39;Begins with&#39;, op: Operator.BW },
+  	//{ name: &#39;Ends with&#39;, op: Operator.EW },
+  	//{ name: &#39;Has&#39;, op: Operator.CT },
+  	//{ name: &#39;Hasn\&#39;t&#39;, op: Operator.NC }
+	];
+	filter.numberOperators = [
+  	{ name: &#39;(not set)&#39;, Operator: null },
+    { name: &#39;Same&#39;, op: Operator.EQ },
+    { name: &#39;Different&#39;, op: Operator.NE },
+    { name: &#39;Bigger&#39;, op: Operator.GT },
+  	//{ name: &#39;Is Greater than or equal to&#39;, op: Operator.GE },
+  	{ name: &#39;Smaller&#39;, op: Operator.LT },
+  	//{ name: &#39;Is Less than or equal to&#39;, op: Operator.LE }
+	];
+	filter.dateOperators = [
+  	{ name: &#39;(not set)&#39;, op: null }, 
+    { name: &#39;Same&#39;, op: Operator.EQ },
+    { name: &#39;Earlier&#39;, op: Operator.LT }, 
+    { name: &#39;Later&#39;, op: Operator.GT }
+	];
+	filter.booleanOperators = [
+  	{ name: &#39;(not set)&#39;, op: null },
+    { name: &#39;Is&#39;, op: Operator.EQ }, 
+    { name: &#39;Isn\&#39;t&#39;, op: Operator.NE }
+	];
+
+	// create the grid and the filter
+  var flex = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+  	itemsSource: data
+  })
+  var filter = new wijmo.grid.filter.FlexGridFilter(flex);
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Globalization and Custom UIs
+  &lt;/h1&gt;
+
+  &lt;p&gt;
+    The &lt;b&gt;FlexGridFilter&lt;/b&gt; class is localizable, and 
+    you can take advantage of that to customize its UI by 
+    modifying the strings shown to users and also the lists 
+    of conditions and operators.
+  &lt;/p&gt;
+  &lt;p&gt;
+    In this fiddle, we customized the list of operators by 
+    assigning custom arrays to the filter&#39;s &lt;b&gt;stringOperators&lt;/b&gt;,
+    &lt;b&gt;numberOperators&lt;/b&gt;, &lt;b&gt;dateOperators&lt;/b&gt;, and
+    &lt;b&gt;booleanOperators&lt;/b&gt;.&lt;/p&gt;
+
+  &lt;div id=&quot;theGrid&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 300px;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.filter.min.js" target="_blank">wijmo.grid.filter.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

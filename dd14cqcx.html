@@ -1,0 +1,146 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Cell Templates - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "dd14cqcx";
+        var show_src = "//fiddle.jshell.net/Wijmo5/dd14cqcx/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/dd14cqcx/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/dd14cqcx/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=dd14cqcx" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">// define app, include Wijmo 5 directives
+var app = angular.module(&#39;app&#39;, [&#39;wj&#39;]);
+
+// controller
+app.controller(&#39;appCtrl&#39;, function ($scope) {
+
+    // create some random data
+    var countries = &#39;US,Germany,UK,Japan,Italy,Greece&#39;.split(&#39;,&#39;),
+        abb = &#39;us,de,gb,jp,it,gr&#39;.split(&#39;,&#39;),
+        data = [];
+    for (var i = 0; i &lt; countries.length; i++) {
+        data.push({
+            country: countries[i],
+            abb: abb[i],
+            sales: Math.random() * 10000,
+            expenses: Math.random() * 5000
+        });
+    }
+
+    // expose data as a CollectionView to get events
+    $scope.data = new wijmo.collections.CollectionView(data);
+    
+    // handle button clicks
+    $scope.clickItem = function(country) {
+        alert(&#39;thanks for selecting &#39; + country);
+    };
+});</pre>
+              <pre class="tCont ">&lt;!-- mark this as an Angular application and give it a controller --&gt;
+&lt;div ng-app=&quot;app&quot; ng-controller=&quot;appCtrl&quot; class=&quot;container&quot;&gt;
+    
+  &lt;h1&gt;
+    Cell Templates&lt;/h1&gt;
+  &lt;p&gt;
+    Wijmo includes interop directives to make it easy
+    to use the controls with the framework of your choice.&lt;/p&gt;
+  &lt;p&gt;
+    If you are using &lt;b&gt;Angular&lt;/b&gt; (any version), then the 
+    FlexGrid directives allow you to specify templates for
+    cells directly in your markup:&lt;/p&gt;    
+
+  &lt;wj-flex-grid items-source=&quot;data&quot;&gt;
+    &lt;wj-flex-grid-column header=&quot;Country&quot; binding=&quot;country&quot;&gt;
+    &lt;/wj-flex-grid-column&gt;
+    &lt;wj-flex-grid-column header=&quot;Template&quot; width=&quot;130&quot; align=&quot;center&quot;&gt;
+      &lt;button class=&quot;btn btn-default&quot; ng-click=&quot;clickItem($item.country)&quot;&gt;
+        &lt;img ng-src=&quot;https://flagpedia.net/data/flags/mini/{{$item.abb}}.png&quot;/&gt;
+        Click Me!
+      &lt;/button&gt;
+    &lt;/wj-flex-grid-column&gt;
+    &lt;wj-flex-grid-column header=&quot;Sales&quot; binding=&quot;sales&quot;&gt;
+    &lt;/wj-flex-grid-column&gt;
+    &lt;wj-flex-grid-column header=&quot;Expenses&quot; binding=&quot;expenses&quot;&gt;
+    &lt;/wj-flex-grid-column&gt;
+  &lt;/wj-flex-grid&gt;
+
+  &lt;div class=&quot;panel panel-warning&quot;&gt;
+    &lt;div class=&quot;panel-heading&quot;&gt;
+      You can specify templates for different grid panels and
+      cell states. For more details on cell templates, please
+      see our 
+      &lt;a href=&quot;https://demos.wijmo.com/5/SampleExplorer/SampleExplorer/Sample/CellTemplateIntro&quot; target=&quot;_blank&quot;&gt;CellTemplateIntro&lt;/a&gt; sample.
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 350px; 
+  margin-top:10px;
+}
+.wj-cell img {
+  width: 30px;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/interop/angular/wijmo.angular.min.js" target="_blank">wijmo.angular.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

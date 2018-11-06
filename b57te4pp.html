@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Plot Areas - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "b57te4pp";
+        var show_src = "//fiddle.jshell.net/Wijmo5/b57te4pp/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/b57te4pp/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/b57te4pp/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=b57te4pp" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// create the chart
+  var theChart = new wijmo.chart.FlexChart(&#39;#theChart&#39;, {
+  	itemsSource: getData(),
+    header: &#39;Sales, Expenses, and Downloads&#39;,
+    bindingX: &#39;country&#39;,
+    series: [
+    	{ binding: &#39;sales&#39;, name: &#39;Sales&#39; },
+      { binding: &#39;expenses&#39;, name: &#39;Expenses&#39; },
+      { binding: &#39;downloads&#39;, name: &#39;Downloads&#39;, chartType: &#39;LineSymbols&#39; }
+    ]
+  });
+
+	// create a plot area for amounts
+  var p = new wijmo.chart.PlotArea();
+  p.row = theChart.plotAreas.length;
+  p.name = &#39;amounts&#39;;
+  p.height = &#39;2*&#39;;
+  theChart.plotAreas.push(p)
+
+	// create a spacer plot area
+	p = new wijmo.chart.PlotArea();
+  p.row = theChart.plotAreas.length;
+  p.name = &#39;spacer&#39;;
+  p.height = 25;
+  theChart.plotAreas.push(p)
+
+	// create a plot area for quantities
+	p = new wijmo.chart.PlotArea();
+  p.row = theChart.plotAreas.length;
+  p.name = &#39;quantities&#39;;
+  p.height = &#39;*&#39;;
+	var axisYQty = new wijmo.chart.Axis(wijmo.chart.Position.Left);
+  axisYQty.plotArea = p;
+  theChart.series[2].axisY = axisYQty;
+  theChart.plotAreas.push(p);
+
+	// create some random data
+  function getData() {
+	  var countries = &#39;US,Germany,UK,Japan,Italy,Greece&#39;.split(&#39;,&#39;),
+	    data = [];
+	  for (var i = 0; i &lt; countries.length; i++) {
+	    data.push({
+	      country: countries[i],
+	      sales: Math.random() * 10000,
+	      expenses: Math.random() * 5000,
+	      downloads: Math.round(Math.random() * 20000),
+	    });
+	  }
+  	return data;
+  }
+
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Plot Areas
+  &lt;/h1&gt;
+
+  &lt;p&gt;
+    By default, each FlexChart has two axes and a single Plot Area.&lt;/p&gt;
+  &lt;p&gt;
+    You may create additional plot areas and stack them vertically
+    or horizontally. Vertically stacked plot areas usually have their
+    own Y axis and a shared X axis. The legend is shared by all plot 
+    areas.&lt;/p&gt;
+  &lt;p&gt;
+    For example, the chart below has two plot areas. The first contains
+    two series and show amounts on the Y axis. The second contains a
+    single series and shows quantities on the Y axis:&lt;/p&gt;    
+    
+  &lt;div id=&quot;theChart&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexchart {
+   height: 300px;
+}
+body {
+  margin-bottom: 24pt;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.chart.min.js" target="_blank">wijmo.chart.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

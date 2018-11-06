@@ -1,0 +1,150 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Popups - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "j9t6s1xp";
+        var show_src = "//fiddle.jshell.net/Wijmo5/j9t6s1xp/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/j9t6s1xp/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/j9t6s1xp/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=j9t6s1xp" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // create dropdown and show it when the user clicks the button
+  // note that no event handler is needed here: setting the
+  // Popup&#39;s owner is enough
+  var dropDown = new wijmo.input.Popup(&#39;#dropDown&#39;, {
+    owner: document.getElementById(&#39;btnDropDown&#39;)
+  });
+
+  // create dialog and show it when the user clicks the button
+  // here there&#39;s no owner element, so we do need an event handler
+  var dialog = new wijmo.input.Popup(&#39;#dialog&#39;);
+  document.getElementById(&#39;btnDialog&#39;).addEventListener(&#39;click&#39;, function(e) {
+
+    // show the dialog (modal window)
+    dialog.show(true, function(sender) {
+
+      // handle result when user closes the dialog
+      if (dialog.dialogResult == &#39;wj-hide-ok&#39;) {
+        alert(&#39;The dialog was submitted.&#39;);
+      } else {
+        alert(&#39;The dialog was canceled.&#39;);
+      }
+    });
+  });
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Popups
+  &lt;/h1&gt;
+  &lt;p&gt;
+    The Popup control shows arbitrary HTML content next to an
+    &quot;owner&quot; element or centered on the screen. It can be used
+    to implement drop-downs and dialogs.&lt;/p&gt;
+  &lt;p&gt;
+    For example, click the buttons below to see a drop-down
+    or a dialog:&lt;/p&gt;
+
+  &lt;button id=&quot;btnDropDown&quot; class=&quot;btn btn-primary&quot;&gt;
+    Show Drop-Down
+  &lt;/button&gt;
+  &lt;div id=&quot;dropDown&quot; class=&quot;wj-dialog-body&quot;&gt;
+    &lt;p&gt;This is a drop-down.&lt;/p&gt;
+    &lt;p&gt;It may contain other controls.&lt;/p&gt;
+    &lt;button class=&quot;btn btn-default wj-hide&quot;&gt;OK&lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;button id=&quot;btnDialog&quot; class=&quot;btn btn-primary&quot;&gt;
+    Show Dialog
+  &lt;/button&gt;
+  &lt;div id=&quot;dialog&quot;&gt;
+    &lt;div class=&quot;wj-dialog-header&quot;&gt;
+      Dialog Header
+    &lt;/div&gt;
+    &lt;div class=&quot;wj-dialog-body&quot;&gt;
+      &lt;p&gt;
+        This is a modal dialog.&lt;/p&gt;
+      &lt;p&gt;
+        The dialog body may contain any HTML content.&lt;/p&gt;
+      &lt;p&gt;
+        The dialog will close when you click the OK or Cancel buttons,
+        &lt;br/&gt; or the grey background outside the dialog,
+        &lt;br/&gt; or when you press the Escape key.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;wj-dialog-footer&quot;&gt;
+      &lt;button class=&quot;btn btn-default wj-hide-ok&quot;&gt;OK&lt;/button&gt;
+      &lt;button class=&quot;btn btn-default wj-hide-cancel&quot;&gt;Cancel&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">body {
+  margin-bottom: 24pt;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

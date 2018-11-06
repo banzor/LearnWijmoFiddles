@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Bubble Charts - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "cef074Lc";
+        var show_src = "//fiddle.jshell.net/Wijmo5/cef074Lc/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/cef074Lc/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/cef074Lc/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=cef074Lc" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// create the chart
+  var theChart = new wijmo.chart.FlexChart(&#39;#theChart&#39;, {
+  	itemsSource: getData(),
+    chartType: &#39;Bubble&#39;,
+    bindingX: &#39;sales&#39;,
+    series: [
+      { binding: &#39;expenses,downloads&#39; }
+    ],
+    legend: {
+    	position: &#39;None&#39;
+    },
+    tooltip: {
+    	content: &#39;&lt;b&gt;{item.country}&lt;/b&gt;:&lt;table class=&quot;chart-tip&quot;&gt;&#39; +
+      	&#39;&lt;tr&gt;&lt;td&gt;Sales&lt;/td&gt;&lt;td&gt;{sales:c0}&lt;/td&gt;&lt;/tr&gt;&#39; +
+        &#39;&lt;tr&gt;&lt;td&gt;Expenses&lt;/td&gt;&lt;td&gt;{expenses:c0}&lt;/td&gt;&lt;/tr&gt;&#39; +
+        &#39;&lt;tr&gt;&lt;td&gt;Downloads&lt;/td&gt;&lt;td&gt;{downloads:n0}&lt;/td&gt;&lt;/tr&gt;&#39; +
+      	&#39;&lt;/table&gt;&#39;
+		},
+    axisX: { title: &#39;Sales&#39;, min: 0 },
+    axisY: { title: &#39;Expenses&#39;, min: 0 },
+  });
+  
+	// create some random data
+  function getData() {
+	  var countries = &#39;US,Canada,Mexico,UK,Germany,France,Italy,Japan,Korea,China,Autralia,New Zealand&#39;.split(&#39;,&#39;),
+	    data = [];
+	  for (var i = 0; i &lt; countries.length; i++) {
+	    data.push({
+	      country: countries[i],
+	      sales: Math.random() * 10000,
+	      expenses: Math.random() * 5000,
+	      downloads: Math.round(Math.random() * 20000),
+	    });
+	  }
+  	return data;
+  }
+
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Bubble Charts
+  &lt;/h1&gt;
+
+  &lt;p&gt;
+    Unlike most other chart types, Bubble Charts display
+    three dimensions of data: X, Y, and size.&lt;/p&gt;
+  &lt;p&gt;
+    To create bubble charts with the FlexChart control, 
+    you must set the &lt;b&gt;binding&lt;/b&gt; property to a comma-delimited
+    list of property names. The first property will be bound to the
+    Y value, and the second to the bubble size.&lt;/p&gt;
+  &lt;p&gt;
+    For example, the chart below shows sales along the X axis,
+    expenses along the Y axis, and uses the number of downloads
+    to determine the bubble size:&lt;/p&gt;    
+
+  &lt;div id=&quot;theChart&quot;&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexchart {
+  height: 300px;
+}
+.wj-dropdown {
+  margin-bottom: 3px;
+}
+.chart-tip td {
+  text-align: right;
+}
+.chart-tip td:first-child {
+   font-weight: bold;
+   padding-right: 12px;
+}
+label {
+  width: 100px;
+  text-align: right;
+}
+body {
+  margin-bottom: 24pt;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.chart.min.js" target="_blank">wijmo.chart.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

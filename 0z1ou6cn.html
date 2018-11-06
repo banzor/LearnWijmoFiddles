@@ -1,0 +1,185 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Dragging Rows from the FlexGrid - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "0z1ou6cn";
+        var show_src = "//fiddle.jshell.net/Wijmo5/0z1ou6cn/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/0z1ou6cn/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/0z1ou6cn/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=0z1ou6cn" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// create the grid
+  var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+  	itemsSource: getData()
+  });
+  
+  // allow dragging from the grid
+  makeDragSource(theGrid);
+  
+  // allow dropping into target
+  var theTarget = document.getElementById(&#39;theTarget&#39;);
+  makeDropTarget(theTarget);
+
+  // make grid rows draggable
+  function makeDragSource(s) {
+  
+  	// make rows draggable
+		s.itemFormatter = function (panel, r, c, cell) {
+    	if (panel.cellType == wijmo.grid.CellType.RowHeader) {
+      	cell.textContent = (r + 1).toString();
+        cell.draggable = true;
+			}
+		};
+
+    // disable built-in row drag/drop
+    s.hostElement.addEventListener(&#39;mousedown&#39;, function (e) {
+    	if (s.hitTest(e).cellType == wijmo.grid.CellType.RowHeader) {
+      	e.stopPropagation();
+			};
+		}, true);
+
+    // handle drag start
+    s.hostElement.addEventListener(&#39;dragstart&#39;, function (e) {
+      var ht = s.hitTest(e);
+      if (ht.cellType == wijmo.grid.CellType.RowHeader) {
+      	s.select(new wijmo.grid.CellRange(ht.row, 0, ht.row, s.columns.length - 1));
+        e.dataTransfer.effectAllowed = &#39;copy&#39;;
+        e.dataTransfer.setData(&#39;text&#39;, ht.row.toString());
+			};
+		}, true);
+  }
+  
+  // enable drop operations on an element
+  function makeDropTarget(s) {
+		s.addEventListener(&#39;dragover&#39;, function (e) {
+			var dragRow = e.dataTransfer.getData(&#39;text&#39;);
+    	if (dragRow != null) {
+      	e.dataTransfer.dropEffect = &#39;copy&#39;;
+        e.preventDefault();
+			}
+		});
+    s.addEventListener(&#39;drop&#39;, function (e) {
+			var dragRow = e.dataTransfer.getData(&#39;text&#39;);
+    	if (dragRow != null) {
+      	var item = theGrid.rows[parseInt(dragRow)].dataItem;
+      	alert(&#39;thanks for dropping row &#39; + JSON.stringify(item) + &#39; here.&#39;);
+        e.preventDefault();
+			}
+		});
+	}
+
+	// create some random data
+  function getData() {
+    var countries = &#39;US,Germany,UK,Japan,Italy,Greece&#39;.split(&#39;,&#39;),
+        data = [];
+    for (var i = 0; i &lt; countries.length; i++) {
+        data.push({
+            country: countries[i],
+            downloads: Math.round(Math.random() * 20000),
+            sales: Math.random() * 10000,
+            expenses: Math.random() * 5000
+        });
+    }
+    return data;
+	}
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Dragging Rows from the FlexGrid
+  &lt;/h1&gt;
+  &lt;p&gt;
+    You can use the HTML5 drag/drop API to implement row dragging
+    from, into, or between FlexGrid controls.&lt;/p&gt;
+  &lt;p&gt;
+    This simple example shows how you can drag rows from the 
+    grid into arbitrary elements. You can easily extend this
+    to support move operations (by removing the row from the
+    source grid when the operation is completed) or dropping
+    into grids (by detecting the drop position and inserting
+    new rows into the target grid).&lt;/p&gt;
+
+  &lt;p&gt;
+    Drag rows from the grid by the row header:&lt;/p&gt;
+  &lt;div id=&quot;theGrid&quot;&gt;&lt;/div&gt;
+
+  &lt;p&gt;
+    And drop them here:&lt;/p&gt;
+  &lt;div id=&quot;theTarget&quot; style=&quot;height:100px;background-color:#e0e0e0&quot;&gt;
+    Drop rows here...
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 250px;
+  margin-bottom: 12px;
+}
+body {
+  margin-bottom: 24pt;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

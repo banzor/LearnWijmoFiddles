@@ -1,0 +1,166 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Ranges - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "994qn6fn";
+        var show_src = "//fiddle.jshell.net/Wijmo5/994qn6fn/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/994qn6fn/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/994qn6fn/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=994qn6fn" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// create the gauge
+  var theGauge = new wijmo.gauge.RadialGauge(&#39;#theGauge&#39;, {
+  	isReadOnly: false,
+    hasShadow: false,
+    showText: &#39;All&#39;,
+    startAngle: -30,
+    sweepAngle: 240,
+    value: 50,
+    showRanges: true
+  });
+  theGauge.pointer.thickness = .25;
+  theGauge.thumbSize = 20;
+
+	// customize
+  document.getElementById(&#39;showRanges&#39;).addEventListener(&#39;click&#39;, function(e) {
+  	theGauge.showRanges = e.target.checked;
+  });
+  var cmbRanges = new wijmo.input.ComboBox(&#39;#ranges&#39;, {
+  	itemsSource: [0, 3, 4, 20, 50],
+    selectedIndexChanged: function(s, e) {
+    	createRanges(theGauge, s.selectedItem);
+    }
+  })
+	cmbRanges.selectedItem = 3;
+  
+  // populate gauge with ranges
+  function createRanges(gauge, cnt) {
+  	gauge.ranges.clear();
+    if (cnt) {
+	    var colorMin= new wijmo.Color(&#39;red&#39;),
+  	  		colorMax = new wijmo.Color(&#39;green&#39;),
+    	    span = (gauge.max - gauge.min) / cnt;
+    	for (var i = 0; i &lt; cnt; i++) {
+	    	var rng = new wijmo.gauge.Range(),
+        		color = wijmo.Color.interpolate(colorMin, colorMax, cnt &gt; 1 ? i / (cnt - 1): 0);
+				rng.min = gauge.min + i * span;
+        rng.max = rng.min + span;
+	      rng.color = color.toString();
+	      gauge.ranges.push(rng);
+	    }
+    }
+  }
+}</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+    
+  &lt;h1&gt;
+    Ranges&lt;/h1&gt;
+  &lt;p&gt;
+    In addition to the &quot;face&quot; and &quot;pointer&quot; ranges, gauges may
+    contain additional ranges that show zones within the gauge
+    (like &#39;bad&#39;, &#39;average&#39;, and &#39;good&#39;).&lt;/p&gt;
+  &lt;p&gt;
+    Depending on the setting of the &#39;showRanges&#39; property, these
+    additional ranges may be shown at all times or used to determine
+    the color of the &#39;pointer&#39; range based on the current gauge 
+    value.&lt;/p&gt;
+
+  &lt;div class=&quot;row&quot;&gt;
+    &lt;div class=&quot;col-xs-6&quot;&gt;
+      &lt;label for=&quot;showRanges&quot;&gt;Show Ranges&lt;/label&gt;
+      &lt;input id=&quot;showRanges&quot; type=&quot;checkbox&quot; checked=&quot;checked&quot;&gt;
+      &lt;br/&gt;
+      &lt;label for=&quot;ranges&quot;&gt;Ranges&lt;/label&gt;
+      &lt;div id=&quot;ranges&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;col-xs-6&quot;&gt;
+      &lt;div id=&quot;theGauge&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+              <pre class="tCont ">.wj-gauge {
+  height: 150px;
+  margin: 20px auto;
+  padding: 12px;
+  background: rgba(0, 0, 0, .02);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);  
+}
+.wj-gauge .wj-pointer {
+  fill: black;  
+}
+label {
+  width: 120px;
+  text-align: right;
+}
+.wj-dropdown,
+.wj-inputnumber {
+  width: 120px;
+  margin-bottom: 6px;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.gauge.min.js" target="_blank">wijmo.gauge.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

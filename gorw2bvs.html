@@ -1,0 +1,172 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - TreeView RTL - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "gorw2bvs";
+        var show_src = "//fiddle.jshell.net/Wijmo5/gorw2bvs/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/gorw2bvs/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/gorw2bvs/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=gorw2bvs" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// create the tree
+  var tree = new wijmo.nav.TreeView(&#39;#theTree&#39;, {
+  	itemsSource: getData(),
+		displayMemberPath: &#39;header&#39;,
+    childItemsPath: &#39;items&#39;
+	});
+  
+  // handle checkboxes
+  document.getElementById(&#39;rtl&#39;).addEventListener(&#39;click&#39;, function(e) {
+  	var content = document.getElementById(&#39;content&#39;);
+  	content.setAttribute(&#39;dir&#39;, e.target.checked ? &#39;rtl&#39;: &#39;&#39;);
+  });
+  
+  // get the tree data
+  function getData() {
+		return [
+    	{ header: &#39;Electronics&#39;, img: &#39;resources/electronics.png&#39;, items: [
+				{ header: &#39;Trimmers/Shavers&#39; },
+        { header: &#39;Tablets&#39; },
+        { header: &#39;Phones&#39;, img: &#39;resources/phones.png&#39;, items: [
+					{ header: &#39;Apple&#39; },
+          { header: &#39;Motorola&#39;, newItem: true },
+          { header: &#39;Nokia&#39; },
+          { header: &#39;Samsung&#39; }]
+				},
+        { header: &#39;Speakers&#39;, newItem: true },
+        { header: &#39;Monitors&#39; }]
+			},
+      { header: &#39;Toys&#39;, img: &#39;resources/toys.png&#39;, items: [
+      	{ header: &#39;Shopkins&#39; },
+        { header: &#39;Train Sets&#39; },
+        { header: &#39;Science Kit&#39;, newItem: true },
+        { header: &#39;Play-Doh&#39; },
+        { header: &#39;Crayola&#39; } ]
+			},
+			{ header: &#39;Home&#39;, img: &#39;resources/home.png&#39;, items: [
+      	{ header: &#39;Coffeee Maker&#39; },
+        { header: &#39;Breadmaker&#39;, newItem: true },
+        { header: &#39;Solar Panel&#39;, newItem: true },
+        { header: &#39;Work Table&#39; },
+        { header: &#39;Propane Grill&#39; }]
+			}
+		];
+	}
+}</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+    
+  &lt;h1&gt;
+    RTL Support&lt;/h1&gt;
+
+  &lt;p&gt;
+    Some languages render content from the right to the left of the page
+    (Arabic and Hebrew are typical examples) . HTML accommodates this 
+    with the &#39;dir&#39; attribute. Setting &#39;dir&#39; to &#39;rtl&#39; on any element 
+    causes the element&#39;s content to flow from right to left.&lt;/p&gt;
+  &lt;p&gt;
+    The &lt;b&gt;TreeView&lt;/b&gt; supports this automatically. If the element hosting 
+    the tree has the &#39;dir&#39; attribute set to &#39;rtl&#39;, the tree will render with
+    nodes extending from right to left. You don&#39;t have to set any properties
+    on the control.&lt;/p&gt;
+  &lt;p&gt;
+    Note that the &#39;dir&#39; attribute value is inherited, so if you set it on the
+    body tag for example, the entire page will be rendered from right to left,
+    including the tree.&lt;/p&gt;
+  &lt;p&gt;
+    Note also that CSS has a &#39;direction&#39; attribute that performs the same
+    function as the &#39;dir&#39; element attribute. The &#39;dir&#39; attribute is generally
+    considered more appropriate for several reasons, including the fact that 
+    it can be used in CSS rules.&lt;/p&gt;
+  &lt;div&gt;
+    &lt;label&gt;
+      Right to Left Layout
+      &lt;input id=&quot;rtl&quot; type=&quot;checkbox&quot; checked=&quot;true&quot;&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+
+  &lt;div id=&quot;content&quot; dir=&quot;rtl&quot;&gt;
+    &lt;div&gt;
+      This is some regular content, followed by a &lt;b&gt;TreeView&lt;/b&gt;:
+    &lt;/div&gt;
+    &lt;div id=&quot;theTree&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+    
+&lt;/div&gt;</pre>
+              <pre class="tCont ">/* default trees on this sample */
+.wj-treeview {
+    display:block;
+    height: 350px;
+    font-size: 120%;
+    margin-bottom: 8px;
+    padding: 6px;
+    background: #f0f0f0;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+body {
+  margin-bottom: 24pt;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.nav.min.js" target="_blank">wijmo.nav.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

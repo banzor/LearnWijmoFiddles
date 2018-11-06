@@ -1,0 +1,161 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Trend Lines - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "8w9pc2r1";
+        var show_src = "//fiddle.jshell.net/Wijmo5/8w9pc2r1/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/8w9pc2r1/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/8w9pc2r1/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=8w9pc2r1" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// create the chart
+  var theChart = new wijmo.chart.FlexChart(&#39;#theChart&#39;, {
+    itemsSource: getData(),
+  	chartType: &#39;Scatter&#39;,
+    bindingX: &#39;x&#39;,
+    series: [
+    	{ name: &#39;Raw Data&#39;, binding: &#39;y&#39; },
+		],
+	});
+
+  // create a TrendLine and add it to the chart
+  var trendLine = new wijmo.chart.analytics.TrendLine();
+  trendLine.name = &#39;TrendLine&#39;;
+  trendLine.binding = &#39;y&#39;;
+	trendLine.fitType = &#39;Polynomial&#39;;
+  trendLine.order = 2;
+  trendLine.style = { stroke: &#39;darkred&#39;, strokeWidth: 3 };
+  theChart.series.push(trendLine);
+  
+  // create a MovingAverage and add it to the chart
+  var movAvg = new wijmo.chart.analytics.MovingAverage();
+  movAvg.name = &#39;MovingAverage&#39;;
+  movAvg.binding = &#39;y&#39;;
+  movAvg.period = 6;
+  movAvg.style = { stroke: &#39;orange&#39;, strokeWidth: 3 };
+  theChart.series.push(movAvg);
+
+	// data sources
+  function getData() {
+  	var arr = [], 
+    		cnt = 50,
+        a = Math.random(),
+        b = .2 + Math.random(),
+    		x = 1;
+    for (var i = 1; i &lt; cnt; i++) {
+      arr.push({
+      	x: i,
+        y: a + i * b + i * (Math.random() - .5)
+			});
+		}
+		return arr;
+	}
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Analytics&lt;/h1&gt;
+  &lt;p&gt;
+    The &lt;b&gt;wijmo.chart.analytics&lt;/b&gt; module contains classes that
+    extend the &lt;b&gt;Series&lt;/b&gt; class to provide extra information
+    about the data including: trend lines, moving averages,
+    error bars, box and waterfall plots, and function plots.&lt;/p&gt;
+  &lt;p&gt;
+    The chart below has a regular series and two analytics series, 
+    a &lt;b&gt;TrendLine&lt;/b&gt; and a &lt;b&gt;MovingAverage&lt;/b&gt;:&lt;/p&gt;    
+  &lt;div id=&quot;theChart&quot;&gt;&lt;/div&gt;
+  
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexchart {
+  height: 250px;
+  margin: 10px 0;
+}
+.wj-control {
+  margin-bottom: 3px;
+}
+label {
+  width: 120px;
+  text-align: right;
+}
+.equation {
+  display: inline-block;
+  font-style: italic;
+  font-size: 80%;
+}
+.wj-combobox, .wj-inputnumber {
+  width: 120px;
+  margin-right: 12px;
+}
+
+body {
+  margin-bottom: 24pt;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.chart.min.js" target="_blank">wijmo.chart.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.chart.analytics.min.js" target="_blank">wijmo.chart.analytics.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

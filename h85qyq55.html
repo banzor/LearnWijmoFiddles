@@ -1,0 +1,223 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - ComboBox - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "h85qyq55";
+        var show_src = "//fiddle.jshell.net/Wijmo5/h85qyq55/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/h85qyq55/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/h85qyq55/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=h85qyq55" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// data used in the combo
+	var theData = [
+  	{ name: &#39;Zero&#39;, value: 0 },
+  	{ name: &#39;Low&#39;, value: 10 },
+  	{ name: &#39;Medium&#39;, value: 50 },
+  	{ name: &#39;High&#39;, value: 100 },
+  	{ name: &#39;Maximum&#39;, value: 150 },
+  ];
+  
+  // show the data
+  var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+  	itemsSource: theData,
+    isReadOnly: true,
+    selectionMode: &#39;None&#39;
+  });
+  
+  // create the combo
+  var theComboBox = new wijmo.input.ComboBox(&#39;#theComboBox&#39;, {
+    displayMemberPath: &#39;name&#39;,
+    selectedValuePath: &#39;value&#39;,
+    selectedIndexChanged: function(s, e) {
+    	updateText(s, &#39;displayMemberPath&#39;);
+    	updateText(s, &#39;selectedValuePath&#39;);
+    	updateText(s, &#39;selectedIndex&#39;);
+    	updateText(s, &#39;selectedItem&#39;);
+    	updateText(s, &#39;selectedValue&#39;);
+    	updateText(s, &#39;text&#39;);
+    },
+  	itemsSource: theData
+  });
+  
+  // show current values
+  function updateText(combo, prop) {
+		var value = combo[prop];
+    if (wijmo.isObject(value)) {
+  		value = JSON.stringify(value);
+		}
+  	document.getElementById(prop).textContent = value;
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    ComboBox
+  &lt;/h1&gt;
+  &lt;p&gt;
+    The ComboBox control is one of the most powerful and flexible in Wijmo&#39;s input module. It can be used to edit strings and to select items from lists. It is used as a base class for several other controls including AutoComplete, MultiSelect, InputTime,
+    and Menu.&lt;/p&gt;
+  &lt;p&gt;
+    The main properties in the ComboBox control are:&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;
+      &lt;b&gt;itemsSource&lt;/b&gt;
+      Gets or sets an array (or CollectionView) containing the items
+      (values or objects) to choose from.
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;displayMemberPath&lt;/b&gt;
+      Gets or sets the name of the property of the items to display
+      in the input element and in the drop-down list.
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;selectedValuePath&lt;/b&gt;
+      Gets or sets the name of the property of the items to use
+      when getting or setting the value of the &lt;b&gt;selectedValue&lt;/b&gt;
+      property.
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;selectedItem&lt;/b&gt;
+      Gets or sets the currently selected item in the
+      &lt;b&gt;itemsSource&lt;/b&gt; collection.
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;selectedIndex&lt;/b&gt;
+      Gets or sets the index of the currently selected item.
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;selectedValue&lt;/b&gt;
+      Gets or sets the value of the &lt;b&gt;selectedValuePath&lt;/b&gt;
+      property in the currently selected item.
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;isEditable&lt;/b&gt;
+      Gets or sets a value that determines whether users should 
+      be allowed to enter values not present in the &lt;b&gt;itemsSource&lt;/b&gt;.
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;isRequired&lt;/b&gt;
+      Gets or sets a value that determines whether users should be
+      allowed clear the text in the control.
+    &lt;/li&gt;
+  &lt;/ul&gt;
+  
+  &lt;p&gt;
+    This example illustrates the use of these properties:&lt;/p&gt;
+    
+  &lt;h3&gt;
+    Data
+  &lt;/h3&gt;
+  &lt;div id=&quot;theGrid&quot;&gt;&lt;/div&gt;
+  
+  &lt;h3&gt;
+    ComboBox
+  &lt;/h3&gt;
+  &lt;div class=&quot;row&quot;&gt;
+    &lt;div class=&quot;col-xs-8&quot;&gt;
+      &lt;label&gt;displayMemberPath: &lt;/label&gt;
+      &lt;div id=&quot;displayMemberPath&quot;&gt;&lt;/div&gt;
+      &lt;br/&gt;
+      &lt;label&gt;selectedValuePath: &lt;/label&gt;
+      &lt;div id=&quot;selectedValuePath&quot;&gt;&lt;/div&gt;
+      &lt;br/&gt;
+      &lt;label&gt;selectedItem: &lt;/label&gt;
+      &lt;div id=&quot;selectedItem&quot;&gt;&lt;/div&gt;
+      &lt;br/&gt;
+      &lt;label&gt;selectedIndex: &lt;/label&gt;
+      &lt;div id=&quot;selectedIndex&quot;&gt;&lt;/div&gt;
+      &lt;br/&gt;
+      &lt;label&gt;selectedValue: &lt;/label&gt;
+      &lt;div id=&quot;selectedValue&quot;&gt;&lt;/div&gt;
+      &lt;br/&gt;
+      &lt;label&gt;text: &lt;/label&gt;
+      &lt;div id=&quot;text&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;col-xs-4&quot;&gt;
+      &lt;div id=&quot;theComboBox&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">label {
+  width: 150px;
+  text-align: right;
+}
+label + div {
+  display: inline-block;
+  max-width: 160px;
+  white-space: pre;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+body {
+  margin-bottom: 36pt;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

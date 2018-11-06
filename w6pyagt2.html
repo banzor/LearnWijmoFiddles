@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Data Views - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "w6pyagt2";
+        var show_src = "//fiddle.jshell.net/Wijmo5/w6pyagt2/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/w6pyagt2/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/w6pyagt2/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=w6pyagt2" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active"></pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Data Views
+  &lt;/h1&gt;
+
+  &lt;p&gt;
+    The &lt;b&gt;CollectionView&lt;/b&gt; class represents a view for
+    grouping, sorting, filtering, and navigating data 
+    collections.&lt;/p&gt;
+  &lt;p&gt;
+    The object model used in the &lt;b&gt;CollectionView&lt;/b&gt;
+    class is similar to the one defined by .NET&#39;s
+    &lt;b&gt;ICollectionView&lt;/b&gt; and &lt;b&gt;IPagedCollectionView&lt;/b&gt;
+    interfaces.&lt;/p&gt;
+  &lt;p&gt;
+    To create data views, follow these steps:&lt;/p&gt;
+  &lt;ol&gt;
+    &lt;li&gt;
+      Create a new &lt;b&gt;CollectionView&lt;/b&gt;.&lt;/li&gt;
+    &lt;li&gt;
+      Set the &lt;b&gt;sourceCollection&lt;/b&gt; to an array containing
+      the raw data.&lt;/li&gt;
+    &lt;li&gt;
+      Optionally add items to the &lt;b&gt;sortDescriptions&lt;/b&gt; array
+      to define how the data should be sorted.&lt;/li&gt;
+    &lt;li&gt;
+      Optionally add items to the &lt;b&gt;groupDescriptions&lt;/b&gt; array
+      to define how the data should be grouped.&lt;/li&gt;
+    &lt;li&gt;
+      Optionally set the &lt;b&gt;filter&lt;/b&gt; property to a predicate 
+      function that selects the items that should be included
+      in the view.&lt;/li&gt;
+    &lt;li&gt;
+      Optionally set the &lt;b&gt;pageSize&lt;/b&gt; property to define the
+      number of items in the view, and use the &lt;b&gt;moveToPage&lt;/b&gt;
+      method to select the current page.&lt;/li&gt;
+    &lt;li&gt;
+      Use the &lt;b&gt;items&lt;/b&gt; array to get the output view.&lt;/li&gt;
+    &lt;li&gt;
+      Use the &lt;b&gt;currentItem&lt;/b&gt; property to get a reference
+      to the item that is currently selected, and use the
+      &lt;b&gt;currentChanged&lt;/b&gt; event to detect selection changes.&lt;/li&gt;
+    &lt;/ol&gt;
+    
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 300px;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

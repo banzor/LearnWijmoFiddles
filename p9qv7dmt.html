@@ -1,0 +1,219 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Custom Merging - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "p9qv7dmt";
+        var show_src = "//fiddle.jshell.net/Wijmo5/p9qv7dmt/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/p9qv7dmt/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/p9qv7dmt/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=p9qv7dmt" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // create an unbound grid with 5 rows and 7 columns
+  var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;);
+  while (theGrid.columns.length &lt; 7) {
+    theGrid.columns.push(new wijmo.grid.Column());
+  }
+  while (theGrid.rows.length &lt; 5) {
+    theGrid.rows.push(new wijmo.grid.Row());
+  }
+
+  // configure the grid
+  theGrid.mergeManager = new wijmo.grid.CustomMergeManager(theGrid);
+  theGrid.formatItem.addHandler(centerCell);
+  theGrid.rowHeaders.columns[0].width = 80;
+  theGrid.rows.defaultSize = 40;
+  theGrid.showAlternatingRows = false;
+  theGrid.isReadOnly = true;
+
+  // populate the grid
+	setData(theGrid.columnHeaders, 0, &#39;,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday&#39;.split(&#39;,&#39;));
+	setData(theGrid.cells, 0, &#39;12:00,Walker,Morning Show,Morning Show,Sport,Weather,N/A,N/A&#39;.split(&#39;,&#39;));
+  setData(theGrid.cells, 1, &#39;13:00,Today Show,Today Show,Sesame Street,Football,Market Watch,N/A,N/A&#39;.split(&#39;,&#39;));
+  setData(theGrid.cells, 2, &#39;14:00,Today Show,Today Show,Kid Zone,Football,Soap Opera,N/A,N/A&#39;.split(&#39;,&#39;));
+  setData(theGrid.cells, 3, &#39;15:00,News,News,News,News,News,N/A,N/A&#39;.split(&#39;,&#39;));
+  setData(theGrid.cells, 4, &#39;16:00,News,News,News,News,News,N/A,N/A&#39;.split(&#39;,&#39;));
+}
+
+function setData(p, r, cells) {
+  if (p.cellType == wijmo.grid.CellType.Cell) {
+    p.grid.rowHeaders.setCellData(r, 0, cells[0]);
+  }
+  for (var i = 1; i &lt; cells.length; i++) {
+    p.setCellData(r, i - 1, cells[i]);
+  }
+}
+
+function centerCell(s, e) {
+	if (e.cell.children.length == 0) {
+  	e.cell.innerHTML = &#39;&lt;div&gt;&#39; + e.cell.innerHTML + &#39;&lt;/div&gt;&#39;;
+    wijmo.setCss(e.cell, {
+    	display: &#39;table&#39;,
+      tableLayout: &#39;fixed&#39;
+		});
+		wijmo.setCss(e.cell.children[0], {
+    	display: &#39;table-cell&#39;,
+      textAlign: &#39;center&#39;,
+      verticalAlign: &#39;middle&#39;
+		});
+	}
+}
+
+// CustomMergeManager class (transpiled from TypeScript)
+
+var __extends = (this &amp;&amp; this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var wijmo;
+(function (wijmo) {
+    var grid;
+    (function (grid) {
+        &#39;use strict&#39;;
+        /**
+         * Class that extends the standard MergeManager to support merged ranges that
+         * span both rows and columns.
+         *
+         * This class uses the same content-based approach used by the built-in merge
+         * manager, but it could use any other logic instead (for example, a fixed list
+         * of pre-defined merged ranges).
+         */
+        var CustomMergeManager = (function (_super) {
+            __extends(CustomMergeManager, _super);
+            function CustomMergeManager() {
+                _super.apply(this, arguments);
+            }
+            CustomMergeManager.prototype.getMergedRange = function (panel, r, c, clip) {
+                if (clip === void 0) { clip = true; }
+                // create basic cell range
+                var rg = new grid.CellRange(r, c);
+                // expand left/right
+                for (var i = rg.col; i &lt; panel.columns.length - 1; i++) {
+                    if (panel.getCellData(rg.row, i, true) != panel.getCellData(rg.row, i + 1, true))
+                        break;
+                    rg.col2 = i + 1;
+                }
+                for (var i = rg.col; i &gt; 0; i--) {
+                    if (panel.getCellData(rg.row, i, true) != panel.getCellData(rg.row, i - 1, true))
+                        break;
+                    rg.col = i - 1;
+                }
+                // expand up/down
+                for (var i = rg.row; i &lt; panel.rows.length - 1; i++) {
+                    if (panel.getCellData(i, rg.col, true) != panel.getCellData(i + 1, rg.col, true))
+                        break;
+                    rg.row2 = i + 1;
+                }
+                for (var i = rg.row; i &gt; 0; i--) {
+                    if (panel.getCellData(i, rg.col, true) != panel.getCellData(i - 1, rg.col, true))
+                        break;
+                    rg.row = i - 1;
+                }
+                // done
+                return rg;
+            };
+            return CustomMergeManager;
+        }(grid.MergeManager));
+        grid.CustomMergeManager = CustomMergeManager;
+    })(grid = wijmo.grid || (wijmo.grid = {}));
+})(wijmo || (wijmo = {}));
+//# sourceMappingURL=CustomMergeManager.js.map</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Custom Merging
+  &lt;/h1&gt;
+  &lt;p&gt;
+    By default, the FlexGrid applies merging to cells based on 
+    their content. In some cases, you may want to use different
+    strategies for merging.&lt;/p&gt;
+  &lt;p&gt;
+    You can achieve this by defining a class that extends the
+    &lt;b&gt;wijmo.grid.MergeManager&lt;/b&gt; class and assigning an object
+    of that type to the grid&#39;s &lt;b&gt;mergeManager&lt;/b&gt; property.&lt;/p&gt;
+  &lt;p&gt;
+    This example illustrates by creating a grid that looks like
+    a TV guide:&lt;/p&gt;
+  &lt;div id=&quot;theGrid&quot;&gt;
+  &lt;/div&gt;
+  
+  &lt;p&gt;
+    Notice how the custom merge manager creates merged ranges
+    that span both rows and columns. This is something the 
+    default merge manager does not do.&lt;/p&gt;
+  &lt;/p&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  margin-bottom: 12px;
+}
+
+body {
+  margin-bottom: 24px;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

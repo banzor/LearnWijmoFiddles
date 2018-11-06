@@ -1,0 +1,194 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - International Sort - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "fnn9w7sc";
+        var show_src = "//fiddle.jshell.net/Wijmo5/fnn9w7sc/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/fnn9w7sc/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/fnn9w7sc/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=fnn9w7sc" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// show ascending sort
+	sort(true);
+	
+	// handle buttons
+  document.getElementById(&#39;asc&#39;).addEventListener(&#39;click&#39;, function() {
+		sort(true);
+	});
+  document.getElementById(&#39;desc&#39;).addEventListener(&#39;click&#39;, function() {
+		sort(false);
+	});
+
+	// sort with JavaScript and with CollectionView
+  function sort(ascending) {
+	
+		// sort javascript
+		var items = getItems();
+		items.sort();
+		if (!ascending) {
+			items.reverse();
+		}
+		
+		// show javascript sort
+	  var ol = document.getElementById(&#39;ol-js&#39;);
+		ol.innerHTML = &#39;&#39;;
+		items.forEach(function(item) {
+			var li = document.createElement(&#39;li&#39;);
+			li.textContent = item;
+			ol.appendChild(li);
+		});
+		
+		// sort CollectionView
+		items = [];
+		getItems().forEach(function(item) {
+			items.push({ value: item});
+		})
+		var cv = new wijmo.collections.CollectionView(items);
+		cv.sortDescriptions.push(new wijmo.collections.SortDescription(&#39;value&#39;, ascending))
+		
+		// show CollectionView sort
+	  ol = document.getElementById(&#39;ol-cv&#39;);
+		ol.innerHTML = &#39;&#39;;
+		cv.items.forEach(function(item) {
+			var li = document.createElement(&#39;li&#39;);
+			li.textContent = item.value;
+			ol.appendChild(li);
+		});
+  }
+
+  function getItems() {
+    return [
+      &#39;aaron&#39;,
+      &#39;Aaron&#39;,
+      &#39;Ação&#39;,
+      &#39;Acao&#39;,
+      &#39;Haagen&#39;,
+      &#39;Häagen&#39;,
+      &#39;Hilton&#39;,
+      &#39;bill&#39;,
+      &#39;Bill&#39;,
+      &#39;Adieu&#39;,
+      &#39;a&#39;,
+      &#39;A&#39;,
+      &#39;b&#39;,
+      &#39;B&#39;,
+    ];
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    International Sort
+  &lt;/h1&gt;
+  &lt;p&gt;
+    The CollectionView class uses the
+    &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Collator&quot;&gt;Intl.Collator&lt;/a&gt;
+		class to compare strings for sorting. This class handles lower/upper
+		case as well as diacritics (accents) often present in international
+    applications.
+  &lt;/p&gt;
+	&lt;p&gt;
+		By default, the CollectionView class uses the default &lt;b&gt;Intl.Collator&lt;/b&gt;
+		for comparing strings, and JavaScript to compare all other objects.
+		You can override this by setting the CollectionView&#39;s
+		&lt;a href=&quot;https://demos.wijmo.com/5/Angular/WijmoHelp/WijmoHelp/topic/wijmo.collections.CollectionView.Class.html#sortComparer&quot;&gt;sortComparer&lt;/a&gt;
+		property to a function that compares two values using whatever logic
+		you want, or by setting the 
+		&lt;a&gt;&lt;/a&gt;
+	
+	&lt;/p&gt;
+	sortComparer
+  &lt;p&gt;
+    For example, here&#39;s how the CollectionView and JavaScript sort a
+		list of strings with diacritics, numbers, and upper/lower case 
+		strings::&lt;/p&gt;
+  &lt;button id=&quot;asc&quot; class=&quot;btn&quot;&gt;
+			Sort Ascending
+	&lt;/button&gt;
+  &lt;button id=&quot;desc&quot; class=&quot;btn&quot;&gt;
+			Sort Descending
+	&lt;/button&gt;
+	&lt;div class=&quot;row&quot;&gt;
+		&lt;div class=&quot;col-xs-6&quot;&gt;
+			&lt;h4&gt;
+				JavaScript array.sort
+			&lt;/h4&gt;
+			&lt;ol id=&quot;ol-js&quot;&gt;
+			&lt;/ol&gt;
+		&lt;/div&gt;
+		&lt;div class=&quot;col-xs-6&quot;&gt;
+			&lt;h4&gt;
+				CollectionView.sort
+			&lt;/h4&gt;
+			&lt;ol id=&quot;ol-cv&quot;&gt;
+			&lt;/ol&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont "></pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

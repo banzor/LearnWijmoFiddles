@@ -1,0 +1,183 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - ComboBox with Strings - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "nLcLr7cr";
+        var show_src = "//fiddle.jshell.net/Wijmo5/nLcLr7cr/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/nLcLr7cr/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/nLcLr7cr/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=nLcLr7cr" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // combo as a regular HTML input element (no itemsSource)
+  var theComboNoSrc = new wijmo.input.ComboBox(&#39;#theComboNoSrc&#39;, {
+    textChanged: function(s, e) {
+    	setText(&#39;theComboText&#39;, s.text);
+    }
+	});
+
+	// our country list
+  var countries = &#39;Austria,Australia,Belgium,Brazil,Canada,Chile,Denmark,Estonia,France,Germany,Hungary,Italy,Israel,Japan,Korea,Mexico,Norway,Oman,Poland,Qatar,Russia,Sweden,Scotland,Turkey,United Kingdom,United States,Vietnam,Yemen,Zambia&#39;.split(&#39;,&#39;);
+  
+  // default combo
+  var theCombo = new wijmo.input.ComboBox(&#39;#theCombo&#39;, {
+    textChanged: function(s, e) {
+    	setText(&#39;theComboValue&#39;, s.selectedValue);
+    },
+    itemsSource: countries
+	});
+
+  // customizable combo
+  var theComboCustom = new wijmo.input.ComboBox(&#39;#theComboCustom&#39;, {
+    isRequired: false,
+    isEditable: true,
+    placeholder: &#39;No Country Selected&#39;,
+    textChanged: function(s, e) {
+    	setText(&#39;theComboCustomValue&#39;, s.text);
+    },
+    itemsSource: countries
+	});
+
+	// handle checkboxes
+  document.getElementById(&#39;isRequired&#39;).addEventListener(&#39;click&#39;, function(e) {
+  	theComboCustom.isRequired = e.target.checked;
+  })
+  document.getElementById(&#39;isEditable&#39;).addEventListener(&#39;click&#39;, function(e) {
+  	theComboCustom.isEditable = e.target.checked;
+  })
+
+  // show text in an element on the page
+  function setText(id, value) {
+  	document.getElementById(id).textContent = value;
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    ComboBox with Strings
+  &lt;/h1&gt;
+  &lt;p&gt;
+    By default, the ComboBox acts as a regular HTML input element,
+    with the additional styling and object model associated with
+    all Wijmo controls. The &lt;b&gt;text&lt;/b&gt; property gets or sets the
+    user&#39;s input:&lt;/p&gt;
+  &lt;label for=&quot;theComboNoSrc&quot;&gt;Any string:&lt;/label&gt;
+  &lt;div id=&quot;theComboNoSrc&quot;&gt;&lt;/div&gt;
+  &lt;p&gt;
+    You have typed this: &lt;b id=&quot;theComboText&quot;&gt;&lt;/b&gt;.
+  &lt;/p&gt;
+  
+  &lt;h4&gt;
+    Choosing from Lists
+  &lt;/h4&gt;
+  &lt;p&gt;
+    If you want to provide a list of strings for users to choose
+    from, set the &lt;b&gt;itemsSource&lt;/b&gt; property to an array containing
+    those items and users will be able to select one of them:&lt;/p&gt;
+  &lt;label for=&quot;theCombo&quot;&gt;Select a Country:&lt;/label&gt;
+  &lt;div id=&quot;theCombo&quot;&gt;&lt;/div&gt;
+  &lt;p&gt;
+    You have selected this country: &lt;b id=&quot;theComboValue&quot;&gt;&lt;/b&gt;.
+  &lt;/p&gt;
+  
+  &lt;h4&gt;
+    Simple Customizations
+  &lt;/h4&gt;
+  &lt;p&gt;
+    By default, the ComboBox will force users to select one of the
+    items on the list. Users will not be able to leave the combo
+    empty or to enter values that are not on the list.&lt;/p&gt;
+  &lt;p&gt;
+    You can change these behaviors by setting the &lt;b&gt;isRequired&lt;/b&gt;
+    and &lt;b&gt;isEditable&lt;/b&gt; properties:&lt;/p&gt;
+  &lt;p&gt;&lt;label&gt;
+    &lt;input id=&quot;isRequired&quot; type=&quot;checkbox&quot;&gt;
+    isRequired
+  &lt;/label&gt;&lt;/p&gt;    
+  &lt;p&gt;&lt;label&gt;
+    &lt;input id=&quot;isEditable&quot; type=&quot;checkbox&quot; checked=&quot;checked&quot;&gt;
+    isEditable
+  &lt;/label&gt;&lt;/p&gt;    
+  &lt;label for=&quot;theComboCustom&quot;&gt;Select a Country:&lt;/label&gt;
+  &lt;div id=&quot;theComboCustom&quot;&gt;&lt;/div&gt;
+  &lt;p&gt;
+    You have selected this country: &lt;b id=&quot;theComboCustomValue&quot;&gt;&lt;/b&gt;.
+  &lt;/p&gt;
+  
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-combobox {
+  margin-bottom: 12px;
+}
+h4 {
+  margin-top: 24px;
+}
+body {
+  margin-bottom: 24px;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

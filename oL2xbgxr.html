@@ -1,0 +1,191 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Filtering Hierarchical Data - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "oL2xbgxr";
+        var show_src = "//fiddle.jshell.net/Wijmo5/oL2xbgxr/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/oL2xbgxr/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/oL2xbgxr/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=oL2xbgxr" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function () {
+
+	// create tree-style grid
+  var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+  	childItemsPath: &#39;cities&#39;,
+    headersVisibility: &#39;Column&#39;,
+    itemsSource: getData(),
+  });
+  
+  // update filter
+  document.getElementById(&#39;filter&#39;).addEventListener(&#39;input&#39;, function(e) {
+  	var filter = e.target.value.toLowerCase();
+    applyHierarchicalFilter(theGrid, filter);
+  });
+
+  // update row visibility
+  function applyHierarchicalFilter(grid, filter) {
+  	var rows = grid.rows;
+		for (var i = 0; i &lt; rows.length; i++) {
+    	var row = rows[i],
+      	state = row.dataItem,
+        rng = row.getCellRange();
+
+			// handle states (level 0)
+      if (row.level == 0) {
+
+				// check if the state name matches the filter
+        var stateVisible = state.name.toLowerCase().indexOf(filter) &gt;= 0;
+        if (stateVisible) {
+
+        	// it does, so show the state and all its cities
+          for (var j = rng.topRow; j &lt;= rng.bottomRow; j++) {
+          	rows[j].visible = true;
+					}
+
+				} else {
+
+        	// it does not, so check the cities
+          for (var j = rng.topRow + 1; j &lt;= rng.bottomRow; j++) {
+          	var city = rows[j].dataItem,
+            	cityVisible = city.name.toLowerCase().indexOf(filter) &gt;= 0;
+						rows[j].visible = cityVisible;
+            stateVisible |= cityVisible;
+					}
+
+          // if at least one city is visible, the state is visible
+          rows[i].visible = stateVisible; 
+				}
+
+        // move on to the next group
+        i = rng.bottomRow;
+			}
+		}
+	}  
+
+	// some hierarchical data
+	function getData() {
+  	return [
+  		{ name: &#39;Washington&#39;, type: &#39;state&#39;, population: 6971, cities: [
+				{ name: &#39;Seattle&#39;, type: &#39;city&#39;, population: 652 },
+        { name: &#39;Spokane&#39;, type: &#39;city&#39;, population: 210 }]
+			}, 
+    	{ name: &#39;Oregon&#39;, type: &#39;state&#39;, population: 3930, cities: [
+      	{ name: &#39;Portland&#39;, type: &#39;city&#39;, population: 609 },
+        { name: &#39;Eugene&#39;, type: &#39;city&#39;, population: 159 }]
+			},
+      { name: &#39;California&#39;, type: &#39;state&#39;, population: 38330, cities: [
+				{ name: &#39;Los Angeles&#39;, type: &#39;city&#39;, population: 3884 },
+        { name: &#39;San Diego&#39;, type: &#39;city&#39;, population: 1356 },
+        { name: &#39;San Francisco&#39;, type: &#39;city&#39;, population: 837 }]
+			}
+		];
+  }
+}</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Filtering Hierarchical Data&lt;/h1&gt;
+  &lt;p&gt;
+    The CollectionView class supports filtering only for items
+    that are direct children of the collection. In most cases,
+    it does not work well for hierarchical data.&lt;/p&gt;
+  &lt;p&gt;
+    Filtering hierarchical data is not a trivial exercise because
+    when a child element is visible, all its ancestors should
+    also be visible.&lt;/p&gt;    
+  &lt;p&gt;
+    The grid below shows how you can implement a simple hierarchical
+    binding method that will show cities that match the filter and
+    states that match the filter or contain cities that do. 
+    For example, try typing &#39;San&#39; in the filter box:&lt;/p&gt; 
+  &lt;div class=&quot;input-group&quot;&gt;
+    &lt;div class=&quot;input-group-addon&quot;&gt;&lt;span class=&quot;glyphicon glyphicon-search&quot;&gt;&lt;/span&gt;&lt;/div&gt;    
+    &lt;input id=&quot;filter&quot; class=&quot;form-control&quot; placeholder=&quot;Filter&quot;&gt;
+  &lt;/div&gt;    
+  &lt;div id=&quot;theGrid&quot;&gt;
+  &lt;/div&gt;
+    
+  &lt;p&gt;
+    For more details in hierarchical filtering, please see our
+    &lt;a href=&quot;https://wijmo.com/blog/filter-hierarchical-data-flexgrid/&quot; target=&quot;_blank&quot;&gt;How to Filter Hierarchical Data in FlexGrid and Angular&lt;/a&gt;
+    blog.&lt;/p&gt;
+&lt;/div&gt;
+
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 250px;
+  margin: 10px 0;
+}
+.wj-cell.wj-group {
+  border: none;
+}
+.wj-cell.wj-group:not(.wj-state-selected):not(.wj-state-multi-selected) {
+  background-color: white;
+}
+body {
+  margin-bottom: 20px;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

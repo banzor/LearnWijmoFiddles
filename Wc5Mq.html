@@ -1,0 +1,202 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Wijmo 5 - Menu Directive - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "Wc5Mq";
+        var show_src = "//fiddle.jshell.net/Wijmo5/Wc5Mq/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/Wc5Mq/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/Wc5Mq/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=Wc5Mq" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">// define app, include Wijmo 5 directives
+var app = angular.module(&#39;app&#39;, [&#39;wj&#39;]);
+
+// controller
+app.controller(&#39;appCtrl&#39;, function ($scope) {
+
+    // variable bound to the value picker menu
+    $scope.tax = 0;
+    
+    // value handled by the command menu
+    $scope.theValue = 1;
+    $scope.changeValueCommand = {
+        executeCommand: function (parm) {
+            if (wijmo.isNumber(parm)) {
+                $scope.theValue += parm;
+            } else {
+                $scope.theValue = 1; // reset
+            }
+            $scope.$apply(&#39;theValue&#39;);
+        },
+        canExecuteCommand: function (parm) {
+            if (wijmo.isNumber(parm)) {
+                var val = $scope.theValue + parm;
+                return val &gt;= 0 &amp;&amp; val &lt;= 100;
+            }
+            return true;
+        }
+    }
+    
+    // handle menu clicks: this method gets invoked when the menu&#39;s itemClicked event fires
+    $scope.menuItemClicked = function (sender, args) {
+        var menu = sender;
+        alert(&#39;Thanks for selecting option &#39; + menu.selectedIndex + &#39; from menu **&#39; + menu.header + &#39;**!&#39;);
+    }
+
+});</pre>
+              <pre class="tCont ">&lt;!-- mark this as an Angular application and give it a controller --&gt;
+&lt;div ng-app=&quot;app&quot; ng-controller=&quot;appCtrl&quot; class=&quot;container&quot;&gt;
+    
+&lt;h1&gt;Wijmo 5 Menus&lt;/h1&gt;
+
+    &lt;p&gt;Using the menu as a value picker:&lt;/p&gt;
+    &lt;wj-menu header=&quot;Tax&quot; value=&quot;tax&quot;&gt;
+        &lt;wj-menu-item value=&quot;0&quot;&gt;Exempt&lt;/wj-menu-item&gt;
+        &lt;wj-menu-item value=&quot;.05&quot;&gt;5%&lt;/wj-menu-item&gt;
+        &lt;wj-menu-item value=&quot;.085&quot;&gt;8.5%&lt;/wj-menu-item&gt;
+        &lt;wj-menu-item value=&quot;.09&quot;&gt;9%&lt;/wj-menu-item&gt;
+        &lt;wj-menu-item value=&quot;.1&quot;&gt;10%&lt;/wj-menu-item&gt;
+        &lt;wj-menu-item value=&quot;.12&quot;&gt;12%&lt;/wj-menu-item&gt;
+        &lt;wj-menu-item value=&quot;.15&quot;&gt;15%&lt;/wj-menu-item&gt;
+    &lt;/wj-menu&gt;
+
+    &lt;p&gt;Populating a menu with commands: value is &lt;b&gt;{{theValue}}&lt;/b&gt;&lt;/p&gt;
+    &lt;wj-menu header=&quot;Select Increment&quot;&gt;
+        &lt;wj-menu-item cmd=&quot;changeValueCommand&quot; cmd-param=&quot;50&quot;&gt;Increment by 50&lt;/wj-menu-item&gt;
+        &lt;wj-menu-item cmd=&quot;changeValueCommand&quot; cmd-param=&quot;10&quot;&gt;Increment by 10&lt;/wj-menu-item&gt;
+        &lt;wj-menu-item cmd=&quot;changeValueCommand&quot; cmd-param=&quot;5&quot;&gt;Increment by 5&lt;/wj-menu-item&gt;
+        &lt;wj-menu-separator&gt;&lt;/wj-menu-separator&gt;
+        &lt;wj-menu-item cmd=&quot;changeValueCommand&quot; cmd-param=&quot;-5&quot;&gt;Decrement by 5&lt;/wj-menu-item&gt;
+        &lt;wj-menu-item cmd=&quot;changeValueCommand&quot; cmd-param=&quot;-10&quot;&gt;Decrement by 10&lt;/wj-menu-item&gt;
+        &lt;wj-menu-item cmd=&quot;changeValueCommand&quot; cmd-param=&quot;-50&quot;&gt;Decrement by 50&lt;/wj-menu-item&gt;
+        &lt;wj-menu-separator&gt;&lt;/wj-menu-separator&gt;
+        &lt;wj-menu-item cmd=&quot;changeValueCommand&quot;&gt;&lt;b&gt;Reset&lt;/b&gt;&lt;/wj-menu-item&gt;
+    &lt;/wj-menu&gt;
+    
+    &lt;p&gt;&lt;/p&gt;
+    
+    &lt;p&gt;Handling Choices with the &lt;b&gt;itemClicked&lt;/b&gt; event:&lt;/p&gt;
+    &lt;wj-menu header=&quot;File&quot; item-clicked=&quot;menuItemClicked(s, e)&quot;&gt;
+        &lt;wj-menu-item&gt;&lt;b&gt; New&lt;/b&gt;
+            &lt;br/&gt;&lt;span class=menuTip&gt;create a new document&lt;/span&gt;
+        &lt;/wj-menu-item&gt;
+        &lt;wj-menu-item&gt;&lt;b&gt; Open&lt;/b&gt;
+            &lt;br/&gt;&lt;span class=menuTip&gt;load an existing document from a file&lt;/span&gt;
+        &lt;/wj-menu-item&gt;
+        &lt;wj-menu-item&gt;&lt;b&gt; Save&lt;/b&gt;
+            &lt;br/&gt;&lt;span class=menuTip&gt;save the current document to a file&lt;/span&gt;
+        &lt;/wj-menu-item&gt;
+        &lt;wj-menu-separator&gt;&lt;/wj-menu-separator&gt;
+        &lt;wj-menu-item&gt;&lt;b&gt; Exit&lt;/b&gt;
+            &lt;br/&gt;&lt;span class=menuTip&gt;save changes and exit the application&lt;/span&gt;
+        &lt;/wj-menu-item&gt;
+    &lt;/wj-menu&gt;
+    &lt;wj-menu header=&quot;Edit&quot; item-clicked=&quot;menuItemClicked(s, e)&quot;&gt;
+        &lt;wj-menu-item&gt;&lt;b&gt; Cut&lt;/b&gt;
+            &lt;br/&gt;&lt;span class=menuTip&gt;move the current selection to the clipboard&lt;/span&gt;
+        &lt;/wj-menu-item&gt;
+        &lt;wj-menu-item&gt;&lt;b&gt; Copy&lt;/b&gt;
+            &lt;br/&gt;&lt;span class=menuTip&gt;copy the current selection to the clipboard&lt;/span&gt;
+        &lt;/wj-menu-item&gt;
+        &lt;wj-menu-item&gt;&lt;b&gt; Paste&lt;/b&gt;
+            &lt;br/&gt;&lt;span class=menuTip&gt;insert the clipboard content at the cursor position&lt;/span&gt;
+        &lt;/wj-menu-item&gt;
+        &lt;wj-menu-separator&gt;&lt;/wj-menu-separator&gt;
+        &lt;wj-menu-item&gt; &lt;b&gt;Find&lt;/b&gt;
+            &lt;br/&gt;&lt;span class=menuTip&gt;search the current document for some text&lt;/span&gt;
+        &lt;/wj-menu-item&gt;
+        &lt;wj-menu-item&gt;&lt;b&gt; Replace&lt;/b&gt;
+            &lt;br/&gt;&lt;span class=menuTip&gt;replace occurrences of a string in the current document&lt;/span&gt;
+        &lt;/wj-menu-item&gt;
+    &lt;/wj-menu&gt;
+    &lt;wj-menu header=&quot;Format&quot; item-clicked=&quot;menuItemClicked(s, e)&quot;&gt;
+        &lt;wj-menu-item&gt;
+            &lt;b&gt;Bold&lt;/b&gt;
+        &lt;/wj-menu-item&gt;
+        &lt;wj-menu-item&gt;
+            &lt;i&gt;Italic&lt;/i&gt;
+        &lt;/wj-menu-item&gt;
+        &lt;wj-menu-item&gt;
+            &lt;u&gt;Underline&lt;/u&gt;
+        &lt;/wj-menu-item&gt;
+        &lt;wj-menu-separator&gt;&lt;/wj-menu-separator&gt;
+        &lt;wj-menu-item&gt;
+            &lt;span style=background-color:red&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt; Red
+        &lt;/wj-menu-item&gt;
+        &lt;wj-menu-item&gt;
+            &lt;span style=background-color:green&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt; Green
+        &lt;/wj-menu-item&gt;
+        &lt;wj-menu-item&gt;
+            &lt;span style=background-color:blue&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt; Blue
+        &lt;/wj-menu-item&gt;
+    &lt;/wj-menu&gt;
+&lt;/div&gt;</pre>
+              <pre class="tCont ">.menuTip {
+    font-size: 75%;
+    font-style: italic;
+    opacity: .6;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/interop/angular/wijmo.angular.min.js" target="_blank">wijmo.angular.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

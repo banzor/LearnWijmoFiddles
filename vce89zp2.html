@@ -1,0 +1,179 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Choose the PivotEngine Fields - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "vce89zp2";
+        var show_src = "//fiddle.jshell.net/Wijmo5/vce89zp2/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/vce89zp2/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/vce89zp2/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=vce89zp2" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // initialize pivot engine
+  var ng = new wijmo.olap.PivotEngine({
+  	autoGenerateFields: false, // turn off auto-generation
+    fields: [ // specify the fields we want (no date)
+    	{ binding: &#39;buyer&#39;, header: &#39;Person&#39; },
+    	{ binding: &#39;type&#39;, header: &#39;Category&#39; },
+    	{ binding: &#39;amount&#39;, header: &#39;Value&#39;, format: &#39;c0&#39; },
+    ],
+    itemsSource: getData(10000), // raw data
+    showRowTotals: &#39;Subtotals&#39;,
+    valueFields: [&#39;Value&#39;], // summarize Values
+    rowFields: [&#39;Person&#39;, &#39;Category&#39;] // by Person and Category
+  });
+
+  // show raw data
+  var rawData = new wijmo.grid.FlexGrid(&#39;#rawData&#39;, {
+    itemsSource: ng.collectionView
+  });
+
+  // show summary
+  var pivotGrid = new wijmo.olap.PivotGrid(&#39;#pivotGrid&#39;, {
+    itemsSource: ng
+  });
+
+  // get the raw data
+  function getData(cnt) {
+    var today = new Date(),
+    		buyers = &#39;Mom,Dad,Kelly,Sheldon&#39;.split(&#39;,&#39;),
+        types = &#39;Food,Clothes,Fuel,Books,Sports,Music&#39;.split(&#39;,&#39;),
+    		data = [];
+    for (var i = 0; i &lt; cnt; i++) {
+    	data.push({
+      	date: wijmo.DateTime.addDays(today, -Math.random() * 365),
+        buyer: randomItem(buyers),
+        type: randomItem(types),
+        amount: 20 + Math.random() * 1000
+      });
+    }
+    return data;
+  }
+  function randomItem(arr) {
+  	return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Choose the PivotEngine Fields
+  &lt;/h1&gt;
+  &lt;p&gt;
+    By default, the &lt;b&gt;PivotEngine&lt;/b&gt; creates fields automatically
+    based on the raw data it gets from the &lt;b&gt;itemsSource&lt;/b&gt;
+    property.
+  &lt;/p&gt;
+  &lt;p&gt;
+    In some cases, you may want to turn that feature off and 
+    specify the fields explicitly. For example, you may want
+    to:
+  &lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Include only some of the fields available in the data source,&lt;/li&gt;
+    &lt;li&gt;Customize the field properties,&lt;/li&gt;
+    &lt;li&gt;Create multiple fields based on the same binding (clone fields).&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;p&gt;
+    This sample shows now you can turn off the automatic field
+    generation and specify the fields you want in code:
+  &lt;/p&gt;
+  &lt;div class=&quot;row&quot;&gt;
+    &lt;div class=&quot;col-xs-5&quot;&gt;
+      &lt;p&gt;Raw data:&lt;/p&gt;
+      &lt;div id=&quot;rawData&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;col-xs-7&quot;&gt;
+      &lt;p&gt;
+        Amount spent by Person and Category.
+      &lt;/p&gt;
+      &lt;div id=&quot;pivotGrid&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;p&gt;
+    The view is live. If you edit the raw data, the summary
+    view is automatically updated.
+  &lt;/p&gt;
+  &lt;p&gt;
+    The pivot grid shows how much each person spent on each 
+    type of expense. If you double-click any cell, you will 
+    see a detail dialog showing the items that make up the 
+    total.
+  &lt;/p&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  height: 300px;
+}
+body {
+  margin-bottom: 24pt;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.filter.min.js" target="_blank">wijmo.grid.filter.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.olap.min.js" target="_blank">wijmo.olap.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

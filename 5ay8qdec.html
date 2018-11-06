@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Custom Functions - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "5ay8qdec";
+        var show_src = "//fiddle.jshell.net/Wijmo5/5ay8qdec/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/5ay8qdec/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/5ay8qdec/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=5ay8qdec" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// create the chart
+  var theChart = new wijmo.chart.FlexChart(&#39;#theChart&#39;, {
+	});
+
+  // create a YFunctionSeries and add it to the chart
+  var yFun = new wijmo.chart.analytics.YFunctionSeries();
+  yFun.name = &#39;y = f(x)&#39;;
+	yFun.min = -10;
+	yFun.max = 10;
+	yFun.sampleCount = 300;
+	yFun.func = function (x) {
+    return Math.sin(4 * x) * Math.cos(3 * x);
+	};
+	theChart.series.push(yFun);
+  
+  // create a ParametricFunctionSeries and add it to the chart
+  var pFun = new wijmo.chart.analytics.ParametricFunctionSeries();
+  pFun.name = &#39;x = f(t); y = g(t)&#39;
+  pFun.min = 0;
+	pFun.max = 2 * Math.PI;
+	pFun.sampleCount = 1000;
+	pFun.xFunc = function (t) {
+    return 10 * Math.cos(5 * t);
+	};
+	pFun.yFunc = function (t) {
+    return Math.sin(6 * t);
+	};
+	theChart.series.push(pFun);
+  
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Custom Functions&lt;/h1&gt;
+  &lt;p&gt;
+    The &lt;b&gt;wijmo.chart.analytics&lt;/b&gt; module contains two
+    classes that allow you to plot arbitrary functions without
+    explicitly generating data points:&lt;/p&gt;
+  &lt;ol&gt;
+    &lt;li&gt;
+      &lt;b&gt;YFunctionSeries&lt;/b&gt;: Series based on a function that
+      provides Y values as a function of X values within a
+      given range.&lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;ParametricFunctionSeries&lt;/b&gt;: Series based on functions
+      that provides X and Y values as a function of domain values
+      within a given range.&lt;/li&gt;
+  &lt;/ol&gt;
+  &lt;p&gt;
+    The chart below demonstrates:&lt;/p&gt;
+
+  &lt;div id=&quot;theChart&quot;&gt;&lt;/div&gt;
+  
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexchart {
+  height: 250px;
+  margin: 10px 0;
+}
+.wj-control {
+  margin-bottom: 3px;
+}
+label {
+  width: 120px;
+  text-align: right;
+}
+.equation {
+  display: inline-block;
+  font-style: italic;
+  font-size: 80%;
+}
+.wj-combobox, .wj-inputnumber {
+  width: 120px;
+  margin-right: 12px;
+}
+
+body {
+  margin-bottom: 24pt;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.chart.min.js" target="_blank">wijmo.chart.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.chart.analytics.min.js" target="_blank">wijmo.chart.analytics.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

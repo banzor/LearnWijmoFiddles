@@ -1,0 +1,186 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Deep Binding - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "3kLqwp9e";
+        var show_src = "//fiddle.jshell.net/Wijmo5/3kLqwp9e/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/3kLqwp9e/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/3kLqwp9e/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=3kLqwp9e" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // create some random data
+  var countries = &#39;US,Germany,UK,Japan,Sweden,Norway,Denmark&#39;.split(&#39;,&#39;);
+  var customers = [
+  	{ id: 0, first: &#39;Paul&#39;, last: &#39;Smith&#39; }, 
+    { id: 1, first: &#39;Susan&#39;, last: &#39;Johnson&#39; },
+    { id: 2, first: &#39;Joan&#39;, last: &#39;Roberts&#39; }, 
+    { id: 3, first: &#39;Don&#39;, last: &#39;Davis&#39; }
+	];
+  var data = [];
+  for (var i = 0; i &lt; countries.length; i++) {
+    data.push({
+      id: i,
+      country: countries[i],
+      customer: customers[i % customers.length],
+      active: i % 5 != 0,
+      downloads: Math.round(Math.random() * 200000),
+      sales: Math.random() * 100000,
+      expenses: Math.random() * 50000
+    });
+  }
+
+  // show the data in a grid
+  var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+    showAlternatingRows: false,
+    autoGenerateColumns: false,
+    columns: [
+    	{ binding: &#39;country&#39;, header: &#39;Country&#39;, width: &#39;*&#39; },
+      { binding: &#39;customer.first&#39;, header: &#39;First&#39;, width: &#39;*&#39; },
+      { binding: &#39;customer.last&#39;, header: &#39;Last&#39;, width: &#39;*&#39; },
+      { binding: &#39;downloads&#39;, header: &#39;Downloads (k)&#39;, format: &#39;n0,&#39; }, // thousands
+    ],
+    itemsSource: data,
+  });
+
+  // save deep bound values when editing starts
+  var itemData = {};
+  theGrid.rowEditStarted.addHandler(function(s, e) {
+    var item = s.collectionView.currentEditItem;
+    itemData = {};
+    s.columns.forEach(function(col) {
+      if (col.binding.indexOf(&#39;.&#39;) &gt; -1) {
+        var binding = new wijmo.Binding(col.binding);
+        itemData[col.binding] = binding.getValue(item);
+      }
+    })
+  });
+
+  // restore deep bound values when edits are canceled
+  theGrid.rowEditEnding.addHandler(function(s, e) {
+    if (e.cancel &amp;&amp; document.getElementById(&#39;enableDeepUndo&#39;).checked) {
+      var item = s.collectionView.currentEditItem;
+      // var item = s.rows[e.row].dataItem; // same thing
+      for (var k in itemData) {
+        var binding = new wijmo.Binding(k);
+        binding.setValue(item, itemData[k]);
+      }
+    }
+    itemData = {};
+  });
+
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Deep Binding
+  &lt;/h1&gt;
+  &lt;p&gt;
+    Each grid column has a &lt;b&gt;binding&lt;/b&gt; property that determines
+    which property of the data item that should be displayed in 
+    the cell. In most cases, this property is a regular identifier
+    such as &#39;name&#39; or &#39;value&#39;.&lt;/p&gt;
+  &lt;p&gt;
+    But the grid also supports &#39;deep-binding&#39;, where the binding 
+    string contains a binding path composed of identifiers separated
+    by periods. The syntax is similar to what you would use in 
+    regular JavaScript expressions.&lt;/p&gt;
+  &lt;p&gt;
+    For example, if the data objects in the &lt;b&gt;itemsSource&lt;/b&gt; array
+    have a &#39;customer&#39; property that contains a reference to a 
+    &#39;Customer&#39; object, you could use a &#39;customer.name&#39; binding 
+    to show the customer&#39;s name on the grid:&lt;/p&gt;
+  &lt;div id=&quot;theGrid&quot;&gt;
+  &lt;/div&gt;
+  
+  &lt;p&gt;
+    Deep binding can be very useful in a number of scenarios, but
+    you have to be aware of how binding works. In this example,
+    editing the customer&#39;s first or last name will affect all 
+    rows that are bound to the same customer.&lt;/p&gt;
+  &lt;p&gt;
+    Also, unlike regular bindings, deep bindings are not &#39;un-doable&#39;
+    by default. To enable undo for deep bindings, you should use
+    the grid&#39;s &lt;b&gt;rowEditStarted&lt;/b&gt; event to record the original
+    deep-bound values, and the &lt;b&gt;rowEditEnding&lt;/b&gt; event to 
+    restore those values if the edits are being canceled.&lt;/p&gt;
+  &lt;p&gt;
+    &lt;label&gt;
+      &lt;input id=&quot;enableDeepUndo&quot; type=&quot;checkbox&quot; checked=&quot;checked&quot;&gt;
+      Enable deep binding undos    
+    &lt;/label&gt;
+  &lt;/p&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 200px;
+  margin-bottom: 12px;
+}
+body {
+	margin-bottom: 24pt;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

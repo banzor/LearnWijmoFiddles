@@ -1,0 +1,152 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Input Dates and Times - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "zgr431mw";
+        var show_src = "//fiddle.jshell.net/Wijmo5/zgr431mw/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/zgr431mw/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/zgr431mw/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=zgr431mw" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// show that we can edit dates without changing time
+  var theInputDateOnly = new wijmo.input.InputDate(&#39;#theInputDateOnly&#39;, {
+  	valueChanged: function(s, e) {
+    	setDateTime(s.value);
+    }
+  });
+  var theInputTimeOnly = new wijmo.input.InputTime(&#39;#theInputTimeOnly&#39;, {
+  	valueChanged: function(s, e) {
+    	setDateTime(s.value);
+    }
+  });
+
+	// or edit the whole thing
+  var theInputDateTime = new wijmo.input.InputDateTime(&#39;#theInputDateTime&#39;, {
+  	valueChanged: function(s, e) {
+    	setDateTime(s.value);
+    }
+  })
+
+  // initialize and update the date/time value
+  var dt = new Date();
+  dt.setHours(17,30);
+  setDateTime(dt);
+  function setDateTime(value) {
+  	var el = document.getElementById(&#39;dateTime&#39;);
+    el.textContent = wijmo.Globalize.format(value, &#39;F&#39;)
+    theInputDateOnly.value = value;
+    theInputTimeOnly.value = value;
+    theInputDateTime.value = value;
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Input Dates and Times
+  &lt;/h1&gt;
+
+  &lt;p&gt;
+    Javascript Date objects contain date and time information.&lt;/p&gt;
+  &lt;p&gt;
+    Because in many cases only the date or time are relevant to
+    the application, Wijmo offers separate controls for editing
+    dates, times, or both.&lt;/p&gt;
+  &lt;p&gt;
+    The &lt;b&gt;InputDate&lt;/b&gt; and &lt;b&gt;InputTime&lt;/b&gt; controls can be 
+    used separately or together, to edit the date and time
+    information in a Javascript &lt;b&gt;Date&lt;/b&gt; object.&lt;/p&gt;
+  &lt;label for=&quot;theInputDateOnly&quot;&gt;InputDate: &lt;/label&gt;
+  &lt;input id=&quot;theInputDateOnly&quot;&gt;
+  &lt;br&gt;
+  &lt;label for=&quot;theInputTimeOnly&quot;&gt;InputTime: &lt;/label&gt;
+  &lt;input id=&quot;theInputTimeOnly&quot;&gt;
+
+  &lt;p&gt;
+    If you prefer to edit the date and time parts of a &lt;b&gt;Date&lt;/b&gt;
+    object using a single control, use the &lt;b&gt;InputDateTime&lt;/b&gt;:&lt;/p&gt;
+  &lt;label for=&quot;theInputDateTime&quot;&gt;InputDateTime: &lt;/label&gt;
+  &lt;input id=&quot;theInputDateTime&quot;&gt;
+  
+  &lt;p&gt;
+    The current date/time is: &lt;b&gt;&lt;span id=&quot;dateTime&quot;&gt;&lt;/span&gt;&lt;/b&gt;.
+  &lt;/p&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">label {
+  width: 120px;
+  text-align: right;
+}
+.wj-dropdown {
+  margin-bottom: 12px;
+}
+
+body {
+  margin-bottom: 36px;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

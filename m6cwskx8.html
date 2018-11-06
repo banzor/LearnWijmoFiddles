@@ -1,0 +1,175 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Wijmo TreeView - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "m6cwskx8";
+        var show_src = "//fiddle.jshell.net/Wijmo5/m6cwskx8/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/m6cwskx8/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/m6cwskx8/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=m6cwskx8" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// create the tree
+  var tree = new wijmo.nav.TreeView(&#39;#theTree&#39;, {
+  	itemsSource: getData(),
+		displayMemberPath: &#39;header&#39;,
+    childItemsPath: &#39;items&#39;,
+    selectedItemChanged: function(s, e) {
+    	var msg = wijmo.format(&#39;You selected item &lt;b&gt;{header}&lt;/b&gt;.&#39;, s.selectedItem);
+    	document.getElementById(&#39;selection&#39;).innerHTML = msg;
+    },
+    itemClicked: function(s, e) {
+    	var msg = wijmo.format(&#39;You clicked item &lt;b&gt;{header}&lt;/b&gt;.&#39;, s.selectedItem);
+    	document.getElementById(&#39;click&#39;).innerHTML = msg;
+    }
+	});
+  
+  // get the tree data
+  function getData() {
+		return [
+    	{ header: &#39;Electronics&#39;, img: &#39;resources/electronics.png&#39;, items: [
+				{ header: &#39;Trimmers/Shavers&#39; },
+        { header: &#39;Tablets&#39; },
+        { header: &#39;Phones&#39;, img: &#39;resources/phones.png&#39;, items: [
+					{ header: &#39;Apple&#39; },
+          { header: &#39;Motorola&#39;, newItem: true },
+          { header: &#39;Nokia&#39; },
+          { header: &#39;Samsung&#39; }]
+				},
+        { header: &#39;Speakers&#39;, newItem: true },
+        { header: &#39;Monitors&#39; }]
+			},
+      { header: &#39;Toys&#39;, img: &#39;resources/toys.png&#39;, items: [
+      	{ header: &#39;Shopkins&#39; },
+        { header: &#39;Train Sets&#39; },
+        { header: &#39;Science Kit&#39;, newItem: true },
+        { header: &#39;Play-Doh&#39; },
+        { header: &#39;Crayola&#39; } ]
+			},
+			{ header: &#39;Home&#39;, img: &#39;resources/home.png&#39;, items: [
+      	{ header: &#39;Coffeee Maker&#39; },
+        { header: &#39;Breadmaker&#39;, newItem: true },
+        { header: &#39;Solar Panel&#39;, newItem: true },
+        { header: &#39;Work Table&#39; },
+        { header: &#39;Propane Grill&#39; }]
+			}
+		];
+	}
+}</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+    
+  &lt;h1&gt;
+    Wijmo TreeView&lt;/h1&gt;
+  &lt;p&gt;
+    The &lt;b&gt;TreeView&lt;/b&gt; control shows hierarchical data. It enables
+    users to collapse or expand nodes, select items, load, search,
+    and edit data, and to use drag and drop gestures to re-organize 
+    the items if needed.&lt;/p&gt;
+  &lt;p&gt;    
+    To use the &lt;b&gt;TreeView&lt;/b&gt; control, you will normally use the
+    following three properties:&lt;/p&gt;
+  &lt;ol&gt; 
+    &lt;li&gt;
+      &lt;b&gt;itemsSource&lt;/b&gt; defines the array that contains the hierarchical data.
+      Each item in the array contains information about a node and (optionally)
+      an array of child nodes.&lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;displayMemberPath&lt;/b&gt; defines the name of the property in the items
+      that contains the text to be displayed in the tree nodes. By default, 
+      this property is set to the string &#39;header&#39;.&lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;childItemsPath&lt;/b&gt; defines the name of the property in the items that
+      contains the array of child nodes. By default, this property is set to the
+      string &#39;items&#39;.&lt;/li&gt;
+  &lt;/ol&gt;
+  &lt;p&gt;
+    Once the tree is set up, use the &lt;b&gt;itemClicked&lt;/b&gt; or
+    &lt;b&gt;selectedItemChanged&lt;/b&gt; events to track user actions and handle them
+    with the &lt;b&gt;selectedItem&lt;/b&gt; property.&lt;/p&gt;
+  &lt;p&gt;
+    For example, the &lt;b&gt;TreeView&lt;/b&gt; below shows a hierarchical list of 
+    products. Users may expand nodes by clicking the collapsed icons,
+    or by pressing the right-arrow key when a node is selected.&lt;/p&gt;
+
+  &lt;div id=&quot;theTree&quot;&gt;&lt;/div&gt;
+  
+  &lt;div id=&quot;selection&quot;&gt;&lt;/div&gt;
+  &lt;div id=&quot;click&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;</pre>
+              <pre class="tCont ">/* default trees on this sample */
+.wj-treeview {
+    display:block;
+    //height: 350px;
+    font-size: 120%;
+    margin-bottom: 8px;
+    padding: 6px;
+    background: #f0f0f0;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+body {
+  margin-bottom: 24pt;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.nav.min.js" target="_blank">wijmo.nav.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

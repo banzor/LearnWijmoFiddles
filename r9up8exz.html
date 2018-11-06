@@ -1,0 +1,220 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Row Details - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "r9up8exz";
+        var show_src = "//fiddle.jshell.net/Wijmo5/r9up8exz/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/r9up8exz/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/r9up8exz/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=r9up8exz" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function () {
+
+  // get OData categories and products
+  var url = &#39;https://services.odata.org/Northwind/Northwind.svc&#39;;
+  var categories = new wijmo.odata.ODataCollectionView(url, &#39;Categories&#39;, {
+  	fields: [&#39;CategoryID&#39;, &#39;CategoryName&#39;, &#39;Description&#39;]
+  })
+  var products = new wijmo.odata.ODataCollectionView(url, &#39;Products&#39;);
+
+	// shared column definitions
+	var categoryColumns = [
+		{ binding: &#39;CategoryName&#39;, header: &#39;Category Name&#39;, width: &#39;*&#39; },
+		{ binding: &#39;Description&#39;, header: &#39;Description&#39;, width: &#39;2*&#39; }
+	];
+  
+  // get products for a given category
+	function getProducts(categoryID) {
+  	var arr = [];
+  	products.items.forEach(function(product) {
+    	if (product.CategoryID == categoryID) {
+      	arr.push(product);
+      }
+    });
+		return arr;
+	}
+
+	// grid with HTML detail
+  var htmlDetail = new wijmo.grid.FlexGrid(&#39;#htmlDetail&#39;, {
+  	autoGenerateColumns: false,
+    columns: categoryColumns,
+    itemsSource: categories,
+    isReadOnly: true
+  });
+  
+  // html detail provider
+	var dpHtml = new wijmo.grid.detail.FlexGridDetailProvider(htmlDetail, {
+
+		// use animation when showing details
+    isAnimated: true,
+
+    // create detail cells for a given row
+    createDetailCell: function (row) {
+    
+    	// build detail content for the current category
+    	var cat = row.dataItem;
+      var prods = getProducts(cat.CategoryID);
+      var html = &#39;ID: &lt;b&gt;&#39; + cat.CategoryID + &#39;&lt;/b&gt;&lt;br/&gt;&#39;;
+      html += &#39;Name: &lt;b&gt;&#39; + cat.CategoryName + &#39;&lt;/b&gt;&lt;br/&gt;&#39;;
+      html += &#39;Description: &lt;b&gt;&#39; + cat.Description + &#39;&lt;/b&gt;&lt;br/&gt;&#39;;
+      html += &#39;Products: &lt;b&gt;&#39; + prods.length + &#39; items&lt;/b&gt;&lt;br/&gt;&#39;;
+      html += &#39;&lt;ol&gt;&#39;;
+			prods.forEach(function(product) {
+      	html += &#39;&lt;li&gt;&#39; + product.ProductName + &#39;&lt;/li&gt;&#39;;
+      });
+			html += &#39;&lt;/ol&gt;&#39;;
+      
+      // create and return detail cell
+    	var cell = document.createElement(&#39;div&#39;);
+      cell.innerHTML = html;
+      return cell;
+		}
+	});
+  
+	// grid with grid detail
+  var gridDetail = new wijmo.grid.FlexGrid(&#39;#gridDetail&#39;, {
+  	autoGenerateColumns: false,
+    columns: categoryColumns,
+    itemsSource: categories,
+    isReadOnly: true
+  });
+  
+  // grid detail provider
+	var dpGrid = new wijmo.grid.detail.FlexGridDetailProvider(gridDetail, {
+
+		// use animation when showing details
+    isAnimated: true,
+
+    // limit height of detail rows
+    maxHeight: 150,
+
+    // create detail cells for a given row
+    createDetailCell: function (row) {
+    	var cell = document.createElement(&#39;div&#39;);
+      var detailGrid = new wijmo.grid.FlexGrid(cell, {
+      	headersVisibility: wijmo.grid.HeadersVisibility.Column,
+        isReadOnly: true,
+        autoGenerateColumns: false,
+        itemsSource: getProducts(row.dataItem.CategoryID),
+        columns: [
+        	{ header: &#39;ID&#39;, binding: &#39;ProductID&#39; },
+          { header: &#39;Name&#39;, binding: &#39;ProductName&#39; },
+          { header: &#39;Qty/Unit&#39;, binding: &#39;QuantityPerUnit&#39; },
+          { header: &#39;Unit Price&#39;, binding: &#39;UnitPrice&#39; },
+          { header: &#39;Discontinued&#39;, binding: &#39;Discontinued&#39; }
+				]
+			});
+      return cell;
+		}
+	});
+  
+}</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Row Details&lt;/h1&gt;
+  &lt;p&gt;
+    Sometimes rows are bound to data objects that contain
+    more information than would fit easily on a regular grid.&lt;/p&gt;
+  &lt;p&gt;
+    In these scenarios, you may want to use the
+    &lt;b&gt;FlexGridDetailProvider&lt;/b&gt; class that is included with
+    the &lt;b&gt;wijmo.grid.detail&lt;/b&gt; module.&lt;/p&gt;
+  &lt;p&gt;
+    The &lt;b&gt;FlexGridDetailProvider&lt;/b&gt; extends the &lt;b&gt;FlexGrid&lt;/b&gt;
+    by adding collapse/expand buttons to row headers, and a
+    &lt;b&gt;createDetailCell&lt;/b&gt; method you can use to provide 
+    additional details about an item. The detail information
+    is shown in a &#39;detail row&#39; added to the grid when the 
+    details are expanded, and removed when they are collapsed.&lt;/p&gt;
+    
+  &lt;h3&gt;
+    HTML in Row Details&lt;/h3&gt;
+  &lt;p&gt;
+    This grid shows product categories on each row. Expanding
+    the rows shows an HTML element with information about 
+    the products in that category:&lt;/p&gt;
+  &lt;div id=&quot;htmlDetail&quot;&gt;&lt;/div&gt;
+
+  &lt;h3&gt;
+    Grids in Row Details&lt;/h3&gt;
+  &lt;p&gt;
+    You can add anything you want to the detail rows, 
+    including other grids. This example shows the same
+    categories, but the detail row uses another grid
+    to show the products:&lt;/p&gt;
+  &lt;div id=&quot;gridDetail&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 350px; 
+}
+body {
+  margin-bottom: 20pt;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.detail.min.js" target="_blank">wijmo.grid.detail.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.odata.min.js" target="_blank">wijmo.odata.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

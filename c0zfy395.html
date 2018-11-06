@@ -1,0 +1,193 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Error Bars - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "c0zfy395";
+        var show_src = "//fiddle.jshell.net/Wijmo5/c0zfy395/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/c0zfy395/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/c0zfy395/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=c0zfy395" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // create the chart
+  var theChart = new wijmo.chart.FlexChart(&#39;#theChart&#39;, {
+    itemsSource: getData(),
+    bindingX: &#39;date&#39;,
+    axisX: { format: &#39;MMM yy&#39;}
+  });
+
+  // create an ErrorBar series and add it to the Chart
+  var errorBar = new wijmo.chart.analytics.ErrorBar();
+  errorBar.errorBarStyle = {
+    stroke: &#39;darkred&#39;,
+    strokeWidth: 3
+  };
+  theChart.series.push(errorBar);
+
+  // select chart type
+  var chartType = new wijmo.input.ComboBox(&#39;#chartType&#39;, {
+    itemsSource: &#39;Column,Bar,Line,LineSymbols,Area&#39;.split(&#39;,&#39;),
+    textChanged: function(s, e) {
+      theChart.chartType = s.text;
+    }
+  });
+
+  // select error mode/amount
+  var errorAmount = new wijmo.input.ComboBox(&#39;#errorAmount&#39;, {
+    displayMemberPath: &#39;hdr&#39;,
+    textChanged: function(s, e) {
+      var value = s.selectedItem.value;
+      errorBar.value = value;
+      errorBar.binding = value != null ? &#39;amount&#39; : &#39;amount,errorPlus,errorMinus&#39;;
+      errorBar.errorAmount = s.selectedItem.mode;
+    },
+    itemsSource: [
+    	{ hdr: &#39;Bound Error Values&#39;, value: null, mode: &#39;Custom&#39; },
+      { hdr: &#39;15%&#39;, value: .15, mode: &#39;Percentage&#39; },
+      { hdr: &#39;5 units&#39;, value: 5, mode: &#39;FixedValue&#39; },
+      { hdr: &#39;1.5 Std Dev&#39;, value: 1.5, mode: &#39;StandardDeviation&#39; },
+      { hdr: &#39;Standard Error&#39;, value: 1, mode: &#39;StandardError&#39; },
+      { hdr: &#39;Plus 5, Minus 10&#39;, value: { plus: 5, minus: 10 }, mode: &#39;Custom&#39; }
+    ]
+  });
+
+  // randomize the data
+  document.getElementById(&#39;btnRandomize&#39;).addEventListener(&#39;click&#39;, function() {
+  	theChart.itemsSource = getData();
+  });
+
+	// generate some random data
+  function getData() {
+    var arr = [],
+    		date = new Date();
+    for (var i = 0; i &lt; 10; i++) {
+      arr.push({
+        date: date,
+        amount: 20 + 80 * Math.random(),
+        errorPlus: 10 * Math.random(),
+        errorMinus: 10 * Math.random(),
+      });
+      date = wijmo.DateTime.addMonths(date, 1);
+    }
+    return arr;
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+  &lt;h1&gt;
+    Error Bars&lt;/h1&gt;
+  &lt;p&gt;
+    The ErrorBar class extends the regular Series class
+    to provide error bars that can be added on top of the
+    regular series data.&lt;/p&gt;
+  &lt;p&gt;
+    To create a series with error bars, follow these steps:&lt;/p&gt;
+  &lt;ol&gt;
+    &lt;li&gt;
+      Create an ErrorBar series,&lt;/li&gt;
+    &lt;li&gt;
+      Configure the ErrorBar series as you would regular
+      series, setting their &lt;b&gt;binding&lt;/b&gt;, &lt;b&gt;chartType&lt;/b&gt;,
+      and &lt;b&gt;style&lt;/b&gt; properties for example, and&lt;/li&gt;
+    &lt;li&gt;
+      Set the ErrorBar&#39;s &lt;b&gt;value&lt;/b&gt; and &lt;b&gt;errorAmount&lt;/b&gt;
+      properties to the size of the error bars to be added
+      to the data points.&lt;/li&gt;
+  &lt;/ol&gt;
+
+  &lt;label for=&quot;chartType&quot;&gt;Chart Type: &lt;/label&gt;
+  &lt;div id=&quot;chartType&quot;&gt;&lt;/div&gt;&lt;br/&gt;
+  &lt;label for=&quot;errorAmount&quot;&gt;Error: &lt;/label&gt;
+  &lt;div id=&quot;errorAmount&quot;&gt;&lt;/div&gt;&lt;br/&gt;
+  &lt;label for=&quot;btnRandomize&quot;&gt;Randomize Data&lt;/label&gt;
+  &lt;button id=&quot;btnRandomize&quot; class=&quot;btn btn-default&quot;&gt;
+    Go
+  &lt;/button&gt;
+
+  &lt;div id=&quot;theChart&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexchart {
+  height: 250px;
+  margin: 10px 0;
+}
+
+.wj-combobox {
+  margin-bottom: 3px;
+}
+
+label {
+  width: 150px;
+  text-align: right;
+}
+
+body {
+  margin-bottom: 24pt;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.chart.min.js" target="_blank">wijmo.chart.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.chart.analytics.min.js" target="_blank">wijmo.chart.analytics.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

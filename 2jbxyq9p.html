@@ -1,0 +1,128 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Value Picker - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "2jbxyq9p";
+        var show_src = "//fiddle.jshell.net/Wijmo5/2jbxyq9p/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/2jbxyq9p/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/2jbxyq9p/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=2jbxyq9p" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// create change tax menu
+  var valuePicker = new wijmo.input.Menu(&#39;#valuePicker&#39;, {
+
+  	// update header to show current selection
+    selectedIndexChanged: function (s, e) {
+    	if (s.selectedIndex &gt; -1) {
+      	s.header = wijmo.format(&#39;Tax: &lt;b&gt;{header}&lt;/b&gt;&#39;, s.selectedItem);
+			}
+		},
+
+    // populate menu after hooking up the selectedIndexChanged event
+    displayMemberPath: &#39;header&#39;,
+    selectedValuePath: &#39;value&#39;,
+    itemsSource: [
+    	{ header: &#39;Exempt&#39;, value: 0 },
+      { header: &#39;1%&#39;, value: 0.01 },
+      { header: &#39;5%&#39;, value: 0.05 },
+      { header: &#39;8.5%&#39;, value: 0.085 },
+      { header: &#39;10%&#39;, value: 0.10 },
+      { header: &#39;20%&#39;, value: 0.20 }
+		]
+	});
+
+  // initialize value
+  valuePicker.selectedValue = .085;
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Value Pickers
+  &lt;/h1&gt;
+  &lt;p&gt;
+    The Menu control can be used as a simple value picker.
+    It extends the ComboBox control, which allows you to bind 
+    variables to the control&#39;s &lt;b&gt;selectedValue&lt;/b&gt; property 
+    as you would with a ComboBox.&lt;/p&gt;
+  &lt;p&gt;
+    This example ises the &lt;b&gt;selectedIndexChanged&lt;/b&gt; event
+    to update the Menu&#39;s &lt;b&gt;header&lt;/b&gt; and show the current
+    value:&lt;/p&gt;        
+
+  &lt;div id=&quot;valuePicker&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-dropdown {
+  margin-bottom: 18px;
+}
+
+body {
+  margin-bottom: 24pt;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - FlexGrid Checkbox-based selection - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "ufsL2aae";
+        var show_src = "//fiddle.jshell.net/Wijmo5/ufsL2aae/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/ufsL2aae/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/ufsL2aae/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=ufsL2aae" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+    deferResizing: true,
+    showAlternatingRows: false,
+    headersVisibility: &#39;Column&#39;,
+    selectionMode: &#39;Cell&#39;,
+    itemsSource: getData(100),
+
+    // create select all button on the column header
+    formatItem: function(s, e) {
+      if (e.panel == s.columnHeaders) {
+        if (s.columns[e.col].binding == &#39;sel&#39;) {
+          e.cell.innerHTML = &#39;&lt;input class=&quot;select-all&quot; tabindex=&quot;-1&quot; type=&quot;checkbox&quot;&gt;&#39;;
+          updateSelectAllBox(s);
+        }
+      } else if (e.panel == s.cells) {
+        wijmo.setAttribute(
+          e.cell.parentElement,
+          &#39;aria-selected&#39;,
+          s.rows[e.row].dataItem.sel
+        );
+      }
+    }
+  });
+
+  // initialize column widths
+  theGrid.autoSizeColumns(null, null, null, 18);
+
+  // select/de-select all items when user clicks the check box on the header
+  theGrid.hostElement.addEventListener(&#39;click&#39;, function(e) {
+    if (wijmo.hasClass(e.target, &#39;select-all&#39;) &amp;&amp;
+      e.target instanceof HTMLInputElement) {
+      theGrid.deferUpdate(function() {
+        theGrid.collectionView.items.forEach(function(item) {
+          item.sel = e.target.checked;
+        })
+      })
+    }
+  });
+
+  // update the select all checkbox state
+  function updateSelectAllBox(grid) {
+    var cb = grid.hostElement.querySelector(&#39;.select-all&#39;);
+    if (cb instanceof HTMLInputElement) {
+      var items = grid.collectionView.items,
+        last = null,
+        indeterminate = false;
+      for (var i = 0; i &lt; items.length; i++) {
+        if (last != null &amp;&amp; items[i].sel != last) {
+          indeterminate = true;
+          break;
+        }
+        last = items[i].sel;
+      }
+      cb.checked = last;
+      if (indeterminate) {
+        cb.indeterminate = true;
+      }
+    }
+  }
+
+  // some random data
+  function getData(cnt) {
+    var data = [],
+      today = new Date();
+    for (var i = 0; i &lt; cnt; i++) {
+      data.push({
+        sel: false,
+        title: getOneOf([&#39;Lunch Tomorrow&#39;, &#39;Meeting on Friday&#39;, &#39;Quarterly Review&#39;, &#39;Evaluation&#39;]),
+        from: getOneOf([&#39;joe@joe.com&#39;, &#39;mark@smith.com&#39;, &#39;todd@schick.com&#39;, &#39;sun@wong.com&#39;]),
+        priority: getOneOf([1, 2, 3]),
+        immediate: Math.random() &gt; .75,
+        date: wijmo.DateTime.addDays(today, i)
+      });
+    }
+    return data;
+  }
+
+  function getOneOf(arr) {
+    return arr[Math.floor(Math.random() * arr.length)]
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Checkbox-based selection
+  &lt;/h1&gt;
+  &lt;p&gt;
+    This grid implements a custom checkbox-based scheme
+    for row selection.
+    Click the checkbox in the top-left cell to
+    select or deselect all rows.
+  &lt;/p&gt;
+  &lt;div id=&quot;theGrid&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">/* fixed grid height */
+.wj-flexgrid {
+  height: 350px;
+}
+
+/* some extra cell padding */
+.wj-flexgrid .wj-cell {
+  padding: 12px;
+}
+
+/* replace selection highlight with a dotted border */
+.wj-flexgrid .wj-cells .wj-cell.wj-state-selected {
+  background: inherit;
+  color: inherit;
+}
+.wj-flexgrid.wj-state-focused .wj-cells .wj-cell.wj-state-selected {
+  border: 2px solid #7099de;
+  padding: 10px;
+}
+
+/* selected rows */
+.wj-flexgrid:not(.wj-state-focused) .wj-cells .wj-row[aria-selected=true] .wj-cell,
+.wj-flexgrid .wj-cells .wj-row[aria-selected=true] .wj-cell:not(.wj-state-selected) {
+  background: rgba(0, 0, 200, .5);
+  color: white;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

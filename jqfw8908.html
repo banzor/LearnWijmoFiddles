@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - More InputDate Customization - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "jqfw8908";
+        var show_src = "//fiddle.jshell.net/Wijmo5/jqfw8908/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/jqfw8908/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/jqfw8908/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=jqfw8908" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// change InpuDate icon to a calendar instead of a down arrow
+  // (applies to all InputDate controls)
+	wijmo.input.InputDate.controlTemplate = &#39;&lt;div style=&quot;position:relative&quot; class=&quot;wj-template&quot;&gt;&#39; +
+  	&#39;&lt;div class=&quot;wj-input&quot;&gt;&#39; +
+    	&#39;&lt;div class=&quot;wj-input-group wj-input-btn-visible&quot;&gt;&#39; +
+      	&#39;&lt;input wj-part=&quot;input&quot; type=&quot;text&quot; class=&quot;wj-form-control&quot; /&gt;&#39; +
+        &#39;&lt;span wj-part=&quot;btn&quot; class=&quot;wj-input-group-btn&quot; tabindex=&quot;-1&quot;&gt;&#39; +
+        	&#39;&lt;button class=&quot;wj-btn wj-btn-default&quot; type=&quot;button&quot; tabindex=&quot;-1&quot;&gt;&#39; +
+          	&#39;&lt;span class=&quot;wj-glyph-calendar&quot;&gt;&lt;/span&gt;&#39; +
+					&#39;&lt;/button&gt;&#39; +
+				&#39;&lt;/span&gt;&#39; +
+			&#39;&lt;/div&gt;&#39; +
+		&#39;&lt;/div&gt;&#39; +
+    &#39;&lt;div wj-part=&quot;dropdown&quot; class=&quot;wj-content wj-dropdown-panel&quot; &#39; +
+    	&#39;style=&quot;display:none;position:absolute;z-index:100&quot;&gt;&#39; +
+    &#39;&lt;/div&gt;&#39; +
+	&#39;&lt;/div&gt;&#39;;
+  
+  // change the format used to show current month/year
+  // (affects all InputDate and Calendar controls)
+  wijmo.culture.Globalize.calendar.patterns[&#39;y&#39;] = &#39;MMMM yyyy&#39;;
+
+	// create the InputDate control
+  var theInputDate = new wijmo.input.InputDate(&#39;#theInputDate&#39;);
+
+	// replace down-arrow icon with calendar
+  // (would affect only one instance of the control)
+  //var btn = theInputDate.hostElement.querySelector(&#39;button&#39;);
+  //btn.innerHTML = &#39;&lt;span class=&quot;wj-glyph-calendar&quot;&gt;&lt;/span&gt;&#39;;
+
+  // change the format used to show current month/year
+  // (would affect only one instance of the control)
+  //theInputDate.calendar.formatItem.addHandler(function (s, e) {
+  //	var month = s.hostElement.querySelector(&#39;[wj-part=span-month]&#39;);
+  //  month.innerHTML = wijmo.Globalize.format(s.displayMonth, &#39;MMMM yyyy&#39;);
+	//});
+
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    More InputDate Customization
+  &lt;/h1&gt;
+
+  &lt;p&gt;
+    You can customize the icon shown in the drop-down button
+    by changing the InputDate&#39;s controlTemplate property,
+    or by using code to change the control content. The
+    first option would affect all InputDate controls in the
+    application; the second would affect only a single
+    control.&lt;/p&gt;
+  &lt;p&gt;
+    You can also customize the format used to display the
+    current month/year in the drop-down Calendar by changing
+    the Globalization&#39;s standard &#39;y&#39; format, or by using 
+    code to change the control content. Again, the first
+    option would affect all InputDate and Calendar controls
+    in the application; the second would affect only a single
+    control.&lt;/p&gt;
+  &lt;input id=&quot;theInputDate&quot;&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-calendar {
+  max-width: 21em;
+}
+
+.wj-calendar .wj-header {
+  color: white;
+  background: #808080;
+}
+
+.wj-calendar .date-holiday:not(.wj-state-selected) {
+  font-weight: bold;
+  color: #008f22;
+  background: #f0fff0;
+  outline: 2pt solid #008f22;
+}
+
+.wj-calendar .date-weekend:not(.wj-state-selected) {
+  background-color: #d8ffa6;
+}
+
+body {
+  margin-bottom: 36px;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

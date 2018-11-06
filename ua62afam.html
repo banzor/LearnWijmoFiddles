@@ -1,0 +1,163 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - TreeView Removing Nodes - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "ua62afam";
+        var show_src = "//fiddle.jshell.net/Wijmo5/ua62afam/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/ua62afam/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/ua62afam/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=ua62afam" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // create the tree
+  var theTree = new wijmo.nav.TreeView(&#39;#theTree&#39;, {
+    itemsSource: getData(),
+    displayMemberPath: &#39;header&#39;,
+    childItemsPath: &#39;items&#39;,
+    
+    // update button state
+    selectedItemChanged: function(s, e) {
+			var btn = document.getElementById(&#39;btnRemove&#39;);
+      wijmo.setAttribute(btn, &#39;disabled&#39;, theTree.selectedItem ? null : &#39;disabled&#39;);
+    }
+  });
+  theTree.selectedItem = theTree.itemsSource[0];
+
+  // handle buttons
+  document.getElementById(&#39;btnRemove&#39;).addEventListener(&#39;click&#39;, function() {
+    if (theTree.selectedItem) {
+
+      // find the array that contains the item to be removed
+      var parent = theTree.selectedNode.parentNode;
+      var arr = parent 
+      	? parent.dataItem[theTree.childItemsPath]
+        : theTree.itemsSource;
+      
+      // remove the item from the parent collection
+      var index = arr.indexOf(theTree.selectedItem);
+      arr.splice(index, 1);
+
+      // refresh the tree
+      theTree.loadTree();
+  	}
+	});
+
+  // create some data
+  function getData() {
+    return [
+    	{ header: &#39;Parent 1&#39;, items: [
+      	{ header: &#39;Child 1.1&#39; },
+        { header: &#39;Child 1.2&#39; },
+        { header: &#39;Child 1.3&#39; }]
+    	},
+      { header: &#39;Parent 2&#39;, items: [
+      	{ header: &#39;Child 2.1&#39; },
+        { header: &#39;Child 2.2&#39; }]
+    	},
+      { header: &#39;Parent 3&#39;, items: [
+      	{ header: &#39;Child 3.1&#39; }]
+    	}
+		];
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Removing Nodes
+  &lt;/h1&gt;
+  &lt;p&gt;
+    To remove nodes from a &lt;b&gt;TreeView&lt;/b&gt; control, remove the data
+    item from the tree&#39;s &lt;b&gt;itemsSource&lt;/b&gt; array, then refresh the
+    tree by calling the &lt;b&gt;loadTree&lt;/b&gt; method:&lt;/p&gt;
+
+  &lt;div class=&quot;row&quot;&gt;
+    &lt;div class=&quot;col-xs-4&quot;&gt;
+      &lt;div id=&quot;theTree&quot;&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;col-xs-8&quot;&gt;
+      &lt;button id=&quot;btnRemove&quot; class=&quot;btn btn-default&quot;&gt;
+        Remove Selected Node
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">/* default trees on this sample */
+.wj-treeview {
+    font-size: 120%;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding: 6px;
+    background: #f0f0f0;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+body {
+  margin-bottom: 24pt;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.nav.min.js" target="_blank">wijmo.nav.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

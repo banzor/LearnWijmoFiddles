@@ -1,0 +1,196 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo -  Lazy-Loaded Trees - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "a17mh3q3";
+        var show_src = "//fiddle.jshell.net/Wijmo5/a17mh3q3/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/a17mh3q3/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/a17mh3q3/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=a17mh3q3" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// create the grid
+	var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+    childItemsPath: &#39;children&#39;,
+    headersVisibility: &#39;Column&#39;,
+    groupCollapsedChanged: groupCollapsedChanged,
+    autoGenerateColumns: false,
+    columns: [
+        { binding: &#39;name&#39;, header: &#39;Customer Name&#39;, width: &#39;*&#39; },
+        { binding: &#39;id&#39;, header: &#39;ID&#39;, align: &#39;center&#39;, cssClass: &#39;id-column&#39; }
+    ],
+		itemsSource: getData(),
+  });
+  
+	// start collapsed
+  theGrid.collapseGroupsToLevel(0);
+  
+  // update row when items are loaded
+	function updateRowCount(grid) {
+		document.getElementById(&#39;rowCount&#39;).textContent = wijmo.Globalize.format(grid.rows.length, &#39;n0&#39;);
+	}
+  updateRowCount(theGrid);
+
+	// load data when collapse node is expanded
+  function groupCollapsedChanged(s, e) {
+  	var row = s.rows[e.row],
+    	  item = row.dataItem;
+
+		// did we just expand a node with a dummy child?
+    if (!row.isCollapsed &amp;&amp; 
+    		item.children.length == 1 &amp;&amp; 
+        item.children[0].name == &#39;&#39;) {
+
+			// can&#39;t lazy load while updating rows
+      if (s.rows.isUpdating) {
+      	row.isCollapsed = true;
+        return;
+			}
+            
+      // replace the dummy child with actual nodes
+      item.children.length = 0;
+      var cnt = Math.round(Math.random() * 5) + 1;
+      for (var i = 0; i &lt; cnt; i++) {
+      	var node = createNode();
+        item.children.push(node);
+      }
+
+      // refresh the view
+      s.collectionView.refresh();
+
+			// collapse the new item&#39;s child items
+      for (var i = row.index + 1; i &lt; s.rows.length; i++) {
+      	var childRow = s.rows[i];
+        if (childRow.level &lt;= row.level) {
+        	break;
+				}
+        childRow.isCollapsed = true;
+			}
+      
+      // update row count
+      updateRowCount(s);
+    }
+  }
+
+	// create/retrieve data
+  function getData() {
+  	var tree = [];
+    tree.push(createNode());
+    tree.push(createNode());
+		return tree;    
+  }
+  var nodeId;
+	function createNode(dummy) {
+  	var first = &#39;Al,Bob,Cal,Dan,Ed,Fred,Greg,Hal,Ian,Jack,Karl,Lou,Moe,Nate,Oleg,Paul,Quincy,Rod,Sue,Uwe,Vic,Walt,Xiu,Yuri,Zack&#39;.split(&#39;,&#39;),
+    		last = &#39;Adams,Baum,Cole,Dell,Evans,Fell,Green,Hill,Isman,Jones,Krup,Lee,Monk,Nye,Opus,Pitt,Quaid,Riems,Stark,Trell,Unger,Voss,Wang,Xie,Zalm&#39;.split(&#39;,&#39;),
+        name = dummy ? &#39;&#39; : getOneOf(first) + &#39; &#39; + getOneOf(last),
+        children = [];
+		if (!dummy) {
+    	children.push(createNode(true));
+		}
+    if (nodeId == null) nodeId = 0;
+    return { id: nodeId++, name: name, children: children };
+	}
+  function getOneOf(arr) {
+		return arr[Math.floor(Math.random() * arr.length)];
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+     Lazy-Loaded Trees
+  &lt;/h1&gt;
+  &lt;p&gt;
+    In the tree grid below, collapsed nodes have a single dummy 
+    child.
+    When a node is expanded, more nodes are loaded on demand.&lt;/p&gt;
+  &lt;p&gt;
+    This is a common pattern known as &#39;lazy-loading&#39;.&lt;/p&gt;
+  &lt;div id=&quot;theGrid&quot;&gt;
+  &lt;/div&gt;
+  &lt;p&gt;
+    The grid currently has &lt;b id=&quot;rowCount&quot;&gt;&lt;/b&gt; rows.
+  &lt;/p&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 300px;
+  margin: 12px;
+}
+  .wj-flexgrid .wj-cell {
+    padding: 8px;
+  }
+  .wj-flexgrid .wj-group:not(.wj-state-selected):not(.wj-state-multi-selected) {
+    background-color: white;
+  }
+.id-column {
+  font-style: italic;
+}
+document {
+  margin-bottom: 48pt;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Wijmo 5 - BulletGraph - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "8uxb1vwf";
+        var show_src = "//fiddle.jshell.net/Wijmo5/8uxb1vwf/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/8uxb1vwf/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/8uxb1vwf/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=8uxb1vwf" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">// define app, include Wijmo 5 directives
+var app = angular.module(&#39;app&#39;, [&#39;wj&#39;]);
+
+// controller
+app.controller(&#39;appCtrl&#39;, function ($scope) {
+    $scope.target=100;
+    $scope.actual=120;
+    $scope.min=0;
+    $scope.max=250;
+});</pre>
+              <pre class="tCont ">&lt;!-- mark this as an Angular application and give it a controller --&gt;
+&lt;div ng-app=&quot;app&quot; ng-controller=&quot;appCtrl&quot; class=&quot;container&quot;&gt;
+    
+&lt;h1&gt;BulletGraph Demo&lt;/h1&gt;
+    
+    &lt;p&gt;Bullet graphs were designed by Stephen Few for use in dashboards.&lt;/p&gt;
+        
+    &lt;wj-bullet-graph
+    	value=&quot;actual&quot;
+		target=&quot;{{target}}&quot;
+		min=&quot;{{min}}&quot; max=&quot;{{max}}&quot;
+		bad=&quot;{{target * .75}}&quot;
+		good=&quot;{{target * 1.05}}&quot;&gt;
+	&lt;/wj-bullet-graph&gt;
+        
+&lt;/div&gt;</pre>
+              <pre class="tCont ">.wj-bulletgraph {
+    margin: 20px;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.gauge.min.js" target="_blank">wijmo.gauge.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/interop/angular/wijmo.angular.min.js" target="_blank">wijmo.angular.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

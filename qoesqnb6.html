@@ -1,0 +1,312 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - TabPanels Styling and CSS - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "qoesqnb6";
+        var show_src = "//fiddle.jshell.net/Wijmo5/qoesqnb6/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/qoesqnb6/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/qoesqnb6/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=qoesqnb6" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	var theTabPanel = new wijmo.nav.TabPanel(&#39;#theTabPanel&#39;);
+
+	// change tab position
+	var tabPosition = new wijmo.input.ComboBox(&#39;#tabPosition&#39;, {
+    itemsSource: &#39;Left,Right,Above,Below&#39;.split(&#39;,&#39;),
+    selectedIndexChanged: function (s, e) {
+        var host = theTabPanel.hostElement;
+        s.itemsSource.forEach(function(pos, index) {
+        	var clsName = &#39;tabs-&#39; + pos.toLowerCase();
+        	wijmo.toggleClass(host, clsName, index == s.selectedIndex);
+        });
+    },
+    selectedIndex: 2, // above is the default
+  });
+  
+	// toggle animation
+	document.getElementById(&#39;isAnimated&#39;).addEventListener(&#39;click&#39;, function (e) {
+	    theTabPanel.isAnimated = e.target.checked;
+	});
+
+	// toggle custom headers
+	document.getElementById(&#39;customHeaders&#39;).addEventListener(&#39;click&#39;, function (e) {
+    wijmo.toggleClass(theTabPanel.hostElement, &#39;custom-headers&#39;, e.target.checked);
+	});
+  
+	//  change tab alignment
+	var tabAlign = new wijmo.input.ComboBox(&#39;#tabAlign&#39;, {
+    itemsSource: &#39;Left,Center,Right&#39;.split(&#39;,&#39;),
+    selectedIndexChanged: function (s, e) {
+        var host = theTabPanel.hostElement,
+          	headers = host.querySelector(&#39;.wj-tabheaders&#39;);
+        headers.style.textAlign = s.text;
+    }
+	});
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+  &lt;h1&gt;
+    Styling and CSS
+  &lt;/h1&gt;
+  &lt;p&gt;
+    The TabPanel control has a simple layout, which makes
+    it easy to style using CSS. For example, tabs appear
+    above the content by default, but you can use CSS to
+    change their position and show the below or vertically
+    stacked, to the left or to the right of the content.&lt;/p&gt;
+  &lt;p&gt;
+    You can also choose whether or not to use animation 
+    when switching tabs. &lt;/p&gt;
+  &lt;div id=&quot;theTabPanel&quot; class=&quot;custom-tab&quot;&gt;
+    &lt;div&gt;
+      &lt;a&gt;Africa&lt;/a&gt;
+      &lt;div&gt;
+        &lt;ul&gt;
+          &lt;li&gt;Algeria&lt;/li&gt;
+          &lt;li&gt;Angola&lt;/li&gt;
+          &lt;li&gt;Benin&lt;/li&gt;
+          &lt;li&gt;Botswana&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+      &lt;a&gt;America&lt;/a&gt;
+      &lt;div&gt;
+        &lt;ul&gt;
+          &lt;li&gt;Canada&lt;/li&gt;
+          &lt;li&gt;Chile&lt;/li&gt;
+          &lt;li&gt;Mexico&lt;/li&gt;
+          &lt;li&gt;United States&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+      &lt;a&gt;Asia&lt;/a&gt;
+      &lt;div&gt;
+        &lt;ul&gt;
+          &lt;li&gt;China&lt;/li&gt;
+          &lt;li&gt;Korea&lt;/li&gt;
+          &lt;li&gt;India&lt;/li&gt;
+          &lt;li&gt;Japan&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+      &lt;a&gt;Europe&lt;/a&gt;
+      &lt;div&gt;
+        &lt;ul&gt;
+          &lt;li&gt;Austria&lt;/li&gt;
+          &lt;li&gt;England&lt;/li&gt;
+          &lt;li&gt;France&lt;/li&gt;
+          &lt;li&gt;Germany&lt;/li&gt;
+          &lt;li&gt;Netherlands&lt;/li&gt;
+          &lt;li&gt;Switzerland&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+      &lt;a&gt;Oceania&lt;/a&gt;
+      &lt;div&gt;
+        &lt;ul&gt;
+          &lt;li&gt;Australia&lt;/li&gt;
+          &lt;li&gt;Fiji&lt;/li&gt;
+          &lt;li&gt;New Zealand&lt;/li&gt;
+          &lt;li&gt;Samoa&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+ 
+  &lt;h4&gt;
+    Options
+  &lt;/h4&gt;
+  &lt;div&gt;
+    &lt;label for=&quot;tabPosition&quot;&gt;
+      Tab Position
+    &lt;/label&gt;
+    &lt;div id=&quot;tabPosition&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;label for=&quot;tabAlign&quot;&gt;
+      Tab Alignment
+    &lt;/label&gt;
+    &lt;div id=&quot;tabAlign&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;label for=&quot;isAnimated&quot;&gt;
+      isAnimated
+    &lt;/label&gt;
+    &lt;input id=&quot;isAnimated&quot; type=&quot;checkbox&quot; checked=&quot;checked&quot;&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;label for=&quot;customHeaders&quot;&gt;
+      Custom Headers
+    &lt;/label&gt;
+    &lt;input id=&quot;customHeaders&quot; type=&quot;checkbox&quot;&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+              <pre class="tCont ">.wj-tabpanel {
+  padding: 0 12px;
+}
+.wj-tabpane {
+  padding: 12px;
+}
+.wj-tabheader:hover {
+  outline: 2px solid rgba(90, 160, 215, .5);
+}
+
+/* custom-headers */
+.wj-tabpanel.custom-headers .wj-tabpanes {
+  border: none;
+}
+.wj-tabpanel.custom-headers &gt; div &gt; .wj-tabheaders {
+  background: black;
+  color: white;
+  border: none;
+}
+.wj-tabpanel.custom-headers .wj-tabheaders .wj-tabheader.wj-state-active {
+  background: white;
+  color: black;
+}
+.wj-tabpanel.custom-headers .wj-tabheaders .wj-tabheader:not(.wj-state-active) {
+  font-weight: normal;
+}
+.wj-tabpanel.custom-headers .wj-tabheaders .wj-tabheader.wj-state-active:after {
+  display: none; /* hide underline */
+}
+
+/* tabs on the left */
+.wj-tabpanel.tabs-left &gt; div {
+  display: flex;
+  align-items: center;
+}
+.wj-tabpanel.tabs-left .wj-tabheaders {
+  display: flex;
+  flex-direction: column;
+  min-width: 8em;
+  border-right: 1px solid #ddd;
+}
+.wj-tabpanel.tabs-left .wj-tabheaders .wj-tabheader {
+  text-align: right;
+} 
+.wj-tabpanel.tabs-left .wj-tabpanes {
+  display: flex;
+  flex-grow: 1;
+  border-top: none;
+  overflow-x: hidden;
+}
+
+/* tabs on the right */
+.wj-tabpanel.tabs-right &gt; div {
+  display: flex;
+  align-items: center;
+}
+.wj-tabpanel.tabs-right .wj-tabheaders {
+  display: flex;
+  flex-direction: column;
+  min-width: 8em;
+  border-left: 1px solid #ddd;
+  order: 1;
+}
+.wj-tabpanel.tabs-right .wj-tabheaders .wj-tabheader {
+  text-align: left;
+} 
+.wj-tabpanel.tabs-right .wj-tabpanes {
+  display: flex;
+  flex-grow: 1;
+  border-top: none;
+  overflow-x: hidden;
+  order: 0;
+}
+
+/* tabs below */
+.wj-tabpanel.tabs-below &gt; div {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.wj-tabpanel.tabs-below .wj-tabheaders {
+  order: 1; /* headers after panes */
+}
+.wj-tabpanel.tabs-below .wj-tabpanes {
+  order: 0;
+}
+.wj-tabpanel.tabs-below .wj-tabheaders .wj-tabheader.wj-state-active:after {
+  top: 0;
+  bottom: unset;
+}
+
+label {
+  width: 8em;
+  text-align: right;
+  margin-right: 6px;
+}
+body {
+  margin-bottom: 48pt;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.nav.min.js" target="_blank">wijmo.nav.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

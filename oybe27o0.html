@@ -1,0 +1,165 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - FlexChart Architecture - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "oybe27o0";
+        var show_src = "//fiddle.jshell.net/Wijmo5/oybe27o0/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/oybe27o0/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/oybe27o0/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=oybe27o0" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// create the chart
+  var theChart = new wijmo.chart.FlexChart(&#39;#theChart&#39;, {
+  	itemsSource: getData(),
+    bindingX: &#39;country&#39;,
+    series: [
+    	{ binding: &#39;sales&#39;, name: &#39;Sales&#39; },
+      { binding: &#39;expenses&#39;, name: &#39;Expenses&#39; },
+      { binding: &#39;downloads&#39;, name: &#39;Downloads&#39; }
+    ]
+  })
+
+	// connect sort buttons
+	sortOnClick(&#39;btnNone&#39;, null);
+  sortOnClick(&#39;btnCountry&#39;, &#39;country&#39;);
+  sortOnClick(&#39;btnSales&#39;, &#39;sales&#39;);
+  sortOnClick(&#39;btnExpenses&#39;, &#39;expenses&#39;);
+  sortOnClick(&#39;btnDownloads&#39;, &#39;downloads&#39;);
+	function sortOnClick(id, prop) {
+  	document.getElementById(id).addEventListener(&#39;click&#39;, function() {
+    	var sd = theChart.collectionView.sortDescriptions;
+      sd.clear();
+      sd.push(new wijmo.collections.SortDescription(prop, true))
+    })
+  }
+  
+	// create some random data
+  function getData() {
+	  var countries = &#39;US,Germany,UK,Japan,Italy,Greece&#39;.split(&#39;,&#39;),
+	    data = [];
+	  for (var i = 0; i &lt; countries.length; i++) {
+	    data.push({
+	      country: countries[i],
+	      sales: Math.random() * 10000,
+	      expenses: Math.random() * 5000,
+	      downloads: Math.round(Math.random() * 20000),
+	    });
+	  }
+  	return data;
+  }
+
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    FlexChart Architecture
+  &lt;/h1&gt;
+
+  &lt;p&gt;
+    The FlexChart allows you to visualize tabular data as business 
+    charts. It provides a variety of options about how to present 
+    and interact with the data, including selection, zooming, 
+    drill-down, formatting, etc.&lt;/p&gt;
+  &lt;p&gt;
+    Like all Wijmo controls, the chart delegates all data-related
+    tasks to the CollectionView class, so if you want to filter,
+    sort, or group the data, you can do it using the CollectionView.
+    It may be useful to think of the FlexChart as a special type
+    of data grid, where columns are represented by series and
+    rows are data points on the chart.&lt;/p&gt;
+  &lt;p&gt;
+    When you set the chart&#39;s &lt;b&gt;itemsSource&lt;/b&gt; property to an array,
+    or &lt;b&gt;ObservableArray&lt;/b&gt;, the chart automatically creates a
+    CollectionView instance to wrap the original array. This
+    CollectionView is exposed by the &lt;b&gt;collectionView&lt;/b&gt; property 
+    in case you want to access it.&lt;/p&gt;
+  &lt;p&gt;
+    For example, the chart below has buttons that allow users to 
+    sort the data by changing the &lt;b&gt;sortDescriptions&lt;/b&gt; property
+    of the chart&#39;s &lt;b&gt;collectionView&lt;/b&gt;:&lt;/p&gt;
+
+  &lt;p&gt;
+    Sort by: 
+    &lt;button id=&quot;btnNone&quot; class=&quot;btn btn-default&quot;&gt;None&lt;/button&gt;
+    &lt;button id=&quot;btnCountry&quot; class=&quot;btn btn-default&quot;&gt;Country&lt;/button&gt;
+    &lt;button id=&quot;btnSales&quot; class=&quot;btn btn-default&quot;&gt;Sales&lt;/button&gt;
+    &lt;button id=&quot;btnExpenses&quot; class=&quot;btn btn-default&quot;&gt;Expenses&lt;/button&gt;
+    &lt;button id=&quot;btnDownloads&quot; class=&quot;btn btn-default&quot;&gt;Downloads&lt;/button&gt;
+  &lt;/p&gt;
+  &lt;div id=&quot;theChart&quot;&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+</pre>
+              <pre class="tCont "> .wj-flexgrid {
+  height: 150px; 
+  margin-top:10px;
+ }
+ .wj-flexchart {
+   height: 300px;
+ }</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.chart.min.js" target="_blank">wijmo.chart.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

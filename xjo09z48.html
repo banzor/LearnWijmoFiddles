@@ -1,0 +1,167 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Color - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "xjo09z48";
+        var show_src = "//fiddle.jshell.net/Wijmo5/xjo09z48/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/xjo09z48/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/xjo09z48/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=xjo09z48" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// create color pickers
+	var clrStart = new wijmo.input.InputColor(&#39;#clrStart&#39;, {
+  	value: &#39;purple&#39;,
+    valueChanged: interpolate
+  });
+	var clrEnd = new wijmo.input.InputColor(&#39;#clrEnd&#39;, {
+  	value: &#39;red&#39;,
+    valueChanged: interpolate
+  });
+  interpolate();
+  
+  // interpolate colors
+  var animInt;
+  function interpolate() {
+
+		// remove old gradient
+    var tr = document.getElementById(&#39;theColorRow&#39;);
+		while (tr.hasChildNodes()) {
+    	tr.removeChild(tr.lastChild);
+		}    
+
+		// calculate new gradient
+		var c1 = new wijmo.Color(clrStart.value),
+    		c2 = new wijmo.Color(clrEnd.value),
+        cnt = 80;
+    for (var i = 0; i &lt; cnt; i++) {
+			var td = document.createElement(&#39;td&#39;);
+      td.innerHTML = &#39;&amp;nbsp;&#39;
+      td.style.background = wijmo.Color.interpolate(c1, c2, i / cnt);
+      tr.appendChild(td);
+    }
+    
+    // animate the color
+    var theColor = document.getElementById(&#39;theColor&#39;);
+    clearInterval(animInt);
+    animInt = wijmo.animate(function(pct) {
+    	theColor.style.background = wijmo.Color.interpolate(c1, c2, pct);
+    }, 2000);
+    
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Color
+  &lt;/h1&gt;
+  &lt;p&gt;
+    The &lt;b&gt;Color&lt;/b&gt; class parses colors specified as CSS strings
+    and exposes their red, green, blue, and alpha channels as read-write 
+    properties.&lt;/p&gt;
+  &lt;p&gt;
+    It also provides &lt;b&gt;fromHsb&lt;/b&gt; and &lt;b&gt;fromHsl&lt;/b&gt; methods for creating
+    colors using the HSB and HSL color models instead of RGB, as well as
+    &lt;b&gt;getHsb&lt;/b&gt; and &lt;b&gt;getHsl&lt;/b&gt; methods for retrieving the color 
+    components using those color models.&lt;/p&gt;
+  &lt;p&gt;
+    The &lt;b&gt;Color&lt;/b&gt; class also has an &lt;b&gt;interpolate&lt;/b&gt; method that creates
+    colors by interpolating between two colors using the HSL model. This 
+    method is especially useful for creating color animations with the 
+    &lt;b&gt;animate&lt;/b&gt; method.&lt;/p&gt;
+  &lt;p&gt;
+    The example below illustrates:
+  &lt;/p&gt;    
+  &lt;div&gt;
+    &lt;div id=&quot;clrStart&quot;&gt;&lt;/div&gt;
+    &lt;div id=&quot;clrEnd&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;    
+  &lt;table&gt;
+    &lt;tr id=&quot;theColorRow&quot;&gt;&lt;/tr&gt;
+  &lt;/table&gt;
+  &lt;div id=&quot;theColor&quot;&gt;
+  &lt;div&gt;
+  
+  &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-control {
+  margin-bottom: 12px;
+}
+table {
+  width: 100%;
+}
+#theColor {
+  width: 150px;
+  height: 150px;
+  margin: 12px auto;
+  border: 2px solid black;
+  background-color: grey;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

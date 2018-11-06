@@ -1,0 +1,174 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Row Properties - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "xup60a1t";
+        var show_src = "//fiddle.jshell.net/Wijmo5/xup60a1t/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/xup60a1t/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/xup60a1t/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=xup60a1t" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function () {
+
+  // generate some random data
+  var countries = &#39;US,Germany,UK,Japan,Italy,Greece&#39;.split(&#39;,&#39;),
+      data = [];
+  for (var i = 0; i &lt; countries.length; i++) {
+    data.push({
+    	id: i,
+      country: countries[i],
+      downloads: Math.round(Math.random() * 20000),
+      sales: Math.random() * 10000,
+      expenses: Math.random() * 5000
+    });
+  }
+
+	// toggle row visibility
+  var hideRows = false;
+  document.getElementById(&#39;btnToggleVis&#39;).addEventListener(&#39;click&#39;, function(e) {
+  	hideRows = !hideRows;
+    theGrid.collectionView.refresh(); // force row re-load
+  });
+  
+	// grid with custom columns
+  var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+    itemsSource: data,
+    loadedRows: function() {
+    	if (hideRows) {
+      	theGrid.rows.forEach(function(row, index) {
+        	row.visible = index % 2 == 0;
+        });
+      }
+    }
+  });
+}</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Row Properties&lt;/h1&gt;
+  &lt;p&gt;
+    The &lt;b&gt;wijmo.grid.Row&lt;/b&gt; class has 
+    &lt;a href=&quot;https://wijmo.com/5/docs/topic/wijmo.grid.Row.Class.html&quot; target=&quot;_blank&quot;&gt;
+      almost 20 properties 
+    &lt;/a&gt; you can use to configure each rows&#39;s appearance and behavior.&lt;/p&gt;
+  &lt;p&gt;
+    Note that when grids refresh, the scrollable rows are re-created 
+    (so they can be bound to the new data). Because of this, you
+    should apply normally apply row properties in response to the
+    &lt;b&gt;loadedRows&lt;/b&gt; event, which fires after the rows have been
+    created.&lt;/p&gt;
+  &lt;p&gt;
+    Most rows are instances of the &lt;b&gt;Row&lt;/b&gt; class, but grouped grids
+    may also contain &lt;b&gt;GroupRow&lt;/b&gt; objects, which extend the regular
+    &lt;b&gt;Row&lt;/b&gt; class.&lt;/p&gt;
+  &lt;p&gt;
+    The most important properties in the &lt;b&gt;Row&lt;/b&gt; class are:&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;
+      &lt;b&gt;dataItem&lt;/b&gt;:
+      Contains a reference to the data item that is bound to the row.
+      This property is set by the grid when it creates bound rows, and
+      is often used in &lt;b&gt;formatItem&lt;/b&gt; event handlers.
+      In &lt;b&gt;GroupRow&lt;/b&gt; objects, the &lt;b&gt;dataItem&lt;/b&gt; property 
+      contains a reference to the row&#39;s &lt;b&gt;Group&lt;/b&gt; rather than
+      to a regular data item.&lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;isReadOnly&lt;/b&gt;:
+      Gets or sets whether the row is editable. By default, &lt;b&gt;Row&lt;/b&gt;
+      instances are editable and &lt;b&gt;GroupRow&lt;/b&gt; instances are not.&lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;isSelected&lt;/b&gt;:
+      This property is important when the grid&#39;s &lt;b&gt;selectionMode&lt;/b&gt;
+      property is set to &lt;b&gt;ListBox&lt;/b&gt;. In this case, users may select
+      non-contiguous sets of rows, and the &lt;b&gt;isSelected&lt;/b&gt; property
+      allows you to get or set the selected state of individual rows.&lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;visible&lt;/b&gt;:
+      Gets or sets whether the row is visible. You can use this property
+      to conditionally hide rows.&lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;isVisible&lt;/b&gt;:
+      Gets a value that indicates whether the row is currently visible.
+      Even if the &lt;b&gt;visible&lt;/b&gt; property is set to true, rows may
+      be hidden because they are part of collapsed groups.&lt;/li&gt;
+  &lt;/ul&gt;
+      
+  &lt;p&gt;
+    For example, click the button below to hide or show every other
+    row on the grid:&lt;/p&gt;    
+  &lt;button id=&quot;btnToggleVis&quot; class=&quot;btn btn-default&quot;&gt;
+    Toggle Row Visibility
+  &lt;/button&gt;
+  &lt;div id=&quot;theGrid&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  height: 200px; 
+  margin: 10px 0;
+}
+body {
+  margin-bottom: 20pt;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

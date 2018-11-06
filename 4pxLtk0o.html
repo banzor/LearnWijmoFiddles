@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - FlexGrid Programmatic Clipboard Copy - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "4pxLtk0o";
+        var show_src = "//fiddle.jshell.net/Wijmo5/4pxLtk0o/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/4pxLtk0o/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/4pxLtk0o/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=4pxLtk0o" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+	// the grid
+  var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+    itemsSource: getData()
+  });
+
+	// command to copy the whole grid to the clipboard
+  document.getElementById(&#39;btnCopyAll&#39;).addEventListener(&#39;click&#39;, function(e) {
+  
+  	// get clip string from the grid (all grid data)
+    var g = theGrid,
+    		rng = new wijmo.grid.CellRange(0, 0, g.rows.length - 1, g.columns.length - 1),
+        clipString = g.getClipString(rng);
+    
+    // add headers
+    var hdr = &#39;&#39;;
+    for (var c = rng.leftCol; c &lt;= rng.rightCol; c++) {
+      if (hdr) hdr += &#39;\t&#39;;
+      hdr += g.columns[c].header;
+    }
+    clipString = hdr + &#39;\n&#39; + clipString;
+
+		// copy it to the clipboard using a temporary textarea element
+		var input = document.createElement(&#39;textarea&#39;);
+    document.body.appendChild(input);
+    input.value = clipString;
+    input.select();
+    document.execCommand(&#39;copy&#39;);
+    document.body.removeChild(input);
+    alert(&#39;The data has been copied to the clipboard.&#39;);
+
+		// return focus to the button
+    e.target.focus();
+  })
+
+	// get some random data
+  function getData() {
+    var countries = &#39;US,Germany,UK,Japan,Italy,Greece&#39;.split(&#39;,&#39;),
+      data = [];
+    for (var i = 0; i &lt; 200; i++) {
+      data.push({
+        id: i,
+        country: countries[i % countries.length],
+        active: i % 5 != 0,
+        downloads: Math.round(Math.random() * 200000),
+        sales: Math.random() * 100000,
+        expenses: Math.random() * 50000
+      });
+    }
+    return data;
+  }
+
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    FlexGrid Programmatic Clipboard Copy
+  &lt;/h1&gt;
+  &lt;p&gt;
+    The FlexGrid has built-in clipboard support. You can select any
+    range and press ctrl+C to copy it to the clipboard, or ctrl+V
+    to paste the clipboard data onto the selected range..
+  &lt;/p&gt;
+  &lt;p&gt;
+    The grid also has a &lt;b&gt;getClipString&lt;/b&gt; method that allows you
+    to copy any part of the grid to a clipboard-style string. The
+    string contains formatted cell contents, separated by tabs
+    and new-line characters.
+  &lt;/p&gt;
+  &lt;p&gt;
+    This sample shows how you can use the &lt;b&gt;getClipString&lt;/b&gt; and
+    &lt;b&gt;execCommand&lt;/b&gt; methods to copy all the grid data to the 
+    clipboard when the user presses a button.
+  &lt;/p&gt;
+  &lt;button id=&quot;btnCopyAll&quot; class=&quot;btn btn-primary&quot;&gt;
+    Copy All
+  &lt;/button&gt;
+  &lt;div id=&quot;theGrid&quot;&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 250px;
+  margin-bottom: 12px;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

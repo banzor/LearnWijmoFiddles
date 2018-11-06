@@ -1,0 +1,256 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Master Detail - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "x0tud0b8";
+        var show_src = "//fiddle.jshell.net/Wijmo5/x0tud0b8/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/x0tud0b8/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/x0tud0b8/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=x0tud0b8" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // create some random data
+  var countries = &#39;US,Germany,UK,Japan,Italy,Greece&#39;.split(&#39;,&#39;);
+  var products = &#39;Phones,Cars,Stereos,Watches,Computers&#39;.split(&#39;,&#39;);
+  var data = [];
+  for (var i = 0; i &lt; 50; i++) {
+    data.push({
+    	id: i,
+      country: countries[i % countries.length],
+      product: products[i % products.length],
+      date: wijmo.DateTime.addDays(new Date(), i),
+      sales: Math.random() * 10000,
+      expenses: Math.random() * 5000,
+    });
+  }
+
+	// show countries in combo
+  var theCombo = new wijmo.input.ComboBox(&#39;#theCombo&#39;, {
+  	itemsSource: countries,
+    selectedIndexChanged: function() {
+    	view.refresh(); // refresh view to filter by country
+    }
+  });
+  
+	// create CollectionView to show items for the selected country
+	var view = new wijmo.collections.CollectionView(data, {
+		filter: function(item) {
+  		return item.country == theCombo.text;
+		}
+  });
+  
+  // show items for the selected country in the detail grid
+  var theGridDetail = new wijmo.grid.FlexGrid(&#39;#theGridDetail&#39;, {
+  	itemsSource: view
+  })
+
+	// using a grid as the master
+  var theGridMaster = new wijmo.grid.FlexGrid(&#39;#theGridMaster&#39;, {
+  	itemsSource: data,
+    selectionMode: &#39;Row&#39;,
+    isReadOnly: true,
+    selectionChanged: function(s, e) {
+    	updateDetailControls();
+    }
+  });
+
+	// update detail controls when selection changes
+	function updateDetailControls() {
+  	var item = theGridMaster.collectionView.currentItem;
+    var bndCtls = document.querySelectorAll(&#39;.bnd-ctl&#39;);
+    for (var i = 0; i &lt; bndCtls.length; i++) {
+    	var host = bndCtls[i];
+      var prop = host.id.substr(3).toLowerCase();
+    	var ctl = wijmo.Control.getControl(host);
+      if (wijmo.isString(item[prop])) {
+      	ctl.text = item[prop];
+      } else {
+      	ctl.value = item[prop];
+      }
+    }
+	}
+
+	// set a property on the current item
+	function setProperty(prop, val) {
+  	var v = theGridMaster.collectionView;
+    v.editItem(v.currentItem);
+    v.currentItem[prop] = val;
+    v.commitEdit();
+  }
+
+	// define detail controls
+  var theCountry = new wijmo.input.ComboBox(&#39;#theCountry&#39;, {
+  	itemsSource: countries,
+    textChanged: function(s, e) {
+    	setProperty(&#39;country&#39;, s.text);
+    }
+  });
+  var theProduct = new wijmo.input.ComboBox(&#39;#theProduct&#39;, {
+  	itemsSource: products,
+    textChanged: function(s, e) {
+    	setProperty(&#39;product&#39;, s.text);
+    }
+  });
+  var theDate = new wijmo.input.InputDate(&#39;#theDate&#39;, {
+    valueChanged: function(s, e) {
+    	setProperty(&#39;date&#39;, s.value);
+    }
+  });
+  var theSales = new wijmo.input.InputNumber(&#39;#theSales&#39;, {
+  	format: &#39;n2&#39;,
+    step: 10,
+    valueChanged: function(s, e) {
+    	setProperty(&#39;sales&#39;, s.value);
+    }
+  });
+  var theExpenses = new wijmo.input.InputNumber(&#39;#theExpenses&#39;, {
+  	format: &#39;n2&#39;,
+    step: 10,
+    valueChanged: function(s, e) {
+    	setProperty(&#39;expenses&#39;, s.value);
+    }
+  });
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Master Detail&lt;/h1&gt;
+  &lt;p&gt;
+    The simplest way to deal with hierarchical data is
+    the master-detail model. Use a control to select the 
+    main item and one or more additional controls to show
+    the main item&#39;s details.&lt;/p&gt;
+
+  &lt;p&gt;
+    For example, the ComboBox below is used as a master 
+    control. Select a country from the combo and the
+    grid below will show the items in that country:&lt;/p&gt;
+    
+  &lt;label&gt;
+    Select a country: 
+    &lt;div id=&quot;theCombo&quot;&gt;&lt;/div&gt;
+  &lt;/label&gt;    
+  &lt;div id=&quot;theGridDetail&quot;&gt;&lt;/div&gt;
+
+  &lt;p&gt;
+    In the next example, The FlexGrid is used as the master  
+    control. Select an item on the grid and see the details
+    in the controls below:&lt;/p&gt;
+    
+  &lt;h3&gt;
+    Master&lt;/h3&gt;    
+  &lt;div id=&quot;theGridMaster&quot;&gt;&lt;/div&gt;
+  
+  &lt;h3&gt;
+    Detail&lt;/h3&gt;    
+  &lt;table class=&quot;tbl-spaced&quot;&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Country:&lt;/td&gt;
+      &lt;td id=&quot;theCountry&quot; class=&quot;bnd-ctl&quot;&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Product:&lt;/td&gt;
+      &lt;td id=&quot;theProduct&quot; class=&quot;bnd-ctl&quot;&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Date:&lt;/td&gt;
+      &lt;td id=&quot;theDate&quot; class=&quot;bnd-ctl&quot;&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Sales:&lt;/td&gt;
+      &lt;td id=&quot;theSales&quot; class=&quot;bnd-ctl&quot;&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Expenses:&lt;/td&gt;
+      &lt;td id=&quot;theExpenses&quot; class=&quot;bnd-ctl&quot;&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/table&gt;
+  
+  &lt;p&gt;&lt;/p&gt;
+  &lt;div class=&quot;panel panel-warning&quot;&gt;
+    &lt;div class=&quot;panel-heading&quot;&gt;
+      This example requires a fair amount of code
+      because we are not using any frameworks. With Angular, 
+      React, or Vue, no code would be required to update
+      the child controls.
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 220px; 
+  margin: 10px;
+}
+.tbl-spaced td {
+  vertical-align: middle;
+  margin: 3px;    
+}
+body {
+   margin-bottom: 24pt;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

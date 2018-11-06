@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - CollectionView Validation - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "twgjr6s8";
+        var show_src = "//fiddle.jshell.net/Wijmo5/twgjr6s8/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/twgjr6s8/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/twgjr6s8/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=twgjr6s8" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // create some random data
+  var countries = &#39;US,Germany,UK,Japan,Sweden,Norway,Denmark&#39;.split(&#39;,&#39;);
+  var data = [];
+  for (var i = 0; i &lt; countries.length; i++) {
+    data.push({
+    	id: i,
+      country: countries[i],
+      sales: Math.random() * 10000,
+      expenses: Math.random() * 5000,
+      overdue: (i + 1) % 4 == 0
+    });
+  }
+
+	// CollectionView with validation
+	var view = new wijmo.collections.CollectionView(data, {
+  	getError: function(item, prop) {
+	  	if (prop == &#39;sales&#39; &amp;&amp; item.sales &lt; 0) {
+      	return &#39;Sales cannot be negative!&#39;;
+      }
+	  	if (prop == &#39;expenses&#39; &amp;&amp; item.expenses &lt; 0) {
+      	return &#39;Expenses cannot be negative!&#39;;
+      }
+  	}
+  });
+  
+  // show the data in a grid
+  var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+    itemsSource: view,
+    columns: [
+    	{ binding: &#39;id&#39;, header: &#39;ID&#39;, width: 50, isReadOnly: true },
+    	{ binding: &#39;country&#39;, header: &#39;Country&#39;, isRequired: true, dataMap: countries },
+    	{ binding: &#39;sales&#39;, header: &#39;Sales&#39; },
+    	{ binding: &#39;expenses&#39;, header: &#39;Expenses&#39; },
+    	{ binding: &#39;overdue&#39;, header: &#39;Overdue&#39; }
+    ]
+  });
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    CollectionView Validation
+  &lt;/h1&gt;
+  &lt;p&gt;
+    The FlexGrid works with the &lt;b&gt;CollectionView&lt;/b&gt; class to 
+    provide item and collection-level validation.&lt;/p&gt;
+  &lt;p&gt;
+    To use this feature, set &lt;b&gt;getError&lt;/b&gt; to a function that 
+    takes two parameters containing the data item being validated 
+    and the property to validate, and returns a string describing
+    the error condition (or null if there are no errors),&lt;/p&gt;
+  &lt;p&gt;
+    The grid below has as data source that implements a &lt;b&gt;getError&lt;/b&gt;
+    function that ensures the &#39;Sales&#39; and &#39;Expenses&#39; properties of the
+    items contain positive values. To see how the validation works,
+    try entering negative values in either column:&lt;/p&gt;
+  &lt;div id=&quot;theGrid&quot;&gt;
+  &lt;/div&gt;
+  
+  &lt;p&gt;
+    The grid has two properties that allow you to customize its
+    validation behavior:&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;
+      &lt;b&gt;showErrors:&lt;/b&gt;
+      Whether the grid should add the &#39;wj-state-invalid&#39; class
+      to cells that contain validation errors, and tooltips 
+      with error descriptions.&lt;/li&gt;
+    &lt;li&gt;
+      &lt;b&gt;validateEdits:&lt;/b&gt;
+      Whether the grid should remain in edit mode when the user
+      tries to commit edits that fail validation
+      &lt;/li&gt;
+  &lt;/ul&gt;
+  
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 200px;
+  margin-bottom: 12px;
+}
+
+body {
+  margin-bottom: 24px;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.input.min.js" target="_blank">wijmo.input.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

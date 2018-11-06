@@ -1,0 +1,263 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Grouping and Drill-Down - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "e2pp0f66";
+        var show_src = "//fiddle.jshell.net/Wijmo5/e2pp0f66/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/e2pp0f66/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/e2pp0f66/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=e2pp0f66" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+  // create a CollectionView containing data grouped by 
+  // country, product, color, and type
+  var view = new wijmo.collections.CollectionView(getData(), {
+    groupDescriptions: &#39;country,product,color,type&#39;.split(&#39;,&#39;)
+  });
+
+  // create the chart
+  var theChart = new wijmo.chart.FlexChart(&#39;#theChart&#39;, {
+    itemsSource: getGroupData(view), // show first-level grouping
+    bindingX: &#39;name&#39;,
+    series: [{
+      binding: &#39;sales&#39;,
+      name: &#39;Sales&#39;
+    }],
+    axisX: { title: &#39;Country&#39; },
+    axisY: {
+      title: &#39;Sales (US$ thousands)&#39;,
+      format: &#39;n0,&#39;
+    },
+    legend: { position: &#39;None&#39; },
+    tooltip: { content: &#39;&#39; },
+    selectionMode: &#39;Point&#39;, // enable selection
+    selectionChanged: function(s, e) {
+      if (s.selection) {
+        var point = s.selection.collectionView.currentItem;
+        if (point &amp;&amp; point.group &amp;&amp; !point.group.isBottomLevel) {
+          showGroup(point.group);
+        }
+      }
+    }
+  });
+
+  // show a group on the chart
+  function showGroup(group) {
+
+    // update titles
+    updateChartHeader(group);
+    var level = &#39;level&#39; in group ? group.level + 1 : 0;
+    theChart.axisX.title = wijmo.toHeaderCase(view.groupDescriptions[level].propertyName);
+
+    // update the series color (use a different one for each level)
+    var palette = theChart.palette || wijmo.chart.Palettes.standard;
+    theChart.series[0].style = {
+      fill: palette[level],
+      stroke: palette[level]
+    };
+
+    // update data
+    theChart.itemsSource = getGroupData(group);
+    theChart.selection = null;
+  }
+
+  // update the chart header element
+  var header = document.getElementById(&#39;header&#39;);
+  function updateChartHeader(group) {
+    var item = group.items[0],
+      path = &#39;&#39;,
+      headers = [];
+    for (var i = 0; i &lt;= group.level; i++) {
+      var prop = view.groupDescriptions[i].propertyName,
+        hdr = wijmo.format(&#39;&lt;a href=&quot;#{path}&quot;&gt;{prop}&lt;/a&gt;: {value}&#39;, {
+          path: path,
+          prop: wijmo.toHeaderCase(prop),
+          value: item[prop]
+        });
+      headers.push(hdr);
+      path += &#39;/&#39; + item[prop];
+    }
+    header.innerHTML = headers.length &gt; 0
+    	? &#39;Sales for &#39; + headers.join(&#39;, &#39;)
+      : &#39;Sales&#39;;
+  }
+
+  // handle clicks on chart&#39;s header element to navigate back up
+  header.addEventListener(&#39;click&#39;, function(e) {
+    if (e.target instanceof HTMLAnchorElement) {
+      e.preventDefault();
+
+      // get the link path
+      var path = e.target.href;
+      path = path.substr(path.lastIndexOf(&#39;#&#39;) + 1);
+      path = path.split(&#39;/&#39;);
+
+      // find the group that matches the path
+      var src = view;
+      for (var i = 1; i &lt; path.length; i++) {
+        for (var j = 0; j &lt; src.groups.length; j++) {
+          var group = src.groups[j];
+          if (group.name == path[i]) {
+            src = group;
+            break;
+          }
+        }
+      }
+
+      // show the selected group
+      showGroup(src);
+    }
+  });
+
+  // get the group data for a selected point
+  function getGroupData(group) {
+
+    // get items for this group, aggregate by sales
+    var arr = [];
+    group.groups.forEach(function(g) {
+      arr.push({
+        name: g.name,
+        sales: g.getAggregate(&#39;Sum&#39;, &#39;sales&#39;),
+        group: g
+      });
+    });
+
+    // return a new collection view sorted by sales
+    return new wijmo.collections.CollectionView(arr, {
+      sortDescriptions: [
+        new wijmo.collections.SortDescription(&#39;sales&#39;, false)
+      ]
+    });
+  }
+
+  // create some random data
+  function getData() {
+    var countries = &#39;US,Canada,Germany,UK,France,Italy,Japan,Korea,China&#39;.split(&#39;,&#39;);
+    var products = &#39;Piano,Violin,Flute,Guitar,Cello&#39;.split(&#39;,&#39;);
+    var colors = &#39;Red,Green,Blue,Brown,White,Black&#39;.split(&#39;,&#39;);
+    var types = &#39;Hobbyist,Average,Professional,Collector&#39;.split(&#39;,&#39;);
+    var data = [];
+    for (var i = 0; i &lt; 1000; i++) {
+      data.push({
+        id: i,
+        country: randomItem(countries),
+        product: randomItem(products),
+        color: randomItem(colors),
+        type: randomItem(types),
+        sales: Math.random() * 10000,
+        expenses: Math.random() * 5000
+      });
+    }
+    return data;
+  }
+
+  function randomItem(items) {
+    return items[Math.floor(Math.random() * items.length)];
+  }
+}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Grouping and Drill-Down
+  &lt;/h1&gt;
+
+  &lt;p&gt;
+    This example shows how you can leverage the grouping
+    features in the &lt;b&gt;CollectionView&lt;/b&gt; class to create
+    drill-down charts.&lt;/p&gt;
+  &lt;p&gt;
+    Click on the bars to drill-down into any group. The
+    chart will be updated to show the new data, and the
+    chart&#39;s header will show breadcrumbs so you can 
+    navigate back up the group hierarchy:&lt;/p&gt;
+
+  &lt;div class=&quot;chart-host&quot;&gt;
+    &lt;h4 id=&quot;header&quot;&gt;Sales&lt;/h4&gt;
+    &lt;div id=&quot;theChart&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexchart {
+  height: 300px;
+  border: none;
+}
+
+.chart-host {
+  border: 1px solid #e4e4e4;
+}
+.chart-host h4 {
+  text-align: center;
+}
+.chart-host a {
+  cursor: pointer;
+}
+
+body {
+  margin-bottom: 24pt;
+}
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.chart.min.js" target="_blank">wijmo.chart.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

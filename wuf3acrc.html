@@ -1,0 +1,140 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Input - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "wuf3acrc";
+        var show_src = "//fiddle.jshell.net/Wijmo5/wuf3acrc/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/wuf3acrc/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/wuf3acrc/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=wuf3acrc" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active"></pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Input
+  &lt;/h1&gt;
+  &lt;p&gt;
+    Wijmo&#39;s input module contains input controls designed to make
+    data entry easy and efficient, using mouse or touch.&lt;/p&gt;
+  &lt;p&gt;
+    Wijmo&#39;s input controls are specialized and optimized for each
+    data type. The input module currently contains 16 controls 
+    with the following class hierarchy:&lt;/p&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;Control &lt;span class=&quot;detail&quot;&gt;abstract&lt;/span&gt;
+      &lt;ul&gt;
+        &lt;li&gt;Calendar &lt;span class=&quot;detail&quot;&gt;dates&lt;/span&gt;&lt;/li&gt;
+        &lt;li&gt;ColorPicker &lt;span class=&quot;detail&quot;&gt;colors&lt;/span&gt;&lt;/li&gt;
+        &lt;li&gt;DropDown &lt;span class=&quot;detail&quot;&gt;abstract&lt;/span&gt;
+          &lt;ul&gt;
+            &lt;li&gt;ComboBox &lt;span class=&quot;detail&quot;&gt;items/strings&lt;/span&gt;
+              &lt;ul&gt;
+                &lt;li&gt;AutoComplete &lt;span class=&quot;detail&quot;&gt;items/strings&lt;/span&gt;
+                  &lt;ul&gt;
+                    &lt;li&gt;MultiAutoComplete &lt;span class=&quot;detail&quot;&gt;multiple items/strings&lt;/span&gt;&lt;/li&gt;
+                  &lt;/ul&gt;
+                &lt;/li&gt;
+                &lt;li&gt;InputTime &lt;span class=&quot;detail&quot;&gt;times&lt;/span&gt;&lt;/li&gt;
+                &lt;li&gt;Menu &lt;span class=&quot;detail&quot;&gt;commands&lt;/span&gt;&lt;/li&gt;
+                &lt;li&gt;MultiSelect &lt;span class=&quot;detail&quot;&gt;multiple items/strings&lt;/span&gt;&lt;/li&gt;
+              &lt;/ul&gt;
+            &lt;/li&gt;
+            &lt;li&gt;InputColor &lt;span class=&quot;detail&quot;&gt;colors&lt;/span&gt;&lt;/li&gt;
+            &lt;li&gt;InputDate &lt;span class=&quot;detail&quot;&gt;dates&lt;/span&gt;
+              &lt;ul&gt;
+                &lt;li&gt;InputDateTime &lt;span class=&quot;detail&quot;&gt;dates and times&lt;/span&gt;&lt;/li&gt;
+              &lt;/ul&gt;
+            &lt;/li&gt;              
+          &lt;/ul&gt;
+        &lt;/li&gt;
+        &lt;li&gt;InputMask &lt;span class=&quot;detail&quot;&gt;strings&lt;/span&gt;&lt;/li&gt;
+        &lt;li&gt;InputNumber &lt;span class=&quot;detail&quot;&gt;numbers&lt;/span&gt;&lt;/li&gt;
+        &lt;li&gt;ListBox &lt;span class=&quot;detail&quot;&gt;items/strings&lt;/span&gt;&lt;/li&gt;
+        &lt;li&gt;Popup &lt;span class=&quot;detail&quot;&gt;container&lt;/span&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;       
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">body {
+  margin-bottom: 24pt;
+}
+ul {
+  padding-left: 15px;
+}
+li {
+  list-style-type: square;
+}
+.detail {
+  opacity: .5;
+  font-style: italic;
+}
+  .detail:before {
+    content: &quot;(&quot;
+  }
+  .detail:after {
+    content: &quot;)&quot;
+  }
+</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>

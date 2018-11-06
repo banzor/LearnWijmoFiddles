@@ -1,0 +1,217 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="edit-Type" edit="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demo - Printer - JSFiddle</title>
+
+      <meta name="robots" content="index, follow">
+      <meta name="googlebot" content="index, follow">
+
+      <script src="/js/embed/highlight.pack.js"></script>
+      <script src="/js/embed/embed.js"></script>
+      <link rel="stylesheet" media="screen" href="/css/embed/embed-light.css" />
+
+      <script type="text/javascript">
+        var height;
+        var force_height = null;
+        var slug = "v9z4he0s";
+        var show_src = "//fiddle.jshell.net/Wijmo5/v9z4he0s/show/light/";
+        var resize_element_counter = 0;
+        var shell_edit_url = "/Wijmo5/v9z4he0s/light/";
+
+      </script>
+
+    <link rel="stylesheet" media="screen" href="//fonts.googleapis.com/css?family=Inconsolata" />
+
+    <style type="text/css" media="screen">
+    </style>
+
+  </head>
+  <body>
+    <div id="wrapper">
+        <header>
+          <h1><a href="//jsfiddle.net/Wijmo5/v9z4he0s/?utm_source=website&amp;utm_medium=embed&amp;utm_campaign=v9z4he0s" target="_blank">Edit in JSFiddle</a></h1>
+          <div id="actions">
+            <ul class="normalRes">
+                <li class=&quot;active&quot;>
+                  <a data-trigger-type="js" href="#JavaScript">JavaScript</a>
+                </li>
+                <li >
+                  <a data-trigger-type="html" href="#HTML">HTML</a>
+                </li>
+                <li >
+                  <a data-trigger-type="css" href="#CSS">CSS</a>
+                </li>
+                <li >
+                  <a data-trigger-type="result" href="#Result">Result</a>
+                </li>
+                <li >
+                  <a data-trigger-type="resources" href="#Resources">Resources</a>
+                </li>
+            </ul>
+            <div class="hl"></div>
+          </div>
+        </header>
+
+        <div id="tabs">
+              <pre class="tCont active">onload = function() {
+
+		// render using wijmo.PrintDocument class
+		document.getElementById(&#39;btnPrintDoc&#39;).addEventListener(&#39;click&#39;, function(e) {
+    
+        // create PrintDocument
+        var doc = new wijmo.PrintDocument({
+            title: &#39;PrintDocument Test&#39;,
+            copyCss: false // prevent cross-origin issues in jsfiddle 
+        });
+
+				// add CSS explicitly (since we can&#39;t use copyCss in jsfiddle)
+        doc.append(&#39;&lt;link href=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot;&gt;&#39;);
+        doc.append(&#39;&lt;link href=&quot;https://cdn.wijmo.com/5.latest/styles/wijmo.min.css&quot; rel=&quot;stylesheet&quot;&gt;&#39;);
+
+				// add some simple text
+        doc.append(&#39;&lt;h1&gt;Printing Example&lt;/h1&gt;&#39;);
+        doc.append(&#39;&lt;p&gt;This document was created using the &lt;b&gt;PrintDocument&lt;/b&gt; class.&lt;/p&gt;&#39;);
+
+        // add a printer-friendly version of a FlexGrid to the document
+        var flex = wijmo.Control.getControl(&#39;#theGrid&#39;);
+        doc.append(&#39;&lt;p&gt;Here\&#39;s a FlexGrid rendered as a table:&lt;/p&gt;&#39;);
+        var tbl = renderTable(flex);
+        doc.append(tbl);
+
+        // print the document
+        doc.print();
+    });
+    
+		// create some random data
+    var countries = &#39;US,Germany,UK,Japan,Italy,Greece&#39;.split(&#39;,&#39;),
+      data = [];
+    for (var i = 0; i &lt; 100; i++) {
+      data.push({
+        id: i,
+        country: countries[i % countries.length],
+        active: i % 5 != 0,
+        downloads: Math.round(Math.random() * 20000),
+        sales: Math.random() * 10000,
+        expenses: Math.random() * 5000
+      });
+    }
+
+    // show the data in a grid
+    var theGrid = new wijmo.grid.FlexGrid(&#39;#theGrid&#39;, {
+        itemsSource: data,
+		});
+    
+		// custom grid rendering function: 
+    // renders grid as a table
+    function renderTable(flex) {
+
+        // start table
+        var tbl = &#39;&lt;table&gt;&#39;;
+
+        // headers
+        if (flex.headersVisibility &amp; wijmo.grid.HeadersVisibility.Column) {
+            tbl += &#39;&lt;thead&gt;&#39;;
+            for (var r = 0; r &lt; flex.columnHeaders.rows.length; r++) {
+                tbl += renderRow(flex.columnHeaders, r);
+            }
+            tbl += &#39;&lt;/thead&gt;&#39;;
+        }
+
+        // body
+        tbl += &#39;&lt;tbody&gt;&#39;;
+        for (var r = 0; r &lt; flex.rows.length; r++) {
+            tbl += renderRow(flex.cells, r);
+        }
+        tbl += &#39;&lt;/tbody&gt;&#39;;
+
+        // done
+        tbl += &#39;&lt;/table&gt;&#39;;
+        return tbl;
+    }
+    function renderRow(panel, r) {
+        var tr = &#39;&#39;,
+        row = panel.rows[r];
+        if (row.renderSize &gt; 0) {
+            tr += &#39;&lt;tr&gt;&#39;;
+            for (var c = 0; c &lt; panel.columns.length; c++) {
+                var col = panel.columns[c];
+                if (col.renderSize &gt; 0) {
+
+                    // get cell style, content
+                    var style = &#39;width:&#39; + col.renderSize + &#39;px;&#39; +
+											&#39;text-align:&#39; + col.getAlignment() + &#39;;&#39; +
+                      &#39;padding-right: 6px&#39;;
+										var content = panel.getCellData(r, c, true);
+                    if (!row.isContentHtml &amp;&amp; !col.isContentHtml) {
+                        content = wijmo.escapeHtml(content);
+                    }
+
+                    // add cell to row
+                    if (panel.cellType == wijmo.grid.CellType.ColumnHeader) {
+                        tr += &#39;&lt;th style=&quot;&#39; + style + &#39;&quot;&gt;&#39; + content + &#39;&lt;/th&gt;&#39;;
+                    } else {
+
+                        // show boolean values as checkboxes
+                        var raw = panel.getCellData(r, c, false);
+                        if (raw === true) {
+                            content = &#39;&amp;#9745;&#39;;
+                        } else if (raw === false) {
+                            content = &#39;&amp;#9744;&#39;;
+                        }
+
+                        tr += &#39;&lt;td style=&quot;&#39; + style + &#39;&quot;&gt;&#39; + content + &#39;&lt;/td&gt;&#39;;
+                    }
+                }
+            }
+            tr += &#39;&lt;/tr&gt;&#39;;
+        }
+        return tr;
+    }
+	}
+</pre>
+              <pre class="tCont ">&lt;div class=&quot;container&quot;&gt;
+
+  &lt;h1&gt;
+    Printer
+  &lt;/h1&gt;
+  &lt;p&gt;
+    The printer can also be seen as an export option, especially
+    since most modern browsers allow users to redirect the output
+    to PDF files, cloud storage, etc.&lt;/p&gt;
+  &lt;p&gt;
+    The &lt;b&gt;PrintDocument&lt;/b&gt; class makes it easy to create 
+    documents for printing. This sample shows how you can 
+    convert a FlexGrid into a &lt;b&gt;table&lt;/b&gt; element suitable
+    for printing with the &lt;b&gt;PrintDocument&lt;/b&gt; class.&lt;/p&gt;
+  &lt;button class=&quot;btn btn-default&quot; id=&quot;btnPrintDoc&quot;&gt;
+    Print with PrintDocument
+  &lt;/button&gt;
+  &lt;div id=&quot;theGrid&quot;&gt;&lt;/div&gt;
+  
+&lt;/div&gt;
+</pre>
+              <pre class="tCont ">.wj-flexgrid {
+  max-height: 250px;
+  margin: 10px 0;
+}
+body {
+  margin-bottom: 20pt;
+}</pre>
+              <div class="tCont result " id="result"></div>
+              <div class="tCont resources " id="resources">
+                <h3>External resources loaded into this fiddle:</h3>
+                <ul>
+                    <li><a href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" target="_blank">bootstrap.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/styles/wijmo.min.css" target="_blank">wijmo.min.css</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.min.js" target="_blank">wijmo.min.js</a></li>
+                    <li><a href="https://cdn.grapecity.com/wijmo/5.latest/controls/wijmo.grid.min.js" target="_blank">wijmo.grid.min.js</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+  </body>
+</html>
